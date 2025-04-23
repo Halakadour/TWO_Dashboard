@@ -1,0 +1,94 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:two_dashboard/config/constants/padding_config.dart';
+import 'package:two_dashboard/config/constants/radius_config.dart';
+import 'package:two_dashboard/config/constants/sizes_config.dart';
+import 'package:two_dashboard/config/theme/color.dart';
+import 'package:two_dashboard/config/theme/text_style.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/profile_bloc_state_handling.dart';
+import 'package:two_dashboard/core/functions/device_utility.dart';
+import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
+
+class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
+  const CustomHeader({super.key, this.scaffoldKey});
+  final GlobalKey<ScaffoldState>? scaffoldKey;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        color: AppColors.white,
+        border: Border(bottom: BorderSide(color: AppColors.gray, width: 1)),
+      ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: SizesConfig.md,
+        vertical: SizesConfig.sm,
+      ),
+      child: AppBar(
+        // Mobile Menu
+        leading:
+            !DeviceUtility.isDesktopScreen(context)
+                ? IconButton(
+                  onPressed: () {
+                    scaffoldKey?.currentState!.openDrawer();
+                  },
+                  icon: const Icon(Iconsax.menu),
+                )
+                : null,
+        // Search Field
+        title:
+            DeviceUtility.isDesktopScreen(context)
+                ? SizedBox(
+                  width: 400,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: RadiusConfig.textfieldRadius,
+                        borderSide: const BorderSide(
+                          color: AppColors.fieldColor,
+                          width: 2,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: RadiusConfig.textfieldRadius,
+                        borderSide: const BorderSide(
+                          color: AppColors.fieldColor,
+                          width: 2,
+                        ),
+                      ),
+                      prefixIcon: const Icon(Iconsax.search_normal),
+                      hintText: 'Search anything...',
+                      hintStyle: AppTextStyle.textfieldStyle(),
+                    ),
+                  ),
+                )
+                : null,
+        // Actions
+        actions: [
+          // Search Icon on Mobile
+          if (!DeviceUtility.isDesktopScreen(context))
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Iconsax.search_normal),
+            ),
+          // Notification Icon
+          IconButton(onPressed: () {}, icon: const Icon(Iconsax.notification)),
+          PaddingConfig.h8,
+          // User Data
+          BlocBuilder<AuthRoleProfileBloc, AuthRoleProfileState>(
+            builder: (context, state) {
+              return ProfileBlocStateHandling().getUserProfileHeader(
+                state,
+                context,
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(60);
+}
