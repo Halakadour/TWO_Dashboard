@@ -57,5 +57,5 @@ class ToggleUserApprovedEvent extends AuthRoleProfileEvent {
 class ShowUsersWithFilterEvent extends AuthRoleProfileEvent {
   int approvedFilter;
   int? roleFilter;
-  ShowUsersWithFilterEvent({this.approvedFilter = 0});
+  ShowUsersWithFilterEvent({this.approvedFilter = 0, this.roleFilter});
 }

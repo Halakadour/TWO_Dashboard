@@ -14,7 +14,7 @@ abstract class AuthRemoteDataSource {
     String password,
     String confirmPassword,
   );
-  Future<LoginUserModel> login(String token, String email, String password);
+  Future<LoginUserModel> login(String email, String password);
   Future<LogoutUserModel> logout(String token);
   Future<RegisterNewUserModel> registLoginWithGoogle();
   Future<RegisterNewUserModel> registLoginWithGithup();
@@ -42,11 +42,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   }
 
   @override
-  Future<LoginUserModel> login(
-    String token,
-    String email,
-    String password,
-  ) async {
+  Future<LoginUserModel> login(String email, String password) async {
     final result = PostApi(
       uri: Uri.parse("$baseUri/api/login"),
       body: ({'email': email, 'password': password}),

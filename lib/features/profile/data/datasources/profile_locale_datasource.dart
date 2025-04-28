@@ -18,13 +18,10 @@ class ProfileLocaleDatasourceImpl extends ProfileLocaleDatasource {
   SharedPreferences sharedPreferences;
   ProfileLocaleDatasourceImpl(this.sharedPreferences);
   @override
-  Future<Unit> cacheUserProfile(EmployeeModel employeeModel) async {
-    Map<String, dynamic> postModelToJson = employeeModel.toJson();
-    await sharedPreferences.setString(
-      USER_PROFILE,
-      json.encode(postModelToJson),
-    );
-    return unit;
+  Future<Unit> cacheUserProfile(EmployeeModel employeeModel) {
+    Map<String, dynamic> userModelToJson = employeeModel.toJson();
+    sharedPreferences.setString(USER_PROFILE, json.encode(userModelToJson));
+    return Future.value(unit);
   }
 
   @override

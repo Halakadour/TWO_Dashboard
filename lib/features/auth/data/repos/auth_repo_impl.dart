@@ -11,13 +11,12 @@ class AuthRepoImpl extends AuthRepo {
   AuthRepoImpl({required this.authRemoteDataSource});
   @override
   Future<Either<Failure, LoginUserModel>> loginUser(
-    String token,
     String email,
     String password,
   ) {
     return wrapHandling(
       tryCall: () async {
-        final result = await authRemoteDataSource.login(token, email, password);
+        final result = await authRemoteDataSource.login(email, password);
         return Right(result);
       },
     );

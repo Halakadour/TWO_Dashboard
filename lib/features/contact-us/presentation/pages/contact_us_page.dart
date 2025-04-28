@@ -53,7 +53,8 @@ class _ContactUsPageState extends State<ContactUsPage> {
                     onPressed: () {
                       FilterDialogs().filterContactUs(
                         context,
-                        ValueNotifier([0, 0]),
+                        ValueNotifier(false),
+                        ValueNotifier(false),
                       );
                     },
                   ),

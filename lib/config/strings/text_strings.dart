@@ -11,6 +11,7 @@ class TextStrings {
   static const String appName = "Team Work Organizer";
   static const String tcontinue = "Contine";
   static const String save = "Save";
+  static const String apply = "Apply";
   static const String cancel = "Cancel";
   static const String yes = "Yes";
   static const String no = "No";

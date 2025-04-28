@@ -8,7 +8,7 @@ import 'package:two_dashboard/core/functions/bloc-state-handling/posts_bloc_stat
 import 'package:two_dashboard/core/widgets/breadcrumbs/breadcumbs_item.dart';
 import 'package:two_dashboard/core/widgets/buttons/back_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/filter_button.dart';
-import 'package:two_dashboard/core/widgets/dialog/posts/posts_dialogs.dart';
+import 'package:two_dashboard/core/widgets/dialog/filter/filter_dialogs.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
 import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';
 
@@ -67,7 +67,7 @@ class _PostRepliesPageState extends State<PostRepliesPage> {
                   children: [
                     FilterButton(
                       onPressed:
-                          () => PostsDialogs().postRepliesFilter(
+                          () => FilterDialogs().postRepliesFilter(
                             context,
                             actriveSelected,
                             widget.postId,

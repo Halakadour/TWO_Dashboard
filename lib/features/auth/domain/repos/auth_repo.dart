@@ -14,7 +14,6 @@ abstract class AuthRepo with HandlingExceptionManager {
   Future<Either<Failure, RegisterNewUserModel>> registLoginWithGoogle();
   Future<Either<Failure, RegisterNewUserModel>> registLoginWithGithup();
   Future<Either<Failure, LoginUserModel>> loginUser(
-    String token,
     String email,
     String password,
   );

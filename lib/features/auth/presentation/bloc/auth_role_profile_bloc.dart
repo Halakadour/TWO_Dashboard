@@ -67,11 +67,7 @@ class AuthRoleProfileBloc
     on<LoginUserEvent>((event, emit) async {
       emit(state.copyWith(authModelStatus: CasualStatus.loading));
       final result = await loginUsecase.call(
-        LoginParams(
-          token: "token",
-          email: event.email,
-          password: event.password,
-        ),
+        LoginParams(email: event.email, password: event.password),
       );
       result.fold(
         (l) => emit(state.copyWith(authModelStatus: CasualStatus.failure)),

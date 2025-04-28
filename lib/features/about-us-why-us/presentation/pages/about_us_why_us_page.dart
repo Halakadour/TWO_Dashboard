@@ -110,7 +110,7 @@ class _AboutUsWhyUsPageState extends State<AboutUsWhyUsPage> {
               builder: (context, state) {
                 return AboutUsWhyUsStateHandling().getAboutUs(
                   state,
-                  aboutUsEntity!,
+                  aboutUsEntity,
                 );
               },
               buildWhen:

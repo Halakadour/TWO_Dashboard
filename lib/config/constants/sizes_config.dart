@@ -47,6 +47,11 @@ class SizesConfig {
   // Divider height
   static const double dividerHeight = 1.0;
 
+  // Dialogs height
+  static const double dialogXs = 150.0;
+  static const double dialogSm = 180.0;
+  static const double dialogMd = 220.0;
+
   // Input feild
   static const double inputFieldRadius = 12.0;
   static const double spaceBtwInputFields = 12.0;

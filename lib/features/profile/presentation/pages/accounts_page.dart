@@ -46,9 +46,10 @@ class _AccountsPageState extends State<AccountsPage> {
                   PaddingConfig.w8,
                   FilterButton(
                     onPressed: () {
-                      FilterDialogs().filterUserss(
+                      FilterDialogs().filterUsers(
                         context,
-                        ValueNotifier([0, 0]),
+                        ValueNotifier(true),
+                        ValueNotifier(0),
                       );
                     },
                   ),

@@ -8,7 +8,7 @@ import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/posts_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/buttons/create_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/filter_button.dart';
-import 'package:two_dashboard/core/widgets/dialog/posts/posts_dialogs.dart';
+import 'package:two_dashboard/core/widgets/dialog/filter/filter_dialogs.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
 import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';
 
@@ -58,7 +58,7 @@ class _ShowPostsPageState extends State<PostsPage> {
                   PaddingConfig.w8,
                   FilterButton(
                     onPressed: () {
-                      PostsDialogs().filterPosts(context, actriveSelected);
+                      FilterDialogs().filterPosts(context, actriveSelected);
                     },
                   ),
                 ],

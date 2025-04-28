@@ -13,17 +13,12 @@ class LoginUsecase
 
   @override
   Future<Either<Failure, LoginUserModel>> call(LoginParams param) async {
-    return await authRepo.loginUser(param.token, param.email, param.password);
+    return await authRepo.loginUser(param.email, param.password);
   }
 }
 
 class LoginParams {
-  final String token;
   final String email;
   final String password;
-  LoginParams({
-    required this.token,
-    required this.email,
-    required this.password,
-  });
+  LoginParams({required this.email, required this.password});
 }

@@ -14,7 +14,7 @@ class ErrorStatusAnimation extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(width: 200, height: 200, child: Lottie.asset(JsonPath.error)),
+        SizedBox(width: 300, height: 300, child: Lottie.asset(JsonPath.error)),
         PaddingConfig.w16,
         Text(
           errorMessage,
