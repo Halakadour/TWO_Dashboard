@@ -27,7 +27,7 @@ class CustomDataTable extends StatelessWidget {
       ),
       horizontalMargin: 10,
       columnSpacing: 10,
-      dataRowHeight: 50,
+      dataRowHeight: 70,
       minWidth: 500,
       dividerThickness: .2,
       headingRowHeight: 50,

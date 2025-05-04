@@ -11,23 +11,18 @@ import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/loading_status_animation.dart';
-import 'package:two_dashboard/core/widgets/animation/unauthorized_status_animation.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
-import 'package:two_dashboard/core/widgets/shimmers/table-loading/loading_post_replies_table.dart';
-import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';
-import 'package:two_dashboard/features/posts/presentation/widgets/custom_post_replies_table.dart';
+import 'package:two_dashboard/features/services/presentation/bloc/service_bloc.dart';
 
-class PostsBlocStateHandling {
-  // Get Post Table
-  Widget getPostsTable(PostState state, bool actriveSelected) {
-    if (state.activePostsListStatus == CasualStatus.loading ||
-        state.unActivePostsListStatus == CasualStatus.loading) {
+class ServicesBlocStateHandling {
+  // Gte Services
+  Widget getServicesTable(ServiceState state) {
+    if (state.serviceListStatus == CasualStatus.loading) {
       return const LoadingStatusAnimation();
-    } else if (state.activePostsListStatus == CasualStatus.success ||
-        state.unActivePostsListStatus == CasualStatus.success) {
+    } else if (state.serviceListStatus == CasualStatus.success) {
       return GridView.builder(
-        itemCount: state.activePostsList.length,
+        itemCount: state.serviceList.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
           crossAxisSpacing: 10,
@@ -56,78 +51,65 @@ class PostsBlocStateHandling {
                     children: [Icon(Iconsax.more)],
                   ),
                   FetchNetworkImage(
-                    imagePath: state.activePostsList[index].poster,
+                    imagePath: state.serviceList[index].imageE,
                     height: 180,
                     width: double.maxFinite,
                   ),
                   PaddingConfig.h8,
                   Text(
-                    state.activePostsList[index].body,
+                    state.serviceList[index].titleE,
                     style: AppTextStyle.subtitle01(),
+                  ),
+                  PaddingConfig.h8,
+                  Text(
+                    state.serviceList[index].descriptionE,
+                    style: AppTextStyle.subtitle02(
+                      color: AppColors.fontLightColor,
+                    ),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
             ),
       );
-    } else if (state.activePostsListStatus == CasualStatus.failure ||
-        state.unActivePostsListStatus == CasualStatus.failure) {
+    } else if (state.serviceListStatus == CasualStatus.failure) {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));
     } else {
       return const SizedBox();
     }
   }
 
-  // Delete And Unactive
-  void deleteAndUnactivePOst(PostState state, BuildContext context) {
-    if (state.deletePostStatus == CasualStatus.loading ||
-        state.unActivePostStatus == CasualStatus.loading) {
+  // Delete Service
+  void deleteService(ServiceState state, BuildContext context) {
+    if (state.deleteServiceStatus == CasualStatus.loading) {
       CustomQuickAlert().loadingAlert(context);
-    } else if (state.deletePostStatus == CasualStatus.success ||
-        state.unActivePostStatus == CasualStatus.success) {
+    } else if (state.deleteServiceStatus == CasualStatus.success) {
       context.pop();
       CustomQuickAlert().successAlert(context, () => context.pop());
-    } else if (state.deletePostStatus == CasualStatus.failure ||
-        state.unActivePostStatus == CasualStatus.failure) {
+    } else if (state.deleteServiceStatus == CasualStatus.failure) {
       context.pop();
       CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.deletePostStatus == CasualStatus.noToken ||
-        state.unActivePostStatus == CasualStatus.noToken) {
+    } else if (state.deleteServiceStatus == CasualStatus.noToken) {
       context.pop();
       CustomQuickAlert().failureAlert(context, TextStrings.noToken);
     }
   }
 
-  // Get posts replies table
-  Widget getPostReplies(PostState state) {
-    if (state.postsRepliesListStatus == CasualStatus.loading) {
-      return const LoadingPostRepliesTable();
-    } else if (state.postsRepliesListStatus == CasualStatus.success) {
-      return CustomPostRepliesTable(repliesList: state.postRepliesList);
-    } else if (state.postsRepliesListStatus == CasualStatus.failure) {
-      return Center(child: ErrorStatusAnimation(errorMessage: state.message));
-    } else if (state.postsRepliesListStatus == CasualStatus.noToken) {
-      return UnauthorizedStatusAnimation();
-    } else {
-      return const SizedBox();
-    }
-  }
-
-  // Create Post
-  void createPost(PostState state, BuildContext context) {
-    if (state.createPostStatus == CasualStatus.loading) {
+  // Create Service
+  void createService(ServiceState state, BuildContext context) {
+    if (state.createServiceStatus == CasualStatus.loading) {
       CustomQuickAlert().loadingAlert(context);
-    } else if (state.createPostStatus == CasualStatus.success) {
+    } else if (state.createServiceStatus == CasualStatus.success) {
       context.pop();
-      context.read<PostBloc>().add(GetActivePostsEvent());
+      context.read<ServiceBloc>().add(ShowServicesEvent());
       CustomQuickAlert().successAlert(
         context,
-        () => context.pushReplacementNamed(AppRouteConfig.post),
+        () => context.pushReplacementNamed(AppRouteConfig.services),
       );
-    } else if (state.createPostStatus == CasualStatus.failure) {
+    } else if (state.createServiceStatus == CasualStatus.failure) {
       context.pop();
       CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.createPostStatus == CasualStatus.noToken) {
+    } else if (state.createServiceStatus == CasualStatus.noToken) {
       context.pop();
       CustomQuickAlert().noTokenAlert(context);
     }

@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
-import 'package:two_dashboard/core/functions/bloc-state-handling/services_state_handling.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/services_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/buttons/create_button.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
 import 'package:two_dashboard/features/services/presentation/bloc/service_bloc.dart';
@@ -31,7 +31,7 @@ class _ShowPostsPageState extends State<ServicesPage> {
         padding: const EdgeInsets.all(SizesConfig.lg),
         child: BlocListener<ServiceBloc, ServiceState>(
           listener: (context, state) {
-            ServicesStateHandling().deleteService(state, context);
+            ServicesBlocStateHandling().deleteService(state, context);
           },
           listenWhen:
               (previous, current) =>
@@ -55,7 +55,7 @@ class _ShowPostsPageState extends State<ServicesPage> {
               Flexible(
                 child: BlocBuilder<ServiceBloc, ServiceState>(
                   builder: (context, state) {
-                    return ServicesStateHandling().getServicesTable(state);
+                    return ServicesBlocStateHandling().getServicesTable(state);
                   },
                 ),
               ),

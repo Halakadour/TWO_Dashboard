@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
-import 'package:two_dashboard/core/network/enums.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/posts_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/breadcrumbs/breadcumbs_item.dart';
 import 'package:two_dashboard/core/widgets/buttons/back_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/desmiss_elevated_buttom.dart';
@@ -46,7 +45,7 @@ class _CreatePostFormState extends State<CreatePostForm> {
   Widget build(BuildContext context) {
     return BlocListener<PostBloc, PostState>(
       listener: (context, state) {
-        createPostStateHandling(state, context);
+        PostsBlocStateHandling().createPost(state, context);
       },
       listenWhen:
           (previous, current) =>
@@ -143,22 +142,5 @@ class _CreatePostFormState extends State<CreatePostForm> {
         ),
       ),
     );
-  }
-
-  void createPostStateHandling(PostState state, BuildContext context) {
-    if (state.createPostStatus == CasualStatus.loading) {
-      CustomQuickAlert().loadingAlert(context);
-    } else if (state.createPostStatus == CasualStatus.success) {
-      context.pop();
-      CustomQuickAlert().successAlert(context);
-      context.read<PostBloc>().add(GetActivePostsEvent());
-      context.pop();
-    } else if (state.createPostStatus == CasualStatus.failure) {
-      context.pop();
-      CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.createPostStatus == CasualStatus.noToken) {
-      context.pop();
-      CustomQuickAlert().noTokenAlert(context);
-    }
   }
 }

@@ -5,7 +5,7 @@ import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
-import 'package:two_dashboard/core/functions/bloc-state-handling/role_state_handling.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/role_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/buttons/apply_text_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/cancel_text_button.dart';
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
@@ -23,54 +23,68 @@ class FilterDialogs {
     showDialog(
       context: context,
       builder:
-          (context) => AlertDialog(
-            title: FilterByText(),
-            content: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                FilterOptionTitle(title: "Approvement"),
-                PaddingConfig.h8,
-                Row(
+          (context) => Center(
+            child: Container(
+              width: 350,
+              height: 500,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(SizesConfig.borderRadiusLg),
+                color: AppColors.white,
+              ),
+              child: AlertDialog(
+                title: FilterByText(),
+                content: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FilterOption(
-                      option: "approved",
-                      valueNotifier: approvedSelected,
+                    FilterOptionTitle(title: "Approvement"),
+                    PaddingConfig.h8,
+                    Row(
+                      children: [
+                        FilterOption(
+                          option: "approved",
+                          valueNotifier: approvedSelected,
+                        ),
+                        PaddingConfig.w8,
+                        FilterOption(
+                          option: "not approved",
+                          valueNotifier: approvedSelected,
+                          isOposite: true,
+                        ),
+                      ],
                     ),
-                    PaddingConfig.w8,
-                    FilterOption(
-                      option: "not approved",
-                      valueNotifier: approvedSelected,
-                      isOposite: true,
+                    PaddingConfig.h16,
+                    FilterOptionTitle(title: "Role"),
+                    PaddingConfig.h8,
+                    BlocBuilder<AuthRoleProfileBloc, AuthRoleProfileState>(
+                      buildWhen:
+                          (previous, current) =>
+                              previous.roleWithoutClientListStatus !=
+                              current.roleWithoutClientListStatus,
+                      builder: (context, state) {
+                        return RoleBlocStateHandling().getRolesForUserFilter(
+                          state,
+                          roleSelected,
+                        );
+                      },
                     ),
                   ],
                 ),
-                PaddingConfig.h16,
-                FilterOptionTitle(title: "Role"),
-                PaddingConfig.h8,
-                BlocBuilder<AuthRoleProfileBloc, AuthRoleProfileState>(
-                  builder: (context, state) {
-                    return RoleStateHandling().getRolesForUserFilter(
-                      state,
-                      roleSelected,
-                    );
-                  },
-                ),
-              ],
-            ),
-            actions: [
-              const CancelTextButton(),
-              ApplyTextButton(
-                onPressed: () {
-                  context.read<AuthRoleProfileBloc>().add(
-                    ShowUsersWithFilterEvent(
-                      approvedFilter: approvedSelected.value ? 1 : 0,
-                      roleFilter: roleSelected.value,
-                    ),
-                  );
-                  context.pop();
-                },
+                actions: [
+                  const CancelTextButton(),
+                  ApplyTextButton(
+                    onPressed: () {
+                      context.read<AuthRoleProfileBloc>().add(
+                        ShowUsersWithFilterEvent(
+                          approvedFilter: approvedSelected.value ? 1 : 0,
+                          roleFilter: roleSelected.value,
+                        ),
+                      );
+                      context.pop();
+                    },
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
     );
   }

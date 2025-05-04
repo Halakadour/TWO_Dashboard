@@ -53,13 +53,16 @@ class _FillEmployeeProfileBodyState extends State<FillEmployeeProfileBody> {
       children: [
         Text(TextStrings.fillProfile, style: AppTextStyle.subtitle01()),
         const SizedBox(height: SizesConfig.spaceBtwItems),
+        // User Image
         FetchImageCircle(imageB64: imageB64, onUpdate: updateImageBytes),
         const SizedBox(height: SizesConfig.spaceBtwItems),
+        // Job Title
         Align(
           alignment: Alignment.topLeft,
           child: Text("Job Title", style: AppTextStyle.subtitle03()),
         ),
         PaddingConfig.h8,
+        // Roles List
         BlocBuilder<AuthRoleProfileBloc, AuthRoleProfileState>(
           buildWhen:
               (previous, current) =>
@@ -70,6 +73,7 @@ class _FillEmployeeProfileBodyState extends State<FillEmployeeProfileBody> {
           },
         ),
         PaddingConfig.h16,
+        // CV File Box Selecter
         Align(
           alignment: Alignment.topLeft,
           child: Text("CV File", style: AppTextStyle.subtitle03()),

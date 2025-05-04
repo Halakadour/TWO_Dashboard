@@ -11,7 +11,6 @@ import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart
 import 'package:two_dashboard/core/widgets/animation/loading_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/unauthorized_status_animation.dart';
 import 'package:two_dashboard/core/widgets/divider/divider_with_text.dart';
-import 'package:two_dashboard/core/widgets/images/custom_rounded_image.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/core/widgets/shimmers/table-loading/loading_user_table.dart';
@@ -35,13 +34,14 @@ class ProfileBlocStateHandling {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // image
-              CustomRoundedImage(
-                width: 40,
-                height: 40,
-                padding: 2,
-                borderRadius: 30,
-                imageType: ImageType.network,
-                image: state.employeeEntity!.eImage!,
+              Container(
+                height: 50,
+                width: 50,
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(shape: BoxShape.circle),
+                child: FetchNetworkImage(
+                  imagePath: state.employeeEntity!.eImage!,
+                ),
               ),
             ],
           ),
@@ -82,7 +82,11 @@ class ProfileBlocStateHandling {
         children: [
           DividerWithText(text: "User Information"),
           SizedBox(height: SizesConfig.spaceBtwSections),
-          FetchNetworkImage(imagePath: state.employeeEntity!.eImage!),
+          FetchNetworkImage(
+            imagePath: state.employeeEntity!.eImage!,
+            height: 200,
+            width: 200,
+          ),
           SizedBox(height: SizesConfig.spaceBtwSections),
           UserInfoRow(title: "user name", value: state.employeeEntity!.eName),
           UserInfoRow(title: "user email", value: state.employeeEntity!.eEmail),
@@ -116,7 +120,7 @@ class ProfileBlocStateHandling {
       CustomQuickAlert().loadingAlert(context);
     } else if (state.toggleApproveStatus == CasualStatus.success) {
       context.pop();
-      CustomQuickAlert().successAlert(context);
+      CustomQuickAlert().successAlert(context, () => context.pop());
     } else if (state.toggleApproveStatus == CasualStatus.failure) {
       context.pop();
       CustomQuickAlert().failureAlert(context, state.message);

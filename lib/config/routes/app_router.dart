@@ -25,7 +25,7 @@ import 'package:two_dashboard/features/services/presentation/pages/services_page
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/dashboard',
+    initialLocation: '/login',
     routes: [
       // AUTH PAGES
       GoRoute(

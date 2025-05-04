@@ -1,22 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/custom_site_template.dart';
+import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
 
-class RootPage extends StatelessWidget {
+class RootPage extends StatefulWidget {
   const RootPage({super.key, required this.shell});
   final StatefulNavigationShell shell;
+
+  @override
+  State<RootPage> createState() => _RootPageState();
+}
+
+class _RootPageState extends State<RootPage> {
+  @override
+  void didChangeDependencies() {
+    context.read<AuthRoleProfileBloc>().add(GetUserProfileEvent());
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bgColor,
       body: CustomSiteTemplate(
-        currentPageIndex: shell.currentIndex,
+        currentPageIndex: widget.shell.currentIndex,
         onItemSelected: (index) {
-          shell.goBranch(index);
+          widget.shell.goBranch(index);
         },
-        desktop: Expanded(child: shell),
+        desktop: Expanded(child: widget.shell),
       ),
     );
   }

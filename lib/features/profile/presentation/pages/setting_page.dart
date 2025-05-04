@@ -25,6 +25,12 @@ class _SettingPageState extends State<SettingPage> {
   }
 
   @override
+  void didChangeDependencies() {
+    context.read<AuthRoleProfileBloc>().add(GetUserProfileEvent());
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bgColor,

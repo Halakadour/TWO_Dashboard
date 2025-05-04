@@ -275,8 +275,10 @@ class _CustomSidebarState extends State<CustomSidebar> {
     } else if (state.logoutStatusStatus == CasualStatus.success) {
       context.pop();
       await SharedPreferencesServices.deleteUserToken();
-      CustomQuickAlert().successAlert(context);
-      context.pushReplacementNamed(AppRouteConfig.login);
+      CustomQuickAlert().successAlert(
+        context,
+        () => context.pushReplacementNamed(AppRouteConfig.login),
+      );
     } else if (state.authModelStatus == CasualStatus.failure) {
       context.pop();
       CustomQuickAlert().failureAlert(context, state.message);

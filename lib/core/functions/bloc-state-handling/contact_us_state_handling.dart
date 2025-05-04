@@ -34,7 +34,7 @@ class ContactUsStateHandling {
     } else if (state.approvedMarkerStatus == CasualStatus.success ||
         state.seenMarkerStatus == CasualStatus.success) {
       context.pop();
-      CustomQuickAlert().successAlert(context);
+      CustomQuickAlert().successAlert(context, () {});
     } else if (state.approvedMarkerStatus == CasualStatus.failure ||
         state.seenMarkerStatus == CasualStatus.failure) {
       context.pop();

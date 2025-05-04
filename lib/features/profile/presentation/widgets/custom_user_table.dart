@@ -116,7 +116,7 @@ class CustomUserTable extends StatelessWidget {
                     child: InkWell(
                       onTap:
                           () => launchUrl(
-                            Uri.parse('$baseUri/${employeeList[index].eCv!}'),
+                            Uri.parse('$imageUri/${employeeList[index].eCv!}'),
                           ),
                       child: Text(
                         employeeList[index].eCv!,

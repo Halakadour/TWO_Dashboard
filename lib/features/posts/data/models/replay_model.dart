@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:two_dashboard/features/posts/domain/entities/reply_entity.dart';
 
 class ReplyModel extends ReplyEntity {
@@ -20,7 +18,7 @@ class ReplyModel extends ReplyEntity {
          fullName: fullName,
          email: email,
          phone: phone,
-         cvFile: File(cv),
+         cvFile: cv,
        );
 
   factory ReplyModel.fromJson(Map<String, dynamic> json) => ReplyModel(

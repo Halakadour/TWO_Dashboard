@@ -36,7 +36,8 @@ class ContractsStateHandling {
       CustomQuickAlert().loadingAlert(context);
     } else if (state.deleteDrafStatus == CasualStatus.success) {
       context.pop();
-      CustomQuickAlert().successAlert(context);
+      context.read<ContractBloc>().add(GetDrafEvent());
+      CustomQuickAlert().successAlert(context, () => context.pop());
     } else if (state.deleteDrafStatus == CasualStatus.failure) {
       context.pop();
       CustomQuickAlert().failureAlert(context, state.message);
@@ -88,7 +89,7 @@ class ContractsStateHandling {
       CustomQuickAlert().loadingAlert(context);
     } else if (state.createContractStatus == CasualStatus.success) {
       context.pop();
-      CustomQuickAlert().successAlert(context);
+      CustomQuickAlert().successAlert(context, () => context.pop());
       context.read<ContractBloc>().add(GetContractEvent());
       context.pop();
     } else if (state.createContractStatus == CasualStatus.failure) {

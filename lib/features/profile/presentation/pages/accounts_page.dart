@@ -19,7 +19,10 @@ class AccountsPage extends StatefulWidget {
 class _AccountsPageState extends State<AccountsPage> {
   @override
   void didChangeDependencies() {
-    context.read<AuthRoleProfileBloc>().add(ShowUsersWithFilterEvent());
+    context.read<AuthRoleProfileBloc>().add(
+      ShowUsersWithFilterEvent(roleFilter: 2),
+    );
+    context.read<AuthRoleProfileBloc>().add(GetRolesWithoutClientEvent());
     super.didChangeDependencies();
   }
 
@@ -49,7 +52,7 @@ class _AccountsPageState extends State<AccountsPage> {
                       FilterDialogs().filterUsers(
                         context,
                         ValueNotifier(true),
-                        ValueNotifier(0),
+                        ValueNotifier(2),
                       );
                     },
                   ),

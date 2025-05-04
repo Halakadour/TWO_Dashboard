@@ -70,7 +70,12 @@ class AuthRoleProfileBloc
         LoginParams(email: event.email, password: event.password),
       );
       result.fold(
-        (l) => emit(state.copyWith(authModelStatus: CasualStatus.failure)),
+        (l) => emit(
+          state.copyWith(
+            authModelStatus: CasualStatus.failure,
+            message: l.message,
+          ),
+        ),
         (r) => emit(
           state.copyWith(
             authModelStatus: CasualStatus.success,
@@ -228,7 +233,7 @@ class AuthRoleProfileBloc
       if (token != null) {
         final result = await showUsersUsecase.call(
           ShowUsersParam(
-            roleFilter: event.roleFilter,
+            roleFilter: event.roleFilter ?? 0,
             approvedFilter: event.approvedFilter,
             token: token,
           ),

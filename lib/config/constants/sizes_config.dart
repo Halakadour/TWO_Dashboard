@@ -39,6 +39,7 @@ class SizesConfig {
   static const double spaceBtwSections = 32.0;
 
   // Border radius
+  static const double borderRadiusXs = 4.0;
   static const double borderRadiusSm = 8.0;
   static const double borderRadiusMd = 12.0;
   static const double borderRadiusLg = 16.0;

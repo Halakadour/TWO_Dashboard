@@ -106,19 +106,21 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle subtitle03(
-      {double fontSize = 12,
-      Color color = Colors.black,
-      TextDecoration? decoration,
-      double? letterSpacing}) {
+  static TextStyle subtitle03({
+    double fontSize = 12,
+    Color color = Colors.black,
+    TextDecoration? decoration,
+    double? letterSpacing,
+  }) {
     return TextStyle(
-        color: color,
-        fontFamily: 'Almarai',
-        fontWeight: FontWeight.w600,
-        fontStyle: FontStyle.normal,
-        fontSize: fontSize,
-        decoration: decoration,
-        letterSpacing: letterSpacing);
+      color: color,
+      fontFamily: 'Almarai',
+      fontWeight: FontWeight.w600,
+      fontStyle: FontStyle.normal,
+      fontSize: fontSize,
+      decoration: decoration,
+      letterSpacing: letterSpacing,
+    );
   }
 
   static TextStyle subtitle04({
@@ -144,7 +146,7 @@ class AppTextStyle {
     return TextStyle(
       color: color,
       fontFamily: 'Almarai',
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w600,
       fontStyle: FontStyle.normal,
       fontSize: fontSize,
       decoration: decoration,

@@ -21,9 +21,12 @@ class FilterButton extends StatelessWidget {
       onPressed: onPressed,
       icon: Row(
         children: [
-          const Icon(Iconsax.filter, size: SizesConfig.iconsSm),
+          const Icon(Iconsax.candle_2, size: SizesConfig.iconsSm),
           PaddingConfig.w8,
-          Text("filter", style: AppTextStyle.buttonStyle()),
+          Text(
+            "filter",
+            style: AppTextStyle.subtitle02(color: AppColors.fontLightColor),
+          ),
         ],
       ),
     );

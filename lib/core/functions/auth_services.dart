@@ -50,6 +50,7 @@ class AuthService {
   Future<void> signInWithGitHub() async {
     try {
       final token = await _githubAuth.fetchToken();
+      await SharedPreferencesServices.setUserToken(token.accessToken!);
       print("GitHub Sign-In Successful: ${token.accessToken}");
     } catch (e) {
       print("GitHub Sign-In Error: $e");

@@ -3,11 +3,15 @@ import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 class CustomQuickAlert {
-  Future<dynamic> successAlert(BuildContext context) {
+  Future<dynamic> successAlert(
+    BuildContext context,
+    void Function()? onConfirmBtnTap,
+  ) {
     return QuickAlert.show(
       context: context,
       type: QuickAlertType.success,
       width: 300,
+      onConfirmBtnTap: onConfirmBtnTap,
     );
   }
 

@@ -52,10 +52,10 @@ class ProfileRemoteDatasourseImpl extends ProfileRemoteDatasourse {
     int? roleFilter,
     String token,
   ) async {
-    String uri = "$baseUri/api/show/users?filter[approved]=$approvedFilter";
-    if (roleFilter != null) {
-      uri += "&filter[role_id]=$roleFilter";
-    }
+    String uri = "$baseUri/api/show/users?filter[role_id]=${roleFilter ?? 2}";
+    // if (roleFilter != null) {
+    //   uri += "&filter[role_id]=$roleFilter";
+    // }
 
     final result = GetWithTokenApi(
       uri: Uri.parse(uri),

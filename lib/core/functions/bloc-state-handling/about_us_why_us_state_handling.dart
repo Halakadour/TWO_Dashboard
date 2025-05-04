@@ -50,7 +50,7 @@ class AboutUsWhyUsStateHandling {
       CustomQuickAlert().loadingAlert(context);
     } else if (state.createAboutUsStatus == CasualStatus.success) {
       context.pop();
-      CustomQuickAlert().successAlert(context);
+      CustomQuickAlert().successAlert(context, () => context.pop());
       context.read<AboutUsWhyUsBloc>().add(GetAboutUsEvent());
     } else if (state.createAboutUsStatus == CasualStatus.failure) {
       context.pop();
@@ -66,7 +66,7 @@ class AboutUsWhyUsStateHandling {
       CustomQuickAlert().loadingAlert(context);
     } else if (state.updateAboutUsStatus == CasualStatus.success) {
       context.pop();
-      CustomQuickAlert().successAlert(context);
+      CustomQuickAlert().successAlert(context, () => context.pop());
       context.read<AboutUsWhyUsBloc>().add(GetAboutUsEvent());
     } else if (state.updateAboutUsStatus == CasualStatus.failure) {
       context.pop();
@@ -98,7 +98,7 @@ class AboutUsWhyUsStateHandling {
       CustomQuickAlert().loadingAlert(context);
     } else if (state.createWhyUsStatus == CasualStatus.success) {
       context.pop();
-      CustomQuickAlert().successAlert(context);
+      CustomQuickAlert().successAlert(context, () => context.pop());
       context.read<AboutUsWhyUsBloc>().add(GetWhyUsEvent());
     } else if (state.createWhyUsStatus == CasualStatus.failure) {
       CustomQuickAlert().failureAlert(context, state.message);
@@ -114,7 +114,7 @@ class AboutUsWhyUsStateHandling {
     } else if (state.updateWhyUsStatus == CasualStatus.success ||
         state.deleteWhyUsStatus == CasualStatus.success) {
       context.pop();
-      CustomQuickAlert().successAlert(context);
+      CustomQuickAlert().successAlert(context, () => context.pop());
       context.read<AboutUsWhyUsBloc>().add(GetWhyUsEvent());
     } else if (state.updateWhyUsStatus == CasualStatus.failure ||
         state.deleteWhyUsStatus == CasualStatus.failure) {
