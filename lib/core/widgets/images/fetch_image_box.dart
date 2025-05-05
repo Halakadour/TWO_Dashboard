@@ -8,13 +8,20 @@ import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
+import 'package:two_dashboard/core/functions/get_network_image.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/images/custom_rounded_image.dart';
 
 // ignore: must_be_immutable
 class FetchImageBox extends StatefulWidget {
-  FetchImageBox({super.key, required this.imageB64, required this.onUpdate});
+  FetchImageBox({
+    super.key,
+    required this.imageB64,
+    required this.onUpdate,
+    this.initNetworkImage,
+  });
   String? imageB64;
+  String? initNetworkImage;
   final Function(String?) onUpdate;
 
   @override
@@ -37,8 +44,17 @@ class _FetchImageBoxState extends State<FetchImageBox> {
     }
   }
 
+  void getImage() async {
+    if (widget.initNetworkImage != null) {
+      setState(() async {
+        imageBytes = await fetchImage(widget.initNetworkImage!);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    getImage();
     return Column(
       children: [
         Container(

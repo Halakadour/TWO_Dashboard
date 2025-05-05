@@ -1,74 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:two_dashboard/config/constants/padding_config.dart';
-import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/strings/text_strings.dart';
-import 'package:two_dashboard/config/theme/color.dart';
-import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/loading_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/unauthorized_status_animation.dart';
-import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/core/widgets/shimmers/table-loading/loading_post_replies_table.dart';
 import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';
 import 'package:two_dashboard/features/posts/presentation/widgets/custom_post_replies_table.dart';
+import 'package:two_dashboard/features/posts/presentation/widgets/post_card.dart';
 
 class PostsBlocStateHandling {
   // Get Post Table
   Widget getPostsTable(PostState state, bool actriveSelected) {
     if (state.activePostsListStatus == CasualStatus.loading ||
         state.unActivePostsListStatus == CasualStatus.loading) {
-      return const LoadingStatusAnimation();
+      return Center(child: const LoadingStatusAnimation());
     } else if (state.activePostsListStatus == CasualStatus.success ||
         state.unActivePostsListStatus == CasualStatus.success) {
-      return GridView.builder(
-        itemCount: state.activePostsList.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
+      return Expanded(
+        child: GridView.builder(
+          itemCount: state.activePostsList.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemBuilder:
+              (context, index) =>
+                  PostCard(postEntity: state.activePostsList[index]),
         ),
-        itemBuilder:
-            (context, index) => Container(
-              padding: EdgeInsets.all(10.0),
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(SizesConfig.borderRadiusMd),
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(0, 0),
-                    color: AppColors.gray,
-                    blurRadius: 10,
-                    spreadRadius: 2,
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [Icon(Iconsax.more)],
-                  ),
-                  FetchNetworkImage(
-                    imagePath: state.activePostsList[index].poster,
-                    height: 180,
-                    width: double.maxFinite,
-                  ),
-                  PaddingConfig.h8,
-                  Text(
-                    state.activePostsList[index].body,
-                    style: AppTextStyle.subtitle01(),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
       );
     } else if (state.activePostsListStatus == CasualStatus.failure ||
         state.unActivePostsListStatus == CasualStatus.failure) {
@@ -120,10 +84,10 @@ class PostsBlocStateHandling {
     } else if (state.createPostStatus == CasualStatus.success) {
       context.pop();
       context.read<PostBloc>().add(GetActivePostsEvent());
-      CustomQuickAlert().successAlert(
-        context,
-        () => context.pushReplacementNamed(AppRouteConfig.post),
-      );
+      CustomQuickAlert().successAlert(context, () {
+        context.pushReplacementNamed(AppRouteConfig.post);
+        context.pop();
+      });
     } else if (state.createPostStatus == CasualStatus.failure) {
       context.pop();
       CustomQuickAlert().failureAlert(context, state.message);

@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:two_dashboard/config/constants/padding_config.dart';
-import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/strings/text_strings.dart';
-import 'package:two_dashboard/config/theme/color.dart';
-import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/loading_status_animation.dart';
-import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/features/services/presentation/bloc/service_bloc.dart';
+import 'package:two_dashboard/features/services/presentation/widgets/service_card.dart';
 
 class ServicesBlocStateHandling {
   // Gte Services
   Widget getServicesTable(ServiceState state) {
     if (state.serviceListStatus == CasualStatus.loading) {
-      return const LoadingStatusAnimation();
+      return Center(child: const LoadingStatusAnimation());
     } else if (state.serviceListStatus == CasualStatus.success) {
       return GridView.builder(
         itemCount: state.serviceList.length,
@@ -29,48 +24,8 @@ class ServicesBlocStateHandling {
           mainAxisSpacing: 10,
         ),
         itemBuilder:
-            (context, index) => Container(
-              padding: EdgeInsets.all(10.0),
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(SizesConfig.borderRadiusMd),
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(0, 0),
-                    color: AppColors.gray,
-                    blurRadius: 10,
-                    spreadRadius: 2,
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [Icon(Iconsax.more)],
-                  ),
-                  FetchNetworkImage(
-                    imagePath: state.serviceList[index].imageE,
-                    height: 180,
-                    width: double.maxFinite,
-                  ),
-                  PaddingConfig.h8,
-                  Text(
-                    state.serviceList[index].titleE,
-                    style: AppTextStyle.subtitle01(),
-                  ),
-                  PaddingConfig.h8,
-                  Text(
-                    state.serviceList[index].descriptionE,
-                    style: AppTextStyle.subtitle02(
-                      color: AppColors.fontLightColor,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
+            (context, index) =>
+                ServiceCard(serviceEntity: state.serviceList[index]),
       );
     } else if (state.serviceListStatus == CasualStatus.failure) {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));

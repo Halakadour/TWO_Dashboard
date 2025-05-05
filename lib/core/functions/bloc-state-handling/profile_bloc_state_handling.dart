@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/strings/text_strings.dart';
@@ -15,6 +16,7 @@ import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/core/widgets/shimmers/table-loading/loading_user_table.dart';
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
+import 'package:two_dashboard/features/profile/domain/entities/employee_entity.dart';
 import 'package:two_dashboard/features/profile/presentation/widgets/custom_user_table.dart';
 import 'package:two_dashboard/features/profile/presentation/widgets/user_info_row.dart';
 
@@ -25,49 +27,9 @@ class ProfileBlocStateHandling {
     BuildContext context,
   ) {
     if (state.employeeEntityStatus == CasualStatus.loading) {
-      return CircularProgressIndicator();
+      return LoadingUserHeaderInfo();
     } else if (state.employeeEntityStatus == CasualStatus.success) {
-      return Row(
-        children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // image
-              Container(
-                height: 50,
-                width: 50,
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(shape: BoxShape.circle),
-                child: FetchNetworkImage(
-                  imagePath: state.employeeEntity!.eImage!,
-                ),
-              ),
-            ],
-          ),
-          PaddingConfig.w8,
-          // Name and Email
-          if (!DeviceUtility.isMobileScreen(context))
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  state.employeeEntity!.eName,
-                  style: AppTextStyle.subtitle02(
-                    color: AppColors.fontDarkColor,
-                  ),
-                ),
-                Text(
-                  state.employeeEntity!.eRole,
-                  style: AppTextStyle.subtitle03(
-                    color: AppColors.fontLightColor,
-                  ),
-                ),
-              ],
-            ),
-        ],
-      );
+      return UserHeaderInfo(employeeEntity: state.employeeEntity!);
     } else {
       return SizedBox();
     }
@@ -128,5 +90,117 @@ class ProfileBlocStateHandling {
       context.pop();
       CustomQuickAlert().failureAlert(context, TextStrings.noToken);
     }
+  }
+}
+
+class LoadingUserHeaderInfo extends StatelessWidget {
+  const LoadingUserHeaderInfo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // image
+            Shimmer.fromColors(
+              baseColor: Colors.grey[300]!,
+              highlightColor: Colors.grey[100]!,
+              child: Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+        PaddingConfig.w8,
+        // Name and Email
+        if (!DeviceUtility.isMobileScreen(context))
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Shimmer.fromColors(
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
+                child: Container(
+                  height: 8,
+                  width: 80,
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(
+                      SizesConfig.borderRadiusMd,
+                    ),
+                  ),
+                ),
+              ),
+              PaddingConfig.h8,
+              Shimmer.fromColors(
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
+                child: Container(
+                  height: 8,
+                  width: 60,
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(
+                      SizesConfig.borderRadiusMd,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+      ],
+    );
+  }
+}
+
+class UserHeaderInfo extends StatelessWidget {
+  const UserHeaderInfo({super.key, required this.employeeEntity});
+  final EmployeeEntity employeeEntity;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // image
+            FetchNetworkImage(
+              height: 50,
+              width: 50,
+              shape: BoxShape.circle,
+              imagePath: employeeEntity.eImage!,
+            ),
+          ],
+        ),
+        PaddingConfig.w8,
+        // Name and Email
+        if (!DeviceUtility.isMobileScreen(context))
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                employeeEntity.eName,
+                style: AppTextStyle.subtitle02(color: AppColors.fontDarkColor),
+              ),
+              Text(
+                employeeEntity.eRole,
+                style: AppTextStyle.subtitle03(color: AppColors.fontLightColor),
+              ),
+            ],
+          ),
+      ],
+    );
   }
 }

@@ -8,12 +8,13 @@ import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
-import 'package:two_dashboard/features/services/domain/entities/service_entity.dart';
-import 'package:two_dashboard/features/services/presentation/bloc/service_bloc.dart';
+import 'package:two_dashboard/core/widgets/status-boxes/active_status_container.dart';
+import 'package:two_dashboard/features/posts/domain/entities/post_entity.dart';
+import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';
 
-class ServiceCard extends StatelessWidget {
-  const ServiceCard({super.key, required this.serviceEntity});
-  final ServiceEntity serviceEntity;
+class PostCard extends StatelessWidget {
+  const PostCard({super.key, required this.postEntity});
+  final PostEntity postEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +22,13 @@ class ServiceCard extends StatelessWidget {
 
     return Container(
       key: iconKey,
-      padding: EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(SizesConfig.borderRadiusMd),
         boxShadow: [
           BoxShadow(
-            offset: Offset(0, 0),
+            offset: const Offset(0, 0),
             color: AppColors.gray,
             blurRadius: 10,
             spreadRadius: 2,
@@ -59,12 +60,15 @@ class ServiceCard extends StatelessWidget {
                         value: 0,
                         child: Row(
                           children: [
-                            Icon(Iconsax.edit, color: AppColors.blueShade2),
+                            Icon(
+                              Iconsax.eye_slash,
+                              color: AppColors.yellowShade2,
+                            ),
                             PaddingConfig.w8,
                             Text(
-                              "Edit",
+                              "Un Active",
                               style: AppTextStyle.subtitle03(
-                                color: AppColors.blueShade2,
+                                color: AppColors.yellowShade2,
                               ),
                             ),
                           ],
@@ -85,25 +89,36 @@ class ServiceCard extends StatelessWidget {
                           ],
                         ),
                       ),
+                      PopupMenuItem<int>(
+                        value: 2,
+                        child: Row(
+                          children: [
+                            Icon(Iconsax.message, color: AppColors.blueShade2),
+                            PaddingConfig.w8,
+                            Text(
+                              "Replies",
+                              style: AppTextStyle.subtitle03(
+                                color: AppColors.blueShade2,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ).then((value) {
                     if (value == 0) {
-                      context.pushNamed(
-                        AppRouteConfig.updateService,
-                        pathParameters: {
-                          'id': serviceEntity.idE.toString(),
-                          'title': serviceEntity.titleE,
-                          'description': serviceEntity.descriptionE,
-                          'image': serviceEntity.imageE,
-                        },
+                      context.read<PostBloc>().add(
+                        UnActivePostEvent(postId: postEntity.postId),
                       );
                     } else if (value == 1) {
-                      context.read<ServiceBloc>().add(
-                        DeleteServiceEvent(
-                          serviceId: serviceEntity.idE.toString(),
-                        ),
+                      context.read<PostBloc>().add(
+                        DeletePostEvent(postId: postEntity.postId),
                       );
-                      context.read<ServiceBloc>().add(ShowServicesEvent());
+                    } else if (value == 2) {
+                      context.pushNamed(
+                        AppRouteConfig.postReplies,
+                        pathParameters: {'id': postEntity.postId.toString()},
+                      );
                     }
                   });
                 },
@@ -112,16 +127,15 @@ class ServiceCard extends StatelessWidget {
             ],
           ),
           FetchNetworkImage(
-            imagePath: serviceEntity.imageE,
+            imagePath: postEntity.poster,
             height: 180,
             width: double.maxFinite,
           ),
-          PaddingConfig.h8,
-          Text(serviceEntity.titleE, style: AppTextStyle.subtitle01()),
+          const ActiveStatusContainer(),
           PaddingConfig.h8,
           Text(
-            serviceEntity.descriptionE,
-            style: AppTextStyle.subtitle02(color: AppColors.fontLightColor),
+            postEntity.body,
+            style: AppTextStyle.subtitle01(),
             overflow: TextOverflow.ellipsis,
           ),
         ],

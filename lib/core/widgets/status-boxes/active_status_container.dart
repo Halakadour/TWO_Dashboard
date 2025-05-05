@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
@@ -10,7 +9,8 @@ class ActiveStatusContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 75,
+      width: 60,
+      height: 25,
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.gray, width: 1.1),
         color: AppColors.greenShade1,
@@ -23,7 +23,6 @@ class ActiveStatusContainer extends StatelessWidget {
             width: 8,
             child: CircleAvatar(backgroundColor: AppColors.greenShade2),
           ),
-          PaddingConfig.w8,
           Text(
             "Active",
             style: AppTextStyle.subtitle04(color: AppColors.greenShade2),

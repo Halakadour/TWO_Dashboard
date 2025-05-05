@@ -64,7 +64,7 @@ class _ShowPostsPageState extends State<PostsPage> {
                 ],
               ),
               const SizedBox(height: SizesConfig.spaceBtwSections),
-              Flexible(
+              Expanded(
                 child: BlocBuilder<PostBloc, PostState>(
                   buildWhen:
                       (previous, current) =>

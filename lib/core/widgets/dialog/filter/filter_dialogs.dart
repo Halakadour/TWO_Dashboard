@@ -192,11 +192,11 @@ class FilterDialogs {
               const CancelTextButton(),
               ApplyTextButton(
                 onPressed: () {
-                  context.read<PostBloc>().add(
-                    actriveSelected.value
-                        ? GetActivePostsEvent()
-                        : GetUnActivePostsEvent(),
-                  );
+                  if (actriveSelected.value) {
+                    context.read<PostBloc>().add(GetActivePostsEvent());
+                  } else {
+                    context.read<PostBloc>().add(GetUnActivePostsEvent());
+                  }
                   context.pop();
                 },
               ),

@@ -7,7 +7,6 @@ import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
-import 'package:two_dashboard/core/functions/get_network_image.dart';
 import 'package:two_dashboard/core/widgets/breadcrumbs/breadcumbs_item.dart';
 import 'package:two_dashboard/core/widgets/buttons/desmiss_elevated_buttom.dart';
 import 'package:two_dashboard/core/widgets/buttons/save_elevated_button.dart';
@@ -38,12 +37,6 @@ class _UpdateServiceFormState extends State<UpdateServiceForm> {
     });
   }
 
-  void getImage() {
-    setState(() async {
-      imageBytes = await fetchImage(widget.serviceEntity.imageE);
-    });
-  }
-
   @override
   void initState() {
     _formkey = GlobalKey<FormState>();
@@ -53,7 +46,6 @@ class _UpdateServiceFormState extends State<UpdateServiceForm> {
     _serviceDescController = TextEditingController(
       text: widget.serviceEntity.descriptionE,
     );
-    getImage();
     super.initState();
   }
 
@@ -63,7 +55,7 @@ class _UpdateServiceFormState extends State<UpdateServiceForm> {
       listener: (context, state) {},
       listenWhen:
           (previous, current) =>
-              previous.createServiceStatus != current.createServiceStatus,
+              previous.updateServiceStatus != current.updateServiceStatus,
       child: PageTemplate(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
