@@ -12,9 +12,9 @@ import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/features/posts/domain/entities/post_entity.dart';
 import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';
 import 'package:two_dashboard/core/widgets/status-boxes/active_status_container.dart';
-import 'package:two_dashboard/core/widgets/buttons/browse_button.dart';
-import 'package:two_dashboard/core/widgets/buttons/deactive_button.dart';
-import 'package:two_dashboard/core/widgets/buttons/delete_button.dart';
+import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/browse_button.dart';
+import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/deactive_button.dart';
+import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/delete_button.dart';
 
 class CustomPostsTable extends StatelessWidget {
   const CustomPostsTable({super.key, required this.activePostsList});

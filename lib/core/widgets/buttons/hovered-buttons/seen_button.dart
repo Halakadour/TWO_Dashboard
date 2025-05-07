@@ -6,11 +6,10 @@ import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 
 // ignore: must_be_immutable
-class AddSomthingButton extends StatelessWidget {
-  AddSomthingButton({super.key, required this.onTap, required this.something});
+class SeenButton extends StatelessWidget {
+  SeenButton({super.key, required this.onTap});
 
   final void Function()? onTap;
-  final String something;
   ValueNotifier<bool> isHover = ValueNotifier(false);
 
   @override
@@ -33,11 +32,9 @@ class AddSomthingButton extends StatelessWidget {
                 ),
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: value ? AppColors.greenShade2 : Colors.transparent,
-                  border: Border.all(color: AppColors.greenShade2, width: 1.1),
-                  borderRadius: BorderRadius.circular(
-                    SizesConfig.borderRadiusSm,
-                  ),
+                  color: value ? AppColors.blueShade2 : Colors.transparent,
+                  border: Border.all(color: AppColors.blueShade2, width: 1.1),
+                  borderRadius: BorderRadius.circular(SizesConfig.buttonRadius),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -45,16 +42,16 @@ class AddSomthingButton extends StatelessWidget {
                     SizedBox(
                       width: 10,
                       child: Icon(
-                        Iconsax.like,
+                        Iconsax.eye,
                         size: SizesConfig.iconsSm,
-                        color: value ? AppColors.white : AppColors.greenShade2,
+                        color: value ? AppColors.white : AppColors.blueShade2,
                       ),
                     ),
                     PaddingConfig.w8,
                     Text(
-                      "Add $something",
+                      "Seen",
                       style: AppTextStyle.subtitle04(
-                        color: value ? AppColors.white : AppColors.greenShade2,
+                        color: value ? AppColors.white : AppColors.blueShade2,
                       ),
                     ),
                   ],

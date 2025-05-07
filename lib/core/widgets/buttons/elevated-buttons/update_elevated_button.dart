@@ -5,8 +5,8 @@ import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 
-class UpdateButton extends StatelessWidget {
-  const UpdateButton({
+class UpdateElevatedButton extends StatelessWidget {
+  const UpdateElevatedButton({
     super.key,
     required this.updateType,
     required this.onPressed,

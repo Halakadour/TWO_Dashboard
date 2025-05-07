@@ -6,8 +6,8 @@ import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 
 // ignore: must_be_immutable
-class SeenButton extends StatelessWidget {
-  SeenButton({super.key, required this.onTap});
+class AcceptButton extends StatelessWidget {
+  AcceptButton({super.key, required this.onTap});
 
   final void Function()? onTap;
   ValueNotifier<bool> isHover = ValueNotifier(false);
@@ -32,11 +32,9 @@ class SeenButton extends StatelessWidget {
                 ),
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: value ? AppColors.blueShade2 : Colors.transparent,
-                  border: Border.all(color: AppColors.blueShade2, width: 1.1),
-                  borderRadius: BorderRadius.circular(
-                    SizesConfig.borderRadiusSm,
-                  ),
+                  color: value ? AppColors.greenShade2 : Colors.transparent,
+                  border: Border.all(color: AppColors.greenShade2, width: 1.1),
+                  borderRadius: BorderRadius.circular(SizesConfig.buttonRadius),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -44,16 +42,16 @@ class SeenButton extends StatelessWidget {
                     SizedBox(
                       width: 10,
                       child: Icon(
-                        Iconsax.eye,
+                        Iconsax.like,
                         size: SizesConfig.iconsSm,
-                        color: value ? AppColors.white : AppColors.blueShade2,
+                        color: value ? AppColors.white : AppColors.greenShade2,
                       ),
                     ),
                     PaddingConfig.w8,
                     Text(
-                      "Seen",
+                      "Accept",
                       style: AppTextStyle.subtitle04(
-                        color: value ? AppColors.white : AppColors.blueShade2,
+                        color: value ? AppColors.white : AppColors.greenShade2,
                       ),
                     ),
                   ],

@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/unauthorized_status_animation.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/core/widgets/dropdown/custom_dropdown_list_for_draft_entity.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/core/widgets/shimmers/dropdown-loading/custom_dropdown_loading.dart';
@@ -23,7 +25,7 @@ class ContractsStateHandling {
       return CustomContractTable(contrcatList: state.contractList);
     } else if (state.contrcatListStatus == CasualStatus.failure) {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));
-    } else if (state.contrcatListStatus == CasualStatus.noToken) {
+    } else if (state.contrcatListStatus == CasualStatus.notAuthorized) {
       return Center(child: UnauthorizedStatusAnimation());
     } else {
       return const SizedBox();
@@ -33,11 +35,13 @@ class ContractsStateHandling {
   // Delete Draft
   void deleteDraft(ContractState state, BuildContext context) {
     if (state.deleteDrafStatus == CasualStatus.loading) {
-      CustomQuickAlert().loadingAlert(context);
+      showLoadingDialog(context);
     } else if (state.deleteDrafStatus == CasualStatus.success) {
       context.pop();
       context.read<ContractBloc>().add(GetDrafEvent());
-      CustomQuickAlert().successAlert(context, () => context.pop());
+      showSuccessDialog(context, () {
+        context.pop();
+      });
     } else if (state.deleteDrafStatus == CasualStatus.failure) {
       context.pop();
       CustomQuickAlert().failureAlert(context, state.message);
@@ -52,7 +56,7 @@ class ContractsStateHandling {
       return CustomDraftTable(draftsList: state.drafList);
     } else if (state.drafListStatus == CasualStatus.failure) {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));
-    } else if (state.drafListStatus == CasualStatus.noToken) {
+    } else if (state.drafListStatus == CasualStatus.notAuthorized) {
       return Center(child: UnauthorizedStatusAnimation());
     }
     {
@@ -86,16 +90,18 @@ class ContractsStateHandling {
 
   void createContract(ContractState state, BuildContext context) {
     if (state.createContractStatus == CasualStatus.loading) {
-      CustomQuickAlert().loadingAlert(context);
+      showLoadingDialog(context);
     } else if (state.createContractStatus == CasualStatus.success) {
       context.pop();
-      CustomQuickAlert().successAlert(context, () => context.pop());
+      showSuccessDialog(context, () {
+        context.pop();
+      });
       context.read<ContractBloc>().add(GetContractEvent());
       context.pop();
     } else if (state.createContractStatus == CasualStatus.failure) {
       context.pop();
       CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.createContractStatus == CasualStatus.noToken) {
+    } else if (state.createContractStatus == CasualStatus.notAuthorized) {
       context.pop();
       CustomQuickAlert().noTokenAlert(context);
     }

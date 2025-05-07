@@ -6,6 +6,8 @@ import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/loading_status_animation.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/features/services/presentation/bloc/service_bloc.dart';
 import 'package:two_dashboard/features/services/presentation/widgets/service_card.dart';
@@ -37,14 +39,16 @@ class ServicesBlocStateHandling {
   // Delete Service
   void deleteService(ServiceState state, BuildContext context) {
     if (state.deleteServiceStatus == CasualStatus.loading) {
-      CustomQuickAlert().loadingAlert(context);
+      showLoadingDialog(context);
     } else if (state.deleteServiceStatus == CasualStatus.success) {
       context.pop();
-      CustomQuickAlert().successAlert(context, () => context.pop());
+      showSuccessDialog(context, () {
+        context.pop();
+      });
     } else if (state.deleteServiceStatus == CasualStatus.failure) {
       context.pop();
       CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.deleteServiceStatus == CasualStatus.noToken) {
+    } else if (state.deleteServiceStatus == CasualStatus.notAuthorized) {
       context.pop();
       CustomQuickAlert().failureAlert(context, TextStrings.noToken);
     }
@@ -53,18 +57,18 @@ class ServicesBlocStateHandling {
   // Create Service
   void createService(ServiceState state, BuildContext context) {
     if (state.createServiceStatus == CasualStatus.loading) {
-      CustomQuickAlert().loadingAlert(context);
+      showLoadingDialog(context);
     } else if (state.createServiceStatus == CasualStatus.success) {
       context.pop();
       context.read<ServiceBloc>().add(ShowServicesEvent());
-      CustomQuickAlert().successAlert(
-        context,
-        () => context.pushReplacementNamed(AppRouteConfig.services),
-      );
+      showSuccessDialog(context, () {
+        context.pushReplacementNamed(AppRouteConfig.services);
+        context.pop();
+      });
     } else if (state.createServiceStatus == CasualStatus.failure) {
       context.pop();
       CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.createServiceStatus == CasualStatus.noToken) {
+    } else if (state.createServiceStatus == CasualStatus.notAuthorized) {
       context.pop();
       CustomQuickAlert().noTokenAlert(context);
     }

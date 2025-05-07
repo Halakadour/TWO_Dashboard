@@ -74,7 +74,7 @@ class AboutUsWhyUsBloc extends Bloc<AboutUsWhyUsEvent, AboutUsWhyUsState> {
       } else {
         emit(
           state.copyWith(
-            createAboutUsStatus: CasualStatus.noToken,
+            createAboutUsStatus: CasualStatus.notAuthorized,
             message: "No Token",
           ),
         );
@@ -100,7 +100,7 @@ class AboutUsWhyUsBloc extends Bloc<AboutUsWhyUsEvent, AboutUsWhyUsState> {
       } else {
         emit(
           state.copyWith(
-            updateAboutUsStatus: CasualStatus.noToken,
+            updateAboutUsStatus: CasualStatus.notAuthorized,
             message: "No Token",
           ),
         );
@@ -141,7 +141,7 @@ class AboutUsWhyUsBloc extends Bloc<AboutUsWhyUsEvent, AboutUsWhyUsState> {
       } else {
         emit(
           state.copyWith(
-            createWhyUsStatus: CasualStatus.noToken,
+            createWhyUsStatus: CasualStatus.notAuthorized,
             message: "No Token",
           ),
         );
@@ -170,7 +170,7 @@ class AboutUsWhyUsBloc extends Bloc<AboutUsWhyUsEvent, AboutUsWhyUsState> {
       } else {
         emit(
           state.copyWith(
-            updateWhyUsStatus: CasualStatus.noToken,
+            updateWhyUsStatus: CasualStatus.notAuthorized,
             message: "No Token",
           ),
         );
@@ -195,7 +195,7 @@ class AboutUsWhyUsBloc extends Bloc<AboutUsWhyUsEvent, AboutUsWhyUsState> {
       } else {
         emit(
           state.copyWith(
-            deleteWhyUsStatus: CasualStatus.noToken,
+            deleteWhyUsStatus: CasualStatus.notAuthorized,
             message: "No Token",
           ),
         );

@@ -5,33 +5,27 @@ import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 
-class CreateButton extends StatelessWidget {
-  const CreateButton({
-    super.key,
-    required this.addingType,
-    required this.onPressed,
-  });
-  final String addingType;
+class FilterButton extends StatelessWidget {
+  const FilterButton({super.key, required this.onPressed});
   final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-        backgroundColor: AppColors.greenShade2,
+    return IconButton(
+      style: IconButton.styleFrom(
         shape: RoundedRectangleBorder(
+          side: const BorderSide(color: AppColors.black, width: .3),
           borderRadius: BorderRadius.circular(SizesConfig.buttonRadius),
         ),
       ),
       onPressed: onPressed,
-      child: Row(
+      icon: Row(
         children: [
-          const Icon(Iconsax.add_square, color: AppColors.white),
+          const Icon(Iconsax.candle_2, size: SizesConfig.iconsSm),
           PaddingConfig.w8,
           Text(
-            "create $addingType",
-            style: AppTextStyle.buttonStyle(color: AppColors.white),
+            "filter",
+            style: AppTextStyle.subtitle02(color: AppColors.fontLightColor),
           ),
         ],
       ),

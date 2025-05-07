@@ -8,7 +8,7 @@ import 'package:two_dashboard/core/functions/tuggle_password.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
 import 'package:two_dashboard/features/auth/presentation/widgets/custom_text_form_field.dart';
-import 'package:two_dashboard/core/widgets/buttons/custom_cartoon_button.dart';
+import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/custom_cartoon_button.dart';
 import 'package:two_dashboard/features/auth/presentation/widgets/google_git_row.dart';
 
 class SignUpForm extends StatefulWidget {

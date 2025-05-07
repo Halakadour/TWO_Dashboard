@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 
-class DesmissElevatedButtom extends StatelessWidget {
-  const DesmissElevatedButtom({super.key});
+class SaveElevatedButton extends StatelessWidget {
+  const SaveElevatedButton({super.key, required this.onPressed});
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +16,14 @@ class DesmissElevatedButtom extends StatelessWidget {
           SizesConfig.buttonHeight,
         ),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        backgroundColor: AppColors.navy,
+        backgroundColor: AppColors.greenShade2,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(SizesConfig.borderRadiusMd),
+          borderRadius: BorderRadius.circular(SizesConfig.buttonRadius),
         ),
       ),
-      onPressed: () => context.pop(),
+      onPressed: onPressed,
       child: Text(
-        "Dismiss",
+        "Save",
         style: AppTextStyle.buttonStyle(color: AppColors.white),
       ),
     );

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
-import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/features/services/domain/entities/service_entity.dart';
-import 'package:two_dashboard/features/services/presentation/bloc/service_bloc.dart';
+
+import '../../../../core/widgets/menus/service_side_menu.dart';
 
 class ServiceCard extends StatelessWidget {
   const ServiceCard({super.key, required this.serviceEntity});
@@ -42,70 +40,7 @@ class ServiceCard extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  final RenderBox renderBox =
-                      iconKey.currentContext!.findRenderObject() as RenderBox;
-                  final Offset offset = renderBox.localToGlobal(Offset.zero);
-                  final Size size = renderBox.size;
-                  showMenu(
-                    context: context,
-                    position: RelativeRect.fromLTRB(
-                      offset.dx,
-                      offset.dy - 40,
-                      offset.dx + size.width,
-                      0,
-                    ),
-                    items: [
-                      PopupMenuItem<int>(
-                        value: 0,
-                        child: Row(
-                          children: [
-                            Icon(Iconsax.edit, color: AppColors.blueShade2),
-                            PaddingConfig.w8,
-                            Text(
-                              "Edit",
-                              style: AppTextStyle.subtitle03(
-                                color: AppColors.blueShade2,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      PopupMenuItem<int>(
-                        value: 1,
-                        child: Row(
-                          children: [
-                            Icon(Iconsax.trash, color: AppColors.redShade2),
-                            PaddingConfig.w8,
-                            Text(
-                              "Delete",
-                              style: AppTextStyle.subtitle03(
-                                color: AppColors.redShade2,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ).then((value) {
-                    if (value == 0) {
-                      context.pushNamed(
-                        AppRouteConfig.updateService,
-                        pathParameters: {
-                          'id': serviceEntity.idE.toString(),
-                          'title': serviceEntity.titleE,
-                          'description': serviceEntity.descriptionE,
-                          'image': serviceEntity.imageE,
-                        },
-                      );
-                    } else if (value == 1) {
-                      context.read<ServiceBloc>().add(
-                        DeleteServiceEvent(
-                          serviceId: serviceEntity.idE.toString(),
-                        ),
-                      );
-                      context.read<ServiceBloc>().add(ShowServicesEvent());
-                    }
-                  });
+                  serviceCardSideMenu(iconKey, context, serviceEntity);
                 },
                 child: const Icon(Iconsax.more),
               ),

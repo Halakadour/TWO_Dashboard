@@ -22,7 +22,7 @@ class _ChooseDateButtonState extends State<ChooseDateButton> {
       style: IconButton.styleFrom(
         shape: RoundedRectangleBorder(
           side: const BorderSide(color: AppColors.black, width: .3),
-          borderRadius: BorderRadius.circular(SizesConfig.borderRadiusSm),
+          borderRadius: BorderRadius.circular(SizesConfig.buttonRadius),
         ),
       ),
       onPressed: () async {

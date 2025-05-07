@@ -54,7 +54,7 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
           ),
         );
       } else {
-        emit(state.copyWith(contrcatListStatus: CasualStatus.noToken));
+        emit(state.copyWith(contrcatListStatus: CasualStatus.notAuthorized));
       }
     });
     on<GetClientContractEvent>((event, emit) async {
@@ -83,7 +83,9 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
           ),
         );
       } else {
-        emit(state.copyWith(clientContrcatListStatus: CasualStatus.noToken));
+        emit(
+          state.copyWith(clientContrcatListStatus: CasualStatus.notAuthorized),
+        );
       }
     });
     on<CreateContractEvent>((event, emit) async {
@@ -108,7 +110,7 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
           (r) => emit(state.copyWith(addContractStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(addContractStatus: CasualStatus.noToken));
+        emit(state.copyWith(addContractStatus: CasualStatus.notAuthorized));
       }
     });
     // Draft Bloc
@@ -131,7 +133,7 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
           ),
         );
       } else {
-        emit(state.copyWith(drafListStatus: CasualStatus.noToken));
+        emit(state.copyWith(drafListStatus: CasualStatus.notAuthorized));
       }
     });
     on<CreateDrafEvent>((event, emit) async {
@@ -155,7 +157,7 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
           (r) => emit(state.copyWith(createDrafStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(createDrafStatus: CasualStatus.noToken));
+        emit(state.copyWith(createDrafStatus: CasualStatus.notAuthorized));
       }
     });
     on<DeleteDrafEvent>((event, emit) async {
@@ -175,7 +177,7 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
           (r) => emit(state.copyWith(deleteDrafStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(deleteDrafStatus: CasualStatus.noToken));
+        emit(state.copyWith(deleteDrafStatus: CasualStatus.notAuthorized));
       }
     });
   }

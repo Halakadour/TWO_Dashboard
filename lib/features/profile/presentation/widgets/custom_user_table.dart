@@ -6,7 +6,7 @@ import 'package:two_dashboard/config/constants/base_uri.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
-import 'package:two_dashboard/core/widgets/buttons/approved_button.dart';
+import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/approved_button.dart';
 import 'package:two_dashboard/core/widgets/data-tables/custom_data_table.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';

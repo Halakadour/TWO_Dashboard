@@ -7,6 +7,8 @@ import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/loading_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/unauthorized_status_animation.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/core/widgets/shimmers/table-loading/loading_post_replies_table.dart';
 import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';
@@ -46,17 +48,19 @@ class PostsBlocStateHandling {
   void deleteAndUnactivePOst(PostState state, BuildContext context) {
     if (state.deletePostStatus == CasualStatus.loading ||
         state.unActivePostStatus == CasualStatus.loading) {
-      CustomQuickAlert().loadingAlert(context);
+      showLoadingDialog(context);
     } else if (state.deletePostStatus == CasualStatus.success ||
         state.unActivePostStatus == CasualStatus.success) {
       context.pop();
-      CustomQuickAlert().successAlert(context, () => context.pop());
+      showSuccessDialog(context, () {
+        context.pop();
+      });
     } else if (state.deletePostStatus == CasualStatus.failure ||
         state.unActivePostStatus == CasualStatus.failure) {
       context.pop();
       CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.deletePostStatus == CasualStatus.noToken ||
-        state.unActivePostStatus == CasualStatus.noToken) {
+    } else if (state.deletePostStatus == CasualStatus.notAuthorized ||
+        state.unActivePostStatus == CasualStatus.notAuthorized) {
       context.pop();
       CustomQuickAlert().failureAlert(context, TextStrings.noToken);
     }
@@ -70,7 +74,7 @@ class PostsBlocStateHandling {
       return CustomPostRepliesTable(repliesList: state.postRepliesList);
     } else if (state.postsRepliesListStatus == CasualStatus.failure) {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));
-    } else if (state.postsRepliesListStatus == CasualStatus.noToken) {
+    } else if (state.postsRepliesListStatus == CasualStatus.notAuthorized) {
       return UnauthorizedStatusAnimation();
     } else {
       return const SizedBox();
@@ -80,18 +84,18 @@ class PostsBlocStateHandling {
   // Create Post
   void createPost(PostState state, BuildContext context) {
     if (state.createPostStatus == CasualStatus.loading) {
-      CustomQuickAlert().loadingAlert(context);
+      showLoadingDialog(context);
     } else if (state.createPostStatus == CasualStatus.success) {
       context.pop();
       context.read<PostBloc>().add(GetActivePostsEvent());
-      CustomQuickAlert().successAlert(context, () {
+      showSuccessDialog(context, () {
         context.pushReplacementNamed(AppRouteConfig.post);
         context.pop();
       });
     } else if (state.createPostStatus == CasualStatus.failure) {
       context.pop();
       CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.createPostStatus == CasualStatus.noToken) {
+    } else if (state.createPostStatus == CasualStatus.notAuthorized) {
       context.pop();
       CustomQuickAlert().noTokenAlert(context);
     }

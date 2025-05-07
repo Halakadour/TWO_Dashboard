@@ -3,8 +3,8 @@ import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
-import 'package:two_dashboard/core/widgets/buttons/choose_date_button.dart';
-import 'package:two_dashboard/core/widgets/buttons/filter_button.dart';
+import 'package:two_dashboard/core/widgets/buttons/icon-buttons/choose_date_button.dart';
+import 'package:two_dashboard/core/widgets/buttons/icon-buttons/filter_button.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
 

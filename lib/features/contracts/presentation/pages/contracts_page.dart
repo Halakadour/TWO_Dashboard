@@ -6,8 +6,8 @@ import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/contracts_state_handling.dart';
-import 'package:two_dashboard/core/widgets/buttons/create_button.dart';
-import 'package:two_dashboard/core/widgets/buttons/filter_button.dart';
+import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
+import 'package:two_dashboard/core/widgets/buttons/icon-buttons/filter_button.dart';
 import 'package:two_dashboard/core/widgets/dialog/filter/filter_dialogs.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
@@ -39,7 +39,7 @@ class _ContractsPageState extends State<ContractsPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                CreateButton(
+                CreateElevatedButton(
                   addingType: "Contract",
                   onPressed: () {
                     context.pushNamed(AppRouteConfig.createContract);

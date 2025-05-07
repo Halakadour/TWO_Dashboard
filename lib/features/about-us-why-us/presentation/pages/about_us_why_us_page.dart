@@ -5,8 +5,8 @@ import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/about_us_why_us_state_handling.dart';
 import 'package:two_dashboard/core/widgets/dialog/why-us-about-us/why_us_about_us_dialogs.dart';
-import 'package:two_dashboard/core/widgets/buttons/create_button.dart';
-import 'package:two_dashboard/core/widgets/buttons/update_button.dart';
+import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
+import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/update_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
 import 'package:two_dashboard/features/about-us-why-us/domain/entities/about_us_entity.dart';
 import 'package:two_dashboard/features/about-us-why-us/presentation/bloc/about_us_why_us_bloc.dart';
@@ -58,7 +58,7 @@ class _AboutUsWhyUsPageState extends State<AboutUsWhyUsPage> {
                           (previous, current) =>
                               previous.createAboutUsStatus !=
                               current.createAboutUsStatus,
-                      child: CreateButton(
+                      child: CreateElevatedButton(
                         addingType: "About Us",
                         onPressed: () {
                           AboutUsWhyUsDialogs().addAboutUsDialog(
@@ -82,7 +82,7 @@ class _AboutUsWhyUsPageState extends State<AboutUsWhyUsPage> {
                           (previous, current) =>
                               previous.updateAboutUsStatus !=
                               current.updateAboutUsStatus,
-                      child: UpdateButton(
+                      child: UpdateElevatedButton(
                         updateType: "About Us",
                         onPressed: () {
                           if (aboutUsEntity != null) {
@@ -131,7 +131,7 @@ class _AboutUsWhyUsPageState extends State<AboutUsWhyUsPage> {
                       (previous, current) =>
                           previous.createWhyUsStatus !=
                           current.createWhyUsStatus,
-                  child: CreateButton(
+                  child: CreateElevatedButton(
                     addingType: "Why Us",
                     onPressed: () {
                       AboutUsWhyUsDialogs().craeteWhyUsDialog(

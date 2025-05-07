@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/network/enums.dart';
@@ -12,7 +13,9 @@ class RoleBlocStateHandling {
     if (state.roleWithoutClientListStatus == CasualStatus.loading) {
       return CircularProgressIndicator();
     } else if (state.roleWithoutClientListStatus == CasualStatus.success) {
-      return Flexible(
+      return SizedBox(
+        width: 450,
+        height: 150,
         child: ListView(
           children: [
             Wrap(
@@ -35,12 +38,21 @@ class RoleBlocStateHandling {
                             vertical: 9,
                           ),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color:
+                                  (state.roleWithoutClientList[index].id ==
+                                          roleSelected.value)
+                                      ? AppColors.blueShade2
+                                      : AppColors.gray,
+                            ),
+                            borderRadius: BorderRadius.circular(
+                              SizesConfig.borderRadiusXs,
+                            ),
                             color:
                                 (state.roleWithoutClientList[index].id ==
                                         roleSelected.value)
-                                    ? AppColors.greenShade2
-                                    : AppColors.gray,
+                                    ? AppColors.blueShade1
+                                    : Colors.transparent,
                           ),
                           child: Text(
                             state.roleWithoutClientList[index].role,
@@ -48,7 +60,7 @@ class RoleBlocStateHandling {
                               color:
                                   (state.roleWithoutClientList[index].id ==
                                           roleSelected.value)
-                                      ? AppColors.white
+                                      ? AppColors.blueShade2
                                       : AppColors.fontDarkColor,
                             ),
                           ),

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 
-import '../../../config/constants/padding_config.dart';
-import '../../../config/strings/assets_path.dart';
-import '../../../config/theme/color.dart';
-import '../../../config/theme/text_style.dart';
+import '../../../../config/constants/padding_config.dart';
+import '../../../../config/strings/assets_path.dart';
+import '../../../../config/theme/color.dart';
+import '../../../../config/theme/text_style.dart';
 
 // ignore: must_be_immutable
 class CustomCartoonButton extends StatelessWidget {
@@ -44,7 +44,7 @@ class CustomCartoonButton extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
                   color: AppColors.greenShade2,
-                  borderRadius: BorderRadius.circular(7),
+                  borderRadius: BorderRadius.circular(SizesConfig.buttonRadius),
                   boxShadow:
                       value
                           ? const [

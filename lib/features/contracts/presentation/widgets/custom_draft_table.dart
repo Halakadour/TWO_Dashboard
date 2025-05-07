@@ -5,7 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
-import 'package:two_dashboard/core/widgets/buttons/delete_button.dart';
+import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/delete_button.dart';
 import 'package:two_dashboard/core/widgets/data-tables/custom_data_table.dart';
 import 'package:two_dashboard/core/widgets/status-boxes/approved_status_container.dart';
 import 'package:two_dashboard/core/widgets/status-boxes/un_approved_status_container.dart';

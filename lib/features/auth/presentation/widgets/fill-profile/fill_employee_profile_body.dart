@@ -12,7 +12,7 @@ import 'package:two_dashboard/core/widgets/images/fetch_image_circle.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/core/widgets/shimmers/dropdown-loading/custom_dropdown_loading.dart';
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
-import 'package:two_dashboard/core/widgets/buttons/custom_cartoon_button.dart';
+import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/custom_cartoon_button.dart';
 import 'package:two_dashboard/features/auth/presentation/widgets/fill-profile/fetch_cv_box.dart';
 import 'package:two_dashboard/features/roles/data/models/role_response_model.dart';
 

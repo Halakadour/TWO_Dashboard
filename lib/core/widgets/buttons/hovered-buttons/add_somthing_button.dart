@@ -6,10 +6,11 @@ import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 
 // ignore: must_be_immutable
-class DeleteButton extends StatelessWidget {
-  DeleteButton({super.key, required this.onTap});
+class AddSomthingButton extends StatelessWidget {
+  AddSomthingButton({super.key, required this.onTap, required this.something});
 
   final void Function()? onTap;
+  final String something;
   ValueNotifier<bool> isHover = ValueNotifier(false);
 
   @override
@@ -32,11 +33,9 @@ class DeleteButton extends StatelessWidget {
                 ),
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: value ? AppColors.redShade2 : Colors.transparent,
-                  border: Border.all(color: AppColors.redShade2, width: 1.1),
-                  borderRadius: BorderRadius.circular(
-                    SizesConfig.borderRadiusSm,
-                  ),
+                  color: value ? AppColors.greenShade2 : Colors.transparent,
+                  border: Border.all(color: AppColors.greenShade2, width: 1.1),
+                  borderRadius: BorderRadius.circular(SizesConfig.buttonRadius),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -44,16 +43,16 @@ class DeleteButton extends StatelessWidget {
                     SizedBox(
                       width: 10,
                       child: Icon(
-                        Iconsax.trash,
+                        Iconsax.like,
                         size: SizesConfig.iconsSm,
-                        color: value ? AppColors.white : AppColors.redShade2,
+                        color: value ? AppColors.white : AppColors.greenShade2,
                       ),
                     ),
                     PaddingConfig.w8,
                     Text(
-                      "Delete",
+                      "Add $something",
                       style: AppTextStyle.subtitle04(
-                        color: value ? AppColors.white : AppColors.redShade2,
+                        color: value ? AppColors.white : AppColors.greenShade2,
                       ),
                     ),
                   ],

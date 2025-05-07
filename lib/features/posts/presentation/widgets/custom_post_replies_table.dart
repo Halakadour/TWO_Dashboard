@@ -6,7 +6,7 @@ import 'package:two_dashboard/config/constants/base_uri.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
-import 'package:two_dashboard/core/widgets/buttons/accept_button.dart';
+import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/accept_button.dart';
 import 'package:two_dashboard/core/widgets/data-tables/custom_data_table.dart';
 import 'package:two_dashboard/features/posts/domain/entities/reply_entity.dart';
 import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';

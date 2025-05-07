@@ -5,6 +5,8 @@ import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/empty_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/core/widgets/shimmers/card-loading/loading_site_card.dart';
 import 'package:two_dashboard/core/widgets/shimmers/card-loading/loading_working_time_card.dart';
@@ -47,15 +49,17 @@ class AboutUsWhyUsStateHandling {
 
   void createAboutUs(AboutUsWhyUsState state, BuildContext context) {
     if (state.createAboutUsStatus == CasualStatus.loading) {
-      CustomQuickAlert().loadingAlert(context);
+      showLoadingDialog(context);
     } else if (state.createAboutUsStatus == CasualStatus.success) {
       context.pop();
-      CustomQuickAlert().successAlert(context, () => context.pop());
+      showSuccessDialog(context, () {
+        context.pop();
+      });
       context.read<AboutUsWhyUsBloc>().add(GetAboutUsEvent());
     } else if (state.createAboutUsStatus == CasualStatus.failure) {
       context.pop();
       CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.createAboutUsStatus == CasualStatus.noToken) {
+    } else if (state.createAboutUsStatus == CasualStatus.notAuthorized) {
       context.pop();
       CustomQuickAlert().noTokenAlert(context);
     }
@@ -63,15 +67,17 @@ class AboutUsWhyUsStateHandling {
 
   void updateAboutUs(AboutUsWhyUsState state, BuildContext context) {
     if (state.updateAboutUsStatus == CasualStatus.loading) {
-      CustomQuickAlert().loadingAlert(context);
+      showLoadingDialog(context);
     } else if (state.updateAboutUsStatus == CasualStatus.success) {
       context.pop();
-      CustomQuickAlert().successAlert(context, () => context.pop());
+      showSuccessDialog(context, () {
+        context.pop();
+      });
       context.read<AboutUsWhyUsBloc>().add(GetAboutUsEvent());
     } else if (state.updateAboutUsStatus == CasualStatus.failure) {
       context.pop();
       CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.updateAboutUsStatus == CasualStatus.noToken) {
+    } else if (state.updateAboutUsStatus == CasualStatus.notAuthorized) {
       context.pop();
       CustomQuickAlert().noTokenAlert(context);
     }
@@ -95,14 +101,16 @@ class AboutUsWhyUsStateHandling {
 
   void createWhyUs(AboutUsWhyUsState state, BuildContext context) {
     if (state.createWhyUsStatus == CasualStatus.loading) {
-      CustomQuickAlert().loadingAlert(context);
+      showLoadingDialog(context);
     } else if (state.createWhyUsStatus == CasualStatus.success) {
       context.pop();
-      CustomQuickAlert().successAlert(context, () => context.pop());
+      showSuccessDialog(context, () {
+        context.pop();
+      });
       context.read<AboutUsWhyUsBloc>().add(GetWhyUsEvent());
     } else if (state.createWhyUsStatus == CasualStatus.failure) {
       CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.createWhyUsStatus == CasualStatus.noToken) {
+    } else if (state.createWhyUsStatus == CasualStatus.notAuthorized) {
       CustomQuickAlert().noTokenAlert(context);
     }
   }
@@ -110,18 +118,20 @@ class AboutUsWhyUsStateHandling {
   void updateOrDeleteWhyUs(AboutUsWhyUsState state, BuildContext context) {
     if (state.updateWhyUsStatus == CasualStatus.loading ||
         state.deleteWhyUsStatus == CasualStatus.loading) {
-      CustomQuickAlert().loadingAlert(context);
+      showLoadingDialog(context);
     } else if (state.updateWhyUsStatus == CasualStatus.success ||
         state.deleteWhyUsStatus == CasualStatus.success) {
       context.pop();
-      CustomQuickAlert().successAlert(context, () => context.pop());
+      showSuccessDialog(context, () {
+        context.pop();
+      });
       context.read<AboutUsWhyUsBloc>().add(GetWhyUsEvent());
     } else if (state.updateWhyUsStatus == CasualStatus.failure ||
         state.deleteWhyUsStatus == CasualStatus.failure) {
       context.pop();
       CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.updateWhyUsStatus == CasualStatus.noToken ||
-        state.deleteWhyUsStatus == CasualStatus.noToken) {
+    } else if (state.updateWhyUsStatus == CasualStatus.notAuthorized ||
+        state.deleteWhyUsStatus == CasualStatus.notAuthorized) {
       context.pop();
       CustomQuickAlert().noTokenAlert(context);
     }

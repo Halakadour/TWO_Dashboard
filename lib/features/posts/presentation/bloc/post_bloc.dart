@@ -58,7 +58,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
           (r) => emit(state.copyWith(createPostStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(createPostStatus: CasualStatus.noToken));
+        emit(state.copyWith(createPostStatus: CasualStatus.notAuthorized));
       }
     });
     // DELETE POST //
@@ -82,7 +82,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
           (r) => emit(state.copyWith(deletePostStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(deletePostStatus: CasualStatus.noToken));
+        emit(state.copyWith(deletePostStatus: CasualStatus.notAuthorized));
       }
     });
     // UN ACTIVE POST //
@@ -106,7 +106,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
           (r) => emit(state.copyWith(unActivePostStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(unActivePostStatus: CasualStatus.noToken));
+        emit(state.copyWith(unActivePostStatus: CasualStatus.notAuthorized));
       }
     });
     // GET ACTIVE POSTS //
@@ -173,7 +173,9 @@ class PostBloc extends Bloc<PostEvent, PostState> {
           ),
         );
       } else {
-        emit(state.copyWith(postsRepliesListStatus: CasualStatus.noToken));
+        emit(
+          state.copyWith(postsRepliesListStatus: CasualStatus.notAuthorized),
+        );
       }
     });
     // GET POST  ACCEPTED REPLIES //
@@ -202,7 +204,9 @@ class PostBloc extends Bloc<PostEvent, PostState> {
           ),
         );
       } else {
-        emit(state.copyWith(postsRepliesListStatus: CasualStatus.noToken));
+        emit(
+          state.copyWith(postsRepliesListStatus: CasualStatus.notAuthorized),
+        );
       }
     });
     // ACCEPT A REPLY //
@@ -223,7 +227,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
           (r) => emit(state.copyWith(acceptReplyStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(acceptReplyStatus: CasualStatus.noToken));
+        emit(state.copyWith(acceptReplyStatus: CasualStatus.notAuthorized));
       }
     });
     // REPLY TO POST //

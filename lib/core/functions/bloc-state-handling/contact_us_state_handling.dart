@@ -4,6 +4,8 @@ import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/unauthorized_status_animation.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/core/widgets/shimmers/table-loading/loading_contact_us_table.dart';
 import 'package:two_dashboard/features/contact-us/presentation/bloc/contact_us_bloc.dart';
@@ -17,7 +19,7 @@ class ContactUsStateHandling {
       return CustomContactUsTable(contactUsList: state.contactUsList);
     } else if (state.contactUsListStatus == CasualStatus.failure) {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));
-    } else if (state.contactUsListStatus == CasualStatus.noToken) {
+    } else if (state.contactUsListStatus == CasualStatus.notAuthorized) {
       return Center(child: UnauthorizedStatusAnimation());
     } else {
       return const SizedBox();
@@ -30,17 +32,19 @@ class ContactUsStateHandling {
   ) {
     if (state.approvedMarkerStatus == CasualStatus.loading ||
         state.seenMarkerStatus == CasualStatus.loading) {
-      CustomQuickAlert().loadingAlert(context);
+      showLoadingDialog(context);
     } else if (state.approvedMarkerStatus == CasualStatus.success ||
         state.seenMarkerStatus == CasualStatus.success) {
       context.pop();
-      CustomQuickAlert().successAlert(context, () {});
+      showSuccessDialog(context, () {
+        context.pop();
+      });
     } else if (state.approvedMarkerStatus == CasualStatus.failure ||
         state.seenMarkerStatus == CasualStatus.failure) {
       context.pop();
       CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.approvedMarkerStatus == CasualStatus.noToken ||
-        state.seenMarkerStatus == CasualStatus.noToken) {
+    } else if (state.approvedMarkerStatus == CasualStatus.notAuthorized ||
+        state.seenMarkerStatus == CasualStatus.notAuthorized) {
       context.pop();
       CustomQuickAlert().failureAlert(context, TextStrings.noToken);
     }

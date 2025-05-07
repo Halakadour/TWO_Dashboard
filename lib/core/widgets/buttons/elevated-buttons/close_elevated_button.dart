@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 
-class SaveElevatedButton extends StatelessWidget {
-  const SaveElevatedButton({super.key, required this.onPressed});
-  final void Function()? onPressed;
+class CloseElevatedButton extends StatelessWidget {
+  const CloseElevatedButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +16,14 @@ class SaveElevatedButton extends StatelessWidget {
           SizesConfig.buttonHeight,
         ),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        backgroundColor: AppColors.greenShade2,
+        backgroundColor: AppColors.navy,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(SizesConfig.borderRadiusMd),
+          borderRadius: BorderRadius.circular(SizesConfig.buttonRadius),
         ),
       ),
-      onPressed: onPressed,
+      onPressed: () => context.pop(),
       child: Text(
-        "Save",
+        "Close",
         style: AppTextStyle.buttonStyle(color: AppColors.white),
       ),
     );

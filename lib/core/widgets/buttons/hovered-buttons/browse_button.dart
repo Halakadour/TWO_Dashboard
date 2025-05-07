@@ -32,9 +32,7 @@ class BrowseButton extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.gray, width: 1.1),
                   color: value ? AppColors.blueShade2 : AppColors.blueShade1,
-                  borderRadius: BorderRadius.circular(
-                    SizesConfig.borderRadiusSm,
-                  ),
+                  borderRadius: BorderRadius.circular(SizesConfig.buttonRadius),
                 ),
                 child: Text(
                   "Browse",

@@ -12,6 +12,8 @@ import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/services/shared_preferences_services.dart';
 import 'package:two_dashboard/core/widgets/dialog/auth/auth_dialogs.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/core/widgets/layouts/sidebar/menu_item.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
@@ -271,18 +273,18 @@ class _CustomSidebarState extends State<CustomSidebar> {
     BuildContext context,
   ) async {
     if (state.logoutStatusStatus == CasualStatus.loading) {
-      CustomQuickAlert().loadingAlert(context);
+      showLoadingDialog(context);
     } else if (state.logoutStatusStatus == CasualStatus.success) {
       context.pop();
       await SharedPreferencesServices.deleteUserToken();
-      CustomQuickAlert().successAlert(
-        context,
-        () => context.pushReplacementNamed(AppRouteConfig.login),
-      );
+      showSuccessDialog(context, () {
+        context.pushReplacementNamed(AppRouteConfig.login);
+        context.pop();
+      });
     } else if (state.authModelStatus == CasualStatus.failure) {
       context.pop();
       CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.authModelStatus == CasualStatus.noToken) {
+    } else if (state.authModelStatus == CasualStatus.notAuthorized) {
       context.pop();
       CustomQuickAlert().noTokenAlert(context);
     }

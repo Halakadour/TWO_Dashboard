@@ -3,17 +3,17 @@ import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 class CustomQuickAlert {
-  Future<dynamic> successAlert(
-    BuildContext context,
-    void Function()? onConfirmBtnTap,
-  ) {
-    return QuickAlert.show(
-      context: context,
-      type: QuickAlertType.success,
-      width: 300,
-      onConfirmBtnTap: onConfirmBtnTap,
-    );
-  }
+  // Future<dynamic> successAlert(
+  //   BuildContext context,
+  //   void Function()? onConfirmBtnTap,
+  // ) {
+  //   return QuickAlert.show(
+  //     context: context,
+  //     type: QuickAlertType.success,
+  //     width: 300,
+  //     onConfirmBtnTap: onConfirmBtnTap,
+  //   );
+  // }
 
   Future<dynamic> failureAlert(BuildContext context, String? text) {
     return QuickAlert.show(
@@ -29,14 +29,6 @@ class CustomQuickAlert {
       context: context,
       type: QuickAlertType.error,
       text: "you need to have an account first.",
-      width: 300,
-    );
-  }
-
-  Future<dynamic> loadingAlert(BuildContext context) {
-    return QuickAlert.show(
-      context: context,
-      type: QuickAlertType.loading,
       width: 300,
     );
   }

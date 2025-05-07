@@ -75,7 +75,7 @@ class JsonPath {
   static const _animationImagesPath = 'assets/animation/';
   // ANIMATIONs //
   static const success = '${_animationImagesPath}success.json';
-  static const error = '${_animationImagesPath}error.json';
+  static const networkError = '${_animationImagesPath}error.json';
   static const fingerPrint = '${_animationImagesPath}token.json';
   static const kite = '${_animationImagesPath}loading_paper.json';
   static const loading = '${_animationImagesPath}loading_circle.json';

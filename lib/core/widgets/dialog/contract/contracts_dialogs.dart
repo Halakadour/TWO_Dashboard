@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
-import 'package:two_dashboard/core/widgets/buttons/cancel_text_button.dart';
-import 'package:two_dashboard/core/widgets/buttons/save_text_button.dart';
+import 'package:two_dashboard/core/widgets/buttons/text-buttons/cancel_text_button.dart';
+import 'package:two_dashboard/core/widgets/buttons/text-buttons/save_text_button.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_image_box.dart';
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
 

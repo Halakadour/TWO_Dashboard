@@ -11,6 +11,8 @@ import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/loading_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/unauthorized_status_animation.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/core/widgets/divider/divider_with_text.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
@@ -79,14 +81,16 @@ class ProfileBlocStateHandling {
   // For Approving Users
   void toggleApproveUser(AuthRoleProfileState state, BuildContext context) {
     if (state.toggleApproveStatus == CasualStatus.loading) {
-      CustomQuickAlert().loadingAlert(context);
+      showLoadingDialog(context);
     } else if (state.toggleApproveStatus == CasualStatus.success) {
       context.pop();
-      CustomQuickAlert().successAlert(context, () => context.pop());
+      showSuccessDialog(context, () {
+        context.pop();
+      });
     } else if (state.toggleApproveStatus == CasualStatus.failure) {
       context.pop();
       CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.toggleApproveStatus == CasualStatus.noToken) {
+    } else if (state.toggleApproveStatus == CasualStatus.notAuthorized) {
       context.pop();
       CustomQuickAlert().failureAlert(context, TextStrings.noToken);
     }

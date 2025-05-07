@@ -101,7 +101,7 @@ class AuthRoleProfileBloc
       } else {
         emit(
           state.copyWith(
-            logoutStatusStatus: CasualStatus.noToken,
+            logoutStatusStatus: CasualStatus.notAuthorized,
             message: "No Token",
           ),
         );
@@ -180,7 +180,11 @@ class AuthRoleProfileBloc
           ),
         );
       } else {
-        emit(state.copyWith(updateEmployeeProfileStatus: CasualStatus.noToken));
+        emit(
+          state.copyWith(
+            updateEmployeeProfileStatus: CasualStatus.notAuthorized,
+          ),
+        );
       }
     });
     on<GetUserProfileEvent>((event, emit) async {
@@ -203,7 +207,7 @@ class AuthRoleProfileBloc
           ),
         );
       } else {
-        emit(state.copyWith(employeeEntityStatus: CasualStatus.noToken));
+        emit(state.copyWith(employeeEntityStatus: CasualStatus.notAuthorized));
       }
     });
     on<ToggleUserApprovedEvent>((event, emit) async {
@@ -224,7 +228,7 @@ class AuthRoleProfileBloc
               emit(state.copyWith(toggleApproveStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(toggleApproveStatus: CasualStatus.noToken));
+        emit(state.copyWith(toggleApproveStatus: CasualStatus.notAuthorized));
       }
     });
     on<ShowUsersWithFilterEvent>((event, emit) async {
@@ -250,7 +254,7 @@ class AuthRoleProfileBloc
           ),
         );
       } else {
-        emit(state.copyWith(userListStatus: CasualStatus.noToken));
+        emit(state.copyWith(userListStatus: CasualStatus.notAuthorized));
       }
     });
   }

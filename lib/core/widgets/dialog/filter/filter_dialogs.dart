@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/role_bloc_state_handling.dart';
-import 'package:two_dashboard/core/widgets/buttons/apply_text_button.dart';
-import 'package:two_dashboard/core/widgets/buttons/cancel_text_button.dart';
+import 'package:two_dashboard/core/widgets/buttons/text-buttons/apply_text_button.dart';
+import 'package:two_dashboard/core/widgets/buttons/text-buttons/cancel_text_button.dart';
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
 import 'package:two_dashboard/features/contact-us/presentation/bloc/contact_us_bloc.dart';
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
@@ -25,7 +26,7 @@ class FilterDialogs {
       builder:
           (context) => Center(
             child: Container(
-              width: 350,
+              width: 450,
               height: 500,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(SizesConfig.borderRadiusLg),
@@ -36,7 +37,10 @@ class FilterDialogs {
                 content: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FilterOptionTitle(title: "Approvement"),
+                    FilterOptionTitle(
+                      title: "Approvement",
+                      iconData: Iconsax.activity,
+                    ),
                     PaddingConfig.h8,
                     Row(
                       children: [
@@ -53,7 +57,7 @@ class FilterDialogs {
                       ],
                     ),
                     PaddingConfig.h16,
-                    FilterOptionTitle(title: "Role"),
+                    FilterOptionTitle(title: "Role", iconData: Iconsax.bag),
                     PaddingConfig.h8,
                     BlocBuilder<AuthRoleProfileBloc, AuthRoleProfileState>(
                       buildWhen:
@@ -106,7 +110,7 @@ class FilterDialogs {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FilterOptionTitle(title: "Seen"),
+                  FilterOptionTitle(title: "Seen", iconData: Iconsax.eye),
                   PaddingConfig.h8,
                   Row(
                     children: [
@@ -120,7 +124,10 @@ class FilterDialogs {
                     ],
                   ),
                   PaddingConfig.h16,
-                  FilterOptionTitle(title: "Approvment"),
+                  FilterOptionTitle(
+                    title: "Approvment",
+                    iconData: Iconsax.activity,
+                  ),
                   PaddingConfig.h8,
                   Row(
                     children: [
@@ -169,8 +176,11 @@ class FilterDialogs {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FilterOptionTitle(title: "Activation"),
-                  PaddingConfig.h8,
+                  FilterOptionTitle(
+                    title: "Activation",
+                    iconData: Iconsax.activity,
+                  ),
+                  PaddingConfig.h16,
                   Row(
                     children: [
                       FilterOption(
@@ -221,7 +231,10 @@ class FilterDialogs {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FilterOptionTitle(title: "Acceptance"),
+                  FilterOptionTitle(
+                    title: "Acceptance",
+                    iconData: Iconsax.activity,
+                  ),
                   PaddingConfig.h8,
                   Row(
                     children: [
@@ -274,7 +287,10 @@ class FilterDialogs {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FilterOptionTitle(title: "Approvment"),
+                  FilterOptionTitle(
+                    title: "Approvment",
+                    iconData: Iconsax.activity,
+                  ),
                   PaddingConfig.h24,
                   Row(
                     children: [
@@ -323,7 +339,10 @@ class FilterDialogs {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FilterOptionTitle(title: "Approvment"),
+                  FilterOptionTitle(
+                    title: "Approvment",
+                    iconData: Iconsax.activity,
+                  ),
                   PaddingConfig.h24,
                   Row(
                     children: [
@@ -379,30 +398,49 @@ class FilterOption extends StatelessWidget {
         valueListenable: valueNotifier,
         builder:
             (context, value, child) => Container(
+              height: 40,
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 9),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color:
-                    (isOposite)
-                        ? !(value)
-                            ? AppColors.greenShade2
-                            : AppColors.gray
-                        : (value)
-                        ? AppColors.greenShade2
-                        : AppColors.gray,
-              ),
-              child: Text(
-                option,
-                style: AppTextStyle.subtitle04(
+                borderRadius: BorderRadius.circular(SizesConfig.borderRadiusXs),
+                border: Border.all(
                   color:
                       (isOposite)
                           ? !(value)
-                              ? AppColors.white
-                              : AppColors.fontDarkColor
+                              ? AppColors.blueShade2
+                              : AppColors.gray
                           : (value)
-                          ? AppColors.white
-                          : AppColors.fontDarkColor,
+                          ? AppColors.blueShade2
+                          : AppColors.gray,
                 ),
+                color:
+                    (isOposite)
+                        ? !(value)
+                            ? AppColors.blueShade1
+                            : Colors.transparent
+                        : (value)
+                        ? AppColors.blueShade1
+                        : Colors.transparent,
+              ),
+              child: Row(
+                children: [
+                  if (isOposite && !value || !isOposite && value)
+                    Icon(Icons.check, color: AppColors.blueShade2),
+                  if (isOposite && !value || !isOposite && value)
+                    PaddingConfig.w8,
+                  Text(
+                    option,
+                    style: AppTextStyle.subtitle03(
+                      color:
+                          (isOposite)
+                              ? !(value)
+                                  ? AppColors.blueShade2
+                                  : AppColors.fontDarkColor
+                              : (value)
+                              ? AppColors.blueShade2
+                              : AppColors.fontDarkColor,
+                    ),
+                  ),
+                ],
               ),
             ),
       ),
@@ -411,14 +449,25 @@ class FilterOption extends StatelessWidget {
 }
 
 class FilterOptionTitle extends StatelessWidget {
-  const FilterOptionTitle({super.key, required this.title});
+  const FilterOptionTitle({
+    super.key,
+    required this.title,
+    required this.iconData,
+  });
   final String title;
+  final IconData iconData;
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      "$title :",
-      style: AppTextStyle.subtitle03(color: AppColors.greenShade2),
+    return Row(
+      children: [
+        Icon(iconData, size: SizesConfig.iconsMd, color: AppColors.greenShade2),
+        PaddingConfig.w8,
+        Text(
+          "$title :",
+          style: AppTextStyle.subtitle03(color: AppColors.greenShade2),
+        ),
+      ],
     );
   }
 }

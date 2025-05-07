@@ -34,9 +34,7 @@ class DeactivateButton extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: value ? AppColors.yellowShade2 : Colors.transparent,
                   border: Border.all(color: AppColors.yellowShade2, width: 1.1),
-                  borderRadius: BorderRadius.circular(
-                    SizesConfig.borderRadiusSm,
-                  ),
+                  borderRadius: BorderRadius.circular(SizesConfig.buttonRadius),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
