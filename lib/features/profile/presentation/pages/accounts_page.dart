@@ -5,7 +5,7 @@ import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/profile_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/buttons/icon-buttons/filter_button.dart';
-import 'package:two_dashboard/core/widgets/dialog/filter/filter_dialogs.dart';
+import 'package:two_dashboard/core/widgets/dialog/filter/filter_employee.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
 
@@ -49,7 +49,7 @@ class _AccountsPageState extends State<AccountsPage> {
                   PaddingConfig.w8,
                   FilterButton(
                     onPressed: () {
-                      FilterDialogs().filterUsers(
+                      FilterEmployee().filterUsers(
                         context,
                         ValueNotifier(true),
                         ValueNotifier(2),

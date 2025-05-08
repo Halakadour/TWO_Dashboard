@@ -8,7 +8,7 @@ class AppTextStyle {
   }) {
     return TextStyle(
       color: color,
-      fontFamily: 'Almarai',
+      fontFamily: 'Poppins',
       fontWeight: FontWeight.w800,
       fontStyle: FontStyle.normal,
       fontSize: fontSize,
@@ -23,7 +23,7 @@ class AppTextStyle {
   }) {
     return TextStyle(
       color: color,
-      fontFamily: 'Almarai',
+      fontFamily: 'Poppins',
       fontWeight: FontWeight.w800,
       fontStyle: FontStyle.normal,
       fontSize: fontSize,
@@ -38,7 +38,7 @@ class AppTextStyle {
   }) {
     return TextStyle(
       color: color,
-      fontFamily: 'Almarai',
+      fontFamily: 'Poppins',
       fontWeight: FontWeight.w800,
       fontStyle: FontStyle.normal,
       fontSize: fontSize,
@@ -53,7 +53,7 @@ class AppTextStyle {
   }) {
     return TextStyle(
       color: color,
-      fontFamily: 'Almarai',
+      fontFamily: 'Poppins',
       fontWeight: FontWeight.w800,
       fontStyle: FontStyle.normal,
       fontSize: fontSize,
@@ -68,7 +68,7 @@ class AppTextStyle {
   }) {
     return TextStyle(
       color: color,
-      fontFamily: 'Almarai',
+      fontFamily: 'Poppins',
       fontWeight: FontWeight.w600,
       fontStyle: FontStyle.normal,
       fontSize: fontSize,
@@ -83,7 +83,7 @@ class AppTextStyle {
   }) {
     return TextStyle(
       color: color,
-      fontFamily: 'Almarai',
+      fontFamily: 'Poppins',
       fontWeight: FontWeight.w600,
       fontStyle: FontStyle.normal,
       fontSize: fontSize,
@@ -98,8 +98,8 @@ class AppTextStyle {
   }) {
     return TextStyle(
       color: color,
-      fontFamily: 'Almarai',
-      fontWeight: FontWeight.w500,
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
       fontSize: fontSize,
       decoration: decoration,
@@ -114,8 +114,8 @@ class AppTextStyle {
   }) {
     return TextStyle(
       color: color,
-      fontFamily: 'Almarai',
-      fontWeight: FontWeight.w600,
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
       fontSize: fontSize,
       decoration: decoration,
@@ -130,8 +130,8 @@ class AppTextStyle {
   }) {
     return TextStyle(
       color: color,
-      fontFamily: 'Almarai',
-      fontWeight: FontWeight.w700,
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w500,
       fontStyle: FontStyle.normal,
       fontSize: fontSize,
       decoration: decoration,
@@ -145,7 +145,7 @@ class AppTextStyle {
   }) {
     return TextStyle(
       color: color,
-      fontFamily: 'Almarai',
+      fontFamily: 'Poppins',
       fontWeight: FontWeight.w600,
       fontStyle: FontStyle.normal,
       fontSize: fontSize,
@@ -160,7 +160,7 @@ class AppTextStyle {
   }) {
     return TextStyle(
       color: color,
-      fontFamily: 'Almarai',
+      fontFamily: 'Poppins',
       fontWeight: FontWeight.w500,
       fontStyle: FontStyle.normal,
       fontSize: fontSize,
@@ -169,13 +169,13 @@ class AppTextStyle {
   }
 
   static TextStyle navRailStyle({
-    double fontSize = 14,
+    double fontSize = 12,
     Color color = Colors.black,
     TextDecoration? decoration,
   }) {
     return TextStyle(
       color: color,
-      fontFamily: 'Almarai',
+      fontFamily: 'Poppins',
       fontWeight: FontWeight.w600,
       fontStyle: FontStyle.normal,
       fontSize: fontSize,

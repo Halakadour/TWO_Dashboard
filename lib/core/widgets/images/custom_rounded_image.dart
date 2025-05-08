@@ -46,6 +46,7 @@ class CustomRoundedImage extends StatelessWidget {
       width: width,
       height: height,
       margin: margin != null ? EdgeInsets.all(margin!) : null,
+      clipBehavior: Clip.hardEdge,
       padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
         border: border,
@@ -72,13 +73,7 @@ class CustomRoundedImage extends StatelessWidget {
         imageWidget = _buildAssetImage();
         break;
     }
-    return ClipRRect(
-      borderRadius:
-          applyImageradius
-              ? BorderRadius.circular(borderRadius)
-              : BorderRadius.zero,
-      child: imageWidget,
-    );
+    return imageWidget;
   }
 
   Widget _buildNetworkImage() {

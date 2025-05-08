@@ -10,7 +10,7 @@ class EmployeeEntity {
     required this.eId,
     required this.eName,
     required this.eEmail,
-    required this.eImage,
+    this.eImage,
     required this.eRole,
     required this.eCv,
   });

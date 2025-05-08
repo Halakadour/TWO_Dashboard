@@ -59,3 +59,5 @@ class ShowUsersWithFilterEvent extends AuthRoleProfileEvent {
   int? roleFilter;
   ShowUsersWithFilterEvent({this.approvedFilter = 0, this.roleFilter});
 }
+
+class ShowClientsEvent extends AuthRoleProfileEvent {}

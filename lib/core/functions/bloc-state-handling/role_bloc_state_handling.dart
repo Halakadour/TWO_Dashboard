@@ -38,13 +38,7 @@ class RoleBlocStateHandling {
                             vertical: 9,
                           ),
                           decoration: BoxDecoration(
-                            border: Border.all(
-                              color:
-                                  (state.roleWithoutClientList[index].id ==
-                                          roleSelected.value)
-                                      ? AppColors.blueShade2
-                                      : AppColors.gray,
-                            ),
+                            border: Border.all(color: AppColors.blueShade1),
                             borderRadius: BorderRadius.circular(
                               SizesConfig.borderRadiusXs,
                             ),
@@ -61,7 +55,7 @@ class RoleBlocStateHandling {
                                   (state.roleWithoutClientList[index].id ==
                                           roleSelected.value)
                                       ? AppColors.blueShade2
-                                      : AppColors.fontDarkColor,
+                                      : AppColors.blueShade1,
                             ),
                           ),
                         ),

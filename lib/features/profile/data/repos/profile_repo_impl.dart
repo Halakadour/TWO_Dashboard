@@ -3,6 +3,7 @@ import 'package:two_dashboard/core/error/failures.dart';
 import 'package:two_dashboard/core/network/network_connection_checker.dart';
 import 'package:two_dashboard/features/profile/data/datasources/profile_locale_datasource.dart';
 import 'package:two_dashboard/features/profile/data/datasources/profile_remote_datasourse.dart';
+import 'package:two_dashboard/features/profile/domain/entities/client_entity.dart';
 import 'package:two_dashboard/features/profile/domain/entities/employee_entity.dart';
 import 'package:two_dashboard/features/profile/domain/repos/profile_repo.dart';
 
@@ -50,6 +51,16 @@ class ProfileRepoImpl extends ProfileRepo {
           roleFilter,
           token,
         );
+        return Right(result.data);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, List<ClientEntity>>> showClients() {
+    return wrapHandling(
+      tryCall: () async {
+        final result = await profileRemoteDatasourse.showClients();
         return Right(result.data);
       },
     );

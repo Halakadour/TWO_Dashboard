@@ -20,6 +20,8 @@ class AuthRoleProfileState {
   CasualStatus toggleApproveStatus;
   List<EmployeeEntity> userList;
   CasualStatus userListStatus;
+  List<ClientEntity> clientList;
+  CasualStatus clientListStatus;
 
   AuthRoleProfileState({
     this.message = "",
@@ -36,6 +38,8 @@ class AuthRoleProfileState {
     this.toggleApproveStatus = CasualStatus.initial,
     this.userList = const [],
     this.userListStatus = CasualStatus.initial,
+    this.clientList = const [],
+    this.clientListStatus = CasualStatus.initial,
   });
 
   AuthRoleProfileState copyWith({
@@ -53,6 +57,8 @@ class AuthRoleProfileState {
     CasualStatus? toggleApproveStatus,
     List<EmployeeEntity>? userList,
     CasualStatus? userListStatus,
+    List<ClientEntity>? clientList,
+    CasualStatus? clientListStatus,
   }) {
     return AuthRoleProfileState(
       message: message ?? this.message,
@@ -72,6 +78,8 @@ class AuthRoleProfileState {
       toggleApproveStatus: toggleApproveStatus ?? this.toggleApproveStatus,
       userList: userList ?? this.userList,
       userListStatus: userListStatus ?? this.userListStatus,
+      clientList: clientList ?? this.clientList,
+      clientListStatus: clientListStatus ?? this.clientListStatus,
     );
   }
 }

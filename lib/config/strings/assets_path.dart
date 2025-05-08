@@ -68,7 +68,8 @@ class ImagesPath {
   static const lightWebLogo = '${_svgImagesPath}light-web-logo.svg';
 
   // PNGs //
-  static const profile = '${_pngImagesPath}photo_2024-10-28_18-34-13.jpg';
+  static const profile = '${_pngImagesPath}photo.jpg';
+  static const design = '${_pngImagesPath}mobile_design.jpg';
 }
 
 class JsonPath {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
+import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
@@ -20,9 +21,10 @@ class _ChooseDateButtonState extends State<ChooseDateButton> {
 
     return IconButton(
       style: IconButton.styleFrom(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
         shape: RoundedRectangleBorder(
-          side: const BorderSide(color: AppColors.black, width: .3),
-          borderRadius: BorderRadius.circular(SizesConfig.buttonRadius),
+          side: const BorderSide(color: AppColors.rockshade1, width: .3),
+          borderRadius: BorderRadius.circular(SizesConfig.borderRadiusXl),
         ),
       ),
       onPressed: () async {
@@ -41,11 +43,15 @@ class _ChooseDateButtonState extends State<ChooseDateButton> {
       },
       icon: Row(
         children: [
-          const Icon(Iconsax.calendar_1, size: SizesConfig.iconsSm),
-          Padding(padding: const EdgeInsets.symmetric(horizontal: 8.0)),
+          const Icon(
+            Iconsax.calendar_1,
+            size: SizesConfig.iconsSm,
+            color: AppColors.rockShade2,
+          ),
+          PaddingConfig.w8,
           Text(
             formattedDate,
-            style: AppTextStyle.subtitle02(color: AppColors.fontLightColor),
+            style: AppTextStyle.subtitle03(color: AppColors.rockShade2),
           ),
         ],
       ),

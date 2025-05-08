@@ -8,7 +8,7 @@ import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/contracts_state_handling.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/icon-buttons/filter_button.dart';
-import 'package:two_dashboard/core/widgets/dialog/filter/filter_dialogs.dart';
+import 'package:two_dashboard/core/widgets/dialog/filter/filter_contracts.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
 
@@ -48,7 +48,7 @@ class _ContractsPageState extends State<ContractsPage> {
                 PaddingConfig.w8,
                 FilterButton(
                   onPressed: () {
-                    FilterDialogs().filterContracts(
+                    FilterContracts().filterContracts(
                       context,
                       ValueNotifier(false),
                     );

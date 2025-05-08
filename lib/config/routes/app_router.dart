@@ -73,7 +73,7 @@ class AppRouter {
               GoRoute(
                 name: AppRouteConfig.projects,
                 path: '/projects',
-                builder: (context, state) => const ProjectsPage(),
+                builder: (context, state) => const ProjectTimelinePage(),
               ),
             ],
           ),
@@ -83,7 +83,7 @@ class AppRouter {
               GoRoute(
                 name: AppRouteConfig.calendar,
                 path: '/calendar',
-                builder: (context, state) => const CalendarPage(),
+                builder: (context, state) => CalendarPage(),
               ),
             ],
           ),

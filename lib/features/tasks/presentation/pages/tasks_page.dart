@@ -5,117 +5,114 @@ import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/widgets/buttons/icon-buttons/choose_date_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/icon-buttons/filter_button.dart';
-import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
+import 'package:two_dashboard/core/widgets/buttons/icon-buttons/sort_by_button.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
+import 'package:two_dashboard/features/tasks/presentation/widgets/task_kanban_view.dart';
+import 'package:two_dashboard/features/tasks/presentation/widgets/task_list_view.dart';
 
-class TasksPage extends StatelessWidget {
+class TasksPage extends StatefulWidget {
   const TasksPage({super.key});
+
+  @override
+  TasksPageState createState() => TasksPageState();
+}
+
+class TasksPageState extends State<TasksPage> {
+  bool isKanban = true;
+  String filter = 'All';
+  String sortBy = 'Date';
+
+  final List<String> filters = [
+    'All',
+    'To Do',
+    'In Progress',
+    'In Review',
+    'Done',
+  ];
+  final List<String> sortOptions = ['Date', 'Progress', 'Title'];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bgColor,
-      body: PageTemplate(
+      body: Padding(
+        padding: const EdgeInsets.only(
+          top: SizesConfig.lg,
+          left: SizesConfig.lg,
+          right: SizesConfig.lg,
+        ),
         child: Column(
           children: [
             PageTitle(pageTitle: "Tasks"),
-            PaddingConfig.h16,
-            Container(
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(SizesConfig.borderRadiusLg),
-              ),
-              padding: EdgeInsets.all(SizesConfig.md),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ChooseDateButton(),
-                      PaddingConfig.w8,
-                      FilterButton(onPressed: () {}),
-                      PaddingConfig.w8,
-                      //ToggleButton(),
-                    ],
-                  ),
-                  PaddingConfig.h16,
-                  Row(
-                    children: [
-                      TaskBox(taskBoxTitle: "To Do"),
-                      PaddingConfig.w8,
-
-                      TaskBox(taskBoxTitle: "In Progress"),
-                      PaddingConfig.w8,
-
-                      TaskBox(taskBoxTitle: "In Review"),
-                      PaddingConfig.w8,
-
-                      TaskBox(taskBoxTitle: "Done"),
-                    ],
-                  ),
-                ],
-              ),
+            PaddingConfig.h24,
+            _buildFilters(),
+            PaddingConfig.h24,
+            Expanded(
+              child:
+                  isKanban
+                      ? TaskKanbanView()
+                      : TaskListView(colorStatus: AppColors.yellowShade2),
             ),
           ],
         ),
       ),
     );
   }
-}
 
-class TaskBox extends StatelessWidget {
-  const TaskBox({super.key, required this.taskBoxTitle});
-  final String taskBoxTitle;
+  Widget _buildToggleBar() {
+    return Container(
+      height: 42,
+      decoration: BoxDecoration(
+        border: Border.all(color: AppColors.rockShade2, width: 0.2),
+        borderRadius: BorderRadius.circular(SizesConfig.borderRadiusXl),
+      ),
+      padding: EdgeInsets.all(3.0),
+      child: Row(
+        children: [
+          IconButton(
+            icon: Icon(Iconsax.kanban),
+            iconSize: SizesConfig.iconsSm,
+            padding: EdgeInsets.all(0.0),
+            style: IconButton.styleFrom(
+              shape: CircleBorder(),
+              backgroundColor:
+                  isKanban ? AppColors.greenShade2 : Colors.transparent,
+            ),
+            onPressed: () => setState(() => isKanban = true),
+            color: isKanban ? AppColors.white : Colors.grey,
+          ),
+          PaddingConfig.w8,
+          IconButton(
+            icon: Icon(Iconsax.element_4),
+            iconSize: SizesConfig.iconsSm,
+            padding: EdgeInsets.all(0.0),
+            style: IconButton.styleFrom(
+              shape: CircleBorder(),
+              backgroundColor:
+                  !isKanban ? AppColors.greenShade2 : Colors.transparent,
+            ),
+            onPressed: () => setState(() => isKanban = false),
+            color: !isKanban ? AppColors.white : Colors.grey,
+          ),
+        ],
+      ),
+    );
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.all(SizesConfig.md),
-        decoration: BoxDecoration(
-          border: Border.all(color: AppColors.fontLightColor, width: .3),
-          borderRadius: BorderRadius.circular(SizesConfig.borderRadiusSm),
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(taskBoxTitle),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: SizesConfig.sm),
-                  decoration: BoxDecoration(
-                    color: AppColors.greenShade1,
-                    borderRadius: BorderRadius.circular(
-                      SizesConfig.borderRadiusXs,
-                    ),
-                  ),
-                  child: Text("3"),
-                ),
-              ],
-            ),
-            PaddingConfig.h16,
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(
-                horizontal: SizesConfig.md,
-                vertical: SizesConfig.sm,
-              ),
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.fontLightColor, width: .3),
-                borderRadius: BorderRadius.circular(SizesConfig.borderRadiusXl),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Iconsax.add),
-                  PaddingConfig.w16,
-                  Text("Add New Task"),
-                ],
-              ),
-            ),
-          ],
-        ),
+  Widget _buildFilters() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          ChooseDateButton(),
+          PaddingConfig.w16,
+          SortByButton(onPressed: () {}),
+          PaddingConfig.w16,
+          FilterButton(onPressed: () {}),
+          PaddingConfig.w16,
+          _buildToggleBar(),
+        ],
       ),
     );
   }

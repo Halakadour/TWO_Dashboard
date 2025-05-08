@@ -6,8 +6,10 @@ import 'package:two_dashboard/features/auth/data/models/user_model.dart';
 import 'package:two_dashboard/features/auth/domain/usecases/login_usecase.dart';
 import 'package:two_dashboard/features/auth/domain/usecases/logout_usecase.dart';
 import 'package:two_dashboard/features/auth/domain/usecases/register_usecase.dart';
+import 'package:two_dashboard/features/profile/domain/entities/client_entity.dart';
 import 'package:two_dashboard/features/profile/domain/entities/employee_entity.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/get_user_profile_usecase.dart';
+import 'package:two_dashboard/features/profile/domain/usecases/show_clients_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/show_users_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/toggle_user_approved_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/update_employee_profile_usecase.dart';
@@ -33,6 +35,7 @@ class AuthRoleProfileBloc
   final GetUserProfileUsecase getUserProfileUsecase;
   final ToggleUserApprovedUsecase toggleUserApprovedUsecase;
   final ShowUsersUsecase showUsersUsecase;
+  final ShowClientsUsecase showClientsUsecase;
   AuthRoleProfileBloc({
     required this.registerUsecase,
     required this.loginUsecase,
@@ -43,6 +46,7 @@ class AuthRoleProfileBloc
     required this.getUserProfileUsecase,
     required this.toggleUserApprovedUsecase,
     required this.showUsersUsecase,
+    required this.showClientsUsecase,
   }) : super(AuthRoleProfileState()) {
     // Auth Bloc //
     on<RegisteNewUserEvent>((event, emit) async {
@@ -256,6 +260,21 @@ class AuthRoleProfileBloc
       } else {
         emit(state.copyWith(userListStatus: CasualStatus.notAuthorized));
       }
+    });
+    on<ShowClientsEvent>((event, emit) async {
+      emit(state.copyWith(clientListStatus: CasualStatus.loading));
+      final result = await showClientsUsecase.call();
+      result.fold(
+        (l) => emit(
+          state.copyWith(
+            clientListStatus: CasualStatus.failure,
+            message: l.message,
+          ),
+        ),
+        (r) => emit(
+          state.copyWith(clientListStatus: CasualStatus.success, clientList: r),
+        ),
+      );
     });
   }
 }

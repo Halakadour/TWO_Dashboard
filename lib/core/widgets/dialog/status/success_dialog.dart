@@ -16,7 +16,7 @@ void showSuccessDialog(BuildContext context, void Function()? onPressed) {
         backgroundColor: Colors.transparent,
         elevation: 0,
         child: Container(
-          width: SizesConfig.dialogMd,
+          width: SizesConfig.dialogWidthMd,
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Colors.white,

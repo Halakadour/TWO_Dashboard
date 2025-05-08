@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:two_dashboard/core/error/failures.dart';
 import 'package:two_dashboard/core/error/handling_exception_manager.dart';
+import 'package:two_dashboard/features/profile/domain/entities/client_entity.dart';
 import 'package:two_dashboard/features/profile/domain/entities/employee_entity.dart';
 
 abstract class ProfileRepo with HandlingExceptionManager {
@@ -16,5 +17,6 @@ abstract class ProfileRepo with HandlingExceptionManager {
     int? roleFilter,
     String token,
   );
+  Future<Either<Failure, List<ClientEntity>>> showClients();
   Future<Either<Failure, Unit>> toggleUserApproved(String token, int userId);
 }

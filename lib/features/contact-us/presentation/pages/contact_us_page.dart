@@ -5,7 +5,7 @@ import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/contact_us_state_handling.dart';
 import 'package:two_dashboard/core/widgets/buttons/icon-buttons/filter_button.dart';
-import 'package:two_dashboard/core/widgets/dialog/filter/filter_dialogs.dart';
+import 'package:two_dashboard/core/widgets/dialog/filter/filter_contact_us.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
 import 'package:two_dashboard/features/contact-us/presentation/bloc/contact_us_bloc.dart';
 
@@ -51,7 +51,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                   PaddingConfig.w8,
                   FilterButton(
                     onPressed: () {
-                      FilterDialogs().filterContactUs(
+                      FilterContactUs().filterContactUs(
                         context,
                         ValueNotifier(false),
                         ValueNotifier(false),

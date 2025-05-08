@@ -5,7 +5,7 @@ import 'color.dart';
 class AppTheme {
   static ThemeData getTheme() {
     return ThemeData(
-      fontFamily: 'Almarai',
+      fontFamily: 'Poppins',
       primaryColor: AppColors.mainColor,
       scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
       floatingActionButtonTheme: const FloatingActionButtonThemeData().copyWith(

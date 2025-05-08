@@ -13,19 +13,24 @@ class FilterButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       style: IconButton.styleFrom(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
         shape: RoundedRectangleBorder(
-          side: const BorderSide(color: AppColors.black, width: .3),
-          borderRadius: BorderRadius.circular(SizesConfig.buttonRadius),
+          side: const BorderSide(color: AppColors.rockshade1, width: .3),
+          borderRadius: BorderRadius.circular(SizesConfig.borderRadiusXl),
         ),
       ),
       onPressed: onPressed,
       icon: Row(
         children: [
-          const Icon(Iconsax.candle_2, size: SizesConfig.iconsSm),
+          const Icon(
+            Iconsax.candle_2,
+            size: SizesConfig.iconsSm,
+            color: AppColors.rockShade2,
+          ),
           PaddingConfig.w8,
           Text(
-            "filter",
-            style: AppTextStyle.subtitle02(color: AppColors.fontLightColor),
+            "Filter",
+            style: AppTextStyle.subtitle03(color: AppColors.rockShade2),
           ),
         ],
       ),
