@@ -37,7 +37,7 @@ class BrowseButton extends StatelessWidget {
                 child: Text(
                   "Browse",
                   textAlign: TextAlign.center,
-                  style: AppTextStyle.subtitle03(
+                  style: AppTextStyle.buttonStyle(
                     color: value ? AppColors.white : AppColors.blueShade2,
                   ),
                 ),

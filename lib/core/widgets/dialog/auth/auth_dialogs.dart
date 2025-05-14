@@ -13,7 +13,7 @@ class AuthDialogs {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: Text("Want to logout ? ", style: AppTextStyle.subtitle01()),
+            title: Text("Want to logout ? ", style: AppTextStyle.bodyLg()),
             actions: [
               const CancelTextButton(),
               YesTextBotton(

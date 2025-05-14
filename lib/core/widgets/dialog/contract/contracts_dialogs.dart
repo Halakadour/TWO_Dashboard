@@ -23,7 +23,7 @@ class ContractsDialogs {
             child: AlertDialog(
               title: Text(
                 "Add The Client Signature :",
-                style: AppTextStyle.subtitle01(),
+                style: AppTextStyle.bodyLg(),
               ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,

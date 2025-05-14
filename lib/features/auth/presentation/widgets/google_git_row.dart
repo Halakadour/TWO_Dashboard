@@ -49,7 +49,7 @@ class GoogleGitRow extends StatelessWidget {
             ),
           ),
         ),
-        PaddingConfig.h16,
+        PaddingConfig.h8,
         InkWell(
           onTap: () {
             AuthService().signInWithGitHub();

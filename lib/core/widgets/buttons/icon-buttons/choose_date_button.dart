@@ -51,7 +51,7 @@ class _ChooseDateButtonState extends State<ChooseDateButton> {
           PaddingConfig.w8,
           Text(
             formattedDate,
-            style: AppTextStyle.subtitle03(color: AppColors.rockShade2),
+            style: AppTextStyle.bodySm(color: AppColors.rockShade2),
           ),
         ],
       ),

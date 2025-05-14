@@ -50,7 +50,7 @@ class AcceptButton extends StatelessWidget {
                     PaddingConfig.w8,
                     Text(
                       "Accept",
-                      style: AppTextStyle.subtitle04(
+                      style: AppTextStyle.buttonStyle(
                         color: value ? AppColors.white : AppColors.greenShade2,
                       ),
                     ),

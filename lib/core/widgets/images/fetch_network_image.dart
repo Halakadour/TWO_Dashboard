@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -36,6 +37,9 @@ class _FetchNetworkImageState extends State<FetchNetworkImage> {
       setState(() {
         imageBytes = response.bodyBytes;
       });
+    } else {
+      log("${response.statusCode}");
+      log(response.body);
     }
   }
 
@@ -49,8 +53,8 @@ class _FetchNetworkImageState extends State<FetchNetworkImage> {
   Widget build(BuildContext context) {
     return imageBytes != null
         ? Container(
-          height: widget.height,
-          width: widget.width,
+          height: widget.height ?? 30,
+          width: widget.width ?? 30,
           clipBehavior: Clip.hardEdge,
           margin: EdgeInsets.symmetric(vertical: 8.0),
           decoration: BoxDecoration(

@@ -7,13 +7,13 @@ import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/network/enums.dart';
-import 'package:two_dashboard/core/widgets/dropdown/custom_dropdown_list_for_role_model.dart';
+import 'package:two_dashboard/core/widgets/dropdown-list/custom_dropdown_list_for_role_model.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_image_circle.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/core/widgets/shimmers/dropdown-loading/custom_dropdown_loading.dart';
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
 import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/custom_cartoon_button.dart';
-import 'package:two_dashboard/features/auth/presentation/widgets/fill-profile/fetch_cv_box.dart';
+import 'package:two_dashboard/features/auth/presentation/widgets/fill-profile/fetch_file_box.dart';
 import 'package:two_dashboard/features/roles/data/models/role_response_model.dart';
 
 class FillEmployeeProfileBody extends StatefulWidget {
@@ -51,7 +51,7 @@ class _FillEmployeeProfileBodyState extends State<FillEmployeeProfileBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(TextStrings.fillProfile, style: AppTextStyle.subtitle01()),
+        Text(TextStrings.fillProfile, style: AppTextStyle.bodyLg()),
         const SizedBox(height: SizesConfig.spaceBtwItems),
         // User Image
         FetchImageCircle(imageB64: imageB64, onUpdate: updateImageBytes),
@@ -59,7 +59,7 @@ class _FillEmployeeProfileBodyState extends State<FillEmployeeProfileBody> {
         // Job Title
         Align(
           alignment: Alignment.topLeft,
-          child: Text("Job Title", style: AppTextStyle.subtitle03()),
+          child: Text("Job Title", style: AppTextStyle.bodySm()),
         ),
         PaddingConfig.h8,
         // Roles List
@@ -76,10 +76,10 @@ class _FillEmployeeProfileBodyState extends State<FillEmployeeProfileBody> {
         // CV File Box Selecter
         Align(
           alignment: Alignment.topLeft,
-          child: Text("CV File", style: AppTextStyle.subtitle03()),
+          child: Text("CV File", style: AppTextStyle.bodySm()),
         ),
         PaddingConfig.h8,
-        FetchCvBox(fileB64: cvB64, onUpdate: updateCVBytes),
+        FetchFileBox(fileB64: cvB64, onUpdate: updateCVBytes),
         const SizedBox(height: SizesConfig.spaceBtwItems),
         SizedBox(
           width: double.infinity,

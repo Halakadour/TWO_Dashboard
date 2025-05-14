@@ -37,13 +37,13 @@ void doNotHaveAccountDialog(BuildContext context) {
               Text(
                 "You Do't Have An Acount!",
                 textAlign: TextAlign.center,
-                style: AppTextStyle.heading04(color: AppColors.blueShade2),
+                style: AppTextStyle.headerSm(color: AppColors.blueShade2),
               ),
               PaddingConfig.h8,
               Text(
                 "please make an account first.",
                 textAlign: TextAlign.center,
-                style: AppTextStyle.subtitle02(color: AppColors.blueShade1),
+                style: AppTextStyle.bodyMd(color: AppColors.blueShade1),
               ),
               PaddingConfig.h24,
               CustomCartoonButton(

@@ -1,0 +1,17 @@
+import 'package:dartz/dartz.dart';
+import 'package:two_dashboard/core/usecases/no_param_use_case.dart';
+import 'package:two_dashboard/features/projects%20&%20Team/domain/repos/team_repo.dart';
+
+import '../../../../../core/error/failures.dart';
+import '../../entity/team_entity.dart';
+
+class ShowTeamsUsecase
+    extends NoParamUseCase<Future<Either<Failure, List<TeamEntity>>>> {
+  final TeamRepo teamRepo;
+
+  ShowTeamsUsecase(this.teamRepo);
+  @override
+  Future<Either<Failure, List<TeamEntity>>> call() {
+    return teamRepo.showTeams();
+  }
+}

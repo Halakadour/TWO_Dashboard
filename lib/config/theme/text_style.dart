@@ -1,37 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:two_dashboard/config/theme/color.dart';
 
 class AppTextStyle {
-  static TextStyle heading00({
-    double fontSize = 50,
-    Color color = Colors.black,
-    TextDecoration? decoration,
-  }) {
-    return TextStyle(
-      color: color,
-      fontFamily: 'Poppins',
-      fontWeight: FontWeight.w800,
-      fontStyle: FontStyle.normal,
-      fontSize: fontSize,
-      decoration: decoration,
-    );
-  }
-
-  static TextStyle heading01({
-    double fontSize = 34,
-    Color color = Colors.black,
-    TextDecoration? decoration,
-  }) {
-    return TextStyle(
-      color: color,
-      fontFamily: 'Poppins',
-      fontWeight: FontWeight.w800,
-      fontStyle: FontStyle.normal,
-      fontSize: fontSize,
-      decoration: decoration,
-    );
-  }
-
-  static TextStyle heading02({
+  static TextStyle headerLg({
     double fontSize = 28,
     Color color = Colors.black,
     TextDecoration? decoration,
@@ -39,14 +10,14 @@ class AppTextStyle {
     return TextStyle(
       color: color,
       fontFamily: 'Poppins',
-      fontWeight: FontWeight.w800,
+      fontWeight: FontWeight.w500,
       fontStyle: FontStyle.normal,
       fontSize: fontSize,
       decoration: decoration,
     );
   }
 
-  static TextStyle heading03({
+  static TextStyle headerMd({
     double fontSize = 24,
     Color color = Colors.black,
     TextDecoration? decoration,
@@ -54,14 +25,14 @@ class AppTextStyle {
     return TextStyle(
       color: color,
       fontFamily: 'Poppins',
-      fontWeight: FontWeight.w800,
+      fontWeight: FontWeight.w600,
       fontStyle: FontStyle.normal,
       fontSize: fontSize,
       decoration: decoration,
     );
   }
 
-  static TextStyle heading04({
+  static TextStyle headerSm({
     double fontSize = 20,
     Color color = Colors.black,
     TextDecoration? decoration,
@@ -76,7 +47,7 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle subtitle01({
+  static TextStyle bodyLg({
     double fontSize = 16,
     Color color = Colors.black,
     TextDecoration? decoration,
@@ -91,7 +62,7 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle subtitle02({
+  static TextStyle bodyMd({
     double fontSize = 14,
     Color color = Colors.black,
     TextDecoration? decoration,
@@ -106,7 +77,7 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle subtitle03({
+  static TextStyle bodySm({
     double fontSize = 12,
     Color color = Colors.black,
     TextDecoration? decoration,
@@ -123,7 +94,7 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle subtitle04({
+  static TextStyle bodyXs({
     double fontSize = 10,
     Color color = Colors.black,
     TextDecoration? decoration,
@@ -138,24 +109,60 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle buttonStyle({
-    double fontSize = 15,
-    Color color = Colors.black,
+  static TextStyle dataTableHeaderStyle({
+    double fontSize = 16,
+    Color color = AppColors.black,
     TextDecoration? decoration,
+    double? letterSpacing,
   }) {
     return TextStyle(
       color: color,
       fontFamily: 'Poppins',
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w500,
       fontStyle: FontStyle.normal,
       fontSize: fontSize,
       decoration: decoration,
+      letterSpacing: letterSpacing,
+    );
+  }
+
+  static TextStyle dataTableCellStyle({
+    double fontSize = 14,
+    Color color = AppColors.fontLightGray,
+    TextDecoration? decoration,
+    double? letterSpacing,
+  }) {
+    return TextStyle(
+      color: color,
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w500,
+      fontStyle: FontStyle.normal,
+      fontSize: fontSize,
+      decoration: decoration,
+      letterSpacing: letterSpacing,
+    );
+  }
+
+  static TextStyle buttonStyle({
+    double fontSize = 12,
+    Color color = Colors.black,
+    TextDecoration? decoration,
+    double? letterSpacing,
+  }) {
+    return TextStyle(
+      color: color,
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+      fontSize: fontSize,
+      decoration: decoration,
+      letterSpacing: letterSpacing,
     );
   }
 
   static TextStyle textfieldStyle({
     double fontSize = 12,
-    Color color = Colors.black,
+    Color color = AppColors.fontLightGray,
     TextDecoration? decoration,
   }) {
     return TextStyle(

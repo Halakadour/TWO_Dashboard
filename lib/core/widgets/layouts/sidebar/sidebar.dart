@@ -62,7 +62,7 @@ class _CustomSidebarState extends State<CustomSidebar> {
                   children: [
                     Text(
                       "MAIN",
-                      style: AppTextStyle.subtitle03(
+                      style: AppTextStyle.bodySm(
                         color: AppColors.white,
                         letterSpacing: 1.2,
                       ),
@@ -77,7 +77,7 @@ class _CustomSidebarState extends State<CustomSidebar> {
                     ),
                     MenuItem(
                       icon: IconsPath.task,
-                      itemName: "Tasks",
+                      itemName: "Task Board",
                       pageNum: 1,
                       currentPage: widget.currentPageIndex,
                       onTap: widget.onItemSelected,
@@ -109,7 +109,7 @@ class _CustomSidebarState extends State<CustomSidebar> {
                       children: [
                         Text(
                           "COMPANY",
-                          style: AppTextStyle.subtitle03(
+                          style: AppTextStyle.bodySm(
                             color: AppColors.white,
                             letterSpacing: 1.2,
                           ),
@@ -212,7 +212,7 @@ class _CustomSidebarState extends State<CustomSidebar> {
                       children: [
                         Text(
                           "OTHER",
-                          style: AppTextStyle.subtitle03(
+                          style: AppTextStyle.bodySm(
                             color: AppColors.white,
                             letterSpacing: 1.2,
                           ),

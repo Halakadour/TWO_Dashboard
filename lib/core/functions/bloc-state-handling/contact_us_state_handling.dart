@@ -7,9 +7,9 @@ import 'package:two_dashboard/core/widgets/animation/unauthorized_status_animati
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
-import 'package:two_dashboard/core/widgets/shimmers/table-loading/loading_contact_us_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/loading/loading_contact_us_table.dart';
 import 'package:two_dashboard/features/contact-us/presentation/bloc/contact_us_bloc.dart';
-import 'package:two_dashboard/features/contact-us/presentation/widgets/custom_contact_us_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/custom_contact_us_table.dart';
 
 class ContactUsStateHandling {
   Widget getContactUsTable(ContactUsState state) {

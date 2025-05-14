@@ -27,10 +27,10 @@ class CreateElevatedButton extends StatelessWidget {
       onPressed: onPressed,
       child: Row(
         children: [
-          const Icon(Iconsax.add_square, color: AppColors.white),
+          const Icon(Iconsax.add, color: AppColors.white),
           PaddingConfig.w8,
           Text(
-            "create $addingType",
+            "Add $addingType",
             style: AppTextStyle.buttonStyle(color: AppColors.white),
           ),
         ],

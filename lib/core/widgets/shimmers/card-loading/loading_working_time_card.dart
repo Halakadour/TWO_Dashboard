@@ -27,7 +27,7 @@ class LoadingWorkingTimeCard extends StatelessWidget {
               children: [
                 Text(
                   "Compony woking time",
-                  style: AppTextStyle.subtitle01(color: AppColors.blueShade3),
+                  style: AppTextStyle.bodyLg(color: AppColors.blueShade3),
                 ),
               ],
             ),

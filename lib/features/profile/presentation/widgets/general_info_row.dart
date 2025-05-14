@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
-import 'package:two_dashboard/core/widgets/dropdown/custom_dropdown_list.dart';
+import 'package:two_dashboard/config/theme/theme_cubit.dart';
+import 'package:two_dashboard/core/widgets/dropdown-list/custom_dropdown_list.dart';
 
 // ignore: must_be_immutable
 class GeneralInfoRow extends StatefulWidget {
@@ -32,7 +34,7 @@ class _GeneralInfoRowState extends State<GeneralInfoRow> {
         children: [
           Text(
             widget.title,
-            style: AppTextStyle.subtitle01(color: AppColors.greenShade2),
+            style: AppTextStyle.bodyLg(color: AppColors.greenShade2),
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 8.0),
@@ -56,6 +58,9 @@ class _GeneralInfoRowState extends State<GeneralInfoRow> {
               onChanged: (value) {
                 setState(() {
                   widget.value = value!;
+                  if (!widget.isLang) {
+                    context.read<ThemeCubit>().toggleTheme(value);
+                  }
                 });
               },
             ),

@@ -4,4 +4,8 @@ enum ImageType { asset, network, file, memory }
 
 enum Priority { low, medium, high }
 
-enum FieldStatus { approved, rejected, seen, nonSeen, active, unActive }
+enum ProjectVisibility { public, private }
+
+enum TaskStatus { toDo, inProgress, inReview, completed, canceled }
+
+enum FieldStatus { approved, unApproved, seen, nonSeen, active, unActive }

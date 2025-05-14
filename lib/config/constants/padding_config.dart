@@ -2,12 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 
 class PaddingConfig {
-  // Margin
-  static const EdgeInsets marginBottom12 = EdgeInsets.only(bottom: 12);
-  static const EdgeInsets marginBottom16 = EdgeInsets.only(bottom: 16);
-  static const EdgeInsets marginBottom24 = EdgeInsets.only(bottom: 24);
-  static const EdgeInsets marginBottom40 = EdgeInsets.only(bottom: 40);
-
   // Padding
   static const EdgeInsets pagePadding = EdgeInsets.symmetric(
     horizontal: 30,

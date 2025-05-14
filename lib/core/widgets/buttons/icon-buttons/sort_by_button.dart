@@ -30,7 +30,7 @@ class SortByButton extends StatelessWidget {
           PaddingConfig.w8,
           Text(
             "Sort by",
-            style: AppTextStyle.subtitle03(color: AppColors.rockShade2),
+            style: AppTextStyle.bodySm(color: AppColors.rockShade2),
           ),
         ],
       ),

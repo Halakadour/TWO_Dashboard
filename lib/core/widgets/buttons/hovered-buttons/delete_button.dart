@@ -50,7 +50,7 @@ class DeleteButton extends StatelessWidget {
                     PaddingConfig.w8,
                     Text(
                       "Delete",
-                      style: AppTextStyle.subtitle04(
+                      style: AppTextStyle.buttonStyle(
                         color: value ? AppColors.white : AppColors.redShade2,
                       ),
                     ),

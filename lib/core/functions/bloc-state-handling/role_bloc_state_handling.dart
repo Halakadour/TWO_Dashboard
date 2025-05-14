@@ -50,7 +50,7 @@ class RoleBlocStateHandling {
                           ),
                           child: Text(
                             state.roleWithoutClientList[index].role,
-                            style: AppTextStyle.subtitle04(
+                            style: AppTextStyle.bodyXs(
                               color:
                                   (state.roleWithoutClientList[index].id ==
                                           roleSelected.value)

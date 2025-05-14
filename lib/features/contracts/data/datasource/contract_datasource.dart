@@ -1,11 +1,10 @@
 import 'package:two_dashboard/config/constants/base_uri.dart';
 import 'package:two_dashboard/core/api/get_with_token_api.dart';
 import 'package:two_dashboard/core/api/post_api_with_token.dart';
+import 'package:two_dashboard/core/models/empty_response_model.dart';
 import 'package:two_dashboard/features/contracts/data/models/contract/add_contract_response_model.dart';
-import 'package:two_dashboard/features/contracts/data/models/contract/add_sign_response_model.dart';
 import 'package:two_dashboard/features/contracts/data/models/contract/show_contract_response_model.dart';
 import 'package:two_dashboard/features/contracts/data/models/draft/add_draft_response_model.dart';
-import 'package:two_dashboard/features/contracts/data/models/draft/delete_draft_response_model.dart';
 import 'package:two_dashboard/features/contracts/data/models/draft/show_draft_response_model.dart';
 
 abstract class ContractDatasource {
@@ -16,7 +15,7 @@ abstract class ContractDatasource {
     int clientId,
     int drafId,
   );
-  Future<AddSignResponseModel> addSign(
+  Future<EmptyResponseModel> addSign(
     String token,
     String signature,
     int contractId,
@@ -33,7 +32,7 @@ abstract class ContractDatasource {
     String draf,
     int clientId,
   );
-  Future<DeleteDraftResponseModel> deletDraft(String token, int drafId);
+  Future<EmptyResponseModel> deletDraft(String token, int drafId);
   Future<ShowDraftResponseModel> getDrafts(String token, int filter);
 }
 
@@ -55,7 +54,7 @@ class ContractDatasourceImpl implements ContractDatasource {
   }
 
   @override
-  Future<AddSignResponseModel> addSign(
+  Future<EmptyResponseModel> addSign(
     String token,
     String signature,
     int contractId,
@@ -64,7 +63,7 @@ class ContractDatasourceImpl implements ContractDatasource {
       uri: Uri.parse("$baseUri/api/add/sign"),
       token: token,
       body: ({'signature': signature, 'contract_id': contractId}),
-      fromJson: addSignResponseModelFromJson,
+      fromJson: emptyResponseModelFromJson,
     );
     return await result.call();
   }
@@ -85,11 +84,11 @@ class ContractDatasourceImpl implements ContractDatasource {
   }
 
   @override
-  Future<DeleteDraftResponseModel> deletDraft(String token, int drafId) async {
+  Future<EmptyResponseModel> deletDraft(String token, int drafId) async {
     final result = GetWithTokenApi(
       uri: Uri.parse("$baseUri/api/delete/draft/contract/$drafId"),
       token: token,
-      fromJson: deleteDraftResponseModelFromJson,
+      fromJson: emptyResponseModelFromJson,
     );
     return await result.callRequest();
   }

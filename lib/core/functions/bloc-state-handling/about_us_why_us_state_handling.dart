@@ -10,12 +10,12 @@ import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/core/widgets/shimmers/card-loading/loading_site_card.dart';
 import 'package:two_dashboard/core/widgets/shimmers/card-loading/loading_working_time_card.dart';
-import 'package:two_dashboard/core/widgets/shimmers/table-loading/loading_why_us_table.dart';
-import 'package:two_dashboard/features/about-us-why-us/domain/entities/about_us_entity.dart';
-import 'package:two_dashboard/features/about-us-why-us/presentation/bloc/about_us_why_us_bloc.dart';
-import 'package:two_dashboard/features/about-us-why-us/presentation/widgets/custom_why_us_table.dart';
-import 'package:two_dashboard/features/about-us-why-us/presentation/widgets/site_card.dart';
-import 'package:two_dashboard/features/about-us-why-us/presentation/widgets/working_time_card.dart';
+import 'package:two_dashboard/core/widgets/data-table/loading/loading_why_us_table.dart';
+import 'package:two_dashboard/features/about-us%20&%20why-us/domain/entities/about_us_entity.dart';
+import 'package:two_dashboard/features/about-us%20&%20why-us/presentation/bloc/about_us_why_us_bloc.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/custom_why_us_table.dart';
+import 'package:two_dashboard/features/about-us%20&%20why-us/presentation/widgets/site_card.dart';
+import 'package:two_dashboard/features/about-us%20&%20why-us/presentation/widgets/working_time_card.dart';
 
 class AboutUsWhyUsStateHandling {
   Widget getAboutUs(AboutUsWhyUsState state, AboutUsEntity? aboutUsEntity) {

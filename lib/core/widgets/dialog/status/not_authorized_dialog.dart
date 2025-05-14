@@ -34,13 +34,13 @@ void notAuthorizedDialog(BuildContext context) {
               Text(
                 "Access Denaid",
                 textAlign: TextAlign.center,
-                style: AppTextStyle.heading04(color: AppColors.redShade2),
+                style: AppTextStyle.headerSm(color: AppColors.redShade2),
               ),
               PaddingConfig.h8,
               Text(
                 "You Are Not Authorized",
                 textAlign: TextAlign.center,
-                style: AppTextStyle.subtitle02(color: AppColors.redShade1),
+                style: AppTextStyle.bodyMd(color: AppColors.redShade1),
               ),
               PaddingConfig.h24,
               CloseElevatedButton(),

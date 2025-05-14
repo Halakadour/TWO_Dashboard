@@ -80,7 +80,7 @@ class CustomTextFormField extends StatelessWidget {
                 ),
         label: Text(
           labelText,
-          style: AppTextStyle.textfieldStyle(color: AppColors.fontLightColor),
+          style: AppTextStyle.textfieldStyle(color: AppColors.fontLightGray),
         ),
         hintText: hintText,
         hintStyle: hintStyle,

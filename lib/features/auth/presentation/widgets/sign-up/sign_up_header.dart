@@ -17,7 +17,7 @@ class SignUpHeader extends StatelessWidget {
         children: [
           SvgPicture.asset(ImagesPath.webLogo, width: 40, height: 40),
           const SizedBox(height: SizesConfig.spaceBtwSections),
-          Text(TextStrings.signupTitle, style: AppTextStyle.heading04()),
+          Text(TextStrings.signupTitle, style: AppTextStyle.headerSm()),
         ],
       ),
     );

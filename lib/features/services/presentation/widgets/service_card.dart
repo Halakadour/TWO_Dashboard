@@ -52,11 +52,11 @@ class ServiceCard extends StatelessWidget {
             width: double.maxFinite,
           ),
           PaddingConfig.h8,
-          Text(serviceEntity.titleE, style: AppTextStyle.subtitle01()),
+          Text(serviceEntity.titleE, style: AppTextStyle.bodyLg()),
           PaddingConfig.h8,
           Text(
             serviceEntity.descriptionE,
-            style: AppTextStyle.subtitle02(color: AppColors.fontLightColor),
+            style: AppTextStyle.bodyMd(color: AppColors.fontLightGray),
             overflow: TextOverflow.ellipsis,
           ),
         ],

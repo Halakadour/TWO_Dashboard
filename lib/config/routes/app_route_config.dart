@@ -6,7 +6,7 @@ class AppRouteConfig {
   // Main  Branches//
   static const main = 'main';
   static const dashboard = 'dashboard';
-  static const tasks = 'tasks';
+  static const sprints = 'sprints';
   static const projects = 'projects';
   static const calendar = 'calendar';
   static const inbox = 'inbox';

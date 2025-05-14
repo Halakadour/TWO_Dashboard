@@ -29,7 +29,7 @@ class UpdateElevatedButton extends StatelessWidget {
         onPressed: onPressed,
         child: Row(
           children: [
-            const Icon(Iconsax.edit, color: AppColors.white),
+            const Icon(Iconsax.edit_2, color: AppColors.white),
             PaddingConfig.w8,
             Text(
               "update $updateType",

@@ -51,7 +51,7 @@ class AddSomthingButton extends StatelessWidget {
                     PaddingConfig.w8,
                     Text(
                       "Add $something",
-                      style: AppTextStyle.subtitle04(
+                      style: AppTextStyle.buttonStyle(
                         color: value ? AppColors.white : AppColors.greenShade2,
                       ),
                     ),

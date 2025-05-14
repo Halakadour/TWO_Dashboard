@@ -33,7 +33,6 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.bgColor,
       body: Padding(
         padding: EdgeInsets.all(SizesConfig.lg),
         child: SingleChildScrollView(

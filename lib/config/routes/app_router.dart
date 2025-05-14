@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
-import 'package:two_dashboard/features/about-us-why-us/presentation/pages/about_us_why_us_page.dart';
+import 'package:two_dashboard/features/about-us%20&%20why-us/presentation/pages/about_us_why_us_page.dart';
 import 'package:two_dashboard/features/auth/presentation/pages/fill-profile/fill_employee_profile_page.dart';
 import 'package:two_dashboard/features/auth/presentation/pages/login/login_page.dart';
 import 'package:two_dashboard/features/auth/presentation/pages/sign-up/sign_up_page.dart';
@@ -11,9 +11,9 @@ import 'package:two_dashboard/features/contracts/presentation/pages/create-contr
 import 'package:two_dashboard/features/contracts/presentation/pages/drafts_page.dart';
 import 'package:two_dashboard/features/dashboard/presentation/pages/dashboard_page.dart';
 import 'package:two_dashboard/features/inbox/presentation/pages/inbox_page.dart';
-import 'package:two_dashboard/features/projects/presentation/pages/projects_page.dart';
+import 'package:two_dashboard/features/projects%20&%20Team/presentation/pages/projects_page.dart';
 import 'package:two_dashboard/features/services/presentation/pages/update-service/update_service_page.dart';
-import 'package:two_dashboard/features/tasks/presentation/pages/tasks_page.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/sprint_page.dart';
 import 'package:two_dashboard/root_page.dart';
 import 'package:two_dashboard/features/posts/presentation/pages/create-post/create_post_page.dart';
 import 'package:two_dashboard/features/posts/presentation/pages/post_replies_page.dart';
@@ -61,9 +61,9 @@ class AppRouter {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                name: AppRouteConfig.tasks,
+                name: AppRouteConfig.sprints,
                 path: '/tasks',
-                builder: (context, state) => const TasksPage(),
+                builder: (context, state) => const SprintPage(),
               ),
             ],
           ),

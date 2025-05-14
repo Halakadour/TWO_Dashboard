@@ -47,7 +47,7 @@ class FilterOption extends StatelessWidget {
                     PaddingConfig.w8,
                   Text(
                     option,
-                    style: AppTextStyle.subtitle03(
+                    style: AppTextStyle.bodySm(
                       color:
                           (isOposite)
                               ? !(value)
@@ -83,7 +83,7 @@ class FilterOptionTitle extends StatelessWidget {
         PaddingConfig.w8,
         Text(
           "$title :",
-          style: AppTextStyle.subtitle03(color: AppColors.greenShade2),
+          style: AppTextStyle.bodySm(color: AppColors.greenShade2),
         ),
       ],
     );
@@ -95,6 +95,6 @@ class FilterByText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("Filter By :", style: AppTextStyle.subtitle01());
+    return Text("Filter By :", style: AppTextStyle.bodyLg());
   }
 }

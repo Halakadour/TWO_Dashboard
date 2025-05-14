@@ -99,7 +99,7 @@ class _UpdateServiceFormState extends State<UpdateServiceForm> {
                           children: [
                             Text(
                               "Basic Information",
-                              style: AppTextStyle.subtitle03(),
+                              style: AppTextStyle.bodySm(),
                             ),
                             PaddingConfig.h16,
                             CustomTextFormField(
@@ -164,10 +164,7 @@ class _UpdateServiceFormState extends State<UpdateServiceForm> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Service Image",
-                            style: AppTextStyle.subtitle03(),
-                          ),
+                          Text("Service Image", style: AppTextStyle.bodySm()),
                           PaddingConfig.h16,
                           FetchImageBox(
                             imageB64: imageBytes,

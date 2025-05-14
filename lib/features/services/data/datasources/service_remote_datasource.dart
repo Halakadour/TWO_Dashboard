@@ -2,10 +2,9 @@ import 'package:two_dashboard/config/constants/base_uri.dart';
 import 'package:two_dashboard/core/api/get_api.dart';
 import 'package:two_dashboard/core/api/get_with_token_api.dart';
 import 'package:two_dashboard/core/api/post_api_with_token.dart';
+import 'package:two_dashboard/core/models/empty_response_model.dart';
 import 'package:two_dashboard/features/services/data/models/create_service_response_model.dart';
-import 'package:two_dashboard/features/services/data/models/delete_service_response_model.dart';
 import 'package:two_dashboard/features/services/data/models/show_service_response_model.dart';
-import 'package:two_dashboard/features/services/data/models/update_service_response_model.dart';
 
 abstract class ServiceRemoteDatasource {
   Future<CreateServiceResponesModel> createService(
@@ -14,9 +13,9 @@ abstract class ServiceRemoteDatasource {
     String description,
     String image,
   );
-  Future<DeleteServiceResponesModel> deleteService(String token, int serviceId);
+  Future<EmptyResponseModel> deleteService(String token, int serviceId);
   Future<ShowServiceResponesModel> showServices();
-  Future<UpdateServiceResponesModel> updateService(
+  Future<EmptyResponseModel> updateService(
     String token,
     int serviceId,
     String title,
@@ -47,14 +46,11 @@ class ServiceRemoteDatasourceImpl extends ServiceRemoteDatasource {
   }
 
   @override
-  Future<DeleteServiceResponesModel> deleteService(
-    String token,
-    int serviceId,
-  ) async {
+  Future<EmptyResponseModel> deleteService(String token, int serviceId) async {
     final result = GetWithTokenApi(
       uri: Uri.parse('$baseUri/api/delete/service/$serviceId'),
       token: token,
-      fromJson: deleteServiceResponesModelFromJson,
+      fromJson: emptyResponseModelFromJson,
     );
     return await result.callRequest();
   }
@@ -69,7 +65,7 @@ class ServiceRemoteDatasourceImpl extends ServiceRemoteDatasource {
   }
 
   @override
-  Future<UpdateServiceResponesModel> updateService(
+  Future<EmptyResponseModel> updateService(
     String token,
     int serviceId,
     String title,
@@ -85,7 +81,7 @@ class ServiceRemoteDatasourceImpl extends ServiceRemoteDatasource {
         'image': '$imageBase64$image',
         'service_id': serviceId.toString(),
       }),
-      fromJson: updateServiceResponesModelFromJson,
+      fromJson: emptyResponseModelFromJson,
     );
     return await result.call();
   }

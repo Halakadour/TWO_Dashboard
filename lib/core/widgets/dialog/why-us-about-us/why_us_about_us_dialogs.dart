@@ -6,8 +6,8 @@ import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/cancel_text_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/save_text_button.dart';
-import 'package:two_dashboard/features/about-us-why-us/domain/entities/about_us_entity.dart';
-import 'package:two_dashboard/features/about-us-why-us/presentation/bloc/about_us_why_us_bloc.dart';
+import 'package:two_dashboard/features/about-us%20&%20why-us/domain/entities/about_us_entity.dart';
+import 'package:two_dashboard/features/about-us%20&%20why-us/presentation/bloc/about_us_why_us_bloc.dart';
 import 'package:two_dashboard/features/auth/presentation/widgets/custom_text_form_field.dart';
 
 class AboutUsWhyUsDialogs {
@@ -25,7 +25,7 @@ class AboutUsWhyUsDialogs {
             child: AlertDialog(
               title: Text(
                 "Create a new about us :",
-                style: AppTextStyle.subtitle01(),
+                style: AppTextStyle.bodyLg(),
               ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -87,7 +87,7 @@ class AboutUsWhyUsDialogs {
             child: AlertDialog(
               title: Text(
                 "Update about us :",
-                style: AppTextStyle.subtitle01(color: AppColors.blueShade2),
+                style: AppTextStyle.bodyLg(color: AppColors.blueShade2),
               ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -149,10 +149,7 @@ class AboutUsWhyUsDialogs {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: Text(
-              "Create Why Us Item :",
-              style: AppTextStyle.subtitle01(),
-            ),
+            title: Text("Create Why Us Item :", style: AppTextStyle.bodyLg()),
             content: CustomTextFormField(
               labelText: "Label",
               controller: controller,
@@ -188,10 +185,7 @@ class AboutUsWhyUsDialogs {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: Text(
-              "Update Why Us Item :",
-              style: AppTextStyle.subtitle01(),
-            ),
+            title: Text("Update Why Us Item :", style: AppTextStyle.bodyLg()),
             content: CustomTextFormField(
               labelText: "Label",
               controller: controller,

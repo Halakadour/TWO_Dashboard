@@ -19,7 +19,7 @@ class CustomSideMenuItem extends StatelessWidget {
       children: [
         Icon(icon, color: color),
         PaddingConfig.w8,
-        Text(action, style: AppTextStyle.subtitle03(color: color)),
+        Text(action, style: AppTextStyle.bodySm(color: color)),
       ],
     );
   }

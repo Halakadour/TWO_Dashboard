@@ -64,7 +64,7 @@ class _CreatePostFormState extends State<CreatePostForm> {
                 children: [
                   const CustomBackButton(),
                   PaddingConfig.w8,
-                  Text("Create Post", style: AppTextStyle.heading04()),
+                  Text("Create Post", style: AppTextStyle.headerSm()),
                 ],
               ),
               PaddingConfig.h24,

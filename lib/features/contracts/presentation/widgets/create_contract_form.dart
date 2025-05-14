@@ -12,7 +12,7 @@ import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/desmiss_elev
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/save_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
-import 'package:two_dashboard/features/auth/presentation/widgets/fill-profile/fetch_cv_box.dart';
+import 'package:two_dashboard/features/auth/presentation/widgets/fill-profile/fetch_file_box.dart';
 import 'package:two_dashboard/features/contracts/domain/entities/draft_entity.dart';
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
 
@@ -82,7 +82,7 @@ class _CreateContractFormState extends State<CreateContractForm> {
                         children: [
                           Text(
                             "Source Draft File",
-                            style: AppTextStyle.subtitle03(),
+                            style: AppTextStyle.bodySm(),
                           ),
                           PaddingConfig.h16,
                           BlocBuilder<ContractBloc, ContractState>(
@@ -120,12 +120,9 @@ class _CreateContractFormState extends State<CreateContractForm> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Contract File",
-                            style: AppTextStyle.subtitle03(),
-                          ),
+                          Text("Contract File", style: AppTextStyle.bodySm()),
                           PaddingConfig.h32,
-                          FetchCvBox(
+                          FetchFileBox(
                             fileB64: pdfBytes,
                             onUpdate: updatePDFBytes,
                             changeStyle: true,

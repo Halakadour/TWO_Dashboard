@@ -15,10 +15,7 @@ class UserInfoRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            title,
-            style: AppTextStyle.subtitle01(color: AppColors.greenShade2),
-          ),
+          Text(title, style: AppTextStyle.bodyLg(color: AppColors.greenShade2)),
           Container(
             width: MediaQuery.sizeOf(context).width * .35,
             padding: EdgeInsets.all(SizesConfig.md),
@@ -28,7 +25,7 @@ class UserInfoRow extends StatelessWidget {
             ),
             child: Text(
               value,
-              style: AppTextStyle.subtitle02(color: AppColors.rockShade2),
+              style: AppTextStyle.bodyMd(color: AppColors.rockShade2),
             ),
           ),
         ],

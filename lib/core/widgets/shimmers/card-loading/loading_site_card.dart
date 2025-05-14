@@ -27,7 +27,7 @@ class LoadingSiteCard extends StatelessWidget {
               children: [
                 Text(
                   "Compony woking site",
-                  style: AppTextStyle.subtitle01(color: AppColors.greenShade3),
+                  style: AppTextStyle.bodyLg(color: AppColors.greenShade3),
                 ),
               ],
             ),

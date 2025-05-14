@@ -34,7 +34,7 @@ void showSuccessDialog(BuildContext context, void Function()? onPressed) {
               PaddingConfig.h16,
               Text(
                 "Success",
-                style: AppTextStyle.heading04(color: AppColors.greenShade2),
+                style: AppTextStyle.headerSm(color: AppColors.greenShade2),
               ),
               PaddingConfig.h24,
               OkayElevatedButton(onPressed: onPressed),

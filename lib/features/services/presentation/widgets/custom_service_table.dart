@@ -8,7 +8,7 @@ import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/edit_button.dart';
-import 'package:two_dashboard/core/widgets/data-tables/custom_data_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom_data_table.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/delete_button.dart';
 import 'package:two_dashboard/features/services/domain/entities/service_entity.dart';

@@ -17,8 +17,8 @@ class LoginHeader extends StatelessWidget {
         children: [
           SvgPicture.asset(ImagesPath.webLogo, width: 40, height: 40),
           const SizedBox(height: SizesConfig.spaceBtwSections),
-          Text(TextStrings.loginTitle, style: AppTextStyle.heading04()),
-          Text(TextStrings.loginSubTitle, style: AppTextStyle.subtitle03()),
+          Text(TextStrings.loginTitle, style: AppTextStyle.headerSm()),
+          Text(TextStrings.loginSubTitle, style: AppTextStyle.bodySm()),
         ],
       ),
     );

@@ -61,10 +61,7 @@ class AuthRoleProfileBloc
       result.fold(
         (l) => emit(state.copyWith(authModelStatus: CasualStatus.failure)),
         (r) => emit(
-          state.copyWith(
-            authModel: r.data,
-            authModelStatus: CasualStatus.success,
-          ),
+          state.copyWith(authModel: r, authModelStatus: CasualStatus.success),
         ),
       );
     });
@@ -81,10 +78,7 @@ class AuthRoleProfileBloc
           ),
         ),
         (r) => emit(
-          state.copyWith(
-            authModelStatus: CasualStatus.success,
-            authModel: r.data,
-          ),
+          state.copyWith(authModelStatus: CasualStatus.success, authModel: r),
         ),
       );
     });

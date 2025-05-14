@@ -23,7 +23,7 @@ class CustomizedStatusAnimation extends StatelessWidget {
         PaddingConfig.w16,
         Text(
           TextStrings.noToken,
-          style: AppTextStyle.subtitle03(color: AppColors.blueShade2),
+          style: AppTextStyle.bodySm(color: AppColors.blueShade2),
         ),
       ],
     );

@@ -2,12 +2,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:two_dashboard/config/routes/app_router.dart';
-import 'package:two_dashboard/features/about-us-why-us/presentation/bloc/about_us_why_us_bloc.dart';
+import 'package:two_dashboard/features/about-us%20&%20why-us/presentation/bloc/about_us_why_us_bloc.dart';
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
 import 'package:two_dashboard/features/contact-us/presentation/bloc/contact_us_bloc.dart';
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
 import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';
 import 'package:two_dashboard/features/services/presentation/bloc/service_bloc.dart';
+import 'config/theme/theme_cubit.dart';
 import 'injection_container.dart' as di;
 
 import 'config/theme/theme.dart';
@@ -35,6 +36,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(create: (context) => di.sl<AuthRoleProfileBloc>()),
         BlocProvider(create: (context) => di.sl<PostBloc>()),
         BlocProvider(create: (context) => di.sl<ServiceBloc>()),
@@ -46,6 +48,8 @@ class MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'TWO',
         theme: AppTheme.getTheme(),
+        darkTheme: AppTheme.getDarkTheme(),
+        themeMode: ThemeMode.light,
         routerConfig: AppRouter().router,
         supportedLocales: context.supportedLocales,
         localizationsDelegates: context.localizationDelegates,

@@ -4,8 +4,8 @@ class AppColors {
   //ui basic colors
   static const Color fieldColor = Color(0xFFFBF9F9);
   static const Color bgColor = Color(0xFFF6F6F6);
-  static const Color fontLightColor = Color(0xFFA1A1A1);
-  static const Color fontDarkColor = Color(0xFF313131);
+  static const Color fontLightGray = Color(0xFFA1A1A1);
+  static const Color fontDarkGray = Color(0xFF313131);
   static const Color iconColor = Color(0xFFC2C1C1);
   static const Color cardColor = Color(0xFFFBFBFD);
   static const LinearGradient buttonColor = LinearGradient(
@@ -13,6 +13,17 @@ class AppColors {
     end: Alignment.centerRight,
     colors: [Color(0xFF69DB43), Color(0xFF63D13E), Color(0xFF48982D)],
   );
+
+  // Dark Mode Colors
+  // static const Color darkBgColor = Color(0xFF121212);
+  // static const Color darkFontLightColor = Color(0xFFB0B0B0);
+  // static const Color darkFontDarkColor = Color(0xFFE0E0E0);
+  // static const Color darkCardColor = Color(0xFF1E1E1E);
+  // static const Color darkIconColor = Color(0xFFB0B0B0);
+
+  // static const Color darkMainColor = Color(0xFF65D53F);
+
+  // static const Color darkScaffoldBackgroundColor = Color(0xFF121212);
 
   //basic colors
   static const Color black = Color(0xFF151515);
@@ -39,5 +50,5 @@ class AppColors {
   // theme colors
   static const Color mainColor = greenShade2;
   static const Color secondaryColor = navy;
-  static const Color scaffoldBackgroundColor = white;
+  static const Color scaffoldBackgroundColor = bgColor;
 }

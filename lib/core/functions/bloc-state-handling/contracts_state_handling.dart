@@ -6,15 +6,15 @@ import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart
 import 'package:two_dashboard/core/widgets/animation/unauthorized_status_animation.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
-import 'package:two_dashboard/core/widgets/dropdown/custom_dropdown_list_for_draft_entity.dart';
+import 'package:two_dashboard/core/widgets/dropdown-list/custom_dropdown_list_for_draft_entity.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/core/widgets/shimmers/dropdown-loading/custom_dropdown_loading.dart';
-import 'package:two_dashboard/core/widgets/shimmers/table-loading/loading_contracts_table.dart';
-import 'package:two_dashboard/core/widgets/shimmers/table-loading/loading_drafs_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/loading/loading_contracts_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/loading/loading_drafs_table.dart';
 import 'package:two_dashboard/features/contracts/domain/entities/draft_entity.dart';
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
-import 'package:two_dashboard/features/contracts/presentation/widgets/custom_contract_table.dart';
-import 'package:two_dashboard/features/contracts/presentation/widgets/custom_draft_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/custom_contract_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/custom_draft_table.dart';
 
 class ContractsStateHandling {
   // Get Contrcat Table

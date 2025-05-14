@@ -6,8 +6,10 @@ import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/core/widgets/menus/post_side_menu.dart';
-import 'package:two_dashboard/core/widgets/status-boxes/active_status_container.dart';
 import 'package:two_dashboard/features/posts/domain/entities/post_entity.dart';
+
+import '../../../../core/network/enums.dart';
+import '../../../../core/widgets/container/status-containers/field_status_container.dart';
 
 class PostCard extends StatelessWidget {
   const PostCard({super.key, required this.postEntity});
@@ -51,11 +53,11 @@ class PostCard extends StatelessWidget {
             height: 180,
             width: double.maxFinite,
           ),
-          const ActiveStatusContainer(),
+          FieldStatusContainer(fieldStatus: FieldStatus.active),
           PaddingConfig.h8,
           Text(
             postEntity.body,
-            style: AppTextStyle.subtitle01(),
+            style: AppTextStyle.bodyLg(),
             overflow: TextOverflow.ellipsis,
           ),
         ],

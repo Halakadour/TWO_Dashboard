@@ -91,7 +91,7 @@ class _FetchImageBoxState extends State<FetchImageBox> {
                   ),
                   border: Border.all(color: AppColors.gray, width: .7),
                 ),
-                child: Text("Upload Image", style: AppTextStyle.subtitle03()),
+                child: Text("Upload Image", style: AppTextStyle.bodySm()),
               ),
             ),
           ],

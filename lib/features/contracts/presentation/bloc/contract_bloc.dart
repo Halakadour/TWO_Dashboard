@@ -35,9 +35,9 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
     on<GetContractEvent>((event, emit) async {
       emit(state.copyWith(contrcatListStatus: CasualStatus.loading));
       final String? token = await SharedPreferencesServices.getUserToken();
-      if (token == null) {
+      if (token != null) {
         final result = await getContractsUsecase.call(
-          GetDraftOrContractParam(token: token!, filter: event.filter),
+          GetDraftOrContractParam(token: token, filter: event.filter),
         );
         result.fold(
           (l) => emit(
@@ -60,10 +60,10 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
     on<GetClientContractEvent>((event, emit) async {
       emit(state.copyWith(clientContrcatListStatus: CasualStatus.loading));
       final String? token = await SharedPreferencesServices.getUserToken();
-      if (token == null) {
+      if (token != null) {
         final result = await getClientContractUsecase.call(
           GetClientContractParam(
-            token: token!,
+            token: token,
             filter: event.filter,
             clientId: event.clientId,
           ),
@@ -91,10 +91,10 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
     on<CreateContractEvent>((event, emit) async {
       emit(state.copyWith(addContractStatus: CasualStatus.loading));
       final String? token = await SharedPreferencesServices.getUserToken();
-      if (token == null) {
+      if (token != null) {
         final result = await addContractUsecase.call(
           AddContractParam(
-            token: token!,
+            token: token,
             contract: event.contract,
             clientId: event.clientId,
             drafId: event.drafId,
@@ -117,9 +117,9 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
     on<GetDrafEvent>((event, emit) async {
       emit(state.copyWith(drafListStatus: CasualStatus.loading));
       final String? token = await SharedPreferencesServices.getUserToken();
-      if (token == null) {
+      if (token != null) {
         final result = await getDraftUsecase.call(
-          GetDraftOrContractParam(token: token!, filter: event.filter),
+          GetDraftOrContractParam(token: token, filter: event.filter),
         );
         result.fold(
           (l) => emit(
@@ -139,10 +139,10 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
     on<CreateDrafEvent>((event, emit) async {
       emit(state.copyWith(createDrafStatus: CasualStatus.loading));
       final String? token = await SharedPreferencesServices.getUserToken();
-      if (token == null) {
+      if (token != null) {
         final result = await createDraftUsecase.call(
           CreateDrafParam(
-            token: token!,
+            token: token,
             draf: event.draf,
             clientId: event.clientId,
           ),
@@ -163,9 +163,9 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
     on<DeleteDrafEvent>((event, emit) async {
       emit(state.copyWith(deleteDrafStatus: CasualStatus.loading));
       final String? token = await SharedPreferencesServices.getUserToken();
-      if (token == null) {
+      if (token != null) {
         final result = await deleteDraftUsecase.call(
-          DeleteDrafParam(token: token!, draftId: event.drafId),
+          DeleteDrafParam(token: token, draftId: event.drafId),
         );
         result.fold(
           (l) => emit(

@@ -2,9 +2,8 @@ import 'package:two_dashboard/config/constants/base_uri.dart';
 import 'package:two_dashboard/core/api/get_api.dart';
 import 'package:two_dashboard/core/api/get_with_token_api.dart';
 import 'package:two_dashboard/core/api/post_api_with_token.dart';
+import 'package:two_dashboard/core/models/empty_response_model.dart';
 import 'package:two_dashboard/features/contact-us/data/models/create_contact_us_response_model.dart';
-import 'package:two_dashboard/features/contact-us/data/models/mark_contact_us_as_approved_response_model.dart';
-import 'package:two_dashboard/features/contact-us/data/models/mark_contact_us_as_seen_reponse_model.dart';
 import 'package:two_dashboard/features/contact-us/data/models/show_not_approved_contact_us_response_model.dart';
 
 abstract class ContactUsRemoteDatasource {
@@ -16,26 +15,20 @@ abstract class ContactUsRemoteDatasource {
   );
   Future<ShowNotApprovedContactUsResponseModel>
   showContactUsWithSeenAndApproved(int seenFilter, int approvedFilter);
-  Future<MarkContactUsAsApprovedResponseModel> approveContactUs(
-    String token,
-    int contactUsId,
-  );
-  Future<MarkContactUsAsSeenResponseModel> seenContactUs(
-    String token,
-    int contactUsId,
-  );
+  Future<EmptyResponseModel> approveContactUs(String token, int contactUsId);
+  Future<EmptyResponseModel> seenContactUs(String token, int contactUsId);
 }
 
 class ContactUsRemoteDatasourceImpl extends ContactUsRemoteDatasource {
   @override
-  Future<MarkContactUsAsApprovedResponseModel> approveContactUs(
+  Future<EmptyResponseModel> approveContactUs(
     String token,
     int contactUsId,
   ) async {
     final result = GetWithTokenApi(
       uri: Uri.parse("$baseUri/api/mark/contact/approved/$contactUsId"),
       token: token,
-      fromJson: markContactUsAsApprovedModelFromJson,
+      fromJson: emptyResponseModelFromJson,
     );
     return await result.callRequest();
   }
@@ -57,14 +50,14 @@ class ContactUsRemoteDatasourceImpl extends ContactUsRemoteDatasource {
   }
 
   @override
-  Future<MarkContactUsAsSeenResponseModel> seenContactUs(
+  Future<EmptyResponseModel> seenContactUs(
     String token,
     int contactUsId,
   ) async {
     final result = GetWithTokenApi(
       uri: Uri.parse("$baseUri/api/mark/contact/seen/$contactUsId"),
       token: token,
-      fromJson: markContactUsAsApprovedModelFromJson,
+      fromJson: emptyResponseModelFromJson,
     );
     return await result.callRequest();
   }

@@ -17,7 +17,7 @@ class EmptyStatusAnimation extends StatelessWidget {
         PaddingConfig.w16,
         Text(
           "There is no data!",
-          style: AppTextStyle.subtitle03(color: AppColors.blueShade2),
+          style: AppTextStyle.bodySm(color: AppColors.blueShade2),
         ),
       ],
     );

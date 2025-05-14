@@ -11,6 +11,7 @@ class DesmissElevatedButtom extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
+        elevation: 0,
         fixedSize: const Size(
           SizesConfig.buttonWidth,
           SizesConfig.buttonHeight,

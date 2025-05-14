@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
-import 'package:two_dashboard/config/constants/radius_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
@@ -44,14 +43,18 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
                   child: TextField(
                     decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
-                        borderRadius: RadiusConfig.textfieldRadius,
+                        borderRadius: BorderRadius.circular(
+                          SizesConfig.inputFieldRadius,
+                        ),
                         borderSide: const BorderSide(
                           color: AppColors.fieldColor,
                           width: 2,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderRadius: RadiusConfig.textfieldRadius,
+                        borderRadius: BorderRadius.circular(
+                          SizesConfig.inputFieldRadius,
+                        ),
                         borderSide: const BorderSide(
                           color: AppColors.fieldColor,
                           width: 2,

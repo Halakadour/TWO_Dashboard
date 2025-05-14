@@ -20,7 +20,7 @@ class SizesConfig {
 
   //Button sizes
   static const double buttonHeight = 20.0;
-  static const double buttonRadius = 8.0;
+  static const double buttonRadius = 24.0;
   static const double buttonWidth = 130.0;
   static const double buttonElevation = 4.0;
 
@@ -69,8 +69,10 @@ class SizesConfig {
   static const double cardElevation = 2.0;
   static const double cardHeight = 150;
 
-  // Table Loading Rows Counts
+  // Table
   static const double loadingRowsCounts = 10;
+  static const double tableHeight = 760;
+  static const double tablMinWidth = 1000;
 
   // box dimensions
   static const double boxSm = 60;

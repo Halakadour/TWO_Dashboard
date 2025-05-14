@@ -50,7 +50,7 @@ class SeenButton extends StatelessWidget {
                     PaddingConfig.w8,
                     Text(
                       "Seen",
-                      style: AppTextStyle.subtitle04(
+                      style: AppTextStyle.buttonStyle(
                         color: value ? AppColors.white : AppColors.blueShade2,
                       ),
                     ),

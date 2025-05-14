@@ -50,7 +50,7 @@ class DeactivateButton extends StatelessWidget {
                     PaddingConfig.w8,
                     Text(
                       "Deactivate",
-                      style: AppTextStyle.subtitle04(
+                      style: AppTextStyle.buttonStyle(
                         color: value ? AppColors.white : AppColors.yellowShade2,
                       ),
                     ),

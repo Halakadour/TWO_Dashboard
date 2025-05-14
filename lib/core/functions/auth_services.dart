@@ -4,6 +4,8 @@ import 'package:oauth2_client/oauth2_helper.dart';
 import 'package:two_dashboard/config/constants/base_uri.dart';
 import 'package:two_dashboard/core/services/shared_preferences_services.dart';
 
+import 'package:http/http.dart' as http;
+
 class AuthService {
   static final AuthService _instance = AuthService._internal();
 
@@ -40,7 +42,17 @@ class AuthService {
     try {
       final token = await _googleAuth.fetchToken();
       await SharedPreferencesServices.setUserToken(token.accessToken!);
-      print("Google Sign-In Successful: ${token.accessToken}");
+      final response = await http.post(
+        Uri.parse('$baseUri/auth/google/token/google'),
+        body: {'access_token': token.accessToken},
+      );
+
+      if (response.statusCode == 200) {
+        print("Success.");
+        print(response.body);
+      } else {
+        print("Error : ${response.body}");
+      }
     } catch (e) {
       print("Google Sign-In Error: $e");
     }
@@ -51,9 +63,19 @@ class AuthService {
     try {
       final token = await _githubAuth.fetchToken();
       await SharedPreferencesServices.setUserToken(token.accessToken!);
-      print("GitHub Sign-In Successful: ${token.accessToken}");
+      final response = await http.post(
+        Uri.parse('$baseUri/auth/google/token/githup'),
+        body: {'access_token': token.accessToken},
+      );
+
+      if (response.statusCode == 200) {
+        print("Success.");
+        print(response.body);
+      } else {
+        print("Error : ${response.body}");
+      }
     } catch (e) {
-      print("GitHub Sign-In Error: $e");
+      print("Google Sign-In Error: $e");
     }
   }
 
