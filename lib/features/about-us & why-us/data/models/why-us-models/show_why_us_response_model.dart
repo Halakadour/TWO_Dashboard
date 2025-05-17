@@ -23,9 +23,12 @@ class ShowWhyUsResponesModel {
       ShowWhyUsResponesModel(
         status: json["status"],
         msg: json["msg"],
-        data: List<WhyUsModel>.from(
-          json["data"].map((x) => WhyUsModel.fromJson(x)),
-        ),
+        data:
+            json["data"] == null
+                ? []
+                : List<WhyUsModel>.from(
+                  json["data"].map((x) => WhyUsModel.fromJson(x)),
+                ),
       );
 
   Map<String, dynamic> toJson() => {

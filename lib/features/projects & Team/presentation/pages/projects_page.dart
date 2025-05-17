@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:two_dashboard/config/routes/app_route_config.dart';
+import 'package:two_dashboard/core/functions/device_utility.dart';
+import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
 
 import '../../../../config/constants/padding_config.dart';
 import '../../../../config/constants/sizes_config.dart';
@@ -8,34 +12,21 @@ import '../../../../core/widgets/buttons/icon-buttons/choose_date_button.dart';
 import '../../../../core/widgets/buttons/icon-buttons/filter_button.dart';
 import '../../../../core/widgets/buttons/icon-buttons/sort_by_button.dart';
 import '../../../../core/widgets/texts/page_title.dart';
-import '../../../sprints & tasks/presentation/widgets/sprint_kanban_view.dart';
-import '../../../sprints & tasks/presentation/widgets/sprint_list_view.dart';
+import '../widgets/project_kanban_view.dart';
+import '../widgets/project_list_view.dart';
 
-class ProjectTimelinePage extends StatefulWidget {
-  const ProjectTimelinePage({super.key});
+class ProjectPage extends StatefulWidget {
+  const ProjectPage({super.key});
 
   @override
-  State<ProjectTimelinePage> createState() => _ProjectTimelinePageState();
+  State<ProjectPage> createState() => _ProjectPageState();
 }
 
-class _ProjectTimelinePageState extends State<ProjectTimelinePage> {
+class _ProjectPageState extends State<ProjectPage> {
   bool isKanban = true;
-  String filter = 'All';
-  String sortBy = 'Date';
-
-  final List<String> filters = [
-    'All',
-    'To Do',
-    'In Progress',
-    'In Review',
-    'Done',
-  ];
-  final List<String> sortOptions = ['Date', 'Progress', 'Title'];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.bgColor,
       body: Padding(
         padding: const EdgeInsets.only(
           top: SizesConfig.lg,
@@ -47,12 +38,12 @@ class _ProjectTimelinePageState extends State<ProjectTimelinePage> {
             PageTitle(pageTitle: "Projects"),
             PaddingConfig.h24,
             _buildFilters(),
-            PaddingConfig.h24,
+            PaddingConfig.h32,
             Expanded(
               child:
                   isKanban
-                      ? SprintKanbanView()
-                      : SprintListView(colorStatus: AppColors.yellowShade2),
+                      ? ProjectKanbanView()
+                      : ProjectListView(colorStatus: AppColors.yellowShade2),
             ),
           ],
         ),
@@ -69,6 +60,7 @@ class _ProjectTimelinePageState extends State<ProjectTimelinePage> {
       ),
       padding: EdgeInsets.all(3.0),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
             icon: Icon(Iconsax.kanban),
@@ -101,19 +93,43 @@ class _ProjectTimelinePageState extends State<ProjectTimelinePage> {
   }
 
   Widget _buildFilters() {
+    final isMobile = DeviceUtility.isMobileScreen(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          ChooseDateButton(),
-          PaddingConfig.w16,
-          SortByButton(onPressed: () {}),
-          PaddingConfig.w16,
-          FilterButton(onPressed: () {}),
-          PaddingConfig.w16,
-          _buildToggleBar(),
+          Flexible(
+            child: Wrap(
+              spacing: isMobile ? 8 : 16,
+              runSpacing: isMobile ? 8 : 12,
+              alignment: WrapAlignment.end,
+              children: [
+                _wrapButton(
+                  child: CreateElevatedButton(
+                    addingType: "Project",
+                    onPressed:
+                        () => context.pushNamed(AppRouteConfig.createProject),
+                  ),
+                ),
+                _wrapButton(child: ChooseDateButton()),
+                _wrapButton(child: SortByButton(onPressed: () {})),
+                _wrapButton(child: FilterButton(onPressed: () {})),
+                _wrapButton(child: _buildToggleBar()),
+              ],
+            ),
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget _wrapButton({required Widget child}) {
+    return IntrinsicWidth(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minWidth: 0, maxWidth: 220),
+        child: child,
       ),
     );
   }

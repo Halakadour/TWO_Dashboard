@@ -37,6 +37,23 @@ class HelperFunctions {
     }
   }
 
+  // Task Status Title
+  static String getTaskStatusTitle(TaskStatus value) {
+    if (value == TaskStatus.toDo) {
+      return "To Do";
+    } else if (value == TaskStatus.inProgress) {
+      return "In Progress";
+    } else if (value == TaskStatus.inReview) {
+      return "In Review";
+    } else if (value == TaskStatus.completed) {
+      return "Completed";
+    } else if (value == TaskStatus.canceled) {
+      return "Canceled";
+    } else {
+      return "";
+    }
+  }
+
   // Task Status Color Returning
   static Color getTaskStatusColor(TaskStatus value) {
     if (value == TaskStatus.toDo) {
@@ -93,6 +110,14 @@ class HelperFunctions {
       return AppColors.redShade1;
     } else {
       return AppColors.gray;
+    }
+  }
+
+  static Color getVisibiltyColor(ProjectVisibility value) {
+    if (value == ProjectVisibility.private) {
+      return AppColors.redShade2;
+    } else {
+      return AppColors.blueShade2;
     }
   }
 

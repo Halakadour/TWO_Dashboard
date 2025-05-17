@@ -4,8 +4,8 @@ import '../../../../config/constants/sizes_config.dart';
 import '../../../../config/theme/color.dart';
 import '../../../../config/theme/text_style.dart';
 
-class SprintStatusTitleAndSprintCount extends StatelessWidget {
-  const SprintStatusTitleAndSprintCount({
+class TaskStatusTitleAndTaskCount extends StatelessWidget {
+  const TaskStatusTitleAndTaskCount({
     super.key,
     required this.title,
     required this.colorState,
@@ -20,7 +20,7 @@ class SprintStatusTitleAndSprintCount extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title, style: AppTextStyle.bodyMd(color: colorState)),
+        Text(title, style: AppTextStyle.bodySm(color: colorState)),
         Container(
           padding: EdgeInsets.symmetric(
             horizontal: SizesConfig.sm,

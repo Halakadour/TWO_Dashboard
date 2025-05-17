@@ -6,13 +6,14 @@ import '../../../../config/constants/padding_config.dart';
 import '../../../../config/constants/sizes_config.dart';
 import '../../../../config/theme/color.dart';
 import '../../../../config/theme/text_style.dart';
+import '../../../../core/functions/device_utility.dart';
 import '../../../../core/network/enums.dart';
 import '../../../../core/widgets/container/status-containers/priority_container.dart';
 import 'comments_box.dart';
 import 'custom_progress_bar.dart';
 
-class SprintCard extends StatelessWidget {
-  const SprintCard({super.key, required this.colorStatus});
+class ProjectCard extends StatelessWidget {
+  const ProjectCard({super.key, required this.colorStatus});
   final Color colorStatus;
 
   @override
@@ -58,7 +59,13 @@ class SprintCard extends StatelessWidget {
                   ),
                   PaddingConfig.h16,
                   // Progress Bar
-                  CustomProgressBar(colorStatus: colorStatus),
+                  CustomProgressBar(
+                    colorStatus: colorStatus,
+                    lintWidth:
+                        DeviceUtility.isMobileScreen(context)
+                            ? DeviceUtility.getScreenWidth(context) * 0.45
+                            : DeviceUtility.getScreenWidth(context) * 0.12,
+                  ),
                   PaddingConfig.h16,
                   SizedBox(
                     width: double.infinity,

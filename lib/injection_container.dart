@@ -52,6 +52,7 @@ import 'package:two_dashboard/features/profile/data/datasources/profile_locale_d
 import 'package:two_dashboard/features/profile/data/datasources/profile_remote_datasourse.dart';
 import 'package:two_dashboard/features/profile/data/repos/profile_repo_impl.dart';
 import 'package:two_dashboard/features/profile/domain/repos/profile_repo.dart';
+import 'package:two_dashboard/features/profile/domain/usecases/get_image_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/get_user_profile_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/show_clients_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/show_users_usecase.dart';
@@ -98,6 +99,7 @@ Future<void> init() async {
       toggleUserApprovedUsecase: sl(),
       showUsersUsecase: sl(),
       showClientsUsecase: sl(),
+      getImageUsecase: sl(),
     ),
   );
   // Usecases
@@ -134,6 +136,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => ToggleUserApprovedUsecase(sl()));
   sl.registerLazySingleton(() => ShowUsersUsecase(sl()));
   sl.registerLazySingleton(() => ShowClientsUsecase(sl()));
+  sl.registerLazySingleton(() => GetImageUsecase(sl()));
   // Repo
   sl.registerLazySingleton<ProfileRepo>(
     () => ProfileRepoImpl(sl(), sl(), sl()),

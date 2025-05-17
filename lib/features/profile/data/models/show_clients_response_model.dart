@@ -23,9 +23,12 @@ class ShowClientsResponseModel {
       ShowClientsResponseModel(
         status: json["status"],
         msg: json["msg"],
-        data: List<ClientModel>.from(
-          json["data"].map((x) => ClientModel.fromJson(x)),
-        ),
+        data:
+            json["data"] == null
+                ? []
+                : List<ClientModel>.from(
+                  json["data"].map((x) => ClientModel.fromJson(x)),
+                ),
       );
 
   Map<String, dynamic> toJson() => {

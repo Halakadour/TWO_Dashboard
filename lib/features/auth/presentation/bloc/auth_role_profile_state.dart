@@ -22,6 +22,8 @@ class AuthRoleProfileState {
   CasualStatus userListStatus;
   List<ClientEntity> clientList;
   CasualStatus clientListStatus;
+  CasualStatus imageBytesStatus;
+  Uint8List? imageBytes;
 
   AuthRoleProfileState({
     this.message = "",
@@ -40,6 +42,8 @@ class AuthRoleProfileState {
     this.userListStatus = CasualStatus.initial,
     this.clientList = const [],
     this.clientListStatus = CasualStatus.initial,
+    this.imageBytesStatus = CasualStatus.initial,
+    this.imageBytes,
   });
 
   AuthRoleProfileState copyWith({
@@ -59,6 +63,8 @@ class AuthRoleProfileState {
     CasualStatus? userListStatus,
     List<ClientEntity>? clientList,
     CasualStatus? clientListStatus,
+    CasualStatus? imageBytesStatus,
+    Uint8List? imageBytes,
   }) {
     return AuthRoleProfileState(
       message: message ?? this.message,
@@ -80,6 +86,8 @@ class AuthRoleProfileState {
       userListStatus: userListStatus ?? this.userListStatus,
       clientList: clientList ?? this.clientList,
       clientListStatus: clientListStatus ?? this.clientListStatus,
+      imageBytesStatus: imageBytesStatus ?? this.imageBytesStatus,
+      imageBytes: imageBytes ?? this.imageBytes,
     );
   }
 }

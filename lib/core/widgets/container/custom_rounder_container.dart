@@ -9,10 +9,10 @@ class CustomRounderContainer extends StatelessWidget {
     this.width,
     this.height,
     this.margin,
-    this.showShadow = true,
-    this.showBorder = false,
+    this.showShadow = false,
+    this.showBorder = true,
     this.padding = const EdgeInsets.all(SizesConfig.md),
-    this.borderColor = AppColors.gray,
+    this.borderColor = AppColors.grayShade2,
     this.radius = SizesConfig.cardRadiusLg,
     this.backgroundColor = AppColors.white,
     this.onTap,
@@ -42,7 +42,8 @@ class CustomRounderContainer extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.circular(radius),
-          border: showBorder ? Border.all(color: borderColor) : null,
+          border:
+              showBorder ? Border.all(color: borderColor, width: 0.5) : null,
           boxShadow: [
             if (showShadow)
               BoxShadow(

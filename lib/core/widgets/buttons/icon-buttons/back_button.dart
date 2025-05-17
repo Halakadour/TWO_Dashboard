@@ -6,9 +6,12 @@ class CustomBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () => context.pop(),
-      icon: const Icon(Icons.arrow_back),
+    return Tooltip(
+      message: "Back",
+      child: IconButton(
+        onPressed: () => context.pop(),
+        icon: const Icon(Icons.arrow_back),
+      ),
     );
   }
 }

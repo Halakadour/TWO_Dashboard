@@ -23,9 +23,12 @@ class ShowDraftResponseModel {
       ShowDraftResponseModel(
         status: json["status"],
         msg: json["msg"],
-        data: List<DraftModel>.from(
-          json["data"].map((x) => DraftModel.fromJson(x)),
-        ),
+        data:
+            json["data"] == null
+                ? []
+                : List<DraftModel>.from(
+                  json["data"].map((x) => DraftModel.fromJson(x)),
+                ),
       );
 
   Map<String, dynamic> toJson() => {

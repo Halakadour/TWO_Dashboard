@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
-import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/about_us_why_us_state_handling.dart';
 import 'package:two_dashboard/core/widgets/dialog/why-us-about-us/why_us_about_us_dialogs.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
@@ -34,7 +33,6 @@ class _AboutUsWhyUsPageState extends State<AboutUsWhyUsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.bgColor,
       body: Padding(
         padding: const EdgeInsets.all(SizesConfig.lg),
         child: Column(

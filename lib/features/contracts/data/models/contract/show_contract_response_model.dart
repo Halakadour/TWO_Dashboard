@@ -23,9 +23,12 @@ class ShowContractResponseModel {
       ShowContractResponseModel(
         status: json["status"],
         msg: json["msg"],
-        data: List<ContractModel>.from(
-          json["data"].map((x) => ContractModel.fromJson(x)),
-        ),
+        data:
+            json["data"] == null
+                ? []
+                : List<ContractModel>.from(
+                  json["data"].map((x) => ContractModel.fromJson(x)),
+                ),
       );
 
   Map<String, dynamic> toJson() => {

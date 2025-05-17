@@ -3,7 +3,7 @@ import 'package:two_dashboard/features/contracts/domain/entities/contract_entity
 class ContractModel extends ContractEntity {
   final int id;
   final String contract;
-  final String clientId;
+  final int clientId;
   // final String clientName;
   // final String clientImage;
   final String? clientSign;
@@ -16,7 +16,7 @@ class ContractModel extends ContractEntity {
   }) : super(
          contractId: id,
          contractPath: contract,
-         clientId: clientId,
+         clientID: clientId.toString(),
          clientImage: "",
          clientName: "name",
          clientSign: clientSign,

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dartz/dartz.dart';
 import 'package:two_dashboard/core/error/failures.dart';
 import 'package:two_dashboard/core/error/handling_exception_manager.dart';
@@ -19,4 +21,5 @@ abstract class ProfileRepo with HandlingExceptionManager {
   );
   Future<Either<Failure, List<ClientEntity>>> showClients();
   Future<Either<Failure, Unit>> toggleUserApproved(String token, int userId);
+  Future<Either<Failure, Uint8List>> getImage(String imagePath);
 }

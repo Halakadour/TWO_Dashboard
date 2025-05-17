@@ -113,6 +113,30 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
         emit(state.copyWith(addContractStatus: CasualStatus.notAuthorized));
       }
     });
+    on<AddSignEvent>((event, emit) async {
+      emit(state.copyWith(addSignStatus: CasualStatus.loading));
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await addSignUsecase.call(
+          AddSignParam(
+            token: token,
+            signatur: event.signature,
+            contractId: event.contractId,
+          ),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              addSignStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) => emit(state.copyWith(addSignStatus: CasualStatus.success)),
+        );
+      } else {
+        emit(state.copyWith(addSignStatus: CasualStatus.notAuthorized));
+      }
+    });
     // Draft Bloc
     on<GetDrafEvent>((event, emit) async {
       emit(state.copyWith(drafListStatus: CasualStatus.loading));

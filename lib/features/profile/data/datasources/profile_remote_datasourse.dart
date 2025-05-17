@@ -1,3 +1,7 @@
+import 'dart:developer';
+import 'dart:typed_data';
+
+import 'package:http/http.dart' as http;
 import 'package:two_dashboard/config/constants/base_uri.dart';
 import 'package:two_dashboard/core/api/get_api.dart';
 import 'package:two_dashboard/core/api/get_with_token_api.dart';
@@ -22,6 +26,7 @@ abstract class ProfileRemoteDatasourse {
   );
   Future<ShowClientsResponseModel> showClients();
   Future<EmptyResponseModel> toggleUserApproved(String token, int userId);
+  Future<Uint8List> getImage(String imagePath);
 }
 
 class ProfileRemoteDatasourseImpl extends ProfileRemoteDatasourse {
@@ -92,5 +97,24 @@ class ProfileRemoteDatasourseImpl extends ProfileRemoteDatasourse {
       fromJson: getUserProfileResponseModelFromJson,
     );
     return await result.callRequest();
+  }
+
+  @override
+  Future<Uint8List> getImage(String imagePath) async {
+    // final result = PostApi(
+    //   uri: Uri.parse("$baseUri/api/get/image"),
+    //   body: ({'filename': imagePath}),
+    //   fromJson: (body) {},
+    // );
+    final response = await http.post(
+      Uri.parse('$baseUri/api/get/image?filename=$imagePath'),
+    );
+    if (response.statusCode == 200) {
+      return response.bodyBytes;
+    } else {
+      log("${response.statusCode}");
+      log(response.body);
+      return response.bodyBytes;
+    }
   }
 }

@@ -6,14 +6,18 @@ import 'package:two_dashboard/features/auth/presentation/pages/login/login_page.
 import 'package:two_dashboard/features/auth/presentation/pages/sign-up/sign_up_page.dart';
 import 'package:two_dashboard/features/calendar/presentation/pages/calender_page.dart';
 import 'package:two_dashboard/features/contact-us/presentation/pages/contact_us_page.dart';
+import 'package:two_dashboard/features/contracts/presentation/pages/signature_board_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/contracts_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/create-contract/create_contract_page.dart';
+import 'package:two_dashboard/features/contracts/presentation/pages/create_draft_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/drafts_page.dart';
 import 'package:two_dashboard/features/dashboard/presentation/pages/dashboard_page.dart';
 import 'package:two_dashboard/features/inbox/presentation/pages/inbox_page.dart';
+import 'package:two_dashboard/features/projects%20&%20Team/presentation/pages/create_project_page.dart';
 import 'package:two_dashboard/features/projects%20&%20Team/presentation/pages/projects_page.dart';
+import 'package:two_dashboard/features/projects%20&%20Team/presentation/pages/select_team_page.dart';
 import 'package:two_dashboard/features/services/presentation/pages/update-service/update_service_page.dart';
-import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/sprint_page.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/task_page.dart';
 import 'package:two_dashboard/root_page.dart';
 import 'package:two_dashboard/features/posts/presentation/pages/create-post/create_post_page.dart';
 import 'package:two_dashboard/features/posts/presentation/pages/post_replies_page.dart';
@@ -63,7 +67,7 @@ class AppRouter {
               GoRoute(
                 name: AppRouteConfig.sprints,
                 path: '/tasks',
-                builder: (context, state) => const SprintPage(),
+                builder: (context, state) => const TaskPage(),
               ),
             ],
           ),
@@ -73,7 +77,17 @@ class AppRouter {
               GoRoute(
                 name: AppRouteConfig.projects,
                 path: '/projects',
-                builder: (context, state) => const ProjectTimelinePage(),
+                builder: (context, state) => const ProjectPage(),
+              ),
+              GoRoute(
+                name: AppRouteConfig.createProject,
+                path: '/createProject',
+                builder: (context, state) => const CreateProjectPage(),
+              ),
+              GoRoute(
+                name: AppRouteConfig.selectTeam,
+                path: '/selectTeam',
+                builder: (context, state) => const SelectTeamPage(),
               ),
             ],
           ),
@@ -120,6 +134,14 @@ class AppRouter {
                 path: '/createContracts',
                 builder: (context, state) => const CreateContractPage(),
               ),
+              GoRoute(
+                name: AppRouteConfig.addSign,
+                path: '/addSign/:id',
+                builder:
+                    (context, state) => SignatureBoardPage(
+                      id: state.pathParameters['id'] ?? '',
+                    ),
+              ),
             ],
           ),
           // Drafts Branch
@@ -129,6 +151,11 @@ class AppRouter {
                 name: AppRouteConfig.drafts,
                 path: '/drafts',
                 builder: (context, state) => const DraftsPage(),
+              ),
+              GoRoute(
+                name: AppRouteConfig.createDraft,
+                path: '/createDraft',
+                builder: (context, state) => CreateDraftPage(),
               ),
             ],
           ),

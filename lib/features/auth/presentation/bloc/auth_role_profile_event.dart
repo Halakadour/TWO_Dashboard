@@ -61,3 +61,9 @@ class ShowUsersWithFilterEvent extends AuthRoleProfileEvent {
 }
 
 class ShowClientsEvent extends AuthRoleProfileEvent {}
+
+class GetImageEvent extends AuthRoleProfileEvent {
+  final String imagePath;
+
+  GetImageEvent({required this.imagePath});
+}

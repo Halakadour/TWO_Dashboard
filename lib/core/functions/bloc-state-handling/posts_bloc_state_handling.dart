@@ -45,7 +45,7 @@ class PostsBlocStateHandling {
   }
 
   // Delete And Unactive
-  void deleteAndUnactivePOst(PostState state, BuildContext context) {
+  void deleteAndUnActivePost(PostState state, BuildContext context) {
     if (state.deletePostStatus == CasualStatus.loading ||
         state.unActivePostStatus == CasualStatus.loading) {
       showLoadingDialog(context);

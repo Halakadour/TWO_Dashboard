@@ -7,7 +7,6 @@ class CalendarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F8FA),
       body: Row(children: [Expanded(child: _buildMainContent())]),
     );
   }

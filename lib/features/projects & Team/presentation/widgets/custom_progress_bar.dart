@@ -5,8 +5,13 @@ import '../../../../config/theme/color.dart';
 import '../../../../config/theme/text_style.dart';
 
 class CustomProgressBar extends StatelessWidget {
-  const CustomProgressBar({super.key, required this.colorStatus});
+  const CustomProgressBar({
+    super.key,
+    required this.colorStatus,
+    required this.lintWidth,
+  });
   final Color colorStatus;
+  final double lintWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +19,7 @@ class CustomProgressBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
-          width: 200,
+          width: lintWidth,
           child: LinearProgressIndicator(
             value: 0.5,
             trackGap: 2,

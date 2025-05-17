@@ -161,14 +161,14 @@ class AppTextStyle {
   }
 
   static TextStyle textfieldStyle({
-    double fontSize = 12,
-    Color color = AppColors.fontLightGray,
+    double fontSize = 10,
+    Color color = AppColors.gray,
     TextDecoration? decoration,
   }) {
     return TextStyle(
       color: color,
       fontFamily: 'Poppins',
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
       fontSize: fontSize,
       decoration: decoration,

@@ -19,7 +19,7 @@ class ClientModel extends ClientEntity {
     id: json["id"],
     name: json["name"],
     email: json["email"],
-    image: json["image"],
+    image: json["image"] ?? '',
     role: json["role"],
   );
 

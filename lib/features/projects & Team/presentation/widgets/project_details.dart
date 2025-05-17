@@ -8,14 +8,14 @@ import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/divider/custom_divider.dart';
 import 'package:two_dashboard/core/widgets/images/image_circle.dart';
 
-class SprintDetails extends StatefulWidget {
-  const SprintDetails({super.key});
+class ProjectDetails extends StatefulWidget {
+  const ProjectDetails({super.key});
 
   @override
-  State<SprintDetails> createState() => _SprintDetailsState();
+  State<ProjectDetails> createState() => _ProjectDetailsState();
 }
 
-class _SprintDetailsState extends State<SprintDetails> {
+class _ProjectDetailsState extends State<ProjectDetails> {
   @override
   Widget build(BuildContext context) {
     return Container(

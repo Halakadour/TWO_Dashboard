@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dartz/dartz.dart';
 import 'package:two_dashboard/core/error/failures.dart';
 import 'package:two_dashboard/core/network/network_connection_checker.dart';
@@ -90,6 +92,16 @@ class ProfileRepoImpl extends ProfileRepo {
           final localProfile = await profileLocaleDatasourse.getUserProfile();
           return Right(localProfile);
         }
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, Uint8List>> getImage(String imagePath) {
+    return wrapHandling(
+      tryCall: () async {
+        final result = await profileRemoteDatasourse.getImage(imagePath);
+        return Right(result);
       },
     );
   }

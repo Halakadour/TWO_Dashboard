@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/cancel_text_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/save_text_button.dart';
@@ -19,7 +20,8 @@ class ContractsDialogs {
       context: context,
       builder:
           (context) => SizedBox(
-            height: 100,
+            height: SizesConfig.dialogHightXs,
+            width: SizesConfig.dialogWidthMd,
             child: AlertDialog(
               title: Text(
                 "Add The Client Signature :",

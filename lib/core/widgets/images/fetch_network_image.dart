@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:iconsax/iconsax.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:two_dashboard/config/constants/base_uri.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
@@ -16,7 +17,7 @@ class FetchNetworkImage extends StatefulWidget {
     this.height,
     this.width,
   });
-  final String imagePath;
+  final String? imagePath;
   final BoxShape shape;
   final double? height;
   final double? width;
@@ -45,13 +46,30 @@ class _FetchNetworkImageState extends State<FetchNetworkImage> {
 
   @override
   void initState() {
-    fetchImage(widget.imagePath);
+    if (widget.imagePath != null) {
+      fetchImage(widget.imagePath!);
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return imageBytes != null
+    return (widget.imagePath == null)
+        ? Container(
+          height: widget.height ?? 30,
+          width: widget.width ?? 30,
+          clipBehavior: Clip.hardEdge,
+          margin: EdgeInsets.symmetric(vertical: 8.0),
+          decoration: BoxDecoration(
+            borderRadius:
+                (widget.shape != BoxShape.circle)
+                    ? BorderRadius.circular(SizesConfig.borderRadiusSm)
+                    : null,
+            shape: widget.shape,
+          ),
+          child: Icon(Iconsax.image),
+        )
+        : imageBytes != null
         ? Container(
           height: widget.height ?? 30,
           width: widget.width ?? 30,

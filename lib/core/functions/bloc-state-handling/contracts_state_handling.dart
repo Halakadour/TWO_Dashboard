@@ -16,6 +16,10 @@ import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc
 import 'package:two_dashboard/core/widgets/data-table/custom/custom_contract_table.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom/custom_draft_table.dart';
 
+import '../../../config/routes/app_route_config.dart';
+import '../../../features/contracts/domain/entities/contract_entity.dart';
+import '../../widgets/menus/custom_popu_menu_for_contract_entity.dart';
+
 class ContractsStateHandling {
   // Get Contrcat Table
   Widget getContractsTable(ContractState state) {
@@ -29,6 +33,50 @@ class ContractsStateHandling {
       return Center(child: UnauthorizedStatusAnimation());
     } else {
       return const SizedBox();
+    }
+  }
+
+  // Get Contract Popumenu
+  Widget getContractsPopuMenu(
+    ContractState state,
+    ContractEntity? contractEntity,
+    void Function(ContractEntity)? onSelected,
+  ) {
+    if (state.contrcatListStatus == CasualStatus.loading) {
+      return const CustomDropdownLoading();
+    } else if (state.contrcatListStatus == CasualStatus.success) {
+      return CustomPopuMenuForContractEntity(
+        selectYour: "Contract File",
+        value: contractEntity,
+        items:
+            state.contractList.map((contract) {
+              return PopupMenuItem(
+                value: contract,
+                child: Text(contract.contractPath),
+              );
+            }).toList(),
+        onSelected: onSelected,
+      );
+    } else if (state.contrcatListStatus == CasualStatus.failure) {
+      return const Text("No Contrcats");
+    } else {
+      return const SizedBox();
+    }
+  }
+
+  // Add Client Sign
+  void addSign(ContractState state, BuildContext context) {
+    if (state.addSignStatus == CasualStatus.loading) {
+      showLoadingDialog(context);
+    } else if (state.addSignStatus == CasualStatus.success) {
+      context.pop();
+      context.read<ContractBloc>().add(GetContractEvent());
+      showSuccessDialog(context, () {
+        context.pop();
+      });
+    } else if (state.addSignStatus == CasualStatus.failure) {
+      context.pop();
+      CustomQuickAlert().failureAlert(context, state.message);
     }
   }
 
@@ -74,8 +122,11 @@ class ContractsStateHandling {
         selectYour: "draft",
         value: draftEntity,
         items:
-            state.drafList.map((role) {
-              return DropdownMenuItem(value: role, child: Text(role.draftPath));
+            state.drafList.map((draft) {
+              return DropdownMenuItem(
+                value: draft,
+                child: Text(draft.draftPath),
+              );
             }).toList(),
         onChanged: onChanged,
       );
@@ -94,14 +145,34 @@ class ContractsStateHandling {
     } else if (state.createContractStatus == CasualStatus.success) {
       context.pop();
       showSuccessDialog(context, () {
+        context.pushReplacementNamed(AppRouteConfig.contracts);
         context.pop();
       });
       context.read<ContractBloc>().add(GetContractEvent());
-      context.pop();
     } else if (state.createContractStatus == CasualStatus.failure) {
       context.pop();
       CustomQuickAlert().failureAlert(context, state.message);
     } else if (state.createContractStatus == CasualStatus.notAuthorized) {
+      context.pop();
+      CustomQuickAlert().noTokenAlert(context);
+    }
+  }
+
+  void createDraft(ContractState state, BuildContext context) {
+    if (state.createDrafStatus == CasualStatus.loading) {
+      showLoadingDialog(context);
+    } else if (state.createDrafStatus == CasualStatus.success) {
+      context.pop();
+      showSuccessDialog(context, () {
+        context.pushReplacementNamed(AppRouteConfig.drafts);
+        context.pop();
+      });
+      context.read<ContractBloc>().add(GetDrafEvent());
+      context.pop();
+    } else if (state.createDrafStatus == CasualStatus.failure) {
+      context.pop();
+      CustomQuickAlert().failureAlert(context, state.message);
+    } else if (state.createDrafStatus == CasualStatus.notAuthorized) {
       context.pop();
       CustomQuickAlert().noTokenAlert(context);
     }

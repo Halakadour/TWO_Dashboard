@@ -21,15 +21,18 @@ class ShowUsersWithFilterResponseModel {
     required this.data,
   });
 
-  factory ShowUsersWithFilterResponseModel.fromJson(
-    Map<String, dynamic> json,
-  ) => ShowUsersWithFilterResponseModel(
-    status: json["status"],
-    msg: json["msg"],
-    data: List<EmployeeModel>.from(
-      json["data"].map((x) => EmployeeModel.fromJson(x)),
-    ),
-  );
+  factory ShowUsersWithFilterResponseModel.fromJson(Map<String, dynamic> json) {
+    return ShowUsersWithFilterResponseModel(
+      status: json["status"],
+      msg: json["msg"],
+      data:
+          json["data"] == null
+              ? []
+              : List<EmployeeModel>.from(
+                json["data"].map((x) => EmployeeModel.fromJson(x)),
+              ),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     "status": status,

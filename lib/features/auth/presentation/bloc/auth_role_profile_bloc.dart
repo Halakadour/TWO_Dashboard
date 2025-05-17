@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:bloc/bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:two_dashboard/core/network/enums.dart';
@@ -8,6 +10,7 @@ import 'package:two_dashboard/features/auth/domain/usecases/logout_usecase.dart'
 import 'package:two_dashboard/features/auth/domain/usecases/register_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/entities/client_entity.dart';
 import 'package:two_dashboard/features/profile/domain/entities/employee_entity.dart';
+import 'package:two_dashboard/features/profile/domain/usecases/get_image_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/get_user_profile_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/show_clients_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/show_users_usecase.dart';
@@ -36,6 +39,7 @@ class AuthRoleProfileBloc
   final ToggleUserApprovedUsecase toggleUserApprovedUsecase;
   final ShowUsersUsecase showUsersUsecase;
   final ShowClientsUsecase showClientsUsecase;
+  final GetImageUsecase getImageUsecase;
   AuthRoleProfileBloc({
     required this.registerUsecase,
     required this.loginUsecase,
@@ -47,6 +51,7 @@ class AuthRoleProfileBloc
     required this.toggleUserApprovedUsecase,
     required this.showUsersUsecase,
     required this.showClientsUsecase,
+    required this.getImageUsecase,
   }) : super(AuthRoleProfileState()) {
     // Auth Bloc //
     on<RegisteNewUserEvent>((event, emit) async {
@@ -267,6 +272,21 @@ class AuthRoleProfileBloc
         ),
         (r) => emit(
           state.copyWith(clientListStatus: CasualStatus.success, clientList: r),
+        ),
+      );
+    });
+    on<GetImageEvent>((event, emit) async {
+      emit(state.copyWith(imageBytesStatus: CasualStatus.loading));
+      final result = await getImageUsecase.call(event.imagePath);
+      result.fold(
+        (l) => emit(
+          state.copyWith(
+            imageBytesStatus: CasualStatus.failure,
+            message: l.message,
+          ),
+        ),
+        (r) => emit(
+          state.copyWith(imageBytesStatus: CasualStatus.success, imageBytes: r),
         ),
       );
     });

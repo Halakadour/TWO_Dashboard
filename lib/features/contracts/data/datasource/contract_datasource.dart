@@ -47,7 +47,11 @@ class ContractDatasourceImpl implements ContractDatasource {
     final result = PostApiWithToken(
       uri: Uri.parse("$baseUri/api/create/contract"),
       token: token,
-      body: ({'contract': contract, 'client_id': clientId, 'draft_id': drafId}),
+      body: ({
+        'contract': '$pdfBase64$contract',
+        'client_id': clientId.toString(),
+        'draft_id': drafId.toString(),
+      }),
       fromJson: addContractResponseModelFromJson,
     );
     return await result.call();
@@ -77,7 +81,7 @@ class ContractDatasourceImpl implements ContractDatasource {
     final result = PostApiWithToken(
       uri: Uri.parse("$baseUri/api/create/draft"),
       token: token,
-      body: ({'contract': draf, 'user_id': clientId}),
+      body: ({'contract': '$documentBase64$draf', 'user_id': clientId}),
       fromJson: addDraftResponseModelFromJson,
     );
     return await result.call();
@@ -115,7 +119,7 @@ class ContractDatasourceImpl implements ContractDatasource {
     int filter,
   ) async {
     final result = GetWithTokenApi(
-      uri: Uri.parse("$baseUri/api/show/contracts?filter[state]=$filter"),
+      uri: Uri.parse("$baseUri/api/show/contracts"),
       token: token,
       fromJson: showContractResponseModelFromJson,
     );
@@ -127,7 +131,7 @@ class ContractDatasourceImpl implements ContractDatasource {
     final result = GetWithTokenApi(
       uri: Uri.parse("$baseUri/api/show/drafts?filter[state]=$filter"),
       token: token,
-      fromJson: showContractResponseModelFromJson,
+      fromJson: showDraftResponseModelFromJson,
     );
     return await result.callRequest();
   }

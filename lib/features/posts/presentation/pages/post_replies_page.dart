@@ -33,7 +33,6 @@ class _PostRepliesPageState extends State<PostRepliesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.bgColor,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: BlocListener<PostBloc, PostState>(

@@ -120,7 +120,7 @@ class ProfileBlocStateHandling {
     } else if (state.clientListStatus == CasualStatus.loading) {
       return const CustomDropdownLoading();
     } else if (state.clientListStatus == CasualStatus.failure) {
-      return const Text("No Clients");
+      return Text(state.message);
     } else {
       return const SizedBox();
     }
@@ -141,6 +141,51 @@ class ProfileBlocStateHandling {
     } else if (state.toggleApproveStatus == CasualStatus.notAuthorized) {
       context.pop();
       CustomQuickAlert().failureAlert(context, TextStrings.noToken);
+    }
+  }
+
+  // Get Network Image
+  Widget getImage(
+    AuthRoleProfileState state,
+    double? height,
+    double? width,
+    BoxShape shape,
+  ) {
+    if (state.imageBytesStatus == CasualStatus.success) {
+      return Container(
+        height: height ?? 30,
+        width: width ?? 30,
+        clipBehavior: Clip.hardEdge,
+        margin: EdgeInsets.symmetric(vertical: 8.0),
+        decoration: BoxDecoration(
+          borderRadius:
+              (shape != BoxShape.circle)
+                  ? BorderRadius.circular(SizesConfig.borderRadiusSm)
+                  : null,
+          shape: shape,
+        ),
+        child: Image.memory(state.imageBytes!, fit: BoxFit.cover),
+      );
+    } else if (state.imageBytesStatus == CasualStatus.failure) {
+      return Text(state.message);
+    } else {
+      return Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: Container(
+          height: height ?? 30,
+          width: width ?? 30,
+          margin: EdgeInsets.symmetric(vertical: 8.0),
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius:
+                (shape != BoxShape.circle)
+                    ? BorderRadius.circular(SizesConfig.borderRadiusSm)
+                    : null,
+            shape: shape,
+          ),
+        ),
+      );
     }
   }
 }

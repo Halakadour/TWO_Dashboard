@@ -43,7 +43,7 @@ class AddSomthingButton extends StatelessWidget {
                     SizedBox(
                       width: 10,
                       child: Icon(
-                        Iconsax.like,
+                        Iconsax.add,
                         size: SizesConfig.iconsSm,
                         color: value ? AppColors.white : AppColors.greenShade2,
                       ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
-import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/contact_us_state_handling.dart';
 import 'package:two_dashboard/core/widgets/buttons/icon-buttons/filter_button.dart';
 import 'package:two_dashboard/core/widgets/dialog/filter/filter_contact_us.dart';
@@ -26,7 +25,6 @@ class _ContactUsPageState extends State<ContactUsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.bgColor,
       body: Padding(
         padding: const EdgeInsets.all(SizesConfig.lg),
         child: BlocListener<ContactUsBloc, ContactUsState>(

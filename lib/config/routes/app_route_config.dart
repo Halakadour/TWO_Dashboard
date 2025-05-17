@@ -8,12 +8,15 @@ class AppRouteConfig {
   static const dashboard = 'dashboard';
   static const sprints = 'sprints';
   static const projects = 'projects';
+  static const createProject = 'createProject';
+  static const selectTeam = 'selectTeam';
   static const calendar = 'calendar';
   static const inbox = 'inbox';
   static const acounts = 'acounts';
 
   // Contracts Branches //
   static const contracts = "contracts";
+  static const addSign = "addSign";
   static const createContract = "createContract";
   static const drafts = "drafts";
   static const createDraft = "createDraft";

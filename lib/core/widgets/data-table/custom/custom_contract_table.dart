@@ -1,14 +1,16 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/add_somthing_button.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom_data_table.dart';
-import 'package:two_dashboard/core/widgets/dialog/contract/contracts_dialogs.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/features/contracts/domain/entities/contract_entity.dart';
+
+import '../../../../config/routes/app_route_config.dart';
 
 class CustomContractTable extends StatefulWidget {
   const CustomContractTable({super.key, required this.contrcatList});
@@ -78,7 +80,9 @@ class _CustomContractTableState extends State<CustomContractTable> {
             (states) => index.isEven ? AppColors.white : AppColors.fieldColor,
           ),
           cells: [
-            DataCell(Center(child: Text(widget.contrcatList[index].clientId))),
+            DataCell(
+              Center(child: Text(widget.contrcatList[index].clientName)),
+            ),
             DataCell(
               Center(child: Text(widget.contrcatList[index].contractPath)),
             ),
@@ -97,11 +101,11 @@ class _CustomContractTableState extends State<CustomContractTable> {
                 child: AddSomthingButton(
                   something: "Sign",
                   onTap: () {
-                    ContractsDialogs().addSignatureDialog(
-                      context,
-                      int.parse(widget.contrcatList[index].clientId),
-                      signature,
-                      updateBytes,
+                    context.pushNamed(
+                      AppRouteConfig.addSign,
+                      pathParameters: {
+                        'id': widget.contrcatList[index].contractId.toString(),
+                      },
                     );
                   },
                 ),

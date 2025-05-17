@@ -37,7 +37,7 @@ class CustomSiteTemplate extends StatelessWidget {
       backgroundColor:
           DeviceUtility.isMobileScreen(context)
               ? AppColors.white
-              : AppColors.bgColor,
+              : AppColors.scaffoldBackgroundColor,
       body: CustomResponsiveDesign(
         desktop:
             useLayout

@@ -26,9 +26,12 @@ class ShowNotApprovedContactUsResponseModel {
   ) => ShowNotApprovedContactUsResponseModel(
     status: json["status"],
     msg: json["msg"],
-    data: List<ContactUsModel>.from(
-      json["data"].map((x) => ContactUsModel.fromJson(x)),
-    ),
+    data:
+        json["data"] == null
+            ? []
+            : List<ContactUsModel>.from(
+              json["data"].map((x) => ContactUsModel.fromJson(x)),
+            ),
   );
 
   Map<String, dynamic> toJson() => {

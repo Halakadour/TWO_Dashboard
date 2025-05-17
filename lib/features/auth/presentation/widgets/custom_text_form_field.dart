@@ -90,7 +90,7 @@ class CustomTextFormField extends StatelessWidget {
               borderRadius: BorderRadius.circular(SizesConfig.inputFieldRadius),
               borderSide: BorderSide(
                 color: borderColor ?? AppColors.gray,
-                width: 1,
+                width: 0.8,
               ),
             ),
         enabledBorder:
@@ -99,7 +99,7 @@ class CustomTextFormField extends StatelessWidget {
               borderRadius: BorderRadius.circular(SizesConfig.inputFieldRadius),
               borderSide: BorderSide(
                 color: borderColor ?? AppColors.gray,
-                width: 1,
+                width: 0.8,
               ),
             ),
         focusedBorder:
@@ -108,7 +108,7 @@ class CustomTextFormField extends StatelessWidget {
               borderRadius: BorderRadius.circular(SizesConfig.inputFieldRadius),
               borderSide: BorderSide(
                 color: borderColor ?? AppColors.gray,
-                width: 1,
+                width: 0.8,
               ),
             ),
       ),

@@ -13,7 +13,7 @@ class DraftModel extends DraftEntity {
         draftId: id,
         draftPath: contract,
         approvedStatus: state,
-        clientId: 0,
+        clientId: 2,
         clientImage: "",
         clientName: "",
       );

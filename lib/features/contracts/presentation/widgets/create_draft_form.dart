@@ -37,14 +37,20 @@ class _CreateDraftFormState extends State<CreateDraftForm> {
   }
 
   @override
+  void didChangeDependencies() {
+    context.read<AuthRoleProfileBloc>().add(ShowClientsEvent());
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocListener<ContractBloc, ContractState>(
       listener: (context, state) {
-        ContractsStateHandling().createContract(state, context);
+        ContractsStateHandling().createDraft(state, context);
       },
       listenWhen:
           (previous, current) =>
-              previous.createContractStatus != current.createContractStatus,
+              previous.createDrafStatus != current.createDrafStatus,
       child: PageTemplate(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,6 +76,7 @@ class _CreateDraftFormState extends State<CreateDraftForm> {
                   Expanded(
                     flex: 4,
                     child: CustomRounderContainer(
+                      showShadow: false,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,7 +145,9 @@ class _CreateDraftFormState extends State<CreateDraftForm> {
                 SaveElevatedButton(
                   onPressed: () {
                     if (clientEntity == null) {
+                      print("Empty Clinet");
                     } else if (wordBytes == null) {
+                      print("Empty word");
                     } else {
                       context.read<ContractBloc>().add(
                         CreateDrafEvent(

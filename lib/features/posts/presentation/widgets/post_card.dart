@@ -40,11 +40,14 @@ class PostCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              GestureDetector(
-                onTap: () {
-                  showPostCardSideMenu(iconKey, context, postEntity.postId);
-                },
-                child: const Icon(Iconsax.more),
+              Tooltip(
+                message: "More",
+                child: GestureDetector(
+                  onTap: () {
+                    showPostCardSideMenu(iconKey, context, postEntity.postId);
+                  },
+                  child: const Icon(Iconsax.more),
+                ),
               ),
             ],
           ),

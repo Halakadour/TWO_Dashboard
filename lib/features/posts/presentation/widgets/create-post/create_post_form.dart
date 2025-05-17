@@ -5,7 +5,6 @@ import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
-import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/posts_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/breadcrumbs/breadcumbs_item.dart';
 import 'package:two_dashboard/core/widgets/buttons/icon-buttons/back_button.dart';
@@ -14,6 +13,7 @@ import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/save_elevate
 import 'package:two_dashboard/core/widgets/images/fetch_image_box.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
+import 'package:two_dashboard/core/widgets/texts/page_title.dart';
 import 'package:two_dashboard/features/auth/presentation/widgets/custom_text_form_field.dart';
 import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';
 
@@ -64,7 +64,7 @@ class _CreatePostFormState extends State<CreatePostForm> {
                 children: [
                   const CustomBackButton(),
                   PaddingConfig.w8,
-                  Text("Create Post", style: AppTextStyle.headerSm()),
+                  PageTitle(pageTitle: "Create Post"),
                 ],
               ),
               PaddingConfig.h24,
