@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/project_bloc_state_handling.dart';
 import 'package:two_dashboard/core/functions/device_utility.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
+import 'package:two_dashboard/features/projects%20&%20team/presentation/bloc/project_and_team_bloc.dart';
 
 import '../../../../config/constants/padding_config.dart';
 import '../../../../config/constants/sizes_config.dart';
@@ -12,8 +15,6 @@ import '../../../../core/widgets/buttons/icon-buttons/choose_date_button.dart';
 import '../../../../core/widgets/buttons/icon-buttons/filter_button.dart';
 import '../../../../core/widgets/buttons/icon-buttons/sort_by_button.dart';
 import '../../../../core/widgets/texts/page_title.dart';
-import '../widgets/project_kanban_view.dart';
-import '../widgets/project_list_view.dart';
 
 class ProjectPage extends StatefulWidget {
   const ProjectPage({super.key});
@@ -24,6 +25,12 @@ class ProjectPage extends StatefulWidget {
 
 class _ProjectPageState extends State<ProjectPage> {
   bool isKanban = true;
+  @override
+  void didChangeDependencies() {
+    context.read<ProjectAndTeamBloc>().add(ShowAllProjectsEvent());
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,11 +46,16 @@ class _ProjectPageState extends State<ProjectPage> {
             PaddingConfig.h24,
             _buildFilters(),
             PaddingConfig.h32,
-            Expanded(
-              child:
-                  isKanban
-                      ? ProjectKanbanView()
-                      : ProjectListView(colorStatus: AppColors.yellowShade2),
+            Flexible(
+              child: BlocBuilder<ProjectAndTeamBloc, ProjectAndTeamState>(
+                buildWhen:
+                    (previous, current) =>
+                        (previous.allProjectsListStatus !=
+                            current.allProjectsListStatus),
+                builder: (context, state) {
+                  return ProjectBlocStateHandling().getProjectTable(state);
+                },
+              ),
             ),
           ],
         ),

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
-import 'package:two_dashboard/config/theme/text_style.dart';
 
 // ignore: must_be_immutable
 class AcceptButton extends StatelessWidget {
@@ -30,32 +28,40 @@ class AcceptButton extends StatelessWidget {
                 duration: const Duration(
                   milliseconds: SizesConfig.animationDuration,
                 ),
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: value ? AppColors.greenShade2 : Colors.transparent,
                   border: Border.all(color: AppColors.greenShade2, width: 1.1),
-                  borderRadius: BorderRadius.circular(SizesConfig.buttonRadius),
+                  shape: BoxShape.circle,
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 10,
-                      child: Icon(
-                        Iconsax.like,
-                        size: SizesConfig.iconsSm,
-                        color: value ? AppColors.white : AppColors.greenShade2,
-                      ),
-                    ),
-                    PaddingConfig.w8,
-                    Text(
-                      "Accept",
-                      style: AppTextStyle.buttonStyle(
-                        color: value ? AppColors.white : AppColors.greenShade2,
-                      ),
-                    ),
-                  ],
+                child: Tooltip(
+                  message: "Accept",
+                  child: Icon(
+                    Iconsax.like_1,
+                    size: SizesConfig.iconsSm,
+                    color: value ? AppColors.white : AppColors.greenShade2,
+                  ),
                 ),
+                // child: Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     SizedBox(
+                //       width: 10,
+                //       child: Icon(
+                //         Iconsax.like_1,
+                //         size: SizesConfig.iconsSm,
+                //         color: value ? AppColors.white : AppColors.greenShade2,
+                //       ),
+                //     ),
+                //     PaddingConfig.w8,
+                //     Text(
+                //       "Accept",
+                //       style: AppTextStyle.buttonStyle(
+                //         color: value ? AppColors.white : AppColors.greenShade2,
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ),
             ),
       ),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom_paginated_data_table.dart';
-import 'package:two_dashboard/features/dashboard/presentation/widgets/task_table_source.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/tasks/task_table_source.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/task_entity.dart';
 
 class TaskTable extends StatelessWidget {

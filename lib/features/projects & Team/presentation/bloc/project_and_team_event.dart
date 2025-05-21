@@ -1,9 +1,9 @@
-part of 'project_and_task_bloc.dart';
+part of 'project_and_team_bloc.dart';
 
-class ProjectAndTaskEvent {}
+class ProjectAndTeamEvent {}
 
 // Project Events
-class CreateProjectEvent extends ProjectAndTaskEvent {
+class CreateProjectEvent extends ProjectAndTeamEvent {
   final String name;
   final String description;
   final int contractId;
@@ -23,7 +23,7 @@ class CreateProjectEvent extends ProjectAndTaskEvent {
   });
 }
 
-class UpdateProjectEvent extends ProjectAndTaskEvent {
+class UpdateProjectEvent extends ProjectAndTeamEvent {
   final int projectId;
   final String name;
   final String description;
@@ -45,38 +45,47 @@ class UpdateProjectEvent extends ProjectAndTaskEvent {
   });
 }
 
-class DeleteProjectsEvent extends ProjectAndTaskEvent {
+class DeleteProjectsEvent extends ProjectAndTeamEvent {
   final int projectId;
 
   DeleteProjectsEvent({required this.projectId});
 }
 
-class ShowAllProjectsEvent extends ProjectAndTaskEvent {}
+// Show Project Events
+class ShowAllProjectsEvent extends ProjectAndTeamEvent {}
 
-class ShowPublicProjectsEvent extends ProjectAndTaskEvent {}
+class ShowPublicProjectsEvent extends ProjectAndTeamEvent {}
 
-class ShowUserProjectsEvent extends ProjectAndTaskEvent {}
+class ShowUserProjectsEvent extends ProjectAndTeamEvent {}
+
+class ShowToDoProjectsEvent extends ProjectAndTeamEvent {}
+
+class ShowInProgressProjectsEvent extends ProjectAndTeamEvent {}
+
+class ShowInReviewProjectsEvent extends ProjectAndTeamEvent {}
+
+class ShowCompletedProjectsEvent extends ProjectAndTeamEvent {}
+
+class ShowCanceledProjectsEvent extends ProjectAndTeamEvent {}
 
 // Task Event
-class CreateTeamEvent extends ProjectAndTaskEvent {
-  final String token;
+class CreateTeamEvent extends ProjectAndTeamEvent {
   final String name;
   final int mgrId;
   final List<int> memebersIdList;
 
   CreateTeamEvent({
-    required this.token,
     required this.name,
     required this.mgrId,
     required this.memebersIdList,
   });
 }
 
-class AddMembersEvent extends ProjectAndTaskEvent {
+class AddMembersEvent extends ProjectAndTeamEvent {
   final int teamId;
   final List<int> memebersIdList;
 
   AddMembersEvent({required this.teamId, required this.memebersIdList});
 }
 
-class ShowTeamsEvent extends ProjectAndTaskEvent {}
+class ShowTeamsEvent extends ProjectAndTeamEvent {}

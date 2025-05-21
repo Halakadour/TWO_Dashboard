@@ -12,14 +12,14 @@ class EmployeeModel extends EmployeeEntity {
     required this.id,
     required this.name,
     required this.email,
-    required this.image,
+    this.image,
     required this.role,
-    required this.cv,
+    this.cv,
   }) : super(
          eId: id,
          eName: name,
-         eEmail: email,
          eImage: image,
+         eEmail: email,
          eRole: role,
          eCv: cv,
        );

@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:two_dashboard/core/error/failures.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/data/datasource/project_remote_data_source.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/domain/entity/project_entity.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/domain/repos/project_repo.dart';
+import 'package:two_dashboard/features/projects%20&%20team/data/datasource/project_remote_data_source.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/entity/project_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/repos/project_repo.dart';
 
 class ProjectRepoImpl extends ProjectRepo {
   final ProjectRemoteDataSource projectRemoteDataSource;

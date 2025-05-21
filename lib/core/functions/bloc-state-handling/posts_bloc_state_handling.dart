@@ -7,12 +7,12 @@ import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/loading_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/unauthorized_status_animation.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/posts-replies/loading_post_replies_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/posts-replies/post_replies_table.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
-import 'package:two_dashboard/core/widgets/data-table/loading/loading_post_replies_table.dart';
 import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';
-import 'package:two_dashboard/core/widgets/data-table/custom/custom_post_replies_table.dart';
 import 'package:two_dashboard/features/posts/presentation/widgets/post_card.dart';
 
 class PostsBlocStateHandling {
@@ -71,7 +71,7 @@ class PostsBlocStateHandling {
     if (state.postsRepliesListStatus == CasualStatus.loading) {
       return const LoadingPostRepliesTable();
     } else if (state.postsRepliesListStatus == CasualStatus.success) {
-      return CustomPostRepliesTable(repliesList: state.postRepliesList);
+      return PostRepliesTable(repliesList: state.postRepliesList);
     } else if (state.postsRepliesListStatus == CasualStatus.failure) {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));
     } else if (state.postsRepliesListStatus == CasualStatus.notAuthorized) {

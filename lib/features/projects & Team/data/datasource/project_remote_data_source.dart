@@ -3,9 +3,9 @@ import 'package:two_dashboard/core/api/get_api.dart';
 import 'package:two_dashboard/core/api/get_with_token_api.dart';
 import 'package:two_dashboard/core/api/post_api_with_token.dart';
 import 'package:two_dashboard/core/models/empty_response_model.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/data/models/project/create_project_response_model.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/data/models/project/show_my_project_response_model.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/data/models/project/show_project_response_model.dart';
+import 'package:two_dashboard/features/projects%20&%20team/data/models/project/create_project_response_model.dart';
+import 'package:two_dashboard/features/projects%20&%20team/data/models/project/show_my_project_response_model.dart';
+import 'package:two_dashboard/features/projects%20&%20team/data/models/project/show_project_response_model.dart';
 
 abstract class ProjectRemoteDataSource {
   Future<CreateProjectResponseModel> createProject(
@@ -35,7 +35,7 @@ abstract class ProjectRemoteDataSource {
   Future<ShowUserProjectsResponseModel> showUserProjects(String token);
 }
 
-class ProjectDataSourceImpl extends ProjectRemoteDataSource {
+class ProjectRemoteDataSourceImpl extends ProjectRemoteDataSource {
   @override
   Future<CreateProjectResponseModel> createProject(
     String token,

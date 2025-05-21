@@ -5,7 +5,7 @@ import 'package:two_dashboard/core/widgets/container/custom_rounder_container.da
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
 import 'package:two_dashboard/features/dashboard/presentation/widgets/project_status_pie_chart.dart';
 import 'package:two_dashboard/features/dashboard/presentation/widgets/project_summary_card.dart';
-import 'package:two_dashboard/features/dashboard/presentation/widgets/task_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/tasks/task_table.dart';
 
 import '../widgets/project_category_bar_chart.dart';
 

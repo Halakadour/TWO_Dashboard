@@ -1,6 +1,15 @@
 import 'package:two_dashboard/core/helper/helper_functions.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/domain/entity/project_entity.dart';
-import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/sprint_entity.dart';
+import 'package:two_dashboard/features/projects & team/domain/entity/project_entity.dart';
+import 'package:two_dashboard/features/projects & team/domain/entity/team_entity.dart';
+import 'package:two_dashboard/features/sprints & tasks/domain/entity/sprint_entity.dart';
+
+DateTime parseFlexibleDate(String date) {
+  try {
+    return DateTime.parse(date.replaceAll('/', '-'));
+  } catch (_) {
+    return DateTime.now(); // أو رمي خطأ أو أي بديل حسب حالتك
+  }
+}
 
 class ProjectModel extends ProjectEntity {
   final int id;
@@ -10,7 +19,7 @@ class ProjectModel extends ProjectEntity {
   final int teamId;
   final DateTime start;
   final DateTime end;
-  final int status;
+  final int? status;
   final int private;
   final Team team;
   final List<Sprint> sprints;
@@ -32,10 +41,10 @@ class ProjectModel extends ProjectEntity {
          name: name,
          description: description,
          contractId: contractId,
-         teamId: teamId,
+         team: team,
          startDate: start,
          endDate: end,
-         projectStatus: HelperFunctions.getTaskStatusByNum(status),
+         projectStatus: HelperFunctions.getTaskStatusByNum(status!),
          projectVisibility: HelperFunctions.getProjectVisibilityByNum(private),
          sprintList: sprints,
        );
@@ -46,8 +55,8 @@ class ProjectModel extends ProjectEntity {
     description: json["description"],
     contractId: json["contract_id"],
     teamId: json["team_id"],
-    start: DateTime.parse(json["start"]),
-    end: DateTime.parse(json["end"]),
+    start: parseFlexibleDate(json["start"]),
+    end: parseFlexibleDate(json["end"]),
     status: json["status"],
     private: json["private"],
     team: Team.fromJson(json["team"]),
@@ -132,7 +141,7 @@ class Sprint extends SprintEntity {
   };
 }
 
-class Team {
+class Team extends TeamEntity {
   final int id;
   final String name;
   final DateTime createdAt;
@@ -143,7 +152,7 @@ class Team {
     required this.name,
     required this.createdAt,
     required this.updatedAt,
-  });
+  }) : super(id: id, name: name, membersList: []);
 
   factory Team.fromJson(Map<String, dynamic> json) => Team(
     id: json["id"],

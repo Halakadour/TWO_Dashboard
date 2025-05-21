@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:signature/signature.dart';
-import 'package:two_dashboard/core/functions/bloc-state-handling/contracts_state_handling.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/contracts_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/save_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/clear_text_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/preview_text_button.dart';
@@ -60,7 +60,7 @@ class _SignatureBoardPageState extends State<SignatureBoardPage> {
     return Scaffold(
       body: BlocListener<ContractBloc, ContractState>(
         listener: (context, state) {
-          ContractsStateHandling().addSign(state, context);
+          ContractsBlocStateHandling().addSign(state, context);
         },
         listenWhen:
             (previous, current) =>

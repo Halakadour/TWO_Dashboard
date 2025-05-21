@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:two_dashboard/core/helper/helper_functions.dart';
 import 'package:two_dashboard/core/network/enums.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/presentation/widgets/project_card.dart';
+import 'package:two_dashboard/features/projects%20&%20team/presentation/widgets/project_card.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/widgets/task_status_title_and_task_count.dart';
 
 import '../../../../config/constants/padding_config.dart';

@@ -16,6 +16,7 @@ import 'package:two_dashboard/features/inbox/presentation/pages/inbox_page.dart'
 import 'package:two_dashboard/features/projects%20&%20Team/presentation/pages/create_project_page.dart';
 import 'package:two_dashboard/features/projects%20&%20Team/presentation/pages/projects_page.dart';
 import 'package:two_dashboard/features/projects%20&%20Team/presentation/pages/select_team_page.dart';
+import 'package:two_dashboard/features/projects%20&%20team/presentation/pages/create_team_page.dart';
 import 'package:two_dashboard/features/services/presentation/pages/update-service/update_service_page.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/task_page.dart';
 import 'package:two_dashboard/root_page.dart';
@@ -65,7 +66,7 @@ class AppRouter {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                name: AppRouteConfig.sprints,
+                name: AppRouteConfig.tasks,
                 path: '/tasks',
                 builder: (context, state) => const TaskPage(),
               ),
@@ -88,6 +89,11 @@ class AppRouter {
                 name: AppRouteConfig.selectTeam,
                 path: '/selectTeam',
                 builder: (context, state) => const SelectTeamPage(),
+              ),
+              GoRoute(
+                name: AppRouteConfig.createTeam,
+                path: '/createTeam',
+                builder: (context, state) => const CreateTeamPage(),
               ),
             ],
           ),

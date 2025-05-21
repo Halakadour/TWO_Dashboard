@@ -7,6 +7,7 @@ import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_
 import 'package:two_dashboard/features/contact-us/presentation/bloc/contact_us_bloc.dart';
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
 import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team/presentation/bloc/project_and_team_bloc.dart';
 import 'package:two_dashboard/features/services/presentation/bloc/service_bloc.dart';
 import 'config/theme/theme_cubit.dart';
 import 'injection_container.dart' as di;
@@ -38,6 +39,7 @@ class MainApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(create: (context) => di.sl<AuthRoleProfileBloc>()),
+        BlocProvider(create: (context) => di.sl<ProjectAndTeamBloc>()),
         BlocProvider(create: (context) => di.sl<PostBloc>()),
         BlocProvider(create: (context) => di.sl<ServiceBloc>()),
         BlocProvider(create: (context) => di.sl<AboutUsWhyUsBloc>()),

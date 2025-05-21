@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
-import 'package:two_dashboard/core/functions/bloc-state-handling/contracts_state_handling.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/contracts_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/icon-buttons/filter_button.dart';
 import 'package:two_dashboard/core/widgets/dialog/filter/filter_contracts.dart';
@@ -32,7 +32,7 @@ class _DraftsPageState extends State<DraftsPage> {
         padding: const EdgeInsets.all(SizesConfig.lg),
         child: BlocListener<ContractBloc, ContractState>(
           listener: (context, state) {
-            ContractsStateHandling().deleteDraft(state, context);
+            ContractsBlocStateHandling().deleteDraft(state, context);
           },
           listenWhen:
               (previous, current) =>
@@ -67,7 +67,7 @@ class _DraftsPageState extends State<DraftsPage> {
                       (previous, current) =>
                           (previous.drafListStatus != current.drafListStatus),
                   builder: (context, state) {
-                    return ContractsStateHandling().getDraftTable(state);
+                    return ContractsBlocStateHandling().getDraftTable(state);
                   },
                 ),
               ),

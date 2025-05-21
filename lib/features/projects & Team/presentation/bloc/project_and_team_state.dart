@@ -1,16 +1,29 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-part of 'project_and_task_bloc.dart';
+part of 'project_and_team_bloc.dart';
 
-class ProjectAndTaskState {
+class ProjectAndTeamState {
   final String message;
   // Project State
   final CasualStatus createProjectStatus;
   final CasualStatus updateProjectStatus;
   final CasualStatus deleteProjectStatus;
+  // public & private project List
   final List<ProjectEntity> publicProjectsList;
   final CasualStatus publicProjectsListStatus;
   final List<ProjectEntity> allProjectsList;
   final CasualStatus allProjectsListStatus;
+  // Project Lists Block
+  final List<ProjectEntity> toDoProjectList;
+  final CasualStatus toDoProjectListStatus;
+  final List<ProjectEntity> inProgressProjectList;
+  final CasualStatus inProgressProjectListStatus;
+  final List<ProjectEntity> inReviewProjectList;
+  final CasualStatus inReviewProjectListStatus;
+  final List<ProjectEntity> completedProjectList;
+  final CasualStatus completedProjectListStatus;
+  final List<ProjectEntity> canceldProjectList;
+  final CasualStatus canceledProjectListStatus;
+  // My Project List
   final List<ProjectEntity> userProjectsList;
   final CasualStatus userProjectsListStatus;
   // Task State
@@ -19,7 +32,7 @@ class ProjectAndTaskState {
   final CasualStatus showTeamsStatus;
   final List<TeamEntity> showTeams;
 
-  ProjectAndTaskState({
+  ProjectAndTeamState({
     this.message = "",
     this.createProjectStatus = CasualStatus.initial,
     this.updateProjectStatus = CasualStatus.initial,
@@ -28,6 +41,16 @@ class ProjectAndTaskState {
     this.publicProjectsListStatus = CasualStatus.initial,
     this.allProjectsList = const [],
     this.allProjectsListStatus = CasualStatus.initial,
+    this.toDoProjectListStatus = CasualStatus.initial,
+    this.toDoProjectList = const [],
+    this.inProgressProjectListStatus = CasualStatus.initial,
+    this.inProgressProjectList = const [],
+    this.inReviewProjectListStatus = CasualStatus.initial,
+    this.inReviewProjectList = const [],
+    this.completedProjectListStatus = CasualStatus.initial,
+    this.completedProjectList = const [],
+    this.canceledProjectListStatus = CasualStatus.initial,
+    this.canceldProjectList = const [],
     this.userProjectsList = const [],
     this.userProjectsListStatus = CasualStatus.initial,
     this.createTeamStatus = CasualStatus.initial,
@@ -36,7 +59,7 @@ class ProjectAndTaskState {
     this.showTeams = const [],
   });
 
-  ProjectAndTaskState copyWith({
+  ProjectAndTeamState copyWith({
     String? message,
     CasualStatus? createProjectStatus,
     CasualStatus? updateProjectStatus,
@@ -45,6 +68,16 @@ class ProjectAndTaskState {
     CasualStatus? publicProjectsListStatus,
     List<ProjectEntity>? allProjectsList,
     CasualStatus? allProjectsListStatus,
+    List<ProjectEntity>? toDoProjectList,
+    CasualStatus? toDoProjectListStatus,
+    List<ProjectEntity>? inProgressProjectList,
+    CasualStatus? inProgressProjectListStatus,
+    List<ProjectEntity>? inReviewProjectList,
+    CasualStatus? inReviewProjectListStatus,
+    List<ProjectEntity>? completedProjectList,
+    CasualStatus? completedProjectListStatus,
+    List<ProjectEntity>? canceldProjectList,
+    CasualStatus? canceledProjectListStatus,
     List<ProjectEntity>? userProjectsList,
     CasualStatus? userProjectsListStatus,
     CasualStatus? createTeamStatus,
@@ -52,7 +85,7 @@ class ProjectAndTaskState {
     CasualStatus? showTeamsStatus,
     List<TeamEntity>? showTeams,
   }) {
-    return ProjectAndTaskState(
+    return ProjectAndTeamState(
       message: message ?? this.message,
       createProjectStatus: createProjectStatus ?? this.createProjectStatus,
       updateProjectStatus: updateProjectStatus ?? this.updateProjectStatus,
@@ -63,6 +96,22 @@ class ProjectAndTaskState {
       allProjectsList: allProjectsList ?? this.allProjectsList,
       allProjectsListStatus:
           allProjectsListStatus ?? this.allProjectsListStatus,
+      toDoProjectList: toDoProjectList ?? this.toDoProjectList,
+      toDoProjectListStatus:
+          toDoProjectListStatus ?? this.toDoProjectListStatus,
+      inProgressProjectList:
+          inProgressProjectList ?? this.inProgressProjectList,
+      inProgressProjectListStatus:
+          inProgressProjectListStatus ?? this.inProgressProjectListStatus,
+      inReviewProjectList: inReviewProjectList ?? this.inReviewProjectList,
+      inReviewProjectListStatus:
+          inReviewProjectListStatus ?? this.inReviewProjectListStatus,
+      completedProjectList: completedProjectList ?? this.completedProjectList,
+      completedProjectListStatus:
+          completedProjectListStatus ?? this.completedProjectListStatus,
+      canceldProjectList: canceldProjectList ?? this.canceldProjectList,
+      canceledProjectListStatus:
+          canceledProjectListStatus ?? this.canceledProjectListStatus,
       userProjectsList: userProjectsList ?? this.userProjectsList,
       userProjectsListStatus:
           userProjectsListStatus ?? this.userProjectsListStatus,

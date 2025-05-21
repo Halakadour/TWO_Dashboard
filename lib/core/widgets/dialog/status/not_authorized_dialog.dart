@@ -7,7 +7,7 @@ import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/close_elevated_button.dart';
 
-void notAuthorizedDialog(BuildContext context) {
+void showNotAuthorizedDialog(BuildContext context) {
   showDialog(
     context: context,
     barrierDismissible: true,

@@ -6,7 +6,7 @@ import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
-import 'package:two_dashboard/core/functions/bloc-state-handling/contracts_state_handling.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/contracts_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/breadcrumbs/breadcumbs_item.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/desmiss_elevated_buttom.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/save_elevated_button.dart';
@@ -36,7 +36,7 @@ class _CreateContractFormState extends State<CreateContractForm> {
   Widget build(BuildContext context) {
     return BlocListener<ContractBloc, ContractState>(
       listener: (context, state) {
-        ContractsStateHandling().createContract(state, context);
+        ContractsBlocStateHandling().createContract(state, context);
       },
       listenWhen:
           (previous, current) =>
@@ -91,15 +91,14 @@ class _CreateContractFormState extends State<CreateContractForm> {
                                     (previous.drafListStatus !=
                                         current.drafListStatus),
                             builder: (context, state) {
-                              return ContractsStateHandling().getDraftDropList(
-                                state,
-                                draftEntity,
-                                (value) {
-                                  setState(() {
-                                    draftEntity = value;
+                              return ContractsBlocStateHandling()
+                                  .getDraftDropList(state, draftEntity, (
+                                    value,
+                                  ) {
+                                    setState(() {
+                                      draftEntity = value;
+                                    });
                                   });
-                                },
-                              );
                             },
                           ),
                         ],

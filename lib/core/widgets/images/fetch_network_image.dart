@@ -56,23 +56,25 @@ class _FetchNetworkImageState extends State<FetchNetworkImage> {
   Widget build(BuildContext context) {
     return (widget.imagePath == null)
         ? Container(
-          height: widget.height ?? 30,
-          width: widget.width ?? 30,
+          height: widget.height ?? 50,
+          width: widget.width ?? 50,
           clipBehavior: Clip.hardEdge,
           margin: EdgeInsets.symmetric(vertical: 8.0),
+          padding: EdgeInsets.all(8.0),
           decoration: BoxDecoration(
+            color: AppColors.gray,
             borderRadius:
                 (widget.shape != BoxShape.circle)
                     ? BorderRadius.circular(SizesConfig.borderRadiusSm)
                     : null,
             shape: widget.shape,
           ),
-          child: Icon(Iconsax.image),
+          child: Icon(Iconsax.frame_1, color: AppColors.white),
         )
         : imageBytes != null
         ? Container(
-          height: widget.height ?? 30,
-          width: widget.width ?? 30,
+          height: widget.height ?? 50,
+          width: widget.width ?? 50,
           clipBehavior: Clip.hardEdge,
           margin: EdgeInsets.symmetric(vertical: 8.0),
           decoration: BoxDecoration(
@@ -88,8 +90,8 @@ class _FetchNetworkImageState extends State<FetchNetworkImage> {
           baseColor: Colors.grey[300]!,
           highlightColor: Colors.grey[100]!,
           child: Container(
-            height: widget.height ?? 30,
-            width: widget.width ?? 30,
+            height: widget.height ?? 50,
+            width: widget.width ?? 50,
             margin: EdgeInsets.symmetric(vertical: 8.0),
             decoration: BoxDecoration(
               color: AppColors.white,

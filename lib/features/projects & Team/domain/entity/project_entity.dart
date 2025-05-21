@@ -1,4 +1,5 @@
 import 'package:two_dashboard/core/network/enums.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/entity/team_entity.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/sprint_entity.dart';
 
 class ProjectEntity {
@@ -6,7 +7,7 @@ class ProjectEntity {
   final String name;
   final String description;
   final int contractId;
-  final int teamId;
+  final TeamEntity team;
   final DateTime startDate;
   final DateTime endDate;
   final TaskStatus projectStatus;
@@ -18,7 +19,7 @@ class ProjectEntity {
     required this.name,
     required this.description,
     required this.contractId,
-    required this.teamId,
+    required this.team,
     required this.startDate,
     required this.endDate,
     required this.projectStatus,

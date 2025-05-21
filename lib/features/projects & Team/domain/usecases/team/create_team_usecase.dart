@@ -1,9 +1,8 @@
 import 'package:dartz/dartz.dart';
+import 'package:two_dashboard/core/error/failures.dart';
 import 'package:two_dashboard/core/usecases/use_case.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/domain/repos/team_repo.dart';
-
-import '../../../../../core/error/failures.dart';
-import '../../entity/team_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/entity/team_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/repos/team_repo.dart';
 
 class CreateTeamUsecase
     extends UseCase<Future<Either<Failure, TeamEntity>>, CreateTeamParam> {

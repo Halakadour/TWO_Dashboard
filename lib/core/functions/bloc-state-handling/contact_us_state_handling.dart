@@ -4,19 +4,19 @@ import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/unauthorized_status_animation.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/contact-us/contact_us_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/contact-us/loading_contact_us_table.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
-import 'package:two_dashboard/core/widgets/data-table/loading/loading_contact_us_table.dart';
 import 'package:two_dashboard/features/contact-us/presentation/bloc/contact_us_bloc.dart';
-import 'package:two_dashboard/core/widgets/data-table/custom/custom_contact_us_table.dart';
 
 class ContactUsStateHandling {
   Widget getContactUsTable(ContactUsState state) {
     if (state.contactUsListStatus == CasualStatus.loading) {
       return const LoadingContactUsTable();
     } else if (state.contactUsListStatus == CasualStatus.success) {
-      return CustomContactUsTable(contactUsList: state.contactUsList);
+      return ContactUsTable(contactUsList: state.contactUsList);
     } else if (state.contactUsListStatus == CasualStatus.failure) {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));
     } else if (state.contactUsListStatus == CasualStatus.notAuthorized) {

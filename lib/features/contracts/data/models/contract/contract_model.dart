@@ -7,7 +7,6 @@ class ContractModel extends ContractEntity {
   // final String clientName;
   // final String clientImage;
   final String? clientSign;
-
   ContractModel({
     required this.id,
     required this.contract,
@@ -17,7 +16,6 @@ class ContractModel extends ContractEntity {
          contractId: id,
          contractPath: contract,
          clientID: clientId.toString(),
-         clientImage: "",
          clientName: "name",
          clientSign: clientSign,
        );

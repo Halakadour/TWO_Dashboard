@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
-import 'package:two_dashboard/config/theme/text_style.dart';
 
 // ignore: must_be_immutable
 class DeleteButton extends StatelessWidget {
@@ -34,28 +32,36 @@ class DeleteButton extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: value ? AppColors.redShade2 : Colors.transparent,
                   border: Border.all(color: AppColors.redShade2, width: 1.1),
-                  borderRadius: BorderRadius.circular(SizesConfig.buttonRadius),
+                  shape: BoxShape.circle,
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 10,
-                      child: Icon(
-                        Iconsax.trash,
-                        size: SizesConfig.iconsSm,
-                        color: value ? AppColors.white : AppColors.redShade2,
-                      ),
-                    ),
-                    PaddingConfig.w8,
-                    Text(
-                      "Delete",
-                      style: AppTextStyle.buttonStyle(
-                        color: value ? AppColors.white : AppColors.redShade2,
-                      ),
-                    ),
-                  ],
+                child: Tooltip(
+                  message: "Delete",
+                  child: Icon(
+                    Iconsax.trash,
+                    size: SizesConfig.iconsSm,
+                    color: value ? AppColors.white : AppColors.redShade2,
+                  ),
                 ),
+                // child: Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     SizedBox(
+                //       width: 10,
+                //       child: Icon(
+                //         Iconsax.trash,
+                //         size: SizesConfig.iconsSm,
+                //         color: value ? AppColors.white : AppColors.redShade2,
+                //       ),
+                //     ),
+                //     PaddingConfig.w8,
+                //     Text(
+                //       "Delete",
+                //       style: AppTextStyle.buttonStyle(
+                //         color: value ? AppColors.white : AppColors.redShade2,
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ),
             ),
       ),

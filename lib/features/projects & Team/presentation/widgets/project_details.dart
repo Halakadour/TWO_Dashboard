@@ -5,17 +5,14 @@ import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
+import 'package:two_dashboard/core/helper/helper_functions.dart';
 import 'package:two_dashboard/core/widgets/divider/custom_divider.dart';
-import 'package:two_dashboard/core/widgets/images/image_circle.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/entity/project_entity.dart';
 
-class ProjectDetails extends StatefulWidget {
-  const ProjectDetails({super.key});
+class ProjectDetails extends StatelessWidget {
+  const ProjectDetails({super.key, required this.projectEntity});
+  final ProjectEntity projectEntity;
 
-  @override
-  State<ProjectDetails> createState() => _ProjectDetailsState();
-}
-
-class _ProjectDetailsState extends State<ProjectDetails> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,25 +30,25 @@ class _ProjectDetailsState extends State<ProjectDetails> {
             PaddingConfig.h8,
             CustomDivider(),
             PaddingConfig.h24,
-            Text('Medixa Website Design', style: AppTextStyle.headerSm()),
+            Text(projectEntity.name, style: AppTextStyle.headerSm()),
             PaddingConfig.h16,
-            TaskDetailsColumn(),
+            TaskDetailsColumn(projectEntity: projectEntity),
             PaddingConfig.h8,
             CustomDivider(),
             PaddingConfig.h16,
             Text('Task Overview', style: AppTextStyle.bodyLg()),
             PaddingConfig.h8,
             Text(
-              'Create high-fidelity mockups for VanHome Realty website focusing on modern UI, consistency in branding, and professional layout.',
+              projectEntity.description,
               style: AppTextStyle.bodySm(color: AppColors.fontLightGray),
             ),
             PaddingConfig.h16,
-            Text('Goals', style: AppTextStyle.bodyLg()),
-            PaddingConfig.h8,
-            Text(
-              'Create high-fidelity mockups for VanHome Realty website focusing on modern UI, consistency in branding, and professional layout.',
-              style: AppTextStyle.bodySm(color: AppColors.fontLightGray),
-            ),
+            // Text('Goals', style: AppTextStyle.bodyLg()),
+            // PaddingConfig.h8,
+            // Text(
+            //   'Create high-fidelity mockups for VanHome Realty website focusing on modern UI, consistency in branding, and professional layout.',
+            //   style: AppTextStyle.bodySm(color: AppColors.fontLightGray),
+            // ),
             PaddingConfig.h16,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -116,7 +113,8 @@ class SubTaskRow extends StatelessWidget {
 }
 
 class TaskDetailsColumn extends StatelessWidget {
-  const TaskDetailsColumn({super.key});
+  const TaskDetailsColumn({super.key, required this.projectEntity});
+  final ProjectEntity projectEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -127,13 +125,17 @@ class TaskDetailsColumn extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              "Proirity",
+              "Visibilty",
               style: AppTextStyle.bodySm(color: AppColors.fontLightGray),
             ),
             SizedBox(width: 60),
             Text(
-              "High",
-              style: AppTextStyle.bodySm(color: AppColors.redShade2),
+              projectEntity.projectVisibility.name,
+              style: AppTextStyle.bodySm(
+                color: HelperFunctions.getVisibiltyColor(
+                  projectEntity.projectVisibility,
+                ),
+              ),
             ),
           ],
         ),
@@ -148,7 +150,7 @@ class TaskDetailsColumn extends StatelessWidget {
             ),
             SizedBox(width: 42),
             Text(
-              "August 25, 2025",
+              HelperFunctions.formatDate(projectEntity.startDate),
               style: AppTextStyle.bodySm(color: AppColors.fontDarkGray),
             ),
           ],
@@ -164,7 +166,7 @@ class TaskDetailsColumn extends StatelessWidget {
             ),
             SizedBox(width: 48),
             Text(
-              "September 5, 2025",
+              HelperFunctions.formatDate(projectEntity.endDate),
               style: AppTextStyle.bodySm(color: AppColors.fontDarkGray),
             ),
           ],
@@ -180,8 +182,12 @@ class TaskDetailsColumn extends StatelessWidget {
             ),
             SizedBox(width: 66),
             Text(
-              "Completed",
-              style: AppTextStyle.bodySm(color: AppColors.greenShade2),
+              projectEntity.projectStatus.name,
+              style: AppTextStyle.bodySm(
+                color: HelperFunctions.getTaskStatusColor(
+                  projectEntity.projectStatus,
+                ),
+              ),
             ),
           ],
         ),
@@ -227,7 +233,10 @@ class TaskDetailsColumn extends StatelessWidget {
               style: AppTextStyle.bodySm(color: AppColors.fontLightGray),
             ),
             SizedBox(width: 45),
-            ImageCircle(width: 25, height: 25),
+            Text(
+              projectEntity.team.name,
+              style: AppTextStyle.bodySm(color: AppColors.fontDarkGray),
+            ),
           ],
         ),
       ],

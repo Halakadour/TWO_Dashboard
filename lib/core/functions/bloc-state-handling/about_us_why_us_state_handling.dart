@@ -5,15 +5,15 @@ import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/empty_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/why-us/loading_why_us_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/why-us/why_us_table.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/core/widgets/shimmers/card-loading/loading_site_card.dart';
 import 'package:two_dashboard/core/widgets/shimmers/card-loading/loading_working_time_card.dart';
-import 'package:two_dashboard/core/widgets/data-table/loading/loading_why_us_table.dart';
 import 'package:two_dashboard/features/about-us%20&%20why-us/domain/entities/about_us_entity.dart';
 import 'package:two_dashboard/features/about-us%20&%20why-us/presentation/bloc/about_us_why_us_bloc.dart';
-import 'package:two_dashboard/core/widgets/data-table/custom/custom_why_us_table.dart';
 import 'package:two_dashboard/features/about-us%20&%20why-us/presentation/widgets/site_card.dart';
 import 'package:two_dashboard/features/about-us%20&%20why-us/presentation/widgets/working_time_card.dart';
 
@@ -90,7 +90,7 @@ class AboutUsWhyUsStateHandling {
       if (state.getWhyUsList.isEmpty) {
         return Center(child: EmptyStatusAnimation());
       } else {
-        return CustomWhyUsTable(whyUsList: state.getWhyUsList);
+        return WhyUsTable(whyUsList: state.getWhyUsList);
       }
     } else if (state.getWhyUsStatus == CasualStatus.failure) {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));

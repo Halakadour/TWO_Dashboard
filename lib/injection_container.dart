@@ -58,6 +58,21 @@ import 'package:two_dashboard/features/profile/domain/usecases/show_clients_usec
 import 'package:two_dashboard/features/profile/domain/usecases/show_users_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/toggle_user_approved_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/update_employee_profile_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/data/datasource/project_remote_data_source.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/repos/project_repo.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/repos/team_repo.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/delete_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/show_all_projects_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/show_public_projects_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/show_user_projects_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/team/add_members_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/team/create_team_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/team/show_teams_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/presentation/bloc/project_and_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team/data/datasource/team__remote_data_source.dart';
+import 'package:two_dashboard/features/projects%20&%20team/data/repos/project_repo_impl.dart';
+import 'package:two_dashboard/features/projects%20&%20team/data/repos/team_repo_impl.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/create_project_usecase.dart';
 import 'package:two_dashboard/features/roles/data/datasources/role_local_datasource.dart';
 import 'package:two_dashboard/features/roles/data/datasources/role_remote_datasource.dart';
 import 'package:two_dashboard/features/roles/data/repos/role_repo_impl.dart';
@@ -257,6 +272,31 @@ Future<void> init() async {
   sl.registerLazySingleton<ContractRepo>(() => ContractRepoImpl(sl()));
   // Datasource
   sl.registerLazySingleton<ContractDatasource>(() => ContractDatasourceImpl());
+
+  /**----------------- PROJECTS-TEAM FEATURE -----------------------**/
+  sl.registerFactory(
+    () => ProjectAndTeamBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl()),
+  );
+  // Usecase
+  sl.registerLazySingleton(() => CreateProjectUsecase(sl()));
+  sl.registerLazySingleton(() => DeleteProjectUsecase(sl()));
+  sl.registerLazySingleton(() => ShowAllProjectsUsecase(sl()));
+  sl.registerLazySingleton(() => ShowPublicProjectsUsecase(sl()));
+  sl.registerLazySingleton(() => ShowUserProjectsUsecase(sl()));
+  sl.registerLazySingleton(() => CreateTeamUsecase(sl()));
+  sl.registerLazySingleton(() => AddMembersUsecase(sl()));
+  sl.registerLazySingleton(() => ShowTeamsUsecase(sl()));
+
+  // Repo
+  sl.registerLazySingleton<ProjectRepo>(() => ProjectRepoImpl(sl()));
+  sl.registerLazySingleton<TeamRepo>(() => TeamRepoImpl(sl()));
+  // Datasource
+  sl.registerLazySingleton<ProjectRemoteDataSource>(
+    () => ProjectRemoteDataSourceImpl(),
+  );
+  sl.registerLazySingleton<TeamRemoteDataSource>(
+    () => TeamRemoteDataSourceImpl(),
+  );
 
   ///////////////////////////////////////////////////////////////////////////////////////
 

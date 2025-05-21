@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:two_dashboard/core/error/failures.dart';
 import 'package:two_dashboard/core/error/handling_exception_manager.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/domain/entity/project_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/entity/project_entity.dart';
 
 abstract class ProjectRepo with HandlingExceptionManager {
   Future<Either<Failure, ProjectEntity>> createProject(

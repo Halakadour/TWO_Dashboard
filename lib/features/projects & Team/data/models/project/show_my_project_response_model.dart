@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:two_dashboard/core/helper/helper_functions.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/domain/entity/project_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team/data/models/project/project_model.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/entity/project_entity.dart';
 
 List<ShowUserProjectsResponseModel> showUserProjectsResponseModelFromJson(
   String str,
@@ -43,7 +44,12 @@ class ShowUserProjectsResponseModel extends ProjectEntity {
          name: name,
          description: description,
          contractId: contractId,
-         teamId: teamId,
+         team: Team(
+           id: id,
+           name: name,
+           createdAt: createdAt,
+           updatedAt: updatedAt,
+         ),
          startDate: start,
          endDate: end,
          projectStatus: HelperFunctions.getTaskStatusByNum(status),

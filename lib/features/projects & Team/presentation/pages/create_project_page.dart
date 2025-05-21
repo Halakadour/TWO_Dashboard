@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/project_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/presentation/widgets/create_project_form.dart';
+import 'package:two_dashboard/features/projects%20&%20team/presentation/bloc/project_and_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team/presentation/widgets/create_project_form.dart';
 
 import '../../../../config/constants/padding_config.dart';
 import '../../../../config/routes/app_route_config.dart';
@@ -30,7 +33,16 @@ class CreateProjectPage extends StatelessWidget {
               ],
             ),
             PaddingConfig.h24,
-            CreateProjectForm(),
+            BlocListener<ProjectAndTeamBloc, ProjectAndTeamState>(
+              listener: (context, state) {
+                ProjectBlocStateHandling().createProject(state, context);
+              },
+              listenWhen:
+                  (previous, current) =>
+                      previous.createProjectStatus !=
+                      current.createProjectStatus,
+              child: CreateProjectForm(),
+            ),
           ],
         ),
       ),

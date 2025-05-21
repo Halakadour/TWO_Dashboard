@@ -25,7 +25,7 @@ class CustomPopuMenuForContractEntity extends StatelessWidget {
     return CustomRounderContainer(
       borderColor: AppColors.grayShade2,
       child: PopupMenuButton<ContractEntity>(
-        onSelected: (value) {},
+        onSelected: onSelected,
         itemBuilder: (context) => items,
         color: AppColors.white,
         shape: RoundedRectangleBorder(

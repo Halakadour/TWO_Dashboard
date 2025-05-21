@@ -6,7 +6,8 @@ import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
-import 'package:two_dashboard/core/functions/bloc-state-handling/contracts_state_handling.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/contracts_bloc_state_handling.dart';
+import 'package:two_dashboard/core/helper/helper_functions.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/save_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/cancel_text_button.dart';
@@ -14,8 +15,9 @@ import 'package:two_dashboard/core/widgets/container/custom_rounder_container.da
 import 'package:two_dashboard/features/auth/presentation/widgets/custom_text_form_field.dart';
 import 'package:two_dashboard/features/contracts/domain/entities/contract_entity.dart';
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/domain/entity/team_entity.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/presentation/widgets/date_field.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/entity/team_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team/presentation/bloc/project_and_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team/presentation/widgets/date_field.dart';
 
 import '../../../../config/constants/padding_config.dart';
 import '../../../../config/routes/app_route_config.dart';
@@ -68,6 +70,12 @@ class _CreateProjectFormState extends State<CreateProjectForm> {
     _projectNameController = TextEditingController();
     _descriptionController = TextEditingController();
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    context.read<ContractBloc>().add(GetContractEvent());
+    super.didChangeDependencies();
   }
 
   @override
@@ -133,6 +141,15 @@ class _CreateProjectFormState extends State<CreateProjectForm> {
                     ),
                   ],
                 ),
+                PaddingConfig.h16,
+                if (_startDate != null && _endDate != null)
+                  Text("Project Duration", style: AppTextStyle.bodySm()),
+                if (_startDate != null && _endDate != null) PaddingConfig.h8,
+                if (_startDate != null && _endDate != null)
+                  Text(
+                    HelperFunctions.projectDurationText(_startDate!, _endDate!),
+                    style: AppTextStyle.bodyXs(color: AppColors.fontLightGray),
+                  ),
               ],
             ),
           ),
@@ -157,7 +174,9 @@ class _CreateProjectFormState extends State<CreateProjectForm> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "select your team",
+                            (selectedTeam == null)
+                                ? "select your team"
+                                : selectedTeam!.name,
                             style: AppTextStyle.textfieldStyle(
                               color: AppColors.fontLightGray,
                             ),
@@ -172,7 +191,9 @@ class _CreateProjectFormState extends State<CreateProjectForm> {
                               }
                             },
                             child: Icon(
-                              Iconsax.add,
+                              (selectedTeam == null)
+                                  ? Iconsax.add
+                                  : Iconsax.edit_2,
                               color: AppColors.greenShade2,
                               size: SizesConfig.iconsSm,
                             ),
@@ -190,15 +211,14 @@ class _CreateProjectFormState extends State<CreateProjectForm> {
                               previous.contrcatListStatus !=
                               current.contrcatListStatus,
                       builder: (context, state) {
-                        return ContractsStateHandling().getContractsPopuMenu(
-                          state,
-                          selectedContract,
-                          (value) {
-                            setState(() {
-                              selectedContract = value;
+                        return ContractsBlocStateHandling()
+                            .getContractsPopuMenu(state, selectedContract, (
+                              value,
+                            ) {
+                              setState(() {
+                                selectedContract = value;
+                              });
                             });
-                          },
-                        );
                       },
                     ),
                     PaddingConfig.h24,
@@ -222,7 +242,30 @@ class _CreateProjectFormState extends State<CreateProjectForm> {
                 children: [
                   CancelTextButton(),
                   PaddingConfig.w24,
-                  SaveElevatedButton(onPressed: () {}),
+                  SaveElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate() &&
+                          selectedContract != null &&
+                          selectedTeam != null &&
+                          _startDate != null &&
+                          _endDate != null &&
+                          _visibility != null) {
+                        context.read<ProjectAndTeamBloc>().add(
+                          CreateProjectEvent(
+                            name: _projectNameController.text,
+                            description: _descriptionController.text,
+                            contractId: selectedContract!.contractId,
+                            teamId: selectedTeam!.id,
+                            startDate: HelperFunctions.formatDate(_startDate!),
+                            endDate: HelperFunctions.formatDate(_endDate!),
+                            private: HelperFunctions.getVisibiltyNum(
+                              _visibility!,
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                  ),
                 ],
               ),
               PaddingConfig.h16,

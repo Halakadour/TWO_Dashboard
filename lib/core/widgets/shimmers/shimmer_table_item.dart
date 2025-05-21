@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:two_dashboard/config/constants/sizes_config.dart';
 
 class ShimmerTableItem extends StatelessWidget {
-  const ShimmerTableItem({
-    super.key,
-  });
+  const ShimmerTableItem({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +13,10 @@ class ShimmerTableItem extends StatelessWidget {
       child: Container(
         height: 20,
         width: 60,
-        color: Colors.white,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(SizesConfig.borderRadiusXs),
+        ),
       ),
     );
   }

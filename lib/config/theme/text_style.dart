@@ -25,7 +25,7 @@ class AppTextStyle {
     return TextStyle(
       color: color,
       fontFamily: 'Poppins',
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w500,
       fontStyle: FontStyle.normal,
       fontSize: fontSize,
       decoration: decoration,
@@ -127,7 +127,7 @@ class AppTextStyle {
   }
 
   static TextStyle dataTableCellStyle({
-    double fontSize = 14,
+    double fontSize = 12,
     Color color = AppColors.fontLightGray,
     TextDecoration? decoration,
     double? letterSpacing,
@@ -135,7 +135,7 @@ class AppTextStyle {
     return TextStyle(
       color: color,
       fontFamily: 'Poppins',
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
       fontSize: fontSize,
       decoration: decoration,

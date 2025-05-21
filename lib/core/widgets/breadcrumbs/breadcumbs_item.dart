@@ -16,14 +16,18 @@ class Breadcrumbs extends StatelessWidget {
         final isLast = index == paths.length - 1;
         return Row(
           children: [
-            if (index > 0) const Text(' / '),
+            if (index > 0)
+              Text(
+                ' / ',
+                style: AppTextStyle.bodyXs(color: AppColors.fontLightGray),
+              ),
             GestureDetector(
               onTap: () {
                 context.pushNamed(paths[index]);
               },
               child: Text(
                 pages[index],
-                style: AppTextStyle.bodySm(
+                style: AppTextStyle.bodyXs(
                   color:
                       isLast ? AppColors.greenShade2 : AppColors.fontLightGray,
                 ),

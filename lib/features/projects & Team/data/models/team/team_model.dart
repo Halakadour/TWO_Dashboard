@@ -1,4 +1,4 @@
-import 'package:two_dashboard/features/projects%20&%20Team/domain/entity/team_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/entity/team_entity.dart';
 
 import '../../../../profile/data/models/employee_model.dart';
 

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
@@ -37,25 +35,11 @@ class AddSomthingButton extends StatelessWidget {
                   border: Border.all(color: AppColors.greenShade2, width: 1.1),
                   borderRadius: BorderRadius.circular(SizesConfig.buttonRadius),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 10,
-                      child: Icon(
-                        Iconsax.add,
-                        size: SizesConfig.iconsSm,
-                        color: value ? AppColors.white : AppColors.greenShade2,
-                      ),
-                    ),
-                    PaddingConfig.w8,
-                    Text(
-                      "Add $something",
-                      style: AppTextStyle.buttonStyle(
-                        color: value ? AppColors.white : AppColors.greenShade2,
-                      ),
-                    ),
-                  ],
+                child: Text(
+                  something,
+                  style: AppTextStyle.buttonStyle(
+                    color: value ? AppColors.white : AppColors.greenShade2,
+                  ),
                 ),
               ),
             ),

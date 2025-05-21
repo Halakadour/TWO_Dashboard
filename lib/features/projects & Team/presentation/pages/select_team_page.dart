@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:two_dashboard/config/theme/text_style.dart' show AppTextStyle;
+import 'package:go_router/go_router.dart';
+import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/empty_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
@@ -9,7 +10,8 @@ import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_eleva
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/save_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/presentation/bloc/project_and_task_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/entity/team_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team/presentation/bloc/project_and_team_bloc.dart';
 
 import '../../../../config/constants/padding_config.dart';
 import '../../../../config/constants/sizes_config.dart';
@@ -19,7 +21,6 @@ import '../../../../core/widgets/breadcrumbs/breadcumbs_item.dart';
 import '../../../../core/widgets/buttons/icon-buttons/back_button.dart';
 import '../../../../core/widgets/container/custom_rounder_container.dart';
 import '../../../../core/widgets/texts/page_title.dart';
-import '../../domain/entity/team_entity.dart';
 
 class SelectTeamPage extends StatefulWidget {
   const SelectTeamPage({super.key});
@@ -30,6 +31,11 @@ class SelectTeamPage extends StatefulWidget {
 
 class _SelectTeamPageState extends State<SelectTeamPage> {
   TeamEntity? selectedTeam;
+  @override
+  void didChangeDependencies() {
+    context.read<ProjectAndTeamBloc>().add(ShowTeamsEvent());
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +72,20 @@ class _SelectTeamPageState extends State<SelectTeamPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                CreateElevatedButton(addingType: "New Team", onPressed: () {}),
+                SaveElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context, selectedTeam);
+                  },
+                ),
+                PaddingConfig.w16,
+                CreateElevatedButton(
+                  addingType: "New Team",
+                  onPressed: () => context.pushNamed(AppRouteConfig.createTeam),
+                ),
               ],
             ),
-            PaddingConfig.h24,
-            BlocBuilder<ProjectAndTaskBloc, ProjectAndTaskState>(
+            PaddingConfig.h32,
+            BlocBuilder<ProjectAndTeamBloc, ProjectAndTeamState>(
               buildWhen:
                   (previous, current) =>
                       previous.showTeamsStatus != current.showTeamsStatus,
@@ -89,7 +104,7 @@ class _SelectTeamPageState extends State<SelectTeamPage> {
                         crossAxisCount: crossAxisCount,
                         crossAxisSpacing: 16,
                         mainAxisSpacing: 16,
-                        childAspectRatio: 1.2,
+                        childAspectRatio: 0.9,
                       ),
                       itemCount: state.showTeams.length,
                       itemBuilder: (context, index) {
@@ -100,26 +115,35 @@ class _SelectTeamPageState extends State<SelectTeamPage> {
                             setState(() => selectedTeam = team);
                           },
                           child: CustomRounderContainer(
+                            width: double.infinity,
+                            backgroundColor:
+                                isSelected
+                                    ? AppColors.blueShade1
+                                    : AppColors.white,
                             borderColor:
                                 isSelected
-                                    ? AppColors.greenShade2
+                                    ? AppColors.blueShade2
                                     : AppColors.grayShade2,
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(team.name, style: AppTextStyle.bodyMd()),
-                                const SizedBox(height: 24),
+                                PaddingConfig.h24,
                                 Wrap(
                                   spacing: 12,
                                   runSpacing: 16,
+                                  alignment: WrapAlignment.center,
                                   children:
                                       team.membersList.map((member) {
                                         return SizedBox(
-                                          width: 70,
+                                          width: 80,
                                           child: Column(
                                             children: [
                                               FetchNetworkImage(
                                                 imagePath: member.eImage,
+                                                shape: BoxShape.circle,
+                                                height: 50,
+                                                width: 50,
                                               ),
                                               PaddingConfig.h8,
                                               Text(
@@ -127,6 +151,7 @@ class _SelectTeamPageState extends State<SelectTeamPage> {
                                                 style: AppTextStyle.bodySm(),
                                                 overflow: TextOverflow.ellipsis,
                                                 textAlign: TextAlign.center,
+                                                maxLines: 1,
                                               ),
                                               Text(
                                                 member.eRole,
@@ -136,6 +161,7 @@ class _SelectTeamPageState extends State<SelectTeamPage> {
                                                 ),
                                                 overflow: TextOverflow.ellipsis,
                                                 textAlign: TextAlign.center,
+                                                maxLines: 1,
                                               ),
                                             ],
                                           ),
@@ -154,11 +180,6 @@ class _SelectTeamPageState extends State<SelectTeamPage> {
                 } else {
                   return SizedBox();
                 }
-              },
-            ),
-            SaveElevatedButton(
-              onPressed: () {
-                Navigator.pop(context, selectedTeam);
               },
             ),
           ],

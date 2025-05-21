@@ -5,13 +5,27 @@ import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 
 class HelperFunctions {
+  static String projectDurationText(DateTime startDate, DateTime endDate) {
+    final duration = endDate.difference(startDate);
+
+    if (duration.inDays < 0) return "End Date Must Be After The Strating Date.";
+
+    final months = (duration.inDays / 30).floor();
+    final days = duration.inDays % 30;
+
+    if (months > 0 && days > 0) {
+      return "$months month $days day";
+    } else if (months > 0) {
+      return "$months month";
+    } else {
+      return "$days day";
+    }
+  }
+
   // Formate Date Time
 
-  static String getFormattedDate(
-    DateTime date, {
-    String format = 'dd MMM yyyy',
-  }) {
-    return DateFormat(format).format(date);
+  static String formatDate(DateTime date) {
+    return DateFormat('yyyy/MM/dd').format(date);
   }
 
   // Get Status By Number
@@ -113,11 +127,28 @@ class HelperFunctions {
     }
   }
 
+  // Visibilty
   static Color getVisibiltyColor(ProjectVisibility value) {
     if (value == ProjectVisibility.private) {
       return AppColors.redShade2;
     } else {
       return AppColors.blueShade2;
+    }
+  }
+
+  static Color getVisibiltyBackGroundColor(ProjectVisibility value) {
+    if (value == ProjectVisibility.private) {
+      return AppColors.redShade1;
+    } else {
+      return AppColors.blueShade1;
+    }
+  }
+
+  static int getVisibiltyNum(ProjectVisibility value) {
+    if (value == ProjectVisibility.private) {
+      return 1;
+    } else {
+      return 0;
     }
   }
 

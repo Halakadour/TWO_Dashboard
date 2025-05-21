@@ -4,29 +4,29 @@ import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/unauthorized_status_animation.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/contracts/contract_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/contracts/loading_contract_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/draft/draft_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/draft/loading_draft_table.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/core/widgets/dropdown-list/custom_dropdown_list_for_draft_entity.dart';
 import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/core/widgets/shimmers/dropdown-loading/custom_dropdown_loading.dart';
-import 'package:two_dashboard/core/widgets/data-table/loading/loading_contracts_table.dart';
-import 'package:two_dashboard/core/widgets/data-table/loading/loading_drafs_table.dart';
 import 'package:two_dashboard/features/contracts/domain/entities/draft_entity.dart';
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
-import 'package:two_dashboard/core/widgets/data-table/custom/custom_contract_table.dart';
-import 'package:two_dashboard/core/widgets/data-table/custom/custom_draft_table.dart';
 
 import '../../../config/routes/app_route_config.dart';
 import '../../../features/contracts/domain/entities/contract_entity.dart';
 import '../../widgets/menus/custom_popu_menu_for_contract_entity.dart';
 
-class ContractsStateHandling {
+class ContractsBlocStateHandling {
   // Get Contrcat Table
   Widget getContractsTable(ContractState state) {
     if (state.contrcatListStatus == CasualStatus.loading) {
-      return const LoadingContractsTable();
+      return const LoadingContractTable();
     } else if (state.contrcatListStatus == CasualStatus.success) {
-      return CustomContractTable(contrcatList: state.contractList);
+      return ContractTable(contractList: state.contractList);
     } else if (state.contrcatListStatus == CasualStatus.failure) {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));
     } else if (state.contrcatListStatus == CasualStatus.notAuthorized) {
@@ -99,9 +99,9 @@ class ContractsStateHandling {
   // Get Draft Table
   Widget getDraftTable(ContractState state) {
     if (state.drafListStatus == CasualStatus.loading) {
-      return LoadingDrafsTable();
+      return LoadingDraftTable();
     } else if (state.drafListStatus == CasualStatus.success) {
-      return CustomDraftTable(draftsList: state.drafList);
+      return DraftTable(draftList: state.drafList);
     } else if (state.drafListStatus == CasualStatus.failure) {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));
     } else if (state.drafListStatus == CasualStatus.notAuthorized) {

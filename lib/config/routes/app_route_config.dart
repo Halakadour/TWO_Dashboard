@@ -6,13 +6,16 @@ class AppRouteConfig {
   // Main  Branches//
   static const main = 'main';
   static const dashboard = 'dashboard';
-  static const sprints = 'sprints';
-  static const projects = 'projects';
-  static const createProject = 'createProject';
-  static const selectTeam = 'selectTeam';
+  static const tasks = 'tasks';
   static const calendar = 'calendar';
   static const inbox = 'inbox';
   static const acounts = 'acounts';
+
+  // Project Branches
+  static const projects = 'projects';
+  static const createProject = 'createProject';
+  static const selectTeam = 'selectTeam';
+  static const createTeam = 'createTeam';
 
   // Contracts Branches //
   static const contracts = "contracts";

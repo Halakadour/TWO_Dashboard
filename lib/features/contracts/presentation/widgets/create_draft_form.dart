@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/contracts_bloc_state_handling.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/profile_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/buttons/icon-buttons/back_button.dart';
 import 'package:two_dashboard/core/widgets/container/custom_rounder_container.dart';
@@ -12,7 +13,6 @@ import 'package:two_dashboard/features/profile/domain/entities/client_entity.dar
 import '../../../../config/constants/sizes_config.dart';
 import '../../../../config/routes/app_route_config.dart';
 import '../../../../config/theme/color.dart';
-import '../../../../core/functions/bloc-state-handling/contracts_state_handling.dart';
 import '../../../../core/widgets/breadcrumbs/breadcumbs_item.dart';
 import '../../../../core/widgets/buttons/elevated-buttons/desmiss_elevated_buttom.dart';
 import '../../../../core/widgets/buttons/elevated-buttons/save_elevated_button.dart';
@@ -46,7 +46,7 @@ class _CreateDraftFormState extends State<CreateDraftForm> {
   Widget build(BuildContext context) {
     return BlocListener<ContractBloc, ContractState>(
       listener: (context, state) {
-        ContractsStateHandling().createDraft(state, context);
+        ContractsBlocStateHandling().createDraft(state, context);
       },
       listenWhen:
           (previous, current) =>

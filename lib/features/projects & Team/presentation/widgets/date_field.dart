@@ -36,9 +36,7 @@ class DateField extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  date != null
-                      ? HelperFunctions.getFormattedDate(date!)
-                      : label,
+                  date != null ? HelperFunctions.formatDate(date!) : label,
                   style: AppTextStyle.bodySm(
                     color:
                         date != null

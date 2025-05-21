@@ -70,7 +70,7 @@ class SizesConfig {
   static const double cardHeight = 150;
 
   // Table
-  static const double loadingRowsCounts = 10;
+  static const int loadingRowsCounts = 10;
   static const double tableHeight = 760;
   static const double tablMinWidth = 1000;
 

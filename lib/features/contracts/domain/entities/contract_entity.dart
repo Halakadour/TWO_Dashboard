@@ -3,7 +3,7 @@ class ContractEntity {
   final String contractPath;
   final String clientID;
   final String clientName;
-  final String clientImage;
+  final String? clientImage;
   final String? clientSign;
 
   ContractEntity({
@@ -11,7 +11,7 @@ class ContractEntity {
     required this.contractPath,
     required this.clientID,
     required this.clientName,
-    required this.clientImage,
+    this.clientImage,
     required this.clientSign,
   });
 }

@@ -12,6 +12,6 @@ class EmployeeEntity {
     required this.eEmail,
     this.eImage,
     required this.eRole,
-    required this.eCv,
+    this.eCv,
   });
 }

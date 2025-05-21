@@ -1,22 +1,22 @@
 import 'package:bloc/bloc.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/services/shared_preferences_services.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/domain/entity/project_entity.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/domain/entity/team_entity.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/domain/usecases/project/create_project_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/domain/usecases/project/delete_project_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/domain/usecases/project/show_all_projects_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/domain/usecases/project/show_public_projects_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/domain/usecases/project/show_user_projects_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/domain/usecases/team/add_members_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/domain/usecases/team/create_team_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20Team/domain/usecases/team/show_teams_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/entity/project_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/entity/team_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/create_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/delete_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/show_all_projects_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/show_public_projects_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/show_user_projects_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/team/add_members_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/team/create_team_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/team/show_teams_usecase.dart';
 
-part 'project_and_task_event.dart';
-part 'project_and_task_state.dart';
+part 'project_and_team_event.dart';
+part 'project_and_team_state.dart';
 
-class ProjectAndTaskBloc
-    extends Bloc<ProjectAndTaskEvent, ProjectAndTaskState> {
+class ProjectAndTeamBloc
+    extends Bloc<ProjectAndTeamEvent, ProjectAndTeamState> {
   // Project UseCase
   final CreateProjectUsecase createProjectUsecase;
   final DeleteProjectUsecase deleteProjectUsecase;
@@ -28,7 +28,7 @@ class ProjectAndTaskBloc
   final AddMembersUsecase addMembersUsecase;
   final ShowTeamsUsecase showTeamsUsecase;
 
-  ProjectAndTaskBloc(
+  ProjectAndTeamBloc(
     this.createProjectUsecase,
     this.deleteProjectUsecase,
     this.showAllProjectsUsecase,
@@ -37,7 +37,7 @@ class ProjectAndTaskBloc
     this.createTeamUsecase,
     this.addMembersUsecase,
     this.showTeamsUsecase,
-  ) : super(ProjectAndTaskState()) {
+  ) : super(ProjectAndTeamState()) {
     // Project Bloc //
     on<CreateProjectEvent>((event, emit) async {
       emit(state.copyWith(createProjectStatus: CasualStatus.loading));

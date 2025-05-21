@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
-import 'package:two_dashboard/config/theme/text_style.dart';
 
 // ignore: must_be_immutable
 class DeactivateButton extends StatelessWidget {
@@ -34,28 +32,36 @@ class DeactivateButton extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: value ? AppColors.yellowShade2 : Colors.transparent,
                   border: Border.all(color: AppColors.yellowShade2, width: 1.1),
-                  borderRadius: BorderRadius.circular(SizesConfig.buttonRadius),
+                  shape: BoxShape.circle,
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 10,
-                      child: Icon(
-                        Iconsax.eye_slash,
-                        size: SizesConfig.iconsSm,
-                        color: value ? AppColors.white : AppColors.yellowShade2,
-                      ),
-                    ),
-                    PaddingConfig.w8,
-                    Text(
-                      "Deactivate",
-                      style: AppTextStyle.buttonStyle(
-                        color: value ? AppColors.white : AppColors.yellowShade2,
-                      ),
-                    ),
-                  ],
+                child: Tooltip(
+                  message: "Deactivate",
+                  child: Icon(
+                    Iconsax.eye_slash,
+                    size: SizesConfig.iconsSm,
+                    color: value ? AppColors.white : AppColors.yellowShade2,
+                  ),
                 ),
+                // child: Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     SizedBox(
+                //       width: 10,
+                //       child: Icon(
+                //         Iconsax.eye_slash,
+                //         size: SizesConfig.iconsSm,
+                //         color: value ? AppColors.white : AppColors.yellowShade2,
+                //       ),
+                //     ),
+                //     PaddingConfig.w8,
+                //     Text(
+                //       "Deactivate",
+                //       style: AppTextStyle.buttonStyle(
+                //         color: value ? AppColors.white : AppColors.yellowShade2,
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ),
             ),
       ),

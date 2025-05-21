@@ -14,6 +14,7 @@ class CustomPaginatedDataTable extends StatelessWidget {
     this.rowsPerPage = 10,
     this.tableHeight = SizesConfig.tableHeight,
     this.onPageChanges,
+    this.onRowsPerPageChanged,
     this.sortColumnIndex,
     this.dataRowHeight = SizesConfig.xl * 2,
     this.sortAsending = true,
@@ -36,6 +37,9 @@ class CustomPaginatedDataTable extends StatelessWidget {
 
   // callback function to handle page changes
   final Function(int)? onPageChanges;
+
+  // On Row selected
+  final void Function(int?)? onRowsPerPageChanged;
 
   // Height of each data row in the DataTable
   final double dataRowHeight;
@@ -87,6 +91,9 @@ class CustomPaginatedDataTable extends StatelessWidget {
             ),
           ),
           empty: EmptyStatusAnimation(),
+
+          // Data Style
+          dataTextStyle: AppTextStyle.dataTableCellStyle(),
 
           // SORTING
           sortAscending: sortAsending,
