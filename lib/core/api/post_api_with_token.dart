@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'get_api.dart';
 import '../error/handling_exception_request.dart';
 
-class PostApiWithToken<T> with HandlingExceptionRequest {
+class PostWithTokenApi<T> with HandlingExceptionRequest {
   final Uri uri;
   final Map body;
   final FromJson fromJson;
@@ -15,7 +15,7 @@ class PostApiWithToken<T> with HandlingExceptionRequest {
   final Duration timeout;
   final String token;
 
-  const PostApiWithToken({
+  const PostWithTokenApi({
     required this.uri,
     required this.token,
     required this.body,
@@ -35,8 +35,9 @@ class PostApiWithToken<T> with HandlingExceptionRequest {
       var request = http.Request('POST', uri);
       request.body = jsonEncode(body);
       request.headers.addAll(headers);
-      http.StreamedResponse streamedResponse =
-          await request.send().timeout(timeout);
+      http.StreamedResponse streamedResponse = await request.send().timeout(
+        timeout,
+      );
       log(request.body, name: "request body");
       http.Response response = await http.Response.fromStream(streamedResponse);
       log(response.body);
@@ -48,10 +49,7 @@ class PostApiWithToken<T> with HandlingExceptionRequest {
         throw exception;
       }
     } on HttpException {
-      log(
-        'http exception',
-        name: 'RequestManager post function',
-      );
+      log('http exception', name: 'RequestManager post function');
       rethrow;
     } on FormatException {
       log(
@@ -60,16 +58,10 @@ class PostApiWithToken<T> with HandlingExceptionRequest {
       );
       rethrow;
     } on SocketException {
-      log(
-        'socket exception',
-        name: 'RequestManager post function',
-      );
+      log('socket exception', name: 'RequestManager post function');
       rethrow;
     } catch (e) {
-      log(
-        e.toString(),
-        name: 'RequestManager post function',
-      );
+      log(e.toString(), name: 'RequestManager post function');
       rethrow;
     }
   }

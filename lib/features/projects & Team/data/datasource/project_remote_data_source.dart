@@ -3,61 +3,54 @@ import 'package:two_dashboard/core/api/get_api.dart';
 import 'package:two_dashboard/core/api/get_with_token_api.dart';
 import 'package:two_dashboard/core/api/post_api_with_token.dart';
 import 'package:two_dashboard/core/models/empty_response_model.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
+import 'package:two_dashboard/core/param/project_param.dart';
 import 'package:two_dashboard/features/projects%20&%20team/data/models/project/create_project_response_model.dart';
-import 'package:two_dashboard/features/projects%20&%20team/data/models/project/show_my_project_response_model.dart';
+import 'package:two_dashboard/features/projects%20&%20team/data/models/project/show_project_edit_request_response_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team/data/models/project/show_project_response_model.dart';
 
 abstract class ProjectRemoteDataSource {
   Future<CreateProjectResponseModel> createProject(
-    String token,
-    String name,
-    String description,
-    int contractId,
-    int teamId,
-    String startDate,
-    String endDate,
-    int private,
+    CreateOrUpdateProjectParam param,
   );
-  Future<EmptyResponseModel> updateProject(
-    int projectId,
-    String token,
-    String name,
-    String description,
-    int contractId,
-    int teamId,
-    String startDate,
-    String endDate,
-    int private,
+  Future<EmptyResponseModel> updateProject(CreateOrUpdateProjectParam param);
+  Future<EmptyResponseModel> deleteProject(TokenWithIdParam project);
+  Future<ShowProjectsResponseModel> showPublicProjects();
+  Future<ShowProjectsResponseModel> showAllProjects(String token);
+  Future<ShowProjectsResponseModel> showUserProjects(String token);
+  Future<ShowProjectsResponseModel> showPendingProjects(String token);
+  Future<EmptyResponseModel> sentEditProjectRequest(
+    EditProjectRequestParam param,
   );
-  Future<EmptyResponseModel> deleteProject(int projectId, String token);
-  Future<ShowProjectResponseModel> showPublicProjects();
-  Future<ShowProjectResponseModel> showAllProjects(String token);
-  Future<ShowUserProjectsResponseModel> showUserProjects(String token);
+  Future<ShowProjectsEditRequestResponseModel> showProjectEditRequest(
+    TokenWithIdParam project,
+  );
+  Future<EmptyResponseModel> rejectProject(TokenWithIdParam project);
+  Future<EmptyResponseModel> approveProject(TokenWithIdParam project);
 }
 
 class ProjectRemoteDataSourceImpl extends ProjectRemoteDataSource {
   @override
   Future<CreateProjectResponseModel> createProject(
-    String token,
-    String name,
-    String description,
-    int contractId,
-    int teamId,
-    String startDate,
-    String endDate,
-    int private,
+    CreateOrUpdateProjectParam param,
   ) async {
-    final result = PostApiWithToken(
+    final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/create/project"),
-      token: token,
+      token: param.token,
       body: ({
-        "name": name,
-        "description": description,
-        "contract_id": contractId,
-        "team_id": teamId,
-        "start": startDate,
-        "end": endDate,
-        "private": private,
+        "full_name": param.fullName,
+        "company_name": param.companyName,
+        "email": param.email,
+        "phone": param.phone,
+        "project_type": param.projectType,
+        "project_description": param.projectDescription,
+        "cost": param.cost,
+        "duration": param.duration,
+        "requirements": param.requirements,
+        "document": param.document,
+        "cooperation_type": param.cooperationType,
+        "contact_time": param.contactTime,
+        "private": param.visibility,
       }),
       fromJson: createProjectResponseModelFromJson,
     );
@@ -65,71 +58,127 @@ class ProjectRemoteDataSourceImpl extends ProjectRemoteDataSource {
   }
 
   @override
-  Future<EmptyResponseModel> deleteProject(int projectId, String token) async {
+  Future<EmptyResponseModel> deleteProject(TokenWithIdParam project) async {
     final result = GetWithTokenApi(
-      uri: Uri.parse("$baseUri/api/delete/project/$projectId"),
-      token: token,
+      uri: Uri.parse("$baseUri/api/delete/project/${project.id}"),
+      token: project.token,
       fromJson: emptyResponseModelFromJson,
     );
     return await result.callRequest();
   }
 
   @override
-  Future<ShowProjectResponseModel> showAllProjects(String token) async {
+  Future<ShowProjectsResponseModel> showAllProjects(String token) async {
     final result = GetWithTokenApi(
       uri: Uri.parse("$baseUri/api/show/all/projects"),
       token: token,
-      fromJson: showProjectResponseModelFromJson,
+      fromJson: showProjectsResponseModelFromJson,
     );
     return await result.callRequest();
   }
 
   @override
-  Future<ShowProjectResponseModel> showPublicProjects() async {
+  Future<ShowProjectsResponseModel> showPublicProjects() async {
     final result = GetApi(
       uri: Uri.parse("$baseUri/api/show/public/projects"),
-      fromJson: showProjectResponseModelFromJson,
+      fromJson: showProjectsResponseModelFromJson,
     );
     return await result.callRequest();
   }
 
   @override
-  Future<ShowUserProjectsResponseModel> showUserProjects(String token) async {
+  Future<ShowProjectsResponseModel> showUserProjects(String token) async {
     final result = GetWithTokenApi(
       uri: Uri.parse("$baseUri/api/show/my/projects"),
       token: token,
-      fromJson: showUserProjectsResponseModelFromJson,
+      fromJson: showProjectsResponseModelFromJson,
     );
     return await result.callRequest();
   }
 
   @override
   Future<EmptyResponseModel> updateProject(
-    int projectId,
-    String token,
-    String name,
-    String description,
-    int contractId,
-    int teamId,
-    String startDate,
-    String endDate,
-    int private,
+    CreateOrUpdateProjectParam param,
   ) async {
-    final result = PostApiWithToken(
+    final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/update/project"),
-      token: token,
+      token: param.token,
       body: ({
-        "name": name,
-        "description": description,
-        "contract_id": contractId,
-        "team_id": teamId,
-        "start": startDate,
-        "end": endDate,
-        "private": private,
-        "project_id": projectId,
+        "full_name": param.fullName,
+        "company_name": param.companyName,
+        "email": param.email,
+        "phone": param.phone,
+        "project_type": param.projectType,
+        "project_description": param.projectDescription,
+        "cost": param.cost,
+        "duration": param.duration,
+        "requirements": param.requirements,
+        "document": param.document,
+        "cooperation_type": param.cooperationType,
+        "contact_time": param.contactTime,
+        "private": param.visibility,
+        "project_id": param.projectId,
       }),
       fromJson: emptyResponseModelFromJson,
     );
     return await result.call();
+  }
+
+  @override
+  Future<EmptyResponseModel> approveProject(TokenWithIdParam project) async {
+    final result = GetWithTokenApi(
+      uri: Uri.parse("$baseUri/api/approve/project/${project.id}"),
+      token: project.token,
+      fromJson: emptyResponseModelFromJson,
+    );
+
+    return await result.callRequest();
+  }
+
+  @override
+  Future<EmptyResponseModel> rejectProject(TokenWithIdParam project) async {
+    final result = GetWithTokenApi(
+      uri: Uri.parse("$baseUri/api/reject/project/${project.id}"),
+      token: project.token,
+      fromJson: emptyResponseModelFromJson,
+    );
+
+    return await result.callRequest();
+  }
+
+  @override
+  Future<EmptyResponseModel> sentEditProjectRequest(
+    EditProjectRequestParam param,
+  ) async {
+    final result = PostWithTokenApi(
+      uri: Uri.parse("$baseUri/api/edit/project/request"),
+      token: param.token,
+      body: ({'message': param.message, 'project_id': param.projectId}),
+      fromJson: emptyResponseModelFromJson,
+    );
+    return await result.call();
+  }
+
+  @override
+  Future<ShowProjectsResponseModel> showPendingProjects(String token) async {
+    final result = GetWithTokenApi(
+      uri: Uri.parse("$baseUri/api/show/pending/projects"),
+      token: token,
+      fromJson: showProjectsResponseModelFromJson,
+    );
+
+    return await result.callRequest();
+  }
+
+  @override
+  Future<ShowProjectsEditRequestResponseModel> showProjectEditRequest(
+    TokenWithIdParam project,
+  ) async {
+    final result = GetWithTokenApi(
+      uri: Uri.parse("$baseUri/api/show/latest/edit/request/${project.id}"),
+      token: project.token,
+      fromJson: showProjectsEditRequestResponseModelFromJson,
+    );
+    return await result.callRequest();
   }
 }

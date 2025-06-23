@@ -72,7 +72,7 @@ class SizesConfig {
   // Table
   static const int loadingRowsCounts = 10;
   static const double tableHeight = 760;
-  static const double tablMinWidth = 1000;
+  static const double tablMinWidth = 600;
 
   // box dimensions
   static const double boxSm = 60;

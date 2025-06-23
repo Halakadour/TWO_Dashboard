@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:two_dashboard/core/widgets/dialog/sprint/sprint_dialog.dart';
 import 'package:two_dashboard/core/widgets/images/group_of_image_circle.dart';
 
 import '../../../../config/constants/padding_config.dart';
@@ -19,9 +18,7 @@ class ProjectCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        SprintDialog().showSprintDetails(context);
-      },
+      onTap: () {},
       child: Container(
         clipBehavior: Clip.hardEdge,
         margin: const EdgeInsets.symmetric(vertical: 8),

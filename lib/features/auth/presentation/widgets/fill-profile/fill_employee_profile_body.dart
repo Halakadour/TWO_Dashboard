@@ -113,6 +113,8 @@ class _FillEmployeeProfileBodyState extends State<FillEmployeeProfileBody> {
 
   Widget rolesListStateHandling(AuthRoleProfileState state) {
     if (state.roleWithoutClientListStatus == CasualStatus.success) {
+      print("Sucess");
+      print(state.roleWithoutClientList);
       return CustomDropdownListForRoleModel(
         selectYour: "job",
         value: role,
@@ -127,10 +129,13 @@ class _FillEmployeeProfileBodyState extends State<FillEmployeeProfileBody> {
         },
       );
     } else if (state.roleWithoutClientListStatus == CasualStatus.loading) {
+      print("loading");
       return const CustomDropdownLoading();
     } else if (state.roleWithoutClientListStatus == CasualStatus.failure) {
-      return const Text("No Roles");
+      print("failure ${state.message}");
+      return Text(state.message);
     } else {
+      print("other");
       return const SizedBox();
     }
   }

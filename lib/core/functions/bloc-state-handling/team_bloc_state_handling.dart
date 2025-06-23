@@ -29,4 +29,23 @@ class TeamBlocStateHandling {
       showNotAuthorizedDialog(context);
     }
   }
+
+  // Add Team
+  void addTeam(ProjectAndTeamState state, BuildContext context) {
+    if (state.addTeamStatus == CasualStatus.loading) {
+      showLoadingDialog(context);
+    } else if (state.addTeamStatus == CasualStatus.success) {
+      context.pop();
+      showSuccessDialog(context, () {
+        context.pushReplacementNamed(AppRouteConfig.projects);
+        context.pop();
+      });
+    } else if (state.addTeamStatus == CasualStatus.failure) {
+      context.pop();
+      showErrorDialog(context, state.message);
+    } else if (state.addMemersStatus == CasualStatus.notAuthorized) {
+      context.pop();
+      showNotAuthorizedDialog(context);
+    }
+  }
 }

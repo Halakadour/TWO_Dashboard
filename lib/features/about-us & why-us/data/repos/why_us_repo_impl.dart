@@ -1,35 +1,30 @@
 import 'package:dartz/dartz.dart';
 import 'package:two_dashboard/core/error/failures.dart';
+import 'package:two_dashboard/core/param/about_us_why_us_param.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
 import 'package:two_dashboard/features/about-us%20&%20why-us/data/datasources/why_us_remote_datesource.dart';
 import 'package:two_dashboard/features/about-us%20&%20why-us/domain/entities/why_us_entity.dart';
 import 'package:two_dashboard/features/about-us%20&%20why-us/domain/repos/why_us_repo.dart';
-import 'package:two_dashboard/features/about-us%20&%20why-us/domain/usecases/why-us-usecase/create_why_us_usecase.dart';
-import 'package:two_dashboard/features/about-us%20&%20why-us/domain/usecases/why-us-usecase/delete_why_us_usecase.dart';
-import 'package:two_dashboard/features/about-us%20&%20why-us/domain/usecases/why-us-usecase/update_why_us_usecase.dart';
 
 class WhyUsRepoImpl extends WhyUsRepo {
   final WhyUsRemoteDatesource whyUsRemoteDatesource;
 
   WhyUsRepoImpl(this.whyUsRemoteDatesource);
   @override
-  Future<Either<Failure, WhyUsEntity>> createWhyUs(String token, String whyUs) {
+  Future<Either<Failure, WhyUsEntity>> createWhyUs(CreateWhyUsParam param) {
     return wrapHandling(
       tryCall: () async {
-        final result = await whyUsRemoteDatesource.createWhyUs(
-          CreateWhyUsParam(token: token, whyUs: whyUs),
-        );
+        final result = await whyUsRemoteDatesource.createWhyUs(param);
         return Right(result.data);
       },
     );
   }
 
   @override
-  Future<Either<Failure, Unit>> deleteWhyUs(String token, int whyUsId) {
+  Future<Either<Failure, Unit>> deleteWhyUs(TokenWithIdParam whyUs) {
     return wrapHandling(
       tryCall: () async {
-        await whyUsRemoteDatesource.deleteWhyUs(
-          DeleteWhyUsParam(token: token, whyUsId: whyUsId),
-        );
+        await whyUsRemoteDatesource.deleteWhyUs(whyUs);
         return const Right(unit);
       },
     );
@@ -46,16 +41,10 @@ class WhyUsRepoImpl extends WhyUsRepo {
   }
 
   @override
-  Future<Either<Failure, Unit>> updateWhyUs(
-    String token,
-    int whyUsId,
-    String whyUs,
-  ) {
+  Future<Either<Failure, Unit>> updateWhyUs(UpdateWhyUsParam param) {
     return wrapHandling(
       tryCall: () async {
-        await whyUsRemoteDatesource.updateWhyUs(
-          UpdateWhyUsParam(token: token, whyUsId: whyUsId, whyUs: whyUs),
-        );
+        await whyUsRemoteDatesource.updateWhyUs(param);
         return const Right(unit);
       },
     );

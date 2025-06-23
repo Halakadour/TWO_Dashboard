@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:two_dashboard/core/error/failures.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
+import 'package:two_dashboard/core/param/contact_us_param.dart';
 import 'package:two_dashboard/features/contact-us/data/datasources/contact_us_remote_datasource.dart';
 import 'package:two_dashboard/features/contact-us/data/models/contact_us_model.dart';
 import 'package:two_dashboard/features/contact-us/domain/repos/contact_us_repo.dart';
@@ -10,19 +12,11 @@ class ContactUsRepoImpl extends ContactUsRepo {
 
   @override
   Future<Either<Failure, ContactUsModel>> createContactUs(
-    String token,
-    String subject,
-    String description,
-    String phone,
+    CreateContactUsParam param,
   ) {
     return wrapHandling(
       tryCall: () async {
-        final result = await contactUsRemoteDatasource.createContactUs(
-          token,
-          subject,
-          description,
-          phone,
-        );
+        final result = await contactUsRemoteDatasource.createContactUs(param);
         return Right(result.data);
       },
     );
@@ -30,12 +24,11 @@ class ContactUsRepoImpl extends ContactUsRepo {
 
   @override
   Future<Either<Failure, Unit>> markContactUsAsApproved(
-    String token,
-    int contactUsId,
+    TokenWithIdParam contactUs,
   ) async {
     return wrapHandling(
       tryCall: () async {
-        await contactUsRemoteDatasource.approveContactUs(token, contactUsId);
+        await contactUsRemoteDatasource.approveContactUs(contactUs);
         return const Right(unit);
       },
     );
@@ -43,12 +36,11 @@ class ContactUsRepoImpl extends ContactUsRepo {
 
   @override
   Future<Either<Failure, Unit>> markContactUsAsSeen(
-    String token,
-    int contactUsId,
+    TokenWithIdParam contactUs,
   ) async {
     return wrapHandling(
       tryCall: () async {
-        await contactUsRemoteDatasource.seenContactUs(token, contactUsId);
+        await contactUsRemoteDatasource.seenContactUs(contactUs);
         return const Right(unit);
       },
     );
@@ -56,11 +48,11 @@ class ContactUsRepoImpl extends ContactUsRepo {
 
   @override
   Future<Either<Failure, List<ContactUsModel>>>
-  showContactUsWithSeenAndApproved(int seenFilter, int approvedFilter) {
+  showContactUsWithSeenAndApproved(ShowContactUsParam param) {
     return wrapHandling(
       tryCall: () async {
         final result = await contactUsRemoteDatasource
-            .showContactUsWithSeenAndApproved(seenFilter, approvedFilter);
+            .showContactUsWithSeenAndApproved(param);
         return Right(result.data);
       },
     );

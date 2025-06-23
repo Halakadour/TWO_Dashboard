@@ -1,19 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:two_dashboard/core/error/failures.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
 import 'package:two_dashboard/core/usecases/use_case.dart';
 import 'package:two_dashboard/features/contact-us/domain/repos/contact_us_repo.dart';
-import 'package:two_dashboard/features/contact-us/domain/usecases/mark_contact_us_as_seen_usecase.dart';
 
 class MarkContactUsAsApprovedUscase
-    extends UseCase<Future<Either<Failure, Unit>>, MarkContactUsParam> {
+    extends UseCase<Future<Either<Failure, Unit>>, TokenWithIdParam> {
   MarkContactUsAsApprovedUscase(this.contactUsRepo);
   final ContactUsRepo contactUsRepo;
 
   @override
-  Future<Either<Failure, Unit>> call(MarkContactUsParam param) {
-    return contactUsRepo.markContactUsAsApproved(
-      param.token,
-      param.contactUsId,
-    );
+  Future<Either<Failure, Unit>> call(TokenWithIdParam param) {
+    return contactUsRepo.markContactUsAsApproved(param);
   }
 }

@@ -5,6 +5,7 @@ class EmployeeEntity {
   final String? eImage;
   final String eRole;
   final String? eCv;
+  final int eApproved;
 
   EmployeeEntity({
     required this.eId,
@@ -13,5 +14,6 @@ class EmployeeEntity {
     this.eImage,
     required this.eRole,
     this.eCv,
+    required this.eApproved,
   });
 }

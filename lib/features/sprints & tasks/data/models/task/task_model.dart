@@ -2,7 +2,7 @@ class TaskModel {
   final String title;
   final String description;
   final String project;
-  final dynamic sprint;
+  final String sprint;
   final String status;
   final String assignedTo;
   final String priority;

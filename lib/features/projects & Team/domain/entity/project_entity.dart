@@ -1,29 +1,42 @@
 import 'package:two_dashboard/core/network/enums.dart';
-import 'package:two_dashboard/features/projects%20&%20team/domain/entity/team_entity.dart';
-import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/sprint_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team/data/models/project/project_model.dart';
 
 class ProjectEntity {
   final int id;
-  final String name;
-  final String description;
-  final int contractId;
-  final TeamEntity team;
-  final DateTime startDate;
-  final DateTime endDate;
-  final TaskStatus projectStatus;
-  final ProjectVisibility projectVisibility;
-  final List<SprintEntity> sprintList;
+  final String fullName;
+  final String companyName;
+  final String email;
+  final String phone;
+  final ProjectType pType;
+  final String projectDescription;
+  final String cost;
+  final String duration;
+  final String requirements;
+  final String document;
+  final CooperationType cType;
+  final String contactTime;
+  final ProjectVisibility visibility;
+  final ProjectStatus status;
+  final String? contract;
+  final Team? team;
 
   ProjectEntity({
     required this.id,
-    required this.name,
-    required this.description,
-    required this.contractId,
-    required this.team,
-    required this.startDate,
-    required this.endDate,
-    required this.projectStatus,
-    required this.projectVisibility,
-    required this.sprintList,
+    required this.fullName,
+    required this.companyName,
+    required this.email,
+    required this.phone,
+    required this.pType,
+    required this.projectDescription,
+    required this.cost,
+    required this.duration,
+    required this.requirements,
+    required this.document,
+    required this.cType,
+    required this.contactTime,
+    required this.visibility,
+    this.status = ProjectStatus.pended,
+    this.contract,
+    this.team,
   });
 }

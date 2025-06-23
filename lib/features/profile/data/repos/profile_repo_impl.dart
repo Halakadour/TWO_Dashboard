@@ -3,6 +3,8 @@ import 'dart:typed_data';
 import 'package:dartz/dartz.dart';
 import 'package:two_dashboard/core/error/failures.dart';
 import 'package:two_dashboard/core/network/network_connection_checker.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
+import 'package:two_dashboard/core/param/profile_param.dart';
 import 'package:two_dashboard/features/profile/data/datasources/profile_locale_datasource.dart';
 import 'package:two_dashboard/features/profile/data/datasources/profile_remote_datasourse.dart';
 import 'package:two_dashboard/features/profile/domain/entities/client_entity.dart';
@@ -22,19 +24,11 @@ class ProfileRepoImpl extends ProfileRepo {
 
   @override
   Future<Either<Failure, Unit>> updateEmployeeProfile(
-    String token,
-    String image,
-    String cv,
-    int roleId,
+    UpdateEmployeeProfileParam param,
   ) {
     return wrapHandling(
       tryCall: () async {
-        await profileRemoteDatasourse.updateEmployeeProfile(
-          token,
-          image,
-          cv,
-          roleId,
-        );
+        await profileRemoteDatasourse.updateEmployeeProfile(param);
         return Right(unit);
       },
     );
@@ -42,17 +36,11 @@ class ProfileRepoImpl extends ProfileRepo {
 
   @override
   Future<Either<Failure, List<EmployeeEntity>>> showUsersWithFilter(
-    int approvedFilter,
-    int? roleFilter,
-    String token,
+    ShowUsersParam param,
   ) {
     return wrapHandling(
       tryCall: () async {
-        final result = await profileRemoteDatasourse.showUserWithFilter(
-          approvedFilter,
-          roleFilter,
-          token,
-        );
+        final result = await profileRemoteDatasourse.showUserWithFilter(param);
         return Right(result.data);
       },
     );
@@ -69,10 +57,10 @@ class ProfileRepoImpl extends ProfileRepo {
   }
 
   @override
-  Future<Either<Failure, Unit>> toggleUserApproved(String token, int userId) {
+  Future<Either<Failure, Unit>> toggleUserApproved(TokenWithIdParam user) {
     return wrapHandling(
       tryCall: () async {
-        await profileRemoteDatasourse.toggleUserApproved(token, userId);
+        await profileRemoteDatasourse.toggleUserApproved(user);
         return Right(unit);
       },
     );

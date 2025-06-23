@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:two_dashboard/core/error/failures.dart';
+import 'package:two_dashboard/core/param/contact_us_param.dart';
 import 'package:two_dashboard/core/usecases/use_case.dart';
 import 'package:two_dashboard/features/contact-us/data/models/contact_us_model.dart';
 import 'package:two_dashboard/features/contact-us/domain/repos/contact_us_repo.dart';
@@ -12,24 +13,6 @@ class CreateContactUsUsecase
 
   @override
   Future<Either<Failure, ContactUsModel>> call(CreateContactUsParam param) {
-    return contactUsRepo.createContactUs(
-      param.token,
-      param.subject,
-      param.description,
-      param.phone,
-    );
+    return contactUsRepo.createContactUs(param);
   }
-}
-
-class CreateContactUsParam {
-  String token;
-  String subject;
-  String description;
-  String phone;
-  CreateContactUsParam({
-    required this.token,
-    required this.subject,
-    required this.description,
-    required this.phone,
-  });
 }

@@ -19,7 +19,7 @@ class TaskStatusContainer extends StatelessWidget {
         vertical: SizesConfig.xs,
         horizontal: SizesConfig.md,
       ),
-      backgroundColor: HelperFunctions.getTaskStatusBackgroundColor(taskStatus),
+      backgroundColor: HelperFunctions.getTaskBackgroundColor(taskStatus),
       child: Text(
         taskStatus.name.toLowerCase().toString(),
         style: AppTextStyle.bodyXs(

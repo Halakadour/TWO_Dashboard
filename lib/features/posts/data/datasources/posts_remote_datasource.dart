@@ -6,60 +6,47 @@ import 'package:two_dashboard/core/api/post_api.dart';
 import 'package:two_dashboard/core/api/post_api_with_token.dart';
 import 'package:two_dashboard/core/api/put_request.dart';
 import 'package:two_dashboard/core/models/empty_response_model.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
+import 'package:two_dashboard/core/param/post_param.dart';
 import 'package:two_dashboard/features/posts/data/models/create_post_response_model.dart';
 import 'package:two_dashboard/features/posts/data/models/reply_to_post_response_model.dart';
 import 'package:two_dashboard/features/posts/data/models/show_post_replies_response_model.dart';
 import 'package:two_dashboard/features/posts/data/models/show_post_response_model.dart';
 
 abstract class PostRemoteDatasource {
-  Future<CreatePostResponseModel> createPost(
-    String token,
-    String description,
-    String image,
-  );
-  Future<EmptyResponseModel> deletePost(String token, int postId);
+  Future<CreatePostResponseModel> createPost(CreatePostParam param);
+  Future<EmptyResponseModel> deletePost(TokenWithIdParam post);
   Future<ShowPostResponesModel> showActivePosts();
   Future<ShowPostResponesModel> showUnActivePosts();
-  Future<Unit> unActivePost(String token, int postId);
-  Future<ReplyToPostResponesModel> replyToPost(
-    String fullName,
-    String email,
-    String phone,
-    String cv,
-    int postId,
-  );
-  Future<EmptyResponseModel> acceptReply(String token, int replyId);
-  Future<ShowPostRepliesResponesModel> showPostReplies(
-    String token,
-    int postId,
-  );
+  Future<Unit> unActivePost(TokenWithIdParam post);
+  Future<ReplyToPostResponesModel> replyToPost(ReplyToPostParam param);
+  Future<EmptyResponseModel> acceptReply(TokenWithIdParam reply);
+  Future<ShowPostRepliesResponesModel> showPostReplies(TokenWithIdParam post);
   Future<ShowPostRepliesResponesModel> showPostAcceptedReplies(
-    String token,
-    int postId,
+    TokenWithIdParam post,
   );
 }
 
 class PostsRemoteDatasourceImpl implements PostRemoteDatasource {
   @override
-  Future<CreatePostResponseModel> createPost(
-    String token,
-    String description,
-    String image,
-  ) async {
-    final result = PostApiWithToken(
+  Future<CreatePostResponseModel> createPost(CreatePostParam param) async {
+    final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/create/post"),
-      body: ({'description': description, 'image': '$imageBase64$image'}),
+      body: ({
+        'description': param.description,
+        'image': '$imageBase64${param.image}',
+      }),
       fromJson: createPostResponseModelFromJson,
-      token: token,
+      token: param.token,
     );
     return await result.call();
   }
 
   @override
-  Future<EmptyResponseModel> deletePost(String token, int postId) async {
+  Future<EmptyResponseModel> deletePost(TokenWithIdParam post) async {
     final result = GetWithTokenApi(
-      uri: Uri.parse("$baseUri/api/delete/post/$postId"),
-      token: token,
+      uri: Uri.parse("$baseUri/api/delete/post/${post.id}"),
+      token: post.token,
       fromJson: emptyResponseModelFromJson,
     );
     return await result.callRequest();
@@ -84,31 +71,25 @@ class PostsRemoteDatasourceImpl implements PostRemoteDatasource {
   }
 
   @override
-  Future<Unit> unActivePost(String token, int postId) async {
+  Future<Unit> unActivePost(TokenWithIdParam post) async {
     final result = GetWithTokenApi(
-      uri: Uri.parse("$baseUri/api/un/activate/post/$id"),
-      token: token,
+      uri: Uri.parse("$baseUri/api/un/activate/post/${post.id}"),
+      token: post.token,
       fromJson: showPostRepliesResponesModelFromJson,
     );
     return await result.callRequest();
   }
 
   @override
-  Future<ReplyToPostResponesModel> replyToPost(
-    String fullName,
-    String email,
-    String phone,
-    String cv,
-    int postId,
-  ) async {
+  Future<ReplyToPostResponesModel> replyToPost(ReplyToPostParam param) async {
     final result = PostApi(
       uri: Uri.parse("$baseUri/api/create/reply"),
       body: ({
-        'full_name': fullName,
-        'email': email,
-        'phone': phone,
-        'cv': '$pdfBase64$cv',
-        'post_id': postId,
+        'full_name': param.fullName,
+        'email': param.email,
+        'phone': param.phone,
+        'cv': '$pdfBase64${param.cv}',
+        'post_id': param.postId,
       }),
       fromJson: replyToPostResponesModelFromJson,
     );
@@ -116,11 +97,11 @@ class PostsRemoteDatasourceImpl implements PostRemoteDatasource {
   }
 
   @override
-  Future<EmptyResponseModel> acceptReply(String token, int replyId) async {
+  Future<EmptyResponseModel> acceptReply(TokenWithIdParam reply) async {
     final result = PutApi(
-      uri: Uri.parse("$baseUri/api/accept/reply/$replyId"),
+      uri: Uri.parse("$baseUri/api/accept/reply/${reply.id}"),
       body: ({}),
-      token: token,
+      token: reply.token,
       fromJson: emptyResponseModelFromJson,
     );
     return await result.call();
@@ -128,12 +109,11 @@ class PostsRemoteDatasourceImpl implements PostRemoteDatasource {
 
   @override
   Future<ShowPostRepliesResponesModel> showPostAcceptedReplies(
-    String token,
-    int postId,
+    TokenWithIdParam post,
   ) async {
     final result = GetWithTokenApi(
-      uri: Uri.parse("$baseUri/api/show/accepted/post/replies/$postId"),
-      token: token,
+      uri: Uri.parse("$baseUri/api/show/accepted/post/replies/${post.id}"),
+      token: post.token,
       fromJson: showPostRepliesResponesModelFromJson,
     );
     return await result.callRequest();
@@ -141,12 +121,11 @@ class PostsRemoteDatasourceImpl implements PostRemoteDatasource {
 
   @override
   Future<ShowPostRepliesResponesModel> showPostReplies(
-    String token,
-    int postId,
+    TokenWithIdParam post,
   ) async {
     final result = GetWithTokenApi(
-      uri: Uri.parse("$baseUri/api/show/post/replies/$postId"),
-      token: token,
+      uri: Uri.parse("$baseUri/api/show/post/replies/${post.id}"),
+      token: post.token,
       fromJson: showPostRepliesResponesModelFromJson,
     );
     return await result.callRequest();

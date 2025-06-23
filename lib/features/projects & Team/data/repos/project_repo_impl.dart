@@ -1,6 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:two_dashboard/core/error/failures.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
+import 'package:two_dashboard/core/param/project_param.dart';
 import 'package:two_dashboard/features/projects%20&%20team/data/datasource/project_remote_data_source.dart';
+import 'package:two_dashboard/features/projects%20&%20team/data/models/project/show_project_edit_request_response_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/entity/project_entity.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/repos/project_repo.dart';
 
@@ -10,37 +13,21 @@ class ProjectRepoImpl extends ProjectRepo {
   ProjectRepoImpl(this.projectRemoteDataSource);
   @override
   Future<Either<Failure, ProjectEntity>> createProject(
-    String token,
-    String name,
-    String description,
-    int contractId,
-    int teamId,
-    String startDate,
-    String endDate,
-    int private,
+    CreateOrUpdateProjectParam param,
   ) {
     return wrapHandling(
       tryCall: () async {
-        final result = await projectRemoteDataSource.createProject(
-          token,
-          name,
-          description,
-          contractId,
-          teamId,
-          startDate,
-          endDate,
-          private,
-        );
+        final result = await projectRemoteDataSource.createProject(param);
         return Right(result.data);
       },
     );
   }
 
   @override
-  Future<Either<Failure, Unit>> deleteProject(int projectId, String token) {
+  Future<Either<Failure, Unit>> deleteProject(TokenWithIdParam project) {
     return wrapHandling(
       tryCall: () async {
-        await projectRemoteDataSource.deleteProject(projectId, token);
+        await projectRemoteDataSource.deleteProject(project);
         return Right(unit);
       },
     );
@@ -72,37 +59,77 @@ class ProjectRepoImpl extends ProjectRepo {
       tryCall: () async {
         final result = await projectRemoteDataSource.showUserProjects(token);
         // It should Returns a List
-        return Right([result]);
+        return Right(result.data);
       },
     );
   }
 
   @override
   Future<Either<Failure, Unit>> updateProject(
-    int projectId,
-    String token,
-    String name,
-    String description,
-    int contractId,
-    int teamId,
-    String startDate,
-    String endDate,
-    int private,
+    CreateOrUpdateProjectParam param,
   ) {
     return wrapHandling(
       tryCall: () async {
-        await projectRemoteDataSource.updateProject(
-          projectId,
-          token,
-          name,
-          description,
-          contractId,
-          teamId,
-          startDate,
-          endDate,
-          private,
-        );
+        await projectRemoteDataSource.updateProject(param);
         return Right(unit);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> approveProject(TokenWithIdParam project) {
+    return wrapHandling(
+      tryCall: () async {
+        await projectRemoteDataSource.approveProject(project);
+        return Right(unit);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> rejectProject(TokenWithIdParam project) {
+    return wrapHandling(
+      tryCall: () async {
+        await projectRemoteDataSource.rejectProject(project);
+        return Right(unit);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> sentEditProjectRequest(
+    EditProjectRequestParam param,
+  ) {
+    return wrapHandling(
+      tryCall: () async {
+        await projectRemoteDataSource.sentEditProjectRequest(param);
+        return Right(unit);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, List<ProjectEntity>>> showPendingProjects(
+    String token,
+  ) {
+    return wrapHandling(
+      tryCall: () async {
+        final result = await projectRemoteDataSource.showPendingProjects(token);
+        return Right(result.data);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, List<MessageModel>>> showProjectEditRequest(
+    TokenWithIdParam project,
+  ) {
+    return wrapHandling(
+      tryCall: () async {
+        final result = await projectRemoteDataSource.showProjectEditRequest(
+          project,
+        );
+        return Right(result.data);
       },
     );
   }

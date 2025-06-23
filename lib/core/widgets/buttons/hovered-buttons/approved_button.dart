@@ -42,26 +42,6 @@ class ApprovedButton extends StatelessWidget {
                     color: value ? AppColors.white : AppColors.greenShade2,
                   ),
                 ),
-                // child: Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     SizedBox(
-                //       width: 10,
-                //       child: Icon(
-                //         Iconsax.like_1,
-                //         size: SizesConfig.iconsSm,
-                //         color: value ? AppColors.white : AppColors.greenShade2,
-                //       ),
-                //     ),
-                //     PaddingConfig.w8,
-                //     Text(
-                //       "Approve",
-                //       style: AppTextStyle.buttonStyle(
-                //         color: value ? AppColors.white : AppColors.greenShade2,
-                //       ),
-                //     ),
-                //   ],
-                // ),
               ),
             ),
       ),

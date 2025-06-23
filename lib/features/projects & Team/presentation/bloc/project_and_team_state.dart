@@ -7,12 +7,19 @@ class ProjectAndTeamState {
   final CasualStatus createProjectStatus;
   final CasualStatus updateProjectStatus;
   final CasualStatus deleteProjectStatus;
+  final CasualStatus approveProjectStatus;
+  final CasualStatus rejectProjectStatus;
+  final CasualStatus editRequestProjectStatus;
+  final CasualStatus editProjectRequestsListStatus;
+  final List<MessageModel> editProjectRequestsList;
   // public & private project List
   final List<ProjectEntity> publicProjectsList;
   final CasualStatus publicProjectsListStatus;
   final List<ProjectEntity> allProjectsList;
   final CasualStatus allProjectsListStatus;
   // Project Lists Block
+  final List<ProjectEntity> pendedProjectList;
+  final CasualStatus pendedProjectListStatus;
   final List<ProjectEntity> toDoProjectList;
   final CasualStatus toDoProjectListStatus;
   final List<ProjectEntity> inProgressProjectList;
@@ -26,21 +33,29 @@ class ProjectAndTeamState {
   // My Project List
   final List<ProjectEntity> userProjectsList;
   final CasualStatus userProjectsListStatus;
-  // Task State
+  // Team State
   final CasualStatus createTeamStatus;
   final CasualStatus addMemersStatus;
   final CasualStatus showTeamsStatus;
   final List<TeamEntity> showTeams;
+  final CasualStatus addTeamStatus;
 
   ProjectAndTeamState({
     this.message = "",
     this.createProjectStatus = CasualStatus.initial,
     this.updateProjectStatus = CasualStatus.initial,
     this.deleteProjectStatus = CasualStatus.initial,
+    this.approveProjectStatus = CasualStatus.initial,
+    this.rejectProjectStatus = CasualStatus.initial,
+    this.editRequestProjectStatus = CasualStatus.initial,
+    this.editProjectRequestsListStatus = CasualStatus.initial,
+    this.editProjectRequestsList = const [],
     this.publicProjectsList = const [],
     this.publicProjectsListStatus = CasualStatus.initial,
     this.allProjectsList = const [],
     this.allProjectsListStatus = CasualStatus.initial,
+    this.pendedProjectListStatus = CasualStatus.initial,
+    this.pendedProjectList = const [],
     this.toDoProjectListStatus = CasualStatus.initial,
     this.toDoProjectList = const [],
     this.inProgressProjectListStatus = CasualStatus.initial,
@@ -57,6 +72,7 @@ class ProjectAndTeamState {
     this.addMemersStatus = CasualStatus.initial,
     this.showTeamsStatus = CasualStatus.initial,
     this.showTeams = const [],
+    this.addTeamStatus = CasualStatus.initial,
   });
 
   ProjectAndTeamState copyWith({
@@ -64,10 +80,17 @@ class ProjectAndTeamState {
     CasualStatus? createProjectStatus,
     CasualStatus? updateProjectStatus,
     CasualStatus? deleteProjectStatus,
+    CasualStatus? approveProjectStatus,
+    CasualStatus? rejectProjectStatus,
+    CasualStatus? editRequestProjectStatus,
+    CasualStatus? editProjectRequestsListStatus,
+    List<MessageModel>? editProjectRequestsList,
     List<ProjectEntity>? publicProjectsList,
     CasualStatus? publicProjectsListStatus,
     List<ProjectEntity>? allProjectsList,
     CasualStatus? allProjectsListStatus,
+    List<ProjectEntity>? pendedProjectList,
+    CasualStatus? pendedProjectListStatus,
     List<ProjectEntity>? toDoProjectList,
     CasualStatus? toDoProjectListStatus,
     List<ProjectEntity>? inProgressProjectList,
@@ -84,18 +107,30 @@ class ProjectAndTeamState {
     CasualStatus? addMemersStatus,
     CasualStatus? showTeamsStatus,
     List<TeamEntity>? showTeams,
+    CasualStatus? addTeamStatus,
   }) {
     return ProjectAndTeamState(
       message: message ?? this.message,
       createProjectStatus: createProjectStatus ?? this.createProjectStatus,
       updateProjectStatus: updateProjectStatus ?? this.updateProjectStatus,
       deleteProjectStatus: deleteProjectStatus ?? this.deleteProjectStatus,
+      approveProjectStatus: approveProjectStatus ?? this.approveProjectStatus,
+      rejectProjectStatus: rejectProjectStatus ?? this.rejectProjectStatus,
+      editRequestProjectStatus:
+          editRequestProjectStatus ?? this.editRequestProjectStatus,
+      editProjectRequestsListStatus:
+          editProjectRequestsListStatus ?? this.editProjectRequestsListStatus,
+      editProjectRequestsList:
+          editProjectRequestsList ?? this.editProjectRequestsList,
       publicProjectsList: publicProjectsList ?? this.publicProjectsList,
       publicProjectsListStatus:
           publicProjectsListStatus ?? this.publicProjectsListStatus,
       allProjectsList: allProjectsList ?? this.allProjectsList,
       allProjectsListStatus:
           allProjectsListStatus ?? this.allProjectsListStatus,
+      pendedProjectList: pendedProjectList ?? this.pendedProjectList,
+      pendedProjectListStatus:
+          pendedProjectListStatus ?? this.pendedProjectListStatus,
       toDoProjectList: toDoProjectList ?? this.toDoProjectList,
       toDoProjectListStatus:
           toDoProjectListStatus ?? this.toDoProjectListStatus,
@@ -119,6 +154,7 @@ class ProjectAndTeamState {
       addMemersStatus: addMemersStatus ?? this.addMemersStatus,
       showTeamsStatus: showTeamsStatus ?? this.showTeamsStatus,
       showTeams: showTeams ?? this.showTeams,
+      addTeamStatus: addTeamStatus ?? this.addTeamStatus,
     );
   }
 }

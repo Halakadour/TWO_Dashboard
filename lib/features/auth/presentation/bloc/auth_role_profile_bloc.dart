@@ -3,6 +3,9 @@ import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:two_dashboard/core/network/enums.dart';
+import 'package:two_dashboard/core/param/auth_param.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
+import 'package:two_dashboard/core/param/profile_param.dart';
 import 'package:two_dashboard/core/services/shared_preferences_services.dart';
 import 'package:two_dashboard/features/auth/data/models/user_model.dart';
 import 'package:two_dashboard/features/auth/domain/usecases/login_usecase.dart';
@@ -57,10 +60,11 @@ class AuthRoleProfileBloc
     on<RegisteNewUserEvent>((event, emit) async {
       emit(state.copyWith(authModelStatus: CasualStatus.loading));
       final result = await registerUsecase.call(
-        RegisterParams(
+        SignUpParam(
           name: event.name,
           email: event.email,
           password: event.password,
+          confirmPassword: event.password,
         ),
       );
       result.fold(
@@ -73,7 +77,7 @@ class AuthRoleProfileBloc
     on<LoginUserEvent>((event, emit) async {
       emit(state.copyWith(authModelStatus: CasualStatus.loading));
       final result = await loginUsecase.call(
-        LoginParams(email: event.email, password: event.password),
+        LoginParam(email: event.email, password: event.password),
       );
       result.fold(
         (l) => emit(
@@ -130,7 +134,10 @@ class AuthRoleProfileBloc
       final result = await showRolesWithoutClientUsecase.call();
       result.fold(
         (l) => emit(
-          state.copyWith(roleWithoutClientListStatus: CasualStatus.failure),
+          state.copyWith(
+            roleWithoutClientListStatus: CasualStatus.failure,
+            message: l.message,
+          ),
         ),
         (r) => emit(
           state.copyWith(
@@ -164,7 +171,7 @@ class AuthRoleProfileBloc
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
         final result = await updateEmployeeProfileUsecase.call(
-          EmployeeProfileParam(
+          UpdateEmployeeProfileParam(
             token: token,
             image: event.image,
             cv: event.cv,
@@ -218,7 +225,7 @@ class AuthRoleProfileBloc
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
         final result = await toggleUserApprovedUsecase.call(
-          ToggleUserParam(token: token, userId: event.userId),
+          TokenWithIdParam(token: token, id: event.userId),
         );
         result.fold(
           (l) => emit(

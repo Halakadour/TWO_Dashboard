@@ -7,60 +7,52 @@ import 'package:two_dashboard/core/api/get_api.dart';
 import 'package:two_dashboard/core/api/get_with_token_api.dart';
 import 'package:two_dashboard/core/api/post_api_with_token.dart';
 import 'package:two_dashboard/core/models/empty_response_model.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
+import 'package:two_dashboard/core/param/profile_param.dart';
 import 'package:two_dashboard/features/profile/data/models/get_user_profile_response_model.dart';
 import 'package:two_dashboard/features/profile/data/models/show_clients_response_model.dart';
 import 'package:two_dashboard/features/profile/data/models/show_users_with_filter_response_model.dart';
 
 abstract class ProfileRemoteDatasourse {
   Future<EmptyResponseModel> updateEmployeeProfile(
-    String token,
-    String image,
-    String cv,
-    int roleId,
+    UpdateEmployeeProfileParam param,
   );
   Future<GetUserProfileResponseModel> getUserProfile(String token);
   Future<ShowUsersWithFilterResponseModel> showUserWithFilter(
-    int approvedFilter,
-    int? roleFilter,
-    String token,
+    ShowUsersParam param,
   );
   Future<ShowClientsResponseModel> showClients();
-  Future<EmptyResponseModel> toggleUserApproved(String token, int userId);
+  Future<EmptyResponseModel> toggleUserApproved(TokenWithIdParam user);
   Future<Uint8List> getImage(String imagePath);
 }
 
 class ProfileRemoteDatasourseImpl extends ProfileRemoteDatasourse {
   @override
   Future<EmptyResponseModel> updateEmployeeProfile(
-    String token,
-    String image,
-    String cv,
-    int roleId,
+    UpdateEmployeeProfileParam param,
   ) async {
-    final result = PostApiWithToken(
+    final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/update/employee/profile"),
       body: ({
-        'image': '$imageBase64$image',
-        'cv': '$pdfBase64$cv',
-        'role_id': roleId.toString(),
+        'image': '$imageBase64${param.image}',
+        'cv': '$pdfBase64${param.cv}',
+        'role_id': param.roleId.toString(),
       }),
       fromJson: emptyResponseModelFromJson,
-      token: token,
+      token: param.token,
     );
     return await result.call();
   }
 
   @override
   Future<ShowUsersWithFilterResponseModel> showUserWithFilter(
-    int approvedFilter,
-    int? roleFilter,
-    String token,
+    ShowUsersParam param,
   ) async {
     String uri =
-        "$baseUri/api/show/users?filter[approved]=$approvedFilter&filter[role_id]=${roleFilter ?? 2}";
+        "$baseUri/api/show/users?filter[approved]=${param.approvedFilter}&filter[role_id]=${param.roleFilter}";
     final result = GetWithTokenApi(
       uri: Uri.parse(uri),
-      token: token,
+      token: param.token,
       fromJson: showUsersWithFilterResponseModelFromJson,
     );
 
@@ -68,13 +60,10 @@ class ProfileRemoteDatasourseImpl extends ProfileRemoteDatasourse {
   }
 
   @override
-  Future<EmptyResponseModel> toggleUserApproved(
-    String token,
-    int userId,
-  ) async {
+  Future<EmptyResponseModel> toggleUserApproved(TokenWithIdParam user) async {
     final result = GetWithTokenApi(
-      uri: Uri.parse("$baseUri/api/toggle/user/approved/$userId"),
-      token: token,
+      uri: Uri.parse("$baseUri/api/toggle/user/approved/${user.id}"),
+      token: user.token,
       fromJson: emptyResponseModelFromJson,
     );
     return await result.callRequest();

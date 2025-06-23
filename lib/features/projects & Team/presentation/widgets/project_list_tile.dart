@@ -7,7 +7,6 @@ import '../../../../config/theme/color.dart';
 import '../../../../config/theme/text_style.dart';
 import '../../../../core/functions/device_utility.dart';
 import '../../../../core/network/enums.dart';
-import '../../../../core/widgets/dialog/sprint/sprint_dialog.dart';
 import '../../../../core/widgets/container/status-containers/priority_container.dart';
 import 'comments_box.dart';
 import 'custom_progress_bar.dart';
@@ -19,9 +18,7 @@ class ProjectListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        SprintDialog().showSprintDetails(context);
-      },
+      onTap: () {},
       child: Container(
         margin: EdgeInsets.only(bottom: 16.0),
         clipBehavior: Clip.hardEdge,

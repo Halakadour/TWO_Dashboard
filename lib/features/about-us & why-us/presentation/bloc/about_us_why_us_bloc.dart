@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:two_dashboard/core/network/enums.dart';
+import 'package:two_dashboard/core/param/about_us_why_us_param.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
 import 'package:two_dashboard/core/services/shared_preferences_services.dart';
 import 'package:two_dashboard/features/about-us%20&%20why-us/domain/entities/about_us_entity.dart';
 import 'package:two_dashboard/features/about-us%20&%20why-us/domain/entities/why_us_entity.dart';
@@ -181,7 +183,7 @@ class AboutUsWhyUsBloc extends Bloc<AboutUsWhyUsEvent, AboutUsWhyUsState> {
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
         final result = await deleteWhyUsUsecase.call(
-          DeleteWhyUsParam(token: token, whyUsId: event.whyUsId),
+          TokenWithIdParam(token: token, id: event.whyUsId),
         );
         result.fold(
           (l) => emit(

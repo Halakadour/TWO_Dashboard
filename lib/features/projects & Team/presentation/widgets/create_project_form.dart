@@ -16,7 +16,6 @@ import 'package:two_dashboard/features/auth/presentation/widgets/custom_text_for
 import 'package:two_dashboard/features/contracts/domain/entities/contract_entity.dart';
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/entity/team_entity.dart';
-import 'package:two_dashboard/features/projects%20&%20team/presentation/bloc/project_and_team_bloc.dart';
 import 'package:two_dashboard/features/projects%20&%20team/presentation/widgets/date_field.dart';
 
 import '../../../../config/constants/padding_config.dart';
@@ -250,19 +249,19 @@ class _CreateProjectFormState extends State<CreateProjectForm> {
                           _startDate != null &&
                           _endDate != null &&
                           _visibility != null) {
-                        context.read<ProjectAndTeamBloc>().add(
-                          CreateProjectEvent(
-                            name: _projectNameController.text,
-                            description: _descriptionController.text,
-                            contractId: selectedContract!.contractId,
-                            teamId: selectedTeam!.id,
-                            startDate: HelperFunctions.formatDate(_startDate!),
-                            endDate: HelperFunctions.formatDate(_endDate!),
-                            private: HelperFunctions.getVisibiltyNum(
-                              _visibility!,
-                            ),
-                          ),
-                        );
+                        //context.read<ProjectAndTeamBloc>().add(
+                        // CreateProjectEvent(
+                        //   name: _projectNameController.text,
+                        //   description: _descriptionController.text,
+                        //   contractId: selectedContract!.contractId,
+                        //   teamId: selectedTeam!.id,
+                        //   startDate: HelperFunctions.formatDate(_startDate!),
+                        //   endDate: HelperFunctions.formatDate(_endDate!),
+                        //   private: HelperFunctions.getVisibiltyNum(
+                        //     _visibility!,
+                        //   ),
+                        // ),
+                        //);
                       }
                     },
                   ),

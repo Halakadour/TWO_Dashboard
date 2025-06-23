@@ -2,6 +2,8 @@
 import 'package:bloc/bloc.dart';
 
 import 'package:two_dashboard/core/network/enums.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
+import 'package:two_dashboard/core/param/contact_us_param.dart';
 import 'package:two_dashboard/core/services/shared_preferences_services.dart';
 import 'package:two_dashboard/features/contact-us/data/models/contact_us_model.dart';
 import 'package:two_dashboard/features/contact-us/domain/usecases/create_contact_us_usecase.dart';
@@ -83,7 +85,7 @@ class ContactUsBloc extends Bloc<ContactUsEvent, ContactUsState> {
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
         final result = await markContactUsAsSeenUsecase.call(
-          MarkContactUsParam(token: token, contactUsId: event.contactUsId),
+          TokenWithIdParam(token: token, id: event.contactUsId),
         );
         result.fold(
           (l) => emit(
@@ -108,7 +110,7 @@ class ContactUsBloc extends Bloc<ContactUsEvent, ContactUsState> {
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
         final result = await markContactUsAsApprovedUscase.call(
-          MarkContactUsParam(token: token, contactUsId: event.contactUsId),
+          TokenWithIdParam(token: token, id: event.contactUsId),
         );
         result.fold(
           (l) => emit(

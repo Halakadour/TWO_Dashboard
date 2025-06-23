@@ -30,7 +30,7 @@ class ProjectDetails extends StatelessWidget {
             PaddingConfig.h8,
             CustomDivider(),
             PaddingConfig.h24,
-            Text(projectEntity.name, style: AppTextStyle.headerSm()),
+            Text(projectEntity.pType.name, style: AppTextStyle.headerSm()),
             PaddingConfig.h16,
             TaskDetailsColumn(projectEntity: projectEntity),
             PaddingConfig.h8,
@@ -39,7 +39,7 @@ class ProjectDetails extends StatelessWidget {
             Text('Task Overview', style: AppTextStyle.bodyLg()),
             PaddingConfig.h8,
             Text(
-              projectEntity.description,
+              projectEntity.projectDescription,
               style: AppTextStyle.bodySm(color: AppColors.fontLightGray),
             ),
             PaddingConfig.h16,
@@ -130,10 +130,10 @@ class TaskDetailsColumn extends StatelessWidget {
             ),
             SizedBox(width: 60),
             Text(
-              projectEntity.projectVisibility.name,
+              projectEntity.visibility.name,
               style: AppTextStyle.bodySm(
                 color: HelperFunctions.getVisibiltyColor(
-                  projectEntity.projectVisibility,
+                  projectEntity.visibility,
                 ),
               ),
             ),
@@ -145,12 +145,12 @@ class TaskDetailsColumn extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              "Start Date",
+              "Cost",
               style: AppTextStyle.bodySm(color: AppColors.fontLightGray),
             ),
             SizedBox(width: 42),
             Text(
-              HelperFunctions.formatDate(projectEntity.startDate),
+              projectEntity.cost,
               style: AppTextStyle.bodySm(color: AppColors.fontDarkGray),
             ),
           ],
@@ -161,12 +161,12 @@ class TaskDetailsColumn extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              "Due Date",
+              "Duration",
               style: AppTextStyle.bodySm(color: AppColors.fontLightGray),
             ),
             SizedBox(width: 48),
             Text(
-              HelperFunctions.formatDate(projectEntity.endDate),
+              projectEntity.duration,
               style: AppTextStyle.bodySm(color: AppColors.fontDarkGray),
             ),
           ],
@@ -182,10 +182,10 @@ class TaskDetailsColumn extends StatelessWidget {
             ),
             SizedBox(width: 66),
             Text(
-              projectEntity.projectStatus.name,
+              projectEntity.status.name,
               style: AppTextStyle.bodySm(
-                color: HelperFunctions.getTaskStatusColor(
-                  projectEntity.projectStatus,
+                color: HelperFunctions.getProjectStatusColor(
+                  projectEntity.status,
                 ),
               ),
             ),
@@ -213,12 +213,16 @@ class TaskDetailsColumn extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              "Created By",
+              "Project Manger",
               style: AppTextStyle.bodySm(color: AppColors.fontLightGray),
             ),
             SizedBox(width: 40),
             Text(
-              "Hala Kad",
+              projectEntity.team!.members
+                  .where((element) => element.isManager == true)
+                  .toList()
+                  .first
+                  .name,
               style: AppTextStyle.bodySm(color: AppColors.fontDarkGray),
             ),
           ],
@@ -229,12 +233,12 @@ class TaskDetailsColumn extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              "Assignees",
+              "Assignees Team",
               style: AppTextStyle.bodySm(color: AppColors.fontLightGray),
             ),
             SizedBox(width: 45),
             Text(
-              projectEntity.team.name,
+              projectEntity.team?.name ?? "No Team",
               style: AppTextStyle.bodySm(color: AppColors.fontDarkGray),
             ),
           ],

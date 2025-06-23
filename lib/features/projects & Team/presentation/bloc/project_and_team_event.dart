@@ -4,45 +4,15 @@ class ProjectAndTeamEvent {}
 
 // Project Events
 class CreateProjectEvent extends ProjectAndTeamEvent {
-  final String name;
-  final String description;
-  final int contractId;
-  final int teamId;
-  final String startDate;
-  final String endDate;
-  final int private;
+  CreateOrUpdateProjectParam param;
 
-  CreateProjectEvent({
-    required this.name,
-    required this.description,
-    required this.contractId,
-    required this.teamId,
-    required this.startDate,
-    required this.endDate,
-    required this.private,
-  });
+  CreateProjectEvent({required this.param});
 }
 
 class UpdateProjectEvent extends ProjectAndTeamEvent {
-  final int projectId;
-  final String name;
-  final String description;
-  final int contractId;
-  final int teamId;
-  final String startDate;
-  final String endDate;
-  final int private;
+  CreateOrUpdateProjectParam param;
 
-  UpdateProjectEvent({
-    required this.projectId,
-    required this.name,
-    required this.description,
-    required this.contractId,
-    required this.teamId,
-    required this.startDate,
-    required this.endDate,
-    required this.private,
-  });
+  UpdateProjectEvent({required this.param});
 }
 
 class DeleteProjectsEvent extends ProjectAndTeamEvent {
@@ -51,12 +21,39 @@ class DeleteProjectsEvent extends ProjectAndTeamEvent {
   DeleteProjectsEvent({required this.projectId});
 }
 
+class ApproveProjectsEvent extends ProjectAndTeamEvent {
+  final int projectId;
+
+  ApproveProjectsEvent({required this.projectId});
+}
+
+class RejectProjectsEvent extends ProjectAndTeamEvent {
+  final int projectId;
+
+  RejectProjectsEvent({required this.projectId});
+}
+
+class SentEditProjectMessageEvent extends ProjectAndTeamEvent {
+  final int projectId;
+  final String message;
+
+  SentEditProjectMessageEvent({required this.projectId, required this.message});
+}
+
+class ShowEditProjectRequestEvent extends ProjectAndTeamEvent {
+  final int projectId;
+
+  ShowEditProjectRequestEvent({required this.projectId});
+}
+
 // Show Project Events
 class ShowAllProjectsEvent extends ProjectAndTeamEvent {}
 
 class ShowPublicProjectsEvent extends ProjectAndTeamEvent {}
 
 class ShowUserProjectsEvent extends ProjectAndTeamEvent {}
+
+class ShowPendedProjectsEvent extends ProjectAndTeamEvent {}
 
 class ShowToDoProjectsEvent extends ProjectAndTeamEvent {}
 
@@ -68,7 +65,7 @@ class ShowCompletedProjectsEvent extends ProjectAndTeamEvent {}
 
 class ShowCanceledProjectsEvent extends ProjectAndTeamEvent {}
 
-// Task Event
+// Team Event
 class CreateTeamEvent extends ProjectAndTeamEvent {
   final String name;
   final int mgrId;
@@ -89,3 +86,10 @@ class AddMembersEvent extends ProjectAndTeamEvent {
 }
 
 class ShowTeamsEvent extends ProjectAndTeamEvent {}
+
+class AddProjectTeamEvent extends ProjectAndTeamEvent {
+  final String projectId;
+  final String teamId;
+
+  AddProjectTeamEvent({required this.projectId, required this.teamId});
+}

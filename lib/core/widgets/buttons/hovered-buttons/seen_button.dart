@@ -35,33 +35,13 @@ class SeenButton extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 child: Tooltip(
-                  message: "See",
+                  message: "Mark As Seen",
                   child: Icon(
                     Iconsax.eye,
                     size: SizesConfig.iconsSm,
                     color: value ? AppColors.white : AppColors.blueShade2,
                   ),
                 ),
-                // child: Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     SizedBox(
-                //       width: 10,
-                //       child: Icon(
-                //         Iconsax.eye,
-                //         size: SizesConfig.iconsSm,
-                //         color: value ? AppColors.white : AppColors.blueShade2,
-                //       ),
-                //     ),
-                //     PaddingConfig.w8,
-                //     Text(
-                //       "Seen",
-                //       style: AppTextStyle.buttonStyle(
-                //         color: value ? AppColors.white : AppColors.blueShade2,
-                //       ),
-                //     ),
-                //   ],
-                // ),
               ),
             ),
       ),

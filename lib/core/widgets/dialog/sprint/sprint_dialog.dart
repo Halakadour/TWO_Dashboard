@@ -3,7 +3,7 @@ import 'package:two_dashboard/features/projects%20&%20team/domain/entity/project
 import 'package:two_dashboard/features/projects%20&%20team/presentation/widgets/project_details.dart';
 
 class SprintDialog {
-  void showSprintDetails(BuildContext context, ProjectEntity projectEntity) {
+  void showProjectDetails(BuildContext context, ProjectEntity projectEntity) {
     showDialog(
       context: context,
       builder:

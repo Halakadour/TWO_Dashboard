@@ -31,12 +31,12 @@ class _ProjectKanbanViewState extends State<ProjectKanbanView> {
           columnsCount = 1; // موبايل
         }
 
-        final taskStatuses = [
-          TaskStatus.toDo,
-          TaskStatus.inProgress,
-          TaskStatus.inReview,
-          TaskStatus.completed,
-          TaskStatus.canceled,
+        final projectStatuses = [
+          ProjectStatus.pended,
+          ProjectStatus.inProgress,
+          ProjectStatus.inReview,
+          ProjectStatus.completed,
+          ProjectStatus.canceled,
         ];
 
         return SingleChildScrollView(
@@ -50,7 +50,7 @@ class _ProjectKanbanViewState extends State<ProjectKanbanView> {
               spacing: 16,
               runSpacing: 16,
               children:
-                  taskStatuses.map((status) {
+                  projectStatuses.map((status) {
                     return SizedBox(
                       width: width / columnsCount - 20, // عرض العمود
                       child: _buildKanbanColumn(status),
@@ -64,7 +64,7 @@ class _ProjectKanbanViewState extends State<ProjectKanbanView> {
   }
 
   // Kanban Column
-  Widget _buildKanbanColumn(TaskStatus taskStatus) {
+  Widget _buildKanbanColumn(ProjectStatus projectStatus) {
     return Expanded(
       child: Container(
         padding: EdgeInsets.all(SizesConfig.md),
@@ -77,8 +77,8 @@ class _ProjectKanbanViewState extends State<ProjectKanbanView> {
           children: [
             // Project status and number
             TaskStatusTitleAndTaskCount(
-              title: HelperFunctions.getTaskStatusTitle(taskStatus),
-              colorState: HelperFunctions.getTaskStatusColor(taskStatus),
+              title: HelperFunctions.getProjectStatusTitle(projectStatus),
+              colorState: HelperFunctions.getProjectStatusColor(projectStatus),
               count: "3",
             ),
             PaddingConfig.h16,
@@ -90,7 +90,9 @@ class _ProjectKanbanViewState extends State<ProjectKanbanView> {
                 children: List.generate(
                   4,
                   (index) => ProjectCard(
-                    colorStatus: HelperFunctions.getTaskStatusColor(taskStatus),
+                    colorStatus: HelperFunctions.getProjectStatusColor(
+                      projectStatus,
+                    ),
                   ),
                 ),
               ),

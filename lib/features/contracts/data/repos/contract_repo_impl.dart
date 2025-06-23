@@ -1,71 +1,51 @@
 import 'package:dartz/dartz.dart';
 import 'package:two_dashboard/core/error/failures.dart';
-import 'package:two_dashboard/features/contracts/data/datasource/contract_datasource.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
+import 'package:two_dashboard/core/param/contract_draft_param.dart';
+import 'package:two_dashboard/features/contracts/data/datasource/contract_remote_datasource.dart';
 import 'package:two_dashboard/features/contracts/domain/entities/contract_entity.dart';
 import 'package:two_dashboard/features/contracts/domain/entities/draft_entity.dart';
 import 'package:two_dashboard/features/contracts/domain/repos/contract_repo.dart';
 
 class ContractRepoImpl extends ContractRepo {
-  final ContractDatasource contractDatasource;
+  final ContractRemoteDatasource contractDatasource;
 
   ContractRepoImpl(this.contractDatasource);
   @override
-  Future<Either<Failure, ContractEntity>> addContract(
-    String token,
-    String contract,
-    int clientId,
-    int drafId,
-  ) {
+  Future<Either<Failure, ContractEntity>> addContract(AddContractParam param) {
     return wrapHandling(
       tryCall: () async {
-        final result = await contractDatasource.addContract(
-          token,
-          contract,
-          clientId,
-          drafId,
-        );
+        final result = await contractDatasource.addContract(param);
         return Right(result.data);
       },
     );
   }
 
   @override
-  Future<Either<Failure, Unit>> addSign(
-    String token,
-    String signature,
-    int contractId,
-  ) {
+  Future<Either<Failure, Unit>> addSign(AddSignParam param) {
     return wrapHandling(
       tryCall: () async {
-        await contractDatasource.addSign(token, signature, contractId);
+        await contractDatasource.addSign(param);
         return const Right(unit);
       },
     );
   }
 
   @override
-  Future<Either<Failure, DraftEntity>> createDraft(
-    String token,
-    String draf,
-    int clientId,
-  ) {
+  Future<Either<Failure, DraftEntity>> createDraft(CreateDraftParam param) {
     return wrapHandling(
       tryCall: () async {
-        final result = await contractDatasource.createDraft(
-          token,
-          draf,
-          clientId,
-        );
+        final result = await contractDatasource.createDraft(param);
         return Right(result.data);
       },
     );
   }
 
   @override
-  Future<Either<Failure, Unit>> deletDraft(String token, int drafId) {
+  Future<Either<Failure, Unit>> deletDraft(TokenWithIdParam draft) {
     return wrapHandling(
       tryCall: () async {
-        await contractDatasource.deletDraft(token, drafId);
+        await contractDatasource.deletDraft(draft);
         return const Right(unit);
       },
     );
@@ -73,17 +53,11 @@ class ContractRepoImpl extends ContractRepo {
 
   @override
   Future<Either<Failure, List<ContractEntity>>> getClientContract(
-    String token,
-    int filter,
-    String clientId,
+    GetDraftOrContractParam param,
   ) {
     return wrapHandling(
       tryCall: () async {
-        final result = await contractDatasource.getClientContract(
-          token,
-          filter,
-          clientId,
-        );
+        final result = await contractDatasource.getClientContract(param);
         return Right(result.data);
       },
     );
@@ -91,12 +65,11 @@ class ContractRepoImpl extends ContractRepo {
 
   @override
   Future<Either<Failure, List<ContractEntity>>> getContracts(
-    String token,
-    int filter,
+    GetDraftOrContractParam param,
   ) {
     return wrapHandling(
       tryCall: () async {
-        final result = await contractDatasource.getContracts(token, filter);
+        final result = await contractDatasource.getContracts(param);
         return Right(result.data);
       },
     );
@@ -104,12 +77,11 @@ class ContractRepoImpl extends ContractRepo {
 
   @override
   Future<Either<Failure, List<DraftEntity>>> getDrafts(
-    String token,
-    int filter,
+    GetDraftOrContractParam param,
   ) {
     return wrapHandling(
       tryCall: () async {
-        final result = await contractDatasource.getDrafts(token, filter);
+        final result = await contractDatasource.getDrafts(param);
         return Right(result.data);
       },
     );

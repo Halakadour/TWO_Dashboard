@@ -6,6 +6,32 @@ import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
 
 class RoleBlocStateHandling {
+  // Roles for drop down list
+  // Widget getDropDownRolesList(AuthRoleProfileState state) {
+  //   if (state.roleWithoutClientListStatus == CasualStatus.success) {
+  //     return CustomDropdownListForRoleModel(
+  //       selectYour: "job",
+  //       value: role,
+  //       items:
+  //           state.roleWithoutClientList.map((role) {
+  //             return DropdownMenuItem(value: role, child: Text(role.role));
+  //           }).toList(),
+  //       onChanged: (value) {
+  //         setState(() {
+  //           role = value;
+  //         });
+  //       },
+  //     );
+  //   } else if (state.roleWithoutClientListStatus == CasualStatus.loading) {
+  //     return const CustomDropdownLoading();
+  //   } else if (state.roleWithoutClientListStatus == CasualStatus.failure) {
+  //     return const Text("No Roles");
+  //   } else {
+  //     return const SizedBox();
+  //   }
+  // }
+
+  // Roles For Filter
   Widget getRolesForUserFilter(
     AuthRoleProfileState state,
     ValueNotifier<int> roleSelected,

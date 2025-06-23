@@ -3,42 +3,30 @@ import 'package:two_dashboard/core/api/get_api.dart';
 import 'package:two_dashboard/core/api/get_with_token_api.dart';
 import 'package:two_dashboard/core/api/post_api_with_token.dart';
 import 'package:two_dashboard/core/models/empty_response_model.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
+import 'package:two_dashboard/core/param/service_param.dart';
 import 'package:two_dashboard/features/services/data/models/create_service_response_model.dart';
 import 'package:two_dashboard/features/services/data/models/show_service_response_model.dart';
 
 abstract class ServiceRemoteDatasource {
-  Future<CreateServiceResponesModel> createService(
-    String token,
-    String title,
-    String description,
-    String image,
-  );
-  Future<EmptyResponseModel> deleteService(String token, int serviceId);
+  Future<CreateServiceResponesModel> createService(CreateServiceParam param);
+  Future<EmptyResponseModel> deleteService(TokenWithIdParam service);
   Future<ShowServiceResponesModel> showServices();
-  Future<EmptyResponseModel> updateService(
-    String token,
-    int serviceId,
-    String title,
-    String description,
-    String image,
-  );
+  Future<EmptyResponseModel> updateService(UpdateServiceParam param);
 }
 
 class ServiceRemoteDatasourceImpl extends ServiceRemoteDatasource {
   @override
   Future<CreateServiceResponesModel> createService(
-    String token,
-    String title,
-    String description,
-    String image,
+    CreateServiceParam param,
   ) async {
-    final result = PostApiWithToken(
+    final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/create/service"),
-      token: token,
+      token: param.token,
       body: ({
-        'title': title,
-        'description': description,
-        'image': '$imageBase64$image',
+        'title': param.title,
+        'description': param.description,
+        'image': '$imageBase64${param.image}',
       }),
       fromJson: createServiceResponesModelFromJson,
     );
@@ -46,10 +34,10 @@ class ServiceRemoteDatasourceImpl extends ServiceRemoteDatasource {
   }
 
   @override
-  Future<EmptyResponseModel> deleteService(String token, int serviceId) async {
+  Future<EmptyResponseModel> deleteService(TokenWithIdParam service) async {
     final result = GetWithTokenApi(
-      uri: Uri.parse('$baseUri/api/delete/service/$serviceId'),
-      token: token,
+      uri: Uri.parse('$baseUri/api/delete/service/${service.id}'),
+      token: service.token,
       fromJson: emptyResponseModelFromJson,
     );
     return await result.callRequest();
@@ -65,21 +53,15 @@ class ServiceRemoteDatasourceImpl extends ServiceRemoteDatasource {
   }
 
   @override
-  Future<EmptyResponseModel> updateService(
-    String token,
-    int serviceId,
-    String title,
-    String description,
-    String image,
-  ) async {
-    final result = PostApiWithToken(
+  Future<EmptyResponseModel> updateService(UpdateServiceParam param) async {
+    final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/update/service"),
-      token: token,
+      token: param.token,
       body: ({
-        'title': title,
-        'description': description,
-        'image': '$imageBase64$image',
-        'service_id': serviceId.toString(),
+        'title': param.title,
+        'description': param.description,
+        'image': '$imageBase64${param.image}',
+        'service_id': param.serviceId.toString(),
       }),
       fromJson: emptyResponseModelFromJson,
     );

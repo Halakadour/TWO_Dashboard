@@ -43,6 +43,46 @@ class HelperFunctions {
     }
   }
 
+  static ProjectType getProjectTypeByName(String value) {
+    if (value.contains("mob") || value.contains("موب")) {
+      return ProjectType.mobile;
+    } else if (value.contains("web") || value.contains("موق")) {
+      return ProjectType.website;
+    } else if (value.contains("syst") || value.contains("تحل")) {
+      return ProjectType.systemAnalysis;
+    } else if (value.contains("soft") || value.contains("اختب")) {
+      return ProjectType.softwareTestisng;
+    } else {
+      return ProjectType.maintain;
+    }
+  }
+
+  static CooperationType getCooperationTypeByName(String value) {
+    if (value.contains("anal") || value.contains("تحل")) {
+      return CooperationType.analysis;
+    } else if (value.contains("deve") || value.contains("تطو")) {
+      return CooperationType.development;
+    } else if (value.contains("tes") || value.contains("اختب")) {
+      return CooperationType.test;
+    } else {
+      return CooperationType.managment;
+    }
+  }
+
+  static ProjectStatus getProjectStatusByNum(int value) {
+    if (value == 0) {
+      return ProjectStatus.pended;
+    } else if (value == 1) {
+      return ProjectStatus.inProgress;
+    } else if (value == 2) {
+      return ProjectStatus.inReview;
+    } else if (value == 3) {
+      return ProjectStatus.completed;
+    } else {
+      return ProjectStatus.canceled;
+    }
+  }
+
   static ProjectVisibility getProjectVisibilityByNum(int value) {
     if (value == 0) {
       return ProjectVisibility.public;
@@ -51,24 +91,57 @@ class HelperFunctions {
     }
   }
 
-  // Task Status Title
-  static String getTaskStatusTitle(TaskStatus value) {
-    if (value == TaskStatus.toDo) {
-      return "To Do";
-    } else if (value == TaskStatus.inProgress) {
+  // Project Status Title
+  static String getProjectStatusTitle(ProjectStatus value) {
+    if (value == ProjectStatus.pended) {
+      return "Pending";
+    } else if (value == ProjectStatus.inProgress) {
       return "In Progress";
-    } else if (value == TaskStatus.inReview) {
+    } else if (value == ProjectStatus.inReview) {
       return "In Review";
-    } else if (value == TaskStatus.completed) {
+    } else if (value == ProjectStatus.completed) {
       return "Completed";
-    } else if (value == TaskStatus.canceled) {
+    } else if (value == ProjectStatus.canceled) {
       return "Canceled";
     } else {
       return "";
     }
   }
 
-  // Task Status Color Returning
+  // Project Status Color Returning
+  static Color getProjectStatusColor(ProjectStatus value) {
+    if (value == ProjectStatus.pended) {
+      return AppColors.yellowShade2;
+    } else if (value == ProjectStatus.inProgress) {
+      return AppColors.blueShade2;
+    } else if (value == ProjectStatus.inReview) {
+      return AppColors.rockShade2;
+    } else if (value == ProjectStatus.completed) {
+      return AppColors.greenShade2;
+    } else if (value == ProjectStatus.canceled) {
+      return AppColors.redShade2;
+    } else {
+      return AppColors.gray;
+    }
+  }
+
+  static Color getProjectStatusBackgroundColor(ProjectStatus value) {
+    if (value == ProjectStatus.pended) {
+      return AppColors.yellowShade1;
+    } else if (value == ProjectStatus.inProgress) {
+      return AppColors.blueShade1;
+    } else if (value == ProjectStatus.inReview) {
+      return AppColors.rockshade1;
+    } else if (value == ProjectStatus.completed) {
+      return AppColors.greenShade1;
+    } else if (value == ProjectStatus.canceled) {
+      return AppColors.redShade1;
+    } else {
+      return AppColors.gray;
+    }
+  }
+
+  // Task Color Returning
   static Color getTaskStatusColor(TaskStatus value) {
     if (value == TaskStatus.toDo) {
       return AppColors.yellowShade2;
@@ -85,7 +158,7 @@ class HelperFunctions {
     }
   }
 
-  static Color getTaskStatusBackgroundColor(TaskStatus value) {
+  static Color getTaskBackgroundColor(TaskStatus value) {
     if (value == TaskStatus.toDo) {
       return AppColors.yellowShade1;
     } else if (value == TaskStatus.inProgress) {

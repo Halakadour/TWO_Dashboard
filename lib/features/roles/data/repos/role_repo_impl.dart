@@ -38,9 +38,10 @@ class RoleRepoImpl extends RoleRepo {
         //   roleLocalDatasource.cacheRoles(remoteRoles.data);
         //   return Right(remoteRoles);
         // } else {
-        //   final localReplies = await roleLocalDatasource.getCachedRoles();
+        //   final localRoles = await roleLocalDatasource.getCachedRoles();
         //   return Right(
-        //       RoleResponesModel(status: 200, msg: "Local", data: localReplies));
+        //     RoleResponesModel(status: 200, msg: "Local", data: localRoles),
+        //   );
         // }
       },
     );

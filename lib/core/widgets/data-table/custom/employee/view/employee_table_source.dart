@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/approved_button.dart';
+import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/reject_button.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/field_status_container.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/core/widgets/texts/linked_text.dart';
@@ -18,6 +19,7 @@ class EmployeeRows extends DataTableSource {
   @override
   DataRow? getRow(int index) {
     final employee = employeeList[index];
+
     return DataRow2(
       cells: [
         DataCell(
@@ -41,18 +43,36 @@ class EmployeeRows extends DataTableSource {
           Text(employee.eRole, style: AppTextStyle.dataTableCellStyle()),
         ),
         DataCell(LinkedText(link: employee.eCv)),
-        DataCell(FieldStatusContainer(fieldStatus: FieldStatus.approved)),
         DataCell(
-          ApprovedButton(
-            onTap: () {
-              context.read<AuthRoleProfileBloc>().add(
-                ToggleUserApprovedEvent(userId: employeeList[index].eId),
-              );
-              context.read<AuthRoleProfileBloc>().add(
-                ShowUsersWithFilterEvent(),
-              );
-            },
+          FieldStatusContainer(
+            fieldStatus:
+                (employee.eApproved == 0)
+                    ? FieldStatus.unApproved
+                    : FieldStatus.approved,
           ),
+        ),
+        DataCell(
+          (employee.eApproved == 0)
+              ? ApprovedButton(
+                onTap: () {
+                  context.read<AuthRoleProfileBloc>().add(
+                    ToggleUserApprovedEvent(userId: employeeList[index].eId),
+                  );
+                  context.read<AuthRoleProfileBloc>().add(
+                    ShowUsersWithFilterEvent(),
+                  );
+                },
+              )
+              : RejectButton(
+                onTap: () {
+                  context.read<AuthRoleProfileBloc>().add(
+                    ToggleUserApprovedEvent(userId: employeeList[index].eId),
+                  );
+                  context.read<AuthRoleProfileBloc>().add(
+                    ShowUsersWithFilterEvent(),
+                  );
+                },
+              ),
         ),
       ],
     );

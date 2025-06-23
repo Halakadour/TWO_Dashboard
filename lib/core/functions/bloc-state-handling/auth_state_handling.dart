@@ -53,7 +53,6 @@ class AuthStateHandling {
       context.pushReplacementNamed(AppRouteConfig.dashboard);
     } else if (state.updateEmployeeProfileStatus == CasualStatus.failure) {
       context.pop();
-
       CustomQuickAlert().failureAlert(context, state.message);
     }
   }

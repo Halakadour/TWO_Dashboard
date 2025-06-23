@@ -2,12 +2,11 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
-import 'package:two_dashboard/core/helper/helper_functions.dart';
-import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/delete_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/edit_button.dart';
-import 'package:two_dashboard/core/widgets/container/status-containers/task_status_container.dart';
+import 'package:two_dashboard/core/widgets/container/status-containers/project_status_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/visibility_status_container.dart';
 import 'package:two_dashboard/core/widgets/dialog/sprint/sprint_dialog.dart';
+import 'package:two_dashboard/core/widgets/texts/linked_text.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/entity/project_entity.dart';
 
 class ProjectRows extends DataTableSource {
@@ -20,49 +19,34 @@ class ProjectRows extends DataTableSource {
     final project = projectList[index];
     return DataRow2(
       onTap: () {
-        SprintDialog().showSprintDetails(context, project);
+        SprintDialog().showProjectDetails(context, project);
       },
       selected: false,
       onSelectChanged: (value) {},
       cells: [
-        DataCell(Text(project.name, style: AppTextStyle.dataTableCellStyle())),
+        DataCell(
+          Text(project.pType.name, style: AppTextStyle.dataTableCellStyle()),
+        ),
+        DataCell(ProjectStatusContainer(projectStatus: project.status)),
+        DataCell(VisibilityStatusContainer(visibility: project.visibility)),
         DataCell(
           Text(
-            "${project.contractId}",
+            project.projectDescription,
             style: AppTextStyle.dataTableCellStyle(),
           ),
         ),
+        DataCell(Text(project.cost, style: AppTextStyle.dataTableCellStyle())),
         DataCell(
-          Text(
-            HelperFunctions.formatDate(project.endDate),
-            style: AppTextStyle.dataTableCellStyle(),
-          ),
+          Text(project.duration, style: AppTextStyle.dataTableCellStyle()),
         ),
         DataCell(
-          Text(
-            HelperFunctions.projectDurationText(
-              project.startDate,
-              project.endDate,
-            ),
-            style: AppTextStyle.dataTableCellStyle(),
-          ),
+          Text(project.requirements, style: AppTextStyle.dataTableCellStyle()),
         ),
-        DataCell(TaskStatusContainer(taskStatus: project.projectStatus)),
+        DataCell(LinkedText(link: project.document)),
         DataCell(
-          VisibilityStatusContainer(visibility: project.projectVisibility),
+          Text(project.cType.name, style: AppTextStyle.dataTableCellStyle()),
         ),
-        DataCell(
-          Text(project.team.name, style: AppTextStyle.dataTableCellStyle()),
-        ),
-        DataCell(
-          Row(
-            children: [
-              EditButton(onTap: () {}),
-              PaddingConfig.w8,
-              DeleteButton(onTap: () {}),
-            ],
-          ),
-        ),
+        DataCell(Row(children: [EditButton(onTap: () {}), PaddingConfig.w8])),
       ],
     );
   }

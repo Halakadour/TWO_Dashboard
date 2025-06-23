@@ -2,6 +2,7 @@
 import 'package:dartz/dartz.dart';
 
 import 'package:two_dashboard/core/error/failures.dart';
+import 'package:two_dashboard/core/param/contract_draft_param.dart';
 import 'package:two_dashboard/core/usecases/use_case.dart';
 import 'package:two_dashboard/features/contracts/domain/entities/contract_entity.dart';
 import 'package:two_dashboard/features/contracts/domain/repos/contract_repo.dart';
@@ -10,7 +11,7 @@ class GetClientContractUsecase
     extends
         UseCase<
           Future<Either<Failure, List<ContractEntity>>>,
-          GetClientContractParam
+          GetDraftOrContractParam
         > {
   final ContractRepo contractRepo;
 
@@ -18,23 +19,8 @@ class GetClientContractUsecase
 
   @override
   Future<Either<Failure, List<ContractEntity>>> call(
-    GetClientContractParam param,
+    GetDraftOrContractParam param,
   ) {
-    return contractRepo.getClientContract(
-      param.token,
-      param.filter,
-      param.clientId,
-    );
+    return contractRepo.getClientContract(param);
   }
-}
-
-class GetClientContractParam {
-  String token;
-  int filter;
-  String clientId;
-  GetClientContractParam({
-    required this.token,
-    required this.filter,
-    required this.clientId,
-  });
 }

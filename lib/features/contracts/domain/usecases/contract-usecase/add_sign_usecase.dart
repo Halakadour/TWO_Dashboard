@@ -2,6 +2,7 @@
 import 'package:dartz/dartz.dart';
 
 import 'package:two_dashboard/core/error/failures.dart';
+import 'package:two_dashboard/core/param/contract_draft_param.dart';
 import 'package:two_dashboard/core/usecases/use_case.dart';
 import 'package:two_dashboard/features/contracts/domain/repos/contract_repo.dart';
 
@@ -13,17 +14,6 @@ class AddSignUsecase
 
   @override
   Future<Either<Failure, Unit>> call(AddSignParam param) {
-    return contractRepo.addSign(param.token, param.signatur, param.contractId);
+    return contractRepo.addSign(param);
   }
-}
-
-class AddSignParam {
-  String token;
-  String signatur;
-  int contractId;
-  AddSignParam({
-    required this.token,
-    required this.signatur,
-    required this.contractId,
-  });
 }

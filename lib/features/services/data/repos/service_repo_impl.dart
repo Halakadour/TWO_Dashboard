@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:two_dashboard/core/error/failures.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
+import 'package:two_dashboard/core/param/service_param.dart';
 import 'package:two_dashboard/features/services/data/datasources/service_remote_datasource.dart';
 import 'package:two_dashboard/features/services/domain/entities/service_entity.dart';
 import 'package:two_dashboard/features/services/domain/repos/service_repo.dart';
@@ -10,32 +12,21 @@ class ServiceRepoImpl extends ServiceRepo {
   ServiceRepoImpl(this.serviceRemoteDatasource);
   @override
   Future<Either<Failure, ServiceEntity>> createService(
-    String token,
-    String title,
-    String description,
-    String image,
+    CreateServiceParam param,
   ) {
     return wrapHandling(
       tryCall: () async {
-        final result = await serviceRemoteDatasource.createService(
-          token,
-          title,
-          description,
-          image,
-        );
+        final result = await serviceRemoteDatasource.createService(param);
         return Right(result.data);
       },
     );
   }
 
   @override
-  Future<Either<Failure, Unit>> deleteService(String token, String serviceId) {
+  Future<Either<Failure, Unit>> deleteService(TokenWithIdParam service) {
     return wrapHandling(
       tryCall: () async {
-        await serviceRemoteDatasource.deleteService(
-          token,
-          int.parse(serviceId),
-        );
+        await serviceRemoteDatasource.deleteService(service);
         return const Right(unit);
       },
     );
@@ -52,19 +43,10 @@ class ServiceRepoImpl extends ServiceRepo {
   }
 
   @override
-  Future<Either<Failure, Unit>> updateService(
-    String token,
-    String serviceId,
-    String title,
-    String description,
-    String image,
-  ) {
+  Future<Either<Failure, Unit>> updateService(UpdateServiceParam service) {
     return wrapHandling(
       tryCall: () async {
-        await serviceRemoteDatasource.deleteService(
-          token,
-          int.parse(serviceId),
-        );
+        await serviceRemoteDatasource.updateService(service);
         return const Right(unit);
       },
     );

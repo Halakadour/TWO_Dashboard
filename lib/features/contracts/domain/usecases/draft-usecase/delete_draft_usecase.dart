@@ -2,22 +2,17 @@
 import 'package:dartz/dartz.dart';
 
 import 'package:two_dashboard/core/error/failures.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
 import 'package:two_dashboard/core/usecases/use_case.dart';
 import 'package:two_dashboard/features/contracts/domain/repos/contract_repo.dart';
 
 class DeleteDraftUsecase
-    extends UseCase<Future<Either<Failure, Unit>>, DeleteDrafParam> {
+    extends UseCase<Future<Either<Failure, Unit>>, TokenWithIdParam> {
   DeleteDraftUsecase(this.contractRepo);
   final ContractRepo contractRepo;
 
   @override
-  Future<Either<Failure, Unit>> call(DeleteDrafParam param) {
-    return contractRepo.deletDraft(param.token, param.draftId);
+  Future<Either<Failure, Unit>> call(TokenWithIdParam param) {
+    return contractRepo.deletDraft(param);
   }
-}
-
-class DeleteDrafParam {
-  String token;
-  int draftId;
-  DeleteDrafParam({required this.token, required this.draftId});
 }

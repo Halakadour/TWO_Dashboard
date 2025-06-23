@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:two_dashboard/core/error/failures.dart';
+import 'package:two_dashboard/core/param/contract_draft_param.dart';
 import 'package:two_dashboard/core/usecases/use_case.dart';
 import 'package:two_dashboard/features/contracts/domain/entities/draft_entity.dart';
 import 'package:two_dashboard/features/contracts/domain/repos/contract_repo.dart';
@@ -18,12 +19,6 @@ class GetDraftUsecase
   Future<Either<Failure, List<DraftEntity>>> call(
     GetDraftOrContractParam param,
   ) {
-    return contractRepo.getDrafts(param.token, param.filter);
+    return contractRepo.getDrafts(param);
   }
-}
-
-class GetDraftOrContractParam {
-  String token;
-  int filter;
-  GetDraftOrContractParam({required this.token, required this.filter});
 }

@@ -3,31 +3,29 @@ import 'package:two_dashboard/core/api/get_api.dart';
 import 'package:two_dashboard/core/api/get_with_token_api.dart';
 import 'package:two_dashboard/core/api/post_api_with_token.dart';
 import 'package:two_dashboard/core/models/empty_response_model.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
+import 'package:two_dashboard/core/param/contact_us_param.dart';
 import 'package:two_dashboard/features/contact-us/data/models/create_contact_us_response_model.dart';
 import 'package:two_dashboard/features/contact-us/data/models/show_not_approved_contact_us_response_model.dart';
 
 abstract class ContactUsRemoteDatasource {
   Future<CreateContactUsResponseModel> createContactUs(
-    String token,
-    String subject,
-    String description,
-    String phone,
+    CreateContactUsParam param,
   );
   Future<ShowNotApprovedContactUsResponseModel>
-  showContactUsWithSeenAndApproved(int seenFilter, int approvedFilter);
-  Future<EmptyResponseModel> approveContactUs(String token, int contactUsId);
-  Future<EmptyResponseModel> seenContactUs(String token, int contactUsId);
+  showContactUsWithSeenAndApproved(ShowContactUsParam param);
+  Future<EmptyResponseModel> approveContactUs(TokenWithIdParam contactUs);
+  Future<EmptyResponseModel> seenContactUs(TokenWithIdParam contactUs);
 }
 
 class ContactUsRemoteDatasourceImpl extends ContactUsRemoteDatasource {
   @override
   Future<EmptyResponseModel> approveContactUs(
-    String token,
-    int contactUsId,
+    TokenWithIdParam contactUs,
   ) async {
     final result = GetWithTokenApi(
-      uri: Uri.parse("$baseUri/api/mark/contact/approved/$contactUsId"),
-      token: token,
+      uri: Uri.parse("$baseUri/api/mark/contact/approved/${contactUs.id}"),
+      token: contactUs.token,
       fromJson: emptyResponseModelFromJson,
     );
     return await result.callRequest();
@@ -35,28 +33,26 @@ class ContactUsRemoteDatasourceImpl extends ContactUsRemoteDatasource {
 
   @override
   Future<CreateContactUsResponseModel> createContactUs(
-    String token,
-    String subject,
-    String description,
-    String phone,
+    CreateContactUsParam param,
   ) async {
-    final result = PostApiWithToken(
+    final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/create/contactUs"),
-      token: token,
-      body: ({'subject': subject, 'description': description, 'phone': phone}),
+      token: param.token,
+      body: ({
+        'subject': param.subject,
+        'description': param.description,
+        'phone': param.phone,
+      }),
       fromJson: createContactUsResponseModelFromJson,
     );
     return await result.call();
   }
 
   @override
-  Future<EmptyResponseModel> seenContactUs(
-    String token,
-    int contactUsId,
-  ) async {
+  Future<EmptyResponseModel> seenContactUs(TokenWithIdParam contactUs) async {
     final result = GetWithTokenApi(
-      uri: Uri.parse("$baseUri/api/mark/contact/seen/$contactUsId"),
-      token: token,
+      uri: Uri.parse("$baseUri/api/mark/contact/seen/${contactUs.token}"),
+      token: contactUs.token,
       fromJson: emptyResponseModelFromJson,
     );
     return await result.callRequest();
@@ -64,10 +60,10 @@ class ContactUsRemoteDatasourceImpl extends ContactUsRemoteDatasource {
 
   @override
   Future<ShowNotApprovedContactUsResponseModel>
-  showContactUsWithSeenAndApproved(int seenFilter, int approvedFilter) async {
+  showContactUsWithSeenAndApproved(ShowContactUsParam param) async {
     final result = GetApi(
       uri: Uri.parse(
-        "$baseUri/api/show/contactUs?filter[seen]=$seenFilter&filter[tech_approved]=$approvedFilter",
+        "$baseUri/api/show/contactUs?filter[seen]=${param.seenFilter}&filter[tech_approved]=${param.approveFilter}",
       ),
       fromJson: showNotApprovedContactUsResponseModelFromJson,
     );

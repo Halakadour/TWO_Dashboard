@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:two_dashboard/core/error/failures.dart';
 import 'package:two_dashboard/core/network/network_connection_checker.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
+import 'package:two_dashboard/core/param/post_param.dart';
 import 'package:two_dashboard/features/posts/data/datasources/posts_local_datasource.dart';
 import 'package:two_dashboard/features/posts/data/datasources/posts_remote_datasource.dart';
 import 'package:two_dashboard/features/posts/domain/entities/post_entity.dart';
@@ -19,60 +21,40 @@ class PostRepoImpl extends PostRepo {
   );
 
   @override
-  Future<Either<Failure, Unit>> acceptReply(int replyId, String token) {
+  Future<Either<Failure, Unit>> acceptReply(TokenWithIdParam reply) {
     return wrapHandling(
       tryCall: () async {
-        postRemoteDatasource.acceptReply(token, replyId);
+        postRemoteDatasource.acceptReply(reply);
         return const Right(unit);
       },
     );
   }
 
   @override
-  Future<Either<Failure, PostEntity>> createPost(
-    String token,
-    String image,
-    String body,
-  ) {
+  Future<Either<Failure, PostEntity>> createPost(CreatePostParam param) {
     return wrapHandling(
       tryCall: () async {
-        final result = await postRemoteDatasource.createPost(
-          token,
-          body,
-          image,
-        );
+        final result = await postRemoteDatasource.createPost(param);
         return Right(result.data);
       },
     );
   }
 
   @override
-  Future<Either<Failure, Unit>> deletePost(String token, int postId) {
+  Future<Either<Failure, Unit>> deletePost(TokenWithIdParam post) {
     return wrapHandling(
       tryCall: () async {
-        postRemoteDatasource.deletePost(token, postId);
+        postRemoteDatasource.deletePost(post);
         return const Right(unit);
       },
     );
   }
 
   @override
-  Future<Either<Failure, ReplyEntity>> replyToPost(
-    String fullName,
-    String email,
-    String phone,
-    String cv,
-    int postId,
-  ) {
+  Future<Either<Failure, ReplyEntity>> replyToPost(ReplyToPostParam param) {
     return wrapHandling(
       tryCall: () async {
-        final result = await postRemoteDatasource.replyToPost(
-          fullName,
-          email,
-          phone,
-          cv,
-          postId,
-        );
+        final result = await postRemoteDatasource.replyToPost(param);
         return Right(result.data);
       },
     );
@@ -80,14 +62,13 @@ class PostRepoImpl extends PostRepo {
 
   @override
   Future<Either<Failure, List<ReplyEntity>>> showPostAcceptedReplies(
-    int postId,
-    String token,
+    TokenWithIdParam post,
   ) {
     return wrapHandling(
       tryCall: () async {
         if (await networkInfo.isConnected) {
           final remoteAcceptedReplies = await postRemoteDatasource
-              .showPostAcceptedReplies(token, postId);
+              .showPostAcceptedReplies(post);
           postsLocalDatasource.cachePostsAcceptedReply(
             remoteAcceptedReplies.data,
           );
@@ -103,15 +84,13 @@ class PostRepoImpl extends PostRepo {
 
   @override
   Future<Either<Failure, List<ReplyEntity>>> showPostReplies(
-    int postId,
-    String token,
+    TokenWithIdParam post,
   ) {
     return wrapHandling(
       tryCall: () async {
         if (await networkInfo.isConnected) {
           final remoteReplies = await postRemoteDatasource.showPostReplies(
-            token,
-            postId,
+            post,
           );
           postsLocalDatasource.cachePostsReply(remoteReplies.data);
           return Right(remoteReplies.data);
@@ -160,10 +139,10 @@ class PostRepoImpl extends PostRepo {
   }
 
   @override
-  Future<Either<Failure, Unit>> unActivePost(String token, int postId) {
+  Future<Either<Failure, Unit>> unActivePost(TokenWithIdParam post) {
     return wrapHandling(
       tryCall: () async {
-        postRemoteDatasource.unActivePost(token, postId);
+        postRemoteDatasource.unActivePost(post);
         return const Right(unit);
       },
     );

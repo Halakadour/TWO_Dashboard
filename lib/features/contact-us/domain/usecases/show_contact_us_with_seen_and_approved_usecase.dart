@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:two_dashboard/core/error/failures.dart';
+import 'package:two_dashboard/core/param/contact_us_param.dart';
 import 'package:two_dashboard/core/usecases/use_case.dart';
 import 'package:two_dashboard/features/contact-us/data/models/contact_us_model.dart';
 import 'package:two_dashboard/features/contact-us/domain/repos/contact_us_repo.dart';
@@ -15,15 +16,6 @@ class ShowContactUsWithSeenAndApprovedUsecase
 
   @override
   Future<Either<Failure, List<ContactUsModel>>> call(ShowContactUsParam param) {
-    return contactUsRepo.showContactUsWithSeenAndApproved(
-      param.seenFilter,
-      param.approveFilter,
-    );
+    return contactUsRepo.showContactUsWithSeenAndApproved(param);
   }
-}
-
-class ShowContactUsParam {
-  int seenFilter;
-  int approveFilter;
-  ShowContactUsParam({required this.seenFilter, required this.approveFilter});
 }

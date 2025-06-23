@@ -3,6 +3,8 @@
 import 'package:bloc/bloc.dart';
 
 import 'package:two_dashboard/core/network/enums.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
+import 'package:two_dashboard/core/param/post_param.dart';
 import 'package:two_dashboard/core/services/shared_preferences_services.dart';
 import 'package:two_dashboard/features/posts/domain/entities/post_entity.dart';
 import 'package:two_dashboard/features/posts/domain/entities/reply_entity.dart';
@@ -46,7 +48,11 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
         final result = await createPostUsecase.call(
-          PostParam(token: token, image: event.image, body: event.body),
+          CreatePostParam(
+            token: token,
+            image: event.image,
+            description: event.body,
+          ),
         );
         result.fold(
           (l) => emit(
@@ -67,10 +73,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
         final result = await deletePostUsecase.call(
-          PostRepliesOrDeleteOrUnActiveParam(
-            postId: event.postId,
-            token: token,
-          ),
+          TokenWithIdParam(id: event.postId, token: token),
         );
         result.fold(
           (l) => emit(
@@ -91,10 +94,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
         final result = await unActivePostUsecase.call(
-          PostRepliesOrDeleteOrUnActiveParam(
-            postId: event.postId,
-            token: token,
-          ),
+          TokenWithIdParam(id: event.postId, token: token),
         );
         result.fold(
           (l) => emit(
@@ -153,10 +153,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
         final result = await showPostRepliesUsecase.call(
-          PostRepliesOrDeleteOrUnActiveParam(
-            postId: event.postId,
-            token: token,
-          ),
+          TokenWithIdParam(id: event.postId, token: token),
         );
         result.fold(
           (l) => emit(
@@ -184,10 +181,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
         final result = await showPostAcceptedRepliesUsecase.call(
-          PostRepliesOrDeleteOrUnActiveParam(
-            postId: event.postId,
-            token: token,
-          ),
+          TokenWithIdParam(id: event.postId, token: token),
         );
         result.fold(
           (l) => emit(
@@ -215,7 +209,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
         final result = await acceptReplyUsecase.call(
-          AcceptReplyParam(replyId: event.replyId, token: token),
+          TokenWithIdParam(id: event.replyId, token: token),
         );
         result.fold(
           (l) => emit(
@@ -234,7 +228,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     on<ReplyToPostEvent>((event, emit) async {
       emit(state.copyWith(sendReplyStatus: CasualStatus.loading));
       final result = await replyToPostUsecase.call(
-        ReplyParam(
+        ReplyToPostParam(
           fullName: event.fullName,
           email: event.email,
           phone: event.phone,

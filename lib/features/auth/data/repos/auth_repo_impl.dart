@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import 'package:two_dashboard/core/error/failures.dart';
+import 'package:two_dashboard/core/param/auth_param.dart';
 import 'package:two_dashboard/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:two_dashboard/features/auth/data/models/user_model.dart';
 import 'package:two_dashboard/features/auth/domain/repos/auth_repo.dart';
@@ -9,10 +10,10 @@ class AuthRepoImpl extends AuthRepo {
   final AuthRemoteDataSource authRemoteDataSource;
   AuthRepoImpl({required this.authRemoteDataSource});
   @override
-  Future<Either<Failure, UserModel>> loginUser(String email, String password) {
+  Future<Either<Failure, UserModel>> loginUser(LoginParam param) {
     return wrapHandling(
       tryCall: () async {
-        final result = await authRemoteDataSource.login(email, password);
+        final result = await authRemoteDataSource.login(param);
         return Right(result.data);
       },
     );
@@ -29,20 +30,10 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future<Either<Failure, UserModel>> registNewUser(
-    String name,
-    String email,
-    String password,
-    String confirmPassword,
-  ) {
+  Future<Either<Failure, UserModel>> registNewUser(SignUpParam param) {
     return wrapHandling(
       tryCall: () async {
-        final result = await authRemoteDataSource.regist(
-          name,
-          email,
-          password,
-          confirmPassword,
-        );
+        final result = await authRemoteDataSource.regist(param);
         return Right(result.data);
       },
     );

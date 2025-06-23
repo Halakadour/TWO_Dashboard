@@ -40,19 +40,6 @@ class _CreateTeamFormState extends State<CreateTeamForm>
     super.didChangeDependencies();
   }
 
-  // void _initializeTabController(List<RoleModel> jobs) {
-  //   _tabController?.dispose(); // نظفي الكنترولر القديم
-  //   _tabController = TabController(length: jobs.length, vsync: this);
-
-  //   _tabController!.addListener(() {
-  //     if (_tabController!.indexIsChanging) return;
-  //     final roleId = jobs[_tabController!.index].id;
-  //     context.read<AuthRoleProfileBloc>().add(
-  //       ShowUsersWithFilterEvent(roleFilter: roleId),
-  //     );
-  //   });
-  // }
-
   @override
   void dispose() {
     _tabController?.dispose();

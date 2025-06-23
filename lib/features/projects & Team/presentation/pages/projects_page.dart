@@ -53,7 +53,7 @@ class _ProjectPageState extends State<ProjectPage> {
                         (previous.allProjectsListStatus !=
                             current.allProjectsListStatus),
                 builder: (context, state) {
-                  return ProjectBlocStateHandling().getProjectTable(state);
+                  return ProjectBlocStateHandling().getAllProjectsTable(state);
                 },
               ),
             ),

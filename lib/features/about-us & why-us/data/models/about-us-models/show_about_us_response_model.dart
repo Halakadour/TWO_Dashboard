@@ -23,10 +23,7 @@ class ShowAboutUsResponesModel {
       ShowAboutUsResponesModel(
         status: json["status"],
         msg: json["msg"],
-        data:
-            json["data"] == null
-                ? AboutUsModel(id: 0, workTime: "Empty", site: "Empty")
-                : AboutUsModel.fromJson(json["data"]),
+        data: AboutUsModel.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {

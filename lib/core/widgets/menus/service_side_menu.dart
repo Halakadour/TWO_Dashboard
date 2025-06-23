@@ -58,7 +58,7 @@ void serviceCardSideMenu(
     } else if (value == 1) {
       GlobalDialogs().confirmDeletionDialog(context, "this service", () {
         context.read<ServiceBloc>().add(
-          DeleteServiceEvent(serviceId: serviceEntity.idE.toString()),
+          DeleteServiceEvent(serviceId: serviceEntity.idE),
         );
         context.read<ServiceBloc>().add(ShowServicesEvent());
         context.pop();

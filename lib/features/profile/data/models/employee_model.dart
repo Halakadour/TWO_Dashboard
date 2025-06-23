@@ -4,24 +4,27 @@ class EmployeeModel extends EmployeeEntity {
   final int id;
   final String name;
   final String email;
-  final String? image;
+  final String image;
   final String role;
   final String? cv;
+  final int approved;
 
   EmployeeModel({
     required this.id,
     required this.name,
     required this.email,
-    this.image,
+    required this.image,
     required this.role,
-    this.cv,
+    required this.cv,
+    required this.approved,
   }) : super(
          eId: id,
          eName: name,
-         eImage: image,
          eEmail: email,
+         eImage: image,
          eRole: role,
          eCv: cv,
+         eApproved: approved,
        );
 
   factory EmployeeModel.fromJson(Map<String, dynamic> json) => EmployeeModel(
@@ -31,6 +34,7 @@ class EmployeeModel extends EmployeeEntity {
     image: json["image"],
     role: json["role"],
     cv: json["cv"],
+    approved: json["approved"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -40,5 +44,6 @@ class EmployeeModel extends EmployeeEntity {
     "image": image,
     "role": role,
     "cv": cv,
+    "approved": approved,
   };
 }

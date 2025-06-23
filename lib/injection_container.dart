@@ -31,7 +31,7 @@ import 'package:two_dashboard/features/contact-us/domain/usecases/mark_contact_u
 import 'package:two_dashboard/features/contact-us/domain/usecases/mark_contact_us_as_seen_usecase.dart';
 import 'package:two_dashboard/features/contact-us/domain/usecases/show_contact_us_with_seen_and_approved_usecase.dart';
 import 'package:two_dashboard/features/contact-us/presentation/bloc/contact_us_bloc.dart';
-import 'package:two_dashboard/features/contracts/data/datasource/contract_datasource.dart';
+import 'package:two_dashboard/features/contracts/data/datasource/contract_remote_datasource.dart';
 import 'package:two_dashboard/features/contracts/data/repos/contract_repo_impl.dart';
 import 'package:two_dashboard/features/contracts/domain/repos/contract_repo.dart';
 import 'package:two_dashboard/features/contracts/domain/usecases/contract-usecase/add_contract_usecase.dart';
@@ -61,11 +61,17 @@ import 'package:two_dashboard/features/profile/domain/usecases/update_employee_p
 import 'package:two_dashboard/features/projects%20&%20team/data/datasource/project_remote_data_source.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/repos/project_repo.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/repos/team_repo.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/approved_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/delete_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/reject_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/sent_edit_project_message_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/show_all_projects_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/show_pended_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/show_project_edit_request_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/show_public_projects_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/show_user_projects_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/team/add_members_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/team/add_team_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/team/create_team_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/team/show_teams_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team/presentation/bloc/project_and_team_bloc.dart';
@@ -271,21 +277,44 @@ Future<void> init() async {
   // Repo
   sl.registerLazySingleton<ContractRepo>(() => ContractRepoImpl(sl()));
   // Datasource
-  sl.registerLazySingleton<ContractDatasource>(() => ContractDatasourceImpl());
+  sl.registerLazySingleton<ContractRemoteDatasource>(
+    () => ContractRemoteDatasourceImpl(),
+  );
 
   /**----------------- PROJECTS-TEAM FEATURE -----------------------**/
   sl.registerFactory(
-    () => ProjectAndTeamBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl()),
+    () => ProjectAndTeamBloc(
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+    ),
   );
   // Usecase
   sl.registerLazySingleton(() => CreateProjectUsecase(sl()));
   sl.registerLazySingleton(() => DeleteProjectUsecase(sl()));
+  sl.registerLazySingleton(() => ApproveProjectUsecase(sl()));
+  sl.registerLazySingleton(() => RejectProjectUsecase(sl()));
+  sl.registerLazySingleton(() => SentEditProjectMessageUsecase(sl()));
+  sl.registerLazySingleton(() => ShowProjectEditRequestUsecase(sl()));
   sl.registerLazySingleton(() => ShowAllProjectsUsecase(sl()));
+  sl.registerLazySingleton(() => ShowPendedProjectUsecase(sl()));
   sl.registerLazySingleton(() => ShowPublicProjectsUsecase(sl()));
   sl.registerLazySingleton(() => ShowUserProjectsUsecase(sl()));
   sl.registerLazySingleton(() => CreateTeamUsecase(sl()));
   sl.registerLazySingleton(() => AddMembersUsecase(sl()));
   sl.registerLazySingleton(() => ShowTeamsUsecase(sl()));
+  sl.registerLazySingleton(() => AddTeamUsecase(sl()));
 
   // Repo
   sl.registerLazySingleton<ProjectRepo>(() => ProjectRepoImpl(sl()));

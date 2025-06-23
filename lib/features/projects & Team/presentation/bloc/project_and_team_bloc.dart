@@ -1,14 +1,24 @@
 import 'package:bloc/bloc.dart';
 import 'package:two_dashboard/core/network/enums.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
+import 'package:two_dashboard/core/param/project_param.dart';
+import 'package:two_dashboard/core/param/team_param.dart';
 import 'package:two_dashboard/core/services/shared_preferences_services.dart';
+import 'package:two_dashboard/features/projects%20&%20team/data/models/project/show_project_edit_request_response_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/entity/project_entity.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/entity/team_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/approved_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/create_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/delete_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/reject_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/sent_edit_project_message_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/show_all_projects_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/show_pended_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/show_project_edit_request_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/show_public_projects_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/project/show_user_projects_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/team/add_members_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/team/add_team_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/team/create_team_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/usecases/team/show_teams_usecase.dart';
 
@@ -20,41 +30,43 @@ class ProjectAndTeamBloc
   // Project UseCase
   final CreateProjectUsecase createProjectUsecase;
   final DeleteProjectUsecase deleteProjectUsecase;
+  final ApproveProjectUsecase approvedProjectUsecase;
+  final RejectProjectUsecase rejectProjectUsecase;
+  final SentEditProjectMessageUsecase sentEditProjectMessageUsecase;
+  final ShowProjectEditRequestUsecase showProjectEditRequestUsecase;
   final ShowAllProjectsUsecase showAllProjectsUsecase;
+  final ShowPendedProjectUsecase showPendedProjectUsecase;
   final ShowPublicProjectsUsecase showPublicProjectsUsecase;
   final ShowUserProjectsUsecase showUserProjectsUsecase;
-  // Task Usecase
+  // Team Usecase
   final CreateTeamUsecase createTeamUsecase;
   final AddMembersUsecase addMembersUsecase;
   final ShowTeamsUsecase showTeamsUsecase;
+  final AddTeamUsecase addTeamUsecase;
 
   ProjectAndTeamBloc(
     this.createProjectUsecase,
     this.deleteProjectUsecase,
+    this.approvedProjectUsecase,
+    this.rejectProjectUsecase,
+    this.sentEditProjectMessageUsecase,
+    this.showProjectEditRequestUsecase,
     this.showAllProjectsUsecase,
+    this.showPendedProjectUsecase,
     this.showPublicProjectsUsecase,
     this.showUserProjectsUsecase,
     this.createTeamUsecase,
     this.addMembersUsecase,
     this.showTeamsUsecase,
+    this.addTeamUsecase,
   ) : super(ProjectAndTeamState()) {
-    // Project Bloc //
+    // *** PROJECT SIDE *** //
+    // Create Project
     on<CreateProjectEvent>((event, emit) async {
       emit(state.copyWith(createProjectStatus: CasualStatus.loading));
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
-        final result = await createProjectUsecase.call(
-          CreateProjectParam(
-            name: event.name,
-            token: token,
-            description: event.description,
-            contractId: event.contractId,
-            teamId: event.teamId,
-            startDate: event.startDate,
-            endDate: event.endDate,
-            private: event.private,
-          ),
-        );
+        final result = await createProjectUsecase.call(event.param);
         result.fold(
           (l) => emit(
             state.copyWith(
@@ -69,12 +81,13 @@ class ProjectAndTeamBloc
         emit(state.copyWith(createProjectStatus: CasualStatus.notAuthorized));
       }
     });
+    // Delete Project
     on<DeleteProjectsEvent>((event, emit) async {
       emit(state.copyWith(deleteProjectStatus: CasualStatus.loading));
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
         final result = await deleteProjectUsecase.call(
-          DeleteProjectParam(token: token, projectId: event.projectId),
+          TokenWithIdParam(token: token, id: event.projectId),
         );
         result.fold(
           (l) => emit(
@@ -90,6 +103,110 @@ class ProjectAndTeamBloc
         emit(state.copyWith(deleteProjectStatus: CasualStatus.notAuthorized));
       }
     });
+    // Approve project
+    on<ApproveProjectsEvent>((event, emit) async {
+      emit(state.copyWith(approveProjectStatus: CasualStatus.loading));
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await approvedProjectUsecase.call(
+          TokenWithIdParam(token: token, id: event.projectId),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              approveProjectStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) =>
+              emit(state.copyWith(approveProjectStatus: CasualStatus.success)),
+        );
+      } else {
+        emit(state.copyWith(approveProjectStatus: CasualStatus.notAuthorized));
+      }
+    });
+    // Reject Project
+    on<RejectProjectsEvent>((event, emit) async {
+      emit(state.copyWith(rejectProjectStatus: CasualStatus.loading));
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await rejectProjectUsecase.call(
+          TokenWithIdParam(token: token, id: event.projectId),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              rejectProjectStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) =>
+              emit(state.copyWith(rejectProjectStatus: CasualStatus.success)),
+        );
+      } else {
+        emit(state.copyWith(rejectProjectStatus: CasualStatus.notAuthorized));
+      }
+    });
+    // Sent Edit Project Message
+    on<SentEditProjectMessageEvent>((event, emit) async {
+      emit(state.copyWith(editRequestProjectStatus: CasualStatus.loading));
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await sentEditProjectMessageUsecase.call(
+          EditProjectRequestParam(
+            token: token,
+            projectId: event.projectId,
+            message: event.message,
+          ),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              editRequestProjectStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(editRequestProjectStatus: CasualStatus.success),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(editRequestProjectStatus: CasualStatus.notAuthorized),
+        );
+      }
+    });
+    // Show Edit Project Request Messages
+    on<ShowEditProjectRequestEvent>((event, emit) async {
+      emit(state.copyWith(editProjectRequestsListStatus: CasualStatus.loading));
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await showProjectEditRequestUsecase.call(
+          TokenWithIdParam(token: token, id: event.projectId),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              editProjectRequestsListStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(
+              editProjectRequestsListStatus: CasualStatus.success,
+              editProjectRequestsList: r,
+            ),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            editProjectRequestsListStatus: CasualStatus.notAuthorized,
+          ),
+        );
+      }
+    });
+    // Show All Projects
     on<ShowAllProjectsEvent>((event, emit) async {
       emit(state.copyWith(allProjectsListStatus: CasualStatus.loading));
       final String? token = await SharedPreferencesServices.getUserToken();
@@ -113,6 +230,33 @@ class ProjectAndTeamBloc
         emit(state.copyWith(allProjectsListStatus: CasualStatus.notAuthorized));
       }
     });
+    // Show Pended Projects
+    on<ShowPendedProjectsEvent>((event, emit) async {
+      emit(state.copyWith(pendedProjectListStatus: CasualStatus.loading));
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await showPendedProjectUsecase.call(token);
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              pendedProjectListStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(
+              pendedProjectListStatus: CasualStatus.success,
+              pendedProjectList: r,
+            ),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(pendedProjectListStatus: CasualStatus.notAuthorized),
+        );
+      }
+    });
+    // Show Public Project
     on<ShowPublicProjectsEvent>((event, emit) async {
       emit(state.copyWith(publicProjectsListStatus: CasualStatus.loading));
       final result = await showPublicProjectsUsecase.call();
@@ -131,6 +275,7 @@ class ProjectAndTeamBloc
         ),
       );
     });
+    // Show User Projects
     on<ShowUserProjectsEvent>((event, emit) async {
       emit(state.copyWith(userProjectsListStatus: CasualStatus.loading));
       final String? token = await SharedPreferencesServices.getUserToken();
@@ -156,7 +301,8 @@ class ProjectAndTeamBloc
         );
       }
     });
-    // Team Bloc //
+    // *** TEAM SIDE *** //
+    // Create Team
     on<CreateTeamEvent>((event, emit) async {
       emit(state.copyWith(createTeamStatus: CasualStatus.loading));
       final String? token = await SharedPreferencesServices.getUserToken();
@@ -182,12 +328,13 @@ class ProjectAndTeamBloc
         emit(state.copyWith(createTeamStatus: CasualStatus.notAuthorized));
       }
     });
+    // Add New Memder
     on<AddMembersEvent>((event, emit) async {
       emit(state.copyWith(addMemersStatus: CasualStatus.loading));
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
         final result = await addMembersUsecase.call(
-          AddMembersParam(
+          AddTeamMembersParam(
             token: token,
             teamId: event.teamId,
             memebersIdList: event.memebersIdList,
@@ -206,6 +353,7 @@ class ProjectAndTeamBloc
         emit(state.copyWith(addMemersStatus: CasualStatus.notAuthorized));
       }
     });
+    // Show Team
     on<ShowTeamsEvent>((event, emit) async {
       emit(state.copyWith(showTeamsStatus: CasualStatus.loading));
       final result = await showTeamsUsecase.call();
@@ -220,6 +368,31 @@ class ProjectAndTeamBloc
           state.copyWith(showTeamsStatus: CasualStatus.success, showTeams: r),
         ),
       );
+    });
+    // add Project Team
+    on<AddProjectTeamEvent>((event, emit) async {
+      emit(state.copyWith(addTeamStatus: CasualStatus.loading));
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await addTeamUsecase.call(
+          AddTeamParam(
+            token: token,
+            projectId: event.projectId,
+            teamId: event.teamId,
+          ),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              addTeamStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) => emit(state.copyWith(addTeamStatus: CasualStatus.success)),
+        );
+      } else {
+        emit(state.copyWith(addTeamStatus: CasualStatus.notAuthorized));
+      }
     });
   }
 }

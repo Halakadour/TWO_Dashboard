@@ -42,26 +42,6 @@ class EditButton extends StatelessWidget {
                     color: value ? AppColors.white : AppColors.blueShade2,
                   ),
                 ),
-                // child: Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     SizedBox(
-                //       width: 10,
-                //       child: Icon(
-                //         Iconsax.edit,
-                //         size: SizesConfig.iconsSm,
-                //         color: value ? AppColors.white : AppColors.blueShade2,
-                //       ),
-                //     ),
-                //     PaddingConfig.w8,
-                //     Text(
-                //       "Edit",
-                //       style: AppTextStyle.buttonStyle(
-                //         color: value ? AppColors.white : AppColors.blueShade2,
-                //       ),
-                //     ),
-                //   ],
-                // ),
               ),
             ),
       ),

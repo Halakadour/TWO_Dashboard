@@ -42,26 +42,6 @@ class DeleteButton extends StatelessWidget {
                     color: value ? AppColors.white : AppColors.redShade2,
                   ),
                 ),
-                // child: Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     SizedBox(
-                //       width: 10,
-                //       child: Icon(
-                //         Iconsax.trash,
-                //         size: SizesConfig.iconsSm,
-                //         color: value ? AppColors.white : AppColors.redShade2,
-                //       ),
-                //     ),
-                //     PaddingConfig.w8,
-                //     Text(
-                //       "Delete",
-                //       style: AppTextStyle.buttonStyle(
-                //         color: value ? AppColors.white : AppColors.redShade2,
-                //       ),
-                //     ),
-                //   ],
-                // ),
               ),
             ),
       ),

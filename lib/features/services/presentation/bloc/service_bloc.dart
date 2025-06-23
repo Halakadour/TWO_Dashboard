@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:two_dashboard/config/strings/text_strings.dart';
 
 import 'package:two_dashboard/core/network/enums.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
+import 'package:two_dashboard/core/param/service_param.dart';
 import 'package:two_dashboard/core/services/shared_preferences_services.dart';
 import 'package:two_dashboard/features/services/domain/entities/service_entity.dart';
 import 'package:two_dashboard/features/services/domain/usecases/create_service_usecase.dart';
@@ -61,7 +63,7 @@ class ServiceBloc extends Bloc<ServiceEvent, ServiceState> {
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
         final result = await deleteServiceUsecase.call(
-          DeleteServiceParam(token: token, serviceId: event.serviceId),
+          TokenWithIdParam(token: token, id: event.serviceId),
         );
         result.fold(
           (l) => emit(

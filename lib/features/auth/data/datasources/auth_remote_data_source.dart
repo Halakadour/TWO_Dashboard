@@ -1,19 +1,15 @@
 import 'package:two_dashboard/config/constants/base_uri.dart';
 import 'package:two_dashboard/core/api/get_api.dart';
 import 'package:two_dashboard/core/models/empty_response_model.dart';
+import 'package:two_dashboard/core/param/auth_param.dart';
 import 'package:two_dashboard/features/auth/data/models/auth_response_model.dart';
 
 import '../../../../core/api/post_api.dart';
 import '../../../../core/api/post_api_with_token.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<AuthResponseModel> regist(
-    String name,
-    String email,
-    String password,
-    String confirmPassword,
-  );
-  Future<AuthResponseModel> login(String email, String password);
+  Future<AuthResponseModel> regist(SignUpParam param);
+  Future<AuthResponseModel> login(LoginParam param);
   Future<EmptyResponseModel> logout(String token);
   Future<AuthResponseModel> registLoginWithGoogle();
   Future<AuthResponseModel> registLoginWithGithup();
@@ -21,19 +17,14 @@ abstract class AuthRemoteDataSource {
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   @override
-  Future<AuthResponseModel> regist(
-    String name,
-    String email,
-    String password,
-    String confirmPassword,
-  ) async {
+  Future<AuthResponseModel> regist(SignUpParam param) async {
     final result = PostApi(
       uri: Uri.parse("$baseUri/api/register"),
       body: ({
-        'name': name,
-        'email': email,
-        'password': password,
-        'password_confirmation': confirmPassword,
+        'name': param.name,
+        'email': param.email,
+        'password': param.password,
+        'password_confirmation': param.confirmPassword,
       }),
       fromJson: authResponseModelFromJson,
     );
@@ -41,10 +32,10 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   }
 
   @override
-  Future<AuthResponseModel> login(String email, String password) async {
+  Future<AuthResponseModel> login(LoginParam param) async {
     final result = PostApi(
       uri: Uri.parse("$baseUri/api/login"),
-      body: ({'email': email, 'password': password}),
+      body: ({'email': param.email, 'password': param.password}),
       fromJson: authResponseModelFromJson,
     );
     return await result.call();
@@ -52,7 +43,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
 
   @override
   Future<EmptyResponseModel> logout(String token) async {
-    final result = PostApiWithToken(
+    final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/logout"),
       token: token,
       body: ({}),

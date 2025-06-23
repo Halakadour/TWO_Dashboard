@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:two_dashboard/core/network/enums.dart';
+import 'package:two_dashboard/core/param/casule_param.dart';
+import 'package:two_dashboard/core/param/contract_draft_param.dart';
 import 'package:two_dashboard/core/services/shared_preferences_services.dart';
 import 'package:two_dashboard/features/contracts/domain/entities/contract_entity.dart';
 import 'package:two_dashboard/features/contracts/domain/entities/draft_entity.dart';
@@ -62,11 +64,7 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
         final result = await getClientContractUsecase.call(
-          GetClientContractParam(
-            token: token,
-            filter: event.filter,
-            clientId: event.clientId,
-          ),
+          GetDraftOrContractParam(token: token, filter: event.filter),
         );
         result.fold(
           (l) => emit(
@@ -120,7 +118,7 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
         final result = await addSignUsecase.call(
           AddSignParam(
             token: token,
-            signatur: event.signature,
+            signature: event.signature,
             contractId: event.contractId,
           ),
         );
@@ -165,7 +163,7 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
         final result = await createDraftUsecase.call(
-          CreateDrafParam(
+          CreateDraftParam(
             token: token,
             draf: event.draf,
             clientId: event.clientId,
@@ -189,7 +187,7 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
         final result = await deleteDraftUsecase.call(
-          DeleteDrafParam(token: token, draftId: event.drafId),
+          TokenWithIdParam(token: token, id: event.drafId),
         );
         result.fold(
           (l) => emit(

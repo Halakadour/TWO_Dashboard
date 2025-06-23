@@ -2,10 +2,9 @@ import 'package:two_dashboard/config/constants/base_uri.dart';
 import 'package:two_dashboard/core/api/get_api.dart';
 import 'package:two_dashboard/core/api/post_api_with_token.dart';
 import 'package:two_dashboard/core/models/empty_response_model.dart';
+import 'package:two_dashboard/core/param/about_us_why_us_param.dart';
 import 'package:two_dashboard/features/about-us%20&%20why-us/data/models/about-us-models/create_why_us_response_model.dart';
 import 'package:two_dashboard/features/about-us%20&%20why-us/data/models/about-us-models/show_about_us_response_model.dart';
-import 'package:two_dashboard/features/about-us%20&%20why-us/domain/usecases/about-us-usecase/create_about_us_usecase.dart';
-import 'package:two_dashboard/features/about-us%20&%20why-us/domain/usecases/about-us-usecase/update_about_us_usecase.dart';
 
 abstract class AboutUsRemoteDatasource {
   Future<ShowAboutUsResponesModel> showAboutUs();
@@ -18,7 +17,7 @@ class AboutUsRemoteDatasourceImpl extends AboutUsRemoteDatasource {
   Future<CreateAboutUsResponesModel> createAboutUs(
     CreateAboutUsParam aboutUs,
   ) async {
-    final result = PostApiWithToken(
+    final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/create/about"),
       token: aboutUs.token,
       body: ({'work_time': aboutUs.workTime, 'site': aboutUs.site}),
@@ -38,7 +37,7 @@ class AboutUsRemoteDatasourceImpl extends AboutUsRemoteDatasource {
 
   @override
   Future<EmptyResponseModel> updateAboutUs(UpdateAboutUsParam aboutUs) async {
-    final result = PostApiWithToken(
+    final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/update/about"),
       token: aboutUs.token,
       body: ({
