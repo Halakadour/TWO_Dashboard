@@ -32,7 +32,7 @@ class SprintModel extends SprintEntity {
          start: start,
          end: end,
          projectID: projectId,
-         sprintStatus: HelperFunctions.getTaskStatusByNum(status),
+         sprintStatus: HelperFunctions.getWorkStatusByNum(status),
        );
 
   factory SprintModel.fromJson(Map<String, dynamic> json) => SprintModel(

@@ -1,5 +1,5 @@
 import 'package:two_dashboard/core/network/enums.dart';
-import 'package:two_dashboard/features/projects%20&%20team/data/models/project/project_model.dart';
+import 'package:two_dashboard/features/projects%20&%20team/data/models/project/team.dart';
 
 class ProjectEntity {
   final int id;
@@ -16,7 +16,7 @@ class ProjectEntity {
   final CooperationType cType;
   final String contactTime;
   final ProjectVisibility visibility;
-  final ProjectStatus status;
+  final WorkStatus pStatus;
   final String? contract;
   final Team? team;
 
@@ -35,7 +35,7 @@ class ProjectEntity {
     required this.cType,
     required this.contactTime,
     required this.visibility,
-    this.status = ProjectStatus.pended,
+    this.pStatus = WorkStatus.pended,
     this.contract,
     this.team,
   });

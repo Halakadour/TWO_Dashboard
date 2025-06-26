@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
-import 'package:two_dashboard/core/functions/bloc-state-handling/about_us_why_us_state_handling.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/about_us_why_us__bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/dialog/why-us-about-us/why_us_about_us_dialogs.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/update_elevated_button.dart';
@@ -47,7 +47,7 @@ class _AboutUsWhyUsPageState extends State<AboutUsWhyUsPage> {
                     // Create About Us
                     BlocListener<AboutUsWhyUsBloc, AboutUsWhyUsState>(
                       listener: (context, state) {
-                        AboutUsWhyUsStateHandling().createAboutUs(
+                        AboutUsWhyUsBlocStateHandling().createAboutUs(
                           state,
                           context,
                         );
@@ -71,7 +71,7 @@ class _AboutUsWhyUsPageState extends State<AboutUsWhyUsPage> {
                     // Update About Us
                     BlocListener<AboutUsWhyUsBloc, AboutUsWhyUsState>(
                       listener: (context, state) {
-                        AboutUsWhyUsStateHandling().updateAboutUs(
+                        AboutUsWhyUsBlocStateHandling().updateAboutUs(
                           state,
                           context,
                         );
@@ -106,7 +106,7 @@ class _AboutUsWhyUsPageState extends State<AboutUsWhyUsPage> {
             // Displaying About Us
             BlocBuilder<AboutUsWhyUsBloc, AboutUsWhyUsState>(
               builder: (context, state) {
-                return AboutUsWhyUsStateHandling().getAboutUs(
+                return AboutUsWhyUsBlocStateHandling().getAboutUs(
                   state,
                   aboutUsEntity,
                 );
@@ -123,7 +123,7 @@ class _AboutUsWhyUsPageState extends State<AboutUsWhyUsPage> {
                 // Create Why Us
                 BlocListener<AboutUsWhyUsBloc, AboutUsWhyUsState>(
                   listener: (context, state) {
-                    AboutUsWhyUsStateHandling().createWhyUs(state, context);
+                    AboutUsWhyUsBlocStateHandling().createWhyUs(state, context);
                   },
                   listenWhen:
                       (previous, current) =>
@@ -146,7 +146,7 @@ class _AboutUsWhyUsPageState extends State<AboutUsWhyUsPage> {
             Flexible(
               child: BlocListener<AboutUsWhyUsBloc, AboutUsWhyUsState>(
                 listener: (context, state) {
-                  AboutUsWhyUsStateHandling().updateOrDeleteWhyUs(
+                  AboutUsWhyUsBlocStateHandling().updateOrDeleteWhyUs(
                     state,
                     context,
                   );
@@ -162,7 +162,7 @@ class _AboutUsWhyUsPageState extends State<AboutUsWhyUsPage> {
                       (previous, current) =>
                           (previous.getWhyUsStatus != current.getWhyUsStatus),
                   builder: (context, state) {
-                    return AboutUsWhyUsStateHandling().getWhyUsTable(state);
+                    return AboutUsWhyUsBlocStateHandling().getWhyUsTable(state);
                   },
                 ),
               ),

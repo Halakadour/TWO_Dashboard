@@ -11,11 +11,12 @@ import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/services/shared_preferences_services.dart';
-import 'package:two_dashboard/core/widgets/dialog/auth/auth_dialogs.dart';
+import 'package:two_dashboard/core/widgets/dialog/auth/logout_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/not_authorized_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/core/widgets/layouts/sidebar/menu_item.dart';
-import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
 
 class CustomSidebar extends StatefulWidget {
@@ -251,7 +252,7 @@ class _CustomSidebarState extends State<CustomSidebar> {
                                     previous.logoutStatusStatus !=
                                     current.logoutStatusStatus,
                             child: GestureDetector(
-                              onTap: () => AuthDialogs().logoutDialog(context),
+                              onTap: () => logoutDialog(context),
                               child: const LogoutWidget(),
                             ),
                           ),
@@ -283,10 +284,10 @@ class _CustomSidebarState extends State<CustomSidebar> {
       });
     } else if (state.authModelStatus == CasualStatus.failure) {
       context.pop();
-      CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.authModelStatus == CasualStatus.notAuthorized) {
+      showErrorDialog(context, state.message);
+    } else if (state.authModelStatus == CasualStatus.not_authorized) {
       context.pop();
-      CustomQuickAlert().noTokenAlert(context);
+      showNotAuthorizedDialog(context);
     }
   }
 }

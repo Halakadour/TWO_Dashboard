@@ -24,7 +24,7 @@ class TeamBlocStateHandling {
     } else if (state.createTeamStatus == CasualStatus.failure) {
       context.pop();
       showErrorDialog(context, state.message);
-    } else if (state.createTeamStatus == CasualStatus.notAuthorized) {
+    } else if (state.createTeamStatus == CasualStatus.not_authorized) {
       context.pop();
       showNotAuthorizedDialog(context);
     }
@@ -43,7 +43,7 @@ class TeamBlocStateHandling {
     } else if (state.addTeamStatus == CasualStatus.failure) {
       context.pop();
       showErrorDialog(context, state.message);
-    } else if (state.addMemersStatus == CasualStatus.notAuthorized) {
+    } else if (state.addMemersStatus == CasualStatus.not_authorized) {
       context.pop();
       showNotAuthorizedDialog(context);
     }

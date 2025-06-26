@@ -27,7 +27,7 @@ class ProjectBlocStateHandling {
     } else if (state.createProjectStatus == CasualStatus.failure) {
       context.pop();
       showErrorDialog(context, state.message);
-    } else if (state.createProjectStatus == CasualStatus.notAuthorized) {
+    } else if (state.createProjectStatus == CasualStatus.not_authorized) {
       context.pop();
       showNotAuthorizedDialog(context);
     }
@@ -56,6 +56,24 @@ class ProjectBlocStateHandling {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));
     } else {
       return const SizedBox();
+    }
+  }
+
+  // Sent Edit Project Message
+  void sentEditProjectMessage(ProjectAndTeamState state, BuildContext context) {
+    if (state.editRequestProjectStatus == CasualStatus.loading) {
+      showLoadingDialog(context);
+    } else if (state.editRequestProjectStatus == CasualStatus.success) {
+      context.pop();
+      showSuccessDialog(context, () {
+        context.pop();
+      });
+    } else if (state.editRequestProjectStatus == CasualStatus.failure) {
+      context.pop();
+      showErrorDialog(context, state.message);
+    } else if (state.editRequestProjectStatus == CasualStatus.not_authorized) {
+      context.pop();
+      showNotAuthorizedDialog(context);
     }
   }
 }

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
-// ignore: unused_import
-import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/profile_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/buttons/icon-buttons/filter_button.dart';
 import 'package:two_dashboard/core/widgets/dialog/filter/filter_employee.dart';
@@ -21,7 +19,7 @@ class _AccountsPageState extends State<AccountsPage> {
   @override
   void didChangeDependencies() {
     context.read<AuthRoleProfileBloc>().add(
-      ShowUsersWithFilterEvent(roleFilter: 2),
+      ShowUsersWithFilterEvent(roleFilter: 4),
     );
     context.read<AuthRoleProfileBloc>().add(GetRolesWithoutClientEvent());
     super.didChangeDependencies();

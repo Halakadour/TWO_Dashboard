@@ -17,7 +17,7 @@ class ProjectListView extends StatefulWidget {
 }
 
 class _ProjectListViewState extends State<ProjectListView> {
-  ProjectStatus selectedStatus = ProjectStatus.pended;
+  WorkStatus selectedStatus = WorkStatus.pended;
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +28,10 @@ class _ProjectListViewState extends State<ProjectListView> {
           spacing: 12,
           runSpacing: 12,
           children: [
-            _getTaskStatusBox(ProjectStatus.pended, "9"),
-            _getTaskStatusBox(ProjectStatus.inProgress, "9"),
-            _getTaskStatusBox(ProjectStatus.inReview, "9"),
-            _getTaskStatusBox(ProjectStatus.completed, "9"),
+            _getTaskStatusBox(WorkStatus.pended, "9"),
+            _getTaskStatusBox(WorkStatus.inProgress, "9"),
+            _getTaskStatusBox(WorkStatus.inReview, "9"),
+            _getTaskStatusBox(WorkStatus.completed, "9"),
           ],
         ),
         PaddingConfig.h16,
@@ -57,7 +57,7 @@ class _ProjectListViewState extends State<ProjectListView> {
     );
   }
 
-  Widget _getTaskStatusBox(ProjectStatus projectStatus, String count) {
+  Widget _getTaskStatusBox(WorkStatus projectStatus, String count) {
     bool isSelected = selectedStatus == projectStatus;
 
     return GestureDetector(
@@ -74,22 +74,20 @@ class _ProjectListViewState extends State<ProjectListView> {
         decoration: BoxDecoration(
           color:
               isSelected
-                  ? HelperFunctions.getProjectStatusBackgroundColor(
-                    projectStatus,
-                  )
+                  ? HelperFunctions.getWorkStatusBackgroundColor(projectStatus)
                   : AppColors.white,
           borderRadius: BorderRadius.circular(SizesConfig.borderRadiusSm),
           border: Border.all(
             color:
                 isSelected
-                    ? HelperFunctions.getProjectStatusColor(projectStatus)
+                    ? HelperFunctions.getWorkStatusColor(projectStatus)
                     : AppColors.gray,
             width: isSelected ? 1.8 : 0.8,
           ),
         ),
         child: TaskStatusTitleAndTaskCount(
-          title: HelperFunctions.getProjectStatusTitle(projectStatus),
-          colorState: HelperFunctions.getProjectStatusColor(projectStatus),
+          title: HelperFunctions.getWorkStatusTitle(projectStatus),
+          colorState: HelperFunctions.getWorkStatusColor(projectStatus),
           count: count,
         ),
       ),

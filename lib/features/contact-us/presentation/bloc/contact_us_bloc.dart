@@ -74,7 +74,7 @@ class ContactUsBloc extends Bloc<ContactUsEvent, ContactUsState> {
       } else {
         emit(
           state.copyWith(
-            createContcatStatus: CasualStatus.notAuthorized,
+            createContcatStatus: CasualStatus.not_authorized,
             message: "No Token",
           ),
         );
@@ -99,7 +99,7 @@ class ContactUsBloc extends Bloc<ContactUsEvent, ContactUsState> {
       } else {
         emit(
           state.copyWith(
-            seenMarkerStatus: CasualStatus.notAuthorized,
+            seenMarkerStatus: CasualStatus.not_authorized,
             message: "No Token",
           ),
         );
@@ -125,7 +125,7 @@ class ContactUsBloc extends Bloc<ContactUsEvent, ContactUsState> {
       } else {
         emit(
           state.copyWith(
-            approvedMarkerStatus: CasualStatus.notAuthorized,
+            approvedMarkerStatus: CasualStatus.not_authorized,
             message: "No Token",
           ),
         );

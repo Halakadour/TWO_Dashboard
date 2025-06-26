@@ -56,7 +56,7 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
           ),
         );
       } else {
-        emit(state.copyWith(contrcatListStatus: CasualStatus.notAuthorized));
+        emit(state.copyWith(contrcatListStatus: CasualStatus.not_authorized));
       }
     });
     on<GetClientContractEvent>((event, emit) async {
@@ -82,7 +82,7 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
         );
       } else {
         emit(
-          state.copyWith(clientContrcatListStatus: CasualStatus.notAuthorized),
+          state.copyWith(clientContrcatListStatus: CasualStatus.not_authorized),
         );
       }
     });
@@ -108,7 +108,7 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
           (r) => emit(state.copyWith(addContractStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(addContractStatus: CasualStatus.notAuthorized));
+        emit(state.copyWith(addContractStatus: CasualStatus.not_authorized));
       }
     });
     on<AddSignEvent>((event, emit) async {
@@ -132,7 +132,7 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
           (r) => emit(state.copyWith(addSignStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(addSignStatus: CasualStatus.notAuthorized));
+        emit(state.copyWith(addSignStatus: CasualStatus.not_authorized));
       }
     });
     // Draft Bloc
@@ -155,7 +155,7 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
           ),
         );
       } else {
-        emit(state.copyWith(drafListStatus: CasualStatus.notAuthorized));
+        emit(state.copyWith(drafListStatus: CasualStatus.not_authorized));
       }
     });
     on<CreateDrafEvent>((event, emit) async {
@@ -179,7 +179,7 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
           (r) => emit(state.copyWith(createDrafStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(createDrafStatus: CasualStatus.notAuthorized));
+        emit(state.copyWith(createDrafStatus: CasualStatus.not_authorized));
       }
     });
     on<DeleteDrafEvent>((event, emit) async {
@@ -199,7 +199,7 @@ class ContractBloc extends Bloc<ContractEvent, ContractState> {
           (r) => emit(state.copyWith(deleteDrafStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(deleteDrafStatus: CasualStatus.notAuthorized));
+        emit(state.copyWith(deleteDrafStatus: CasualStatus.not_authorized));
       }
     });
   }

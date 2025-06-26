@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/project_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/cancel_text_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/save_text_button.dart';
 import 'package:two_dashboard/features/auth/presentation/widgets/custom_text_form_field.dart';
+import 'package:two_dashboard/features/projects%20&%20team/presentation/bloc/project_and_team_bloc.dart';
 
 class ProjectDialog {
   // Create about Us
@@ -41,10 +44,28 @@ class ProjectDialog {
               ),
               actions: [
                 const CancelTextButton(),
-                SaveTextButton(
-                  onPressed: () {
-                    context.pop();
+                BlocListener<ProjectAndTeamBloc, ProjectAndTeamState>(
+                  listenWhen:
+                      (previous, current) =>
+                          previous.editRequestProjectStatus !=
+                          current.editRequestProjectStatus,
+                  listener: (context, state) {
+                    ProjectBlocStateHandling().sentEditProjectMessage(
+                      state,
+                      context,
+                    );
                   },
+                  child: SaveTextButton(
+                    onPressed: () {
+                      context.read<ProjectAndTeamBloc>().add(
+                        SentEditProjectMessageEvent(
+                          projectId: projectId,
+                          message: messageController.text,
+                        ),
+                      );
+                      context.pop();
+                    },
+                  ),
                 ),
               ],
             ),

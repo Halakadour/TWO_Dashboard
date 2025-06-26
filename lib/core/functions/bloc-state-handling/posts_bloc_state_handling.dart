@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
-import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/loading_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/unauthorized_status_animation.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom/posts-replies/loading_post_replies_table.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom/posts-replies/post_replies_table.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/not_authorized_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
-import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';
 import 'package:two_dashboard/features/posts/presentation/widgets/post_card.dart';
 
@@ -58,11 +58,11 @@ class PostsBlocStateHandling {
     } else if (state.deletePostStatus == CasualStatus.failure ||
         state.unActivePostStatus == CasualStatus.failure) {
       context.pop();
-      CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.deletePostStatus == CasualStatus.notAuthorized ||
-        state.unActivePostStatus == CasualStatus.notAuthorized) {
+      showErrorDialog(context, state.message);
+    } else if (state.deletePostStatus == CasualStatus.not_authorized ||
+        state.unActivePostStatus == CasualStatus.not_authorized) {
       context.pop();
-      CustomQuickAlert().failureAlert(context, TextStrings.noToken);
+      showNotAuthorizedDialog(context);
     }
   }
 
@@ -74,7 +74,7 @@ class PostsBlocStateHandling {
       return PostRepliesTable(repliesList: state.postRepliesList);
     } else if (state.postsRepliesListStatus == CasualStatus.failure) {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));
-    } else if (state.postsRepliesListStatus == CasualStatus.notAuthorized) {
+    } else if (state.postsRepliesListStatus == CasualStatus.not_authorized) {
       return UnauthorizedStatusAnimation();
     } else {
       return const SizedBox();
@@ -94,10 +94,10 @@ class PostsBlocStateHandling {
       });
     } else if (state.createPostStatus == CasualStatus.failure) {
       context.pop();
-      CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.createPostStatus == CasualStatus.notAuthorized) {
+      showErrorDialog(context, state.message);
+    } else if (state.createPostStatus == CasualStatus.not_authorized) {
       context.pop();
-      CustomQuickAlert().noTokenAlert(context);
+      showNotAuthorizedDialog(context);
     }
   }
 }

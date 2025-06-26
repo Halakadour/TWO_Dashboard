@@ -5,7 +5,7 @@ import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/core/error/validation.dart';
 import 'package:two_dashboard/core/functions/tuggle_password.dart';
-import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
+import 'package:two_dashboard/core/widgets/dialog/global/passoword_does_not_match_dialog.dart';
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
 import 'package:two_dashboard/features/auth/presentation/widgets/custom_text_form_field.dart';
 import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/custom_cartoon_button.dart';
@@ -129,7 +129,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   if (_formKey.currentState!.validate()) {
                     if (_confirmPasswordController.text !=
                         _passwordController.text) {
-                      CustomQuickAlert().passwordMatchingAlert(context);
+                      passwordDoesNtMatchDialog(context);
                     } else {
                       context.read<AuthRoleProfileBloc>().add(
                         RegisteNewUserEvent(

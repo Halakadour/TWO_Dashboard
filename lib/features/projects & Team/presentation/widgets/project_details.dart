@@ -182,10 +182,10 @@ class TaskDetailsColumn extends StatelessWidget {
             ),
             SizedBox(width: 66),
             Text(
-              projectEntity.status.name,
+              projectEntity.pStatus.name,
               style: AppTextStyle.bodySm(
-                color: HelperFunctions.getProjectStatusColor(
-                  projectEntity.status,
+                color: HelperFunctions.getWorkStatusColor(
+                  projectEntity.pStatus,
                 ),
               ),
             ),

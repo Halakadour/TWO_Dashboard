@@ -80,4 +80,6 @@ class JsonPath {
   static const fingerPrint = '${_animationImagesPath}token.json';
   static const kite = '${_animationImagesPath}loading_paper.json';
   static const loading = '${_animationImagesPath}loading_circle.json';
+  static const noData = '${_animationImagesPath}no_data.json';
+  static const password = '${_animationImagesPath}passwrod.json';
 }

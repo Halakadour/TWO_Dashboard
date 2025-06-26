@@ -1,10 +1,12 @@
 import 'package:two_dashboard/core/helper/helper_functions.dart';
+import 'package:two_dashboard/features/projects%20&%20team/data/models/project/team.dart';
 import 'package:two_dashboard/features/projects%20&%20team/domain/entity/project_entity.dart';
 
 class ProjectModel extends ProjectEntity {
   final String projectType;
   final String cooperationType;
   final int private;
+  final String status;
 
   ProjectModel({
     required super.id,
@@ -23,10 +25,12 @@ class ProjectModel extends ProjectEntity {
     required this.projectType,
     required this.cooperationType,
     required this.private,
+    required this.status,
   }) : super(
          pType: HelperFunctions.getProjectTypeByName(projectType),
          cType: HelperFunctions.getCooperationTypeByName(cooperationType),
-         visibility: HelperFunctions.getProjectVisibilityByNum(private),
+         visibility: HelperFunctions.getVisibilityByNum(private),
+         pStatus: HelperFunctions.getWorkStatusByName(status),
        );
 
   factory ProjectModel.fromJson(Map<String, dynamic> json) => ProjectModel(
@@ -45,6 +49,7 @@ class ProjectModel extends ProjectEntity {
     contactTime: json["contact_time"],
     private: json["private"],
     contract: json["contract"],
+    status: json["status"],
     team: json["team"] == null ? null : Team.fromJson(json["team"]),
   );
 
@@ -64,54 +69,7 @@ class ProjectModel extends ProjectEntity {
     "contact_time": contactTime,
     "private": private,
     "contract": contract,
+    "status": status,
     "team": team?.toJson(),
-  };
-}
-
-class Team {
-  final int id;
-  final String name;
-  final List<Member> members;
-
-  Team({required this.id, required this.name, required this.members});
-
-  factory Team.fromJson(Map<String, dynamic> json) => Team(
-    id: json["id"],
-    name: json["name"],
-    members: List<Member>.from(json["members"].map((x) => Member.fromJson(x))),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "members": List<dynamic>.from(members.map((x) => x.toJson())),
-  };
-}
-
-class Member {
-  final int id;
-  final String name;
-  final String email;
-  final bool isManager;
-
-  Member({
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.isManager,
-  });
-
-  factory Member.fromJson(Map<String, dynamic> json) => Member(
-    id: json["id"],
-    name: json["name"],
-    email: json["email"],
-    isManager: json["is_manager"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "email": email,
-    "is_manager": isManager,
   };
 }

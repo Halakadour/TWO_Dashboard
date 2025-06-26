@@ -63,8 +63,8 @@ void showPendedProjectActionSideMenu(
       ProjectDialog().sentEditProjectMessageDialog(
         context,
         TextEditingController(
-          text:
-              "Hello ${project.fullName}, Thank you for contacting us and your interest in TWO's services. We have reviewed your request regarding ${project.pType.name}.\nWe are pleased to share the following preliminary ${project.cType.name} with you:\nExpected project time: 6 months\nExpected cost: 10 million SYP\nScope of work\nPoint 1:\nPoint 2: \nPoint 3:\nExpected deliverables: A fully functional application, technical documentation, and a final test report.\nWe would like to invite you to an initial meeting to discuss the analysis in detail, answer your questions, and explore the possibility of collaboration.",
+          // "Hello ${project.fullName}, We have reviewed your request regarding ${project.pType.name}.\nWe are pleased to share the following preliminary ${project.cType.name} with you:\nExpected project time: ${project.duration}\nExpected cost: ${project.cost}\nWe would like to invite you to an initial meeting to discuss the analysis in detail.",
+          // "Hello ${project.fullName}, Thank you for contacting us and your interest in TWO's services. We have reviewed your request regarding ${project.pType.name}.\nWe are pleased to share the following preliminary ${project.cType.name} with you:\nExpected project time: 6 months\nExpected cost: 10 million SYP\nScope of work\nPoint 1:\nPoint 2: \nPoint 3:\nExpected deliverables: A fully functional application, technical documentation, and a final test report.\nWe would like to invite you to an initial meeting to discuss the analysis in detail, answer your questions, and explore the possibility of collaboration.",
         ),
         project.id,
       );

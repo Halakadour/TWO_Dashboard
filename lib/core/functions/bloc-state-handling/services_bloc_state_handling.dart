@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
-import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/loading_status_animation.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/not_authorized_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
-import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/features/services/presentation/bloc/service_bloc.dart';
 import 'package:two_dashboard/features/services/presentation/widgets/service_card.dart';
 
@@ -47,10 +47,10 @@ class ServicesBlocStateHandling {
       });
     } else if (state.deleteServiceStatus == CasualStatus.failure) {
       context.pop();
-      CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.deleteServiceStatus == CasualStatus.notAuthorized) {
+      showErrorDialog(context, state.message);
+    } else if (state.deleteServiceStatus == CasualStatus.not_authorized) {
       context.pop();
-      CustomQuickAlert().failureAlert(context, TextStrings.noToken);
+      showNotAuthorizedDialog(context);
     }
   }
 
@@ -67,10 +67,10 @@ class ServicesBlocStateHandling {
       });
     } else if (state.createServiceStatus == CasualStatus.failure) {
       context.pop();
-      CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.createServiceStatus == CasualStatus.notAuthorized) {
+      showErrorDialog(context, state.message);
+    } else if (state.createServiceStatus == CasualStatus.not_authorized) {
       context.pop();
-      CustomQuickAlert().noTokenAlert(context);
+      showNotAuthorizedDialog(context);
     }
   }
 }

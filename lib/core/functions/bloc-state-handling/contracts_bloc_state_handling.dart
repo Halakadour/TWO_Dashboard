@@ -8,10 +8,11 @@ import 'package:two_dashboard/core/widgets/data-table/custom/contracts/contract_
 import 'package:two_dashboard/core/widgets/data-table/custom/contracts/loading_contract_table.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom/draft/draft_table.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom/draft/loading_draft_table.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/not_authorized_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/core/widgets/dropdown-list/custom_dropdown_list_for_draft_entity.dart';
-import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/core/widgets/shimmers/dropdown-loading/custom_dropdown_loading.dart';
 import 'package:two_dashboard/features/contracts/domain/entities/draft_entity.dart';
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
@@ -29,7 +30,7 @@ class ContractsBlocStateHandling {
       return ContractTable(contractList: state.contractList);
     } else if (state.contrcatListStatus == CasualStatus.failure) {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));
-    } else if (state.contrcatListStatus == CasualStatus.notAuthorized) {
+    } else if (state.contrcatListStatus == CasualStatus.not_authorized) {
       return Center(child: UnauthorizedStatusAnimation());
     } else {
       return const SizedBox();
@@ -76,7 +77,7 @@ class ContractsBlocStateHandling {
       });
     } else if (state.addSignStatus == CasualStatus.failure) {
       context.pop();
-      CustomQuickAlert().failureAlert(context, state.message);
+      showErrorDialog(context, state.message);
     }
   }
 
@@ -92,7 +93,7 @@ class ContractsBlocStateHandling {
       });
     } else if (state.deleteDrafStatus == CasualStatus.failure) {
       context.pop();
-      CustomQuickAlert().failureAlert(context, state.message);
+      showErrorDialog(context, state.message);
     }
   }
 
@@ -104,7 +105,7 @@ class ContractsBlocStateHandling {
       return DraftTable(draftList: state.drafList);
     } else if (state.drafListStatus == CasualStatus.failure) {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));
-    } else if (state.drafListStatus == CasualStatus.notAuthorized) {
+    } else if (state.drafListStatus == CasualStatus.not_authorized) {
       return Center(child: UnauthorizedStatusAnimation());
     }
     {
@@ -151,10 +152,10 @@ class ContractsBlocStateHandling {
       context.read<ContractBloc>().add(GetContractEvent());
     } else if (state.createContractStatus == CasualStatus.failure) {
       context.pop();
-      CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.createContractStatus == CasualStatus.notAuthorized) {
+      showErrorDialog(context, state.message);
+    } else if (state.createContractStatus == CasualStatus.not_authorized) {
       context.pop();
-      CustomQuickAlert().noTokenAlert(context);
+      showNotAuthorizedDialog(context);
     }
   }
 
@@ -171,10 +172,10 @@ class ContractsBlocStateHandling {
       context.pop();
     } else if (state.createDrafStatus == CasualStatus.failure) {
       context.pop();
-      CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.createDrafStatus == CasualStatus.notAuthorized) {
+      showErrorDialog(context, state.message);
+    } else if (state.createDrafStatus == CasualStatus.not_authorized) {
       context.pop();
-      CustomQuickAlert().noTokenAlert(context);
+      showNotAuthorizedDialog(context);
     }
   }
 }

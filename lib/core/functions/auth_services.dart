@@ -48,14 +48,8 @@ class AuthService {
       );
 
       if (response.statusCode == 200) {
-        print("Success.");
-        print(response.body);
-      } else {
-        print("Error : ${response.body}");
-      }
-    } catch (e) {
-      print("Google Sign-In Error: $e");
-    }
+      } else {}
+    } catch (e) {}
   }
 
   // GitHub Sign-In
@@ -69,14 +63,8 @@ class AuthService {
       );
 
       if (response.statusCode == 200) {
-        print("Success.");
-        print(response.body);
-      } else {
-        print("Error : ${response.body}");
-      }
-    } catch (e) {
-      print("Google Sign-In Error: $e");
-    }
+      } else {}
+    } catch (e) {}
   }
 
   // Sign Out (Clears Tokens)

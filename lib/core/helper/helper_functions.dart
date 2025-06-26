@@ -28,21 +28,7 @@ class HelperFunctions {
     return DateFormat('yyyy/MM/dd').format(date);
   }
 
-  // Get Status By Number
-  static TaskStatus getTaskStatusByNum(int value) {
-    if (value == 0) {
-      return TaskStatus.toDo;
-    } else if (value == 1) {
-      return TaskStatus.inProgress;
-    } else if (value == 2) {
-      return TaskStatus.inReview;
-    } else if (value == 3) {
-      return TaskStatus.completed;
-    } else {
-      return TaskStatus.canceled;
-    }
-  }
-
+  // Get Status By Number Or Name
   static ProjectType getProjectTypeByName(String value) {
     if (value.contains("mob") || value.contains("موب")) {
       return ProjectType.mobile;
@@ -69,151 +55,43 @@ class HelperFunctions {
     }
   }
 
-  static ProjectStatus getProjectStatusByNum(int value) {
-    if (value == 0) {
-      return ProjectStatus.pended;
-    } else if (value == 1) {
-      return ProjectStatus.inProgress;
-    } else if (value == 2) {
-      return ProjectStatus.inReview;
-    } else if (value == 3) {
-      return ProjectStatus.completed;
+  static WorkStatus getWorkStatusByName(String value) {
+    if (value.contains("pend")) {
+      return WorkStatus.pended;
+    } else if (value.contains("web")) {
+      return WorkStatus.inProgress;
+    } else if (value.contains("syst")) {
+      return WorkStatus.inReview;
+    } else if (value.contains("soft")) {
+      return WorkStatus.toDo;
     } else {
-      return ProjectStatus.canceled;
+      return WorkStatus.completed;
     }
   }
 
-  static ProjectVisibility getProjectVisibilityByNum(int value) {
+  static WorkStatus getWorkStatusByNum(int value) {
+    switch (value) {
+      case 0:
+        return WorkStatus.pended;
+      case 1:
+        return WorkStatus.toDo;
+      case 2:
+        return WorkStatus.inProgress;
+      case 3:
+        return WorkStatus.inReview;
+      case 4:
+        return WorkStatus.completed;
+      case 5:
+        return WorkStatus.canceled;
+    }
+    return WorkStatus.pended;
+  }
+
+  static ProjectVisibility getVisibilityByNum(int value) {
     if (value == 0) {
       return ProjectVisibility.public;
     } else {
       return ProjectVisibility.private;
-    }
-  }
-
-  // Project Status Title
-  static String getProjectStatusTitle(ProjectStatus value) {
-    if (value == ProjectStatus.pended) {
-      return "Pending";
-    } else if (value == ProjectStatus.inProgress) {
-      return "In Progress";
-    } else if (value == ProjectStatus.inReview) {
-      return "In Review";
-    } else if (value == ProjectStatus.completed) {
-      return "Completed";
-    } else if (value == ProjectStatus.canceled) {
-      return "Canceled";
-    } else {
-      return "";
-    }
-  }
-
-  // Project Status Color Returning
-  static Color getProjectStatusColor(ProjectStatus value) {
-    if (value == ProjectStatus.pended) {
-      return AppColors.yellowShade2;
-    } else if (value == ProjectStatus.inProgress) {
-      return AppColors.blueShade2;
-    } else if (value == ProjectStatus.inReview) {
-      return AppColors.rockShade2;
-    } else if (value == ProjectStatus.completed) {
-      return AppColors.greenShade2;
-    } else if (value == ProjectStatus.canceled) {
-      return AppColors.redShade2;
-    } else {
-      return AppColors.gray;
-    }
-  }
-
-  static Color getProjectStatusBackgroundColor(ProjectStatus value) {
-    if (value == ProjectStatus.pended) {
-      return AppColors.yellowShade1;
-    } else if (value == ProjectStatus.inProgress) {
-      return AppColors.blueShade1;
-    } else if (value == ProjectStatus.inReview) {
-      return AppColors.rockshade1;
-    } else if (value == ProjectStatus.completed) {
-      return AppColors.greenShade1;
-    } else if (value == ProjectStatus.canceled) {
-      return AppColors.redShade1;
-    } else {
-      return AppColors.gray;
-    }
-  }
-
-  // Task Color Returning
-  static Color getTaskStatusColor(TaskStatus value) {
-    if (value == TaskStatus.toDo) {
-      return AppColors.yellowShade2;
-    } else if (value == TaskStatus.inProgress) {
-      return AppColors.blueShade2;
-    } else if (value == TaskStatus.inReview) {
-      return AppColors.rockShade2;
-    } else if (value == TaskStatus.completed) {
-      return AppColors.greenShade2;
-    } else if (value == TaskStatus.canceled) {
-      return AppColors.redShade2;
-    } else {
-      return AppColors.gray;
-    }
-  }
-
-  static Color getTaskBackgroundColor(TaskStatus value) {
-    if (value == TaskStatus.toDo) {
-      return AppColors.yellowShade1;
-    } else if (value == TaskStatus.inProgress) {
-      return AppColors.blueShade1;
-    } else if (value == TaskStatus.inReview) {
-      return AppColors.rockshade1;
-    } else if (value == TaskStatus.completed) {
-      return AppColors.greenShade1;
-    } else if (value == TaskStatus.canceled) {
-      return AppColors.redShade1;
-    } else {
-      return AppColors.gray;
-    }
-  }
-
-  // Priority Color Returning
-
-  static Color getPriorityColor(Priority value) {
-    if (value == Priority.low) {
-      return AppColors.yellowShade2;
-    } else if (value == Priority.medium) {
-      return AppColors.blueShade2;
-    } else if (value == Priority.high) {
-      return AppColors.redShade2;
-    } else {
-      return AppColors.gray;
-    }
-  }
-
-  static Color getPriorityBackgroundColor(Priority value) {
-    if (value == Priority.low) {
-      return AppColors.yellowShade1;
-    } else if (value == Priority.medium) {
-      return AppColors.blueShade1;
-    } else if (value == Priority.high) {
-      return AppColors.redShade1;
-    } else {
-      return AppColors.gray;
-    }
-  }
-
-  // Visibilty
-  static Color getVisibiltyColor(ProjectVisibility value) {
-    if (value == ProjectVisibility.private) {
-      return AppColors.redShade2;
-    } else {
-      return AppColors.blueShade2;
-    }
-  }
-
-  static Color getVisibiltyBackGroundColor(ProjectVisibility value) {
-    if (value == ProjectVisibility.private) {
-      return AppColors.redShade1;
-    } else {
-      return AppColors.blueShade1;
     }
   }
 
@@ -225,41 +103,134 @@ class HelperFunctions {
     }
   }
 
+  // Project Status Title
+  static String getWorkStatusTitle(WorkStatus value) {
+    switch (value) {
+      case WorkStatus.pended:
+        return "Pending";
+      case WorkStatus.toDo:
+        return "To Do";
+      case WorkStatus.inProgress:
+        return "In Progress";
+      case WorkStatus.inReview:
+        return "In Review";
+      case WorkStatus.completed:
+        return "Completed";
+      case WorkStatus.canceled:
+        return "Canceled";
+    }
+  }
+
+  // Project Status Color Returning
+  static Color getWorkStatusColor(WorkStatus value) {
+    switch (value) {
+      case WorkStatus.pended:
+        return AppColors.yellowShade2;
+      case WorkStatus.toDo:
+        return AppColors.rockShade2;
+      case WorkStatus.inProgress:
+        return AppColors.blueShade2;
+      case WorkStatus.inReview:
+        return AppColors.redShade2;
+      case WorkStatus.completed:
+        return AppColors.greenShade2;
+      case WorkStatus.canceled:
+        return AppColors.redShade2;
+    }
+  }
+
+  static Color getWorkStatusBackgroundColor(WorkStatus value) {
+    switch (value) {
+      case WorkStatus.pended:
+        return AppColors.yellowShade1;
+      case WorkStatus.toDo:
+        return AppColors.rockshade1;
+      case WorkStatus.inProgress:
+        return AppColors.blueShade1;
+      case WorkStatus.inReview:
+        return AppColors.redShade1;
+      case WorkStatus.completed:
+        return AppColors.greenShade1;
+      case WorkStatus.canceled:
+        return AppColors.redShade1;
+    }
+  }
+  // Priority Color Returning
+
+  static Color getPriorityColor(Priority value) {
+    switch (value) {
+      case Priority.low:
+        return AppColors.yellowShade2;
+      case Priority.medium:
+        return AppColors.blueShade2;
+      case Priority.high:
+        return AppColors.redShade2;
+    }
+  }
+
+  static Color getPriorityBackgroundColor(Priority value) {
+    switch (value) {
+      case Priority.low:
+        return AppColors.yellowShade1;
+      case Priority.medium:
+        return AppColors.blueShade1;
+      case Priority.high:
+        return AppColors.redShade1;
+    }
+  }
+
+  // Visibilty
+  static Color getVisibiltyColor(ProjectVisibility value) {
+    switch (value) {
+      case ProjectVisibility.public:
+        return AppColors.blueShade2;
+      case ProjectVisibility.private:
+        return AppColors.redShade2;
+    }
+  }
+
+  static Color getVisibiltyBackGroundColor(ProjectVisibility value) {
+    switch (value) {
+      case ProjectVisibility.public:
+        return AppColors.blueShade1;
+      case ProjectVisibility.private:
+        return AppColors.redShade1;
+    }
+  }
+
   // Field Status Color Returning
 
   static Color geFieldStatusColor(FieldStatus value) {
-    if (value == FieldStatus.active) {
-      return AppColors.greenShade2;
-    } else if (value == FieldStatus.unActive) {
-      return AppColors.rockShade2;
-    } else if (value == FieldStatus.approved) {
-      return AppColors.blueShade2;
-    } else if (value == FieldStatus.unApproved) {
-      return AppColors.redShade2;
-    } else if (value == FieldStatus.seen) {
-      return AppColors.blueShade2;
-    } else if (value == FieldStatus.nonSeen) {
-      return AppColors.yellowShade2;
-    } else {
-      return AppColors.gray;
+    switch (value) {
+      case FieldStatus.active:
+        return AppColors.greenShade2;
+      case FieldStatus.unActive:
+        return AppColors.rockShade2;
+      case FieldStatus.approved:
+        return AppColors.blueShade2;
+      case FieldStatus.unApproved:
+        return AppColors.redShade2;
+      case FieldStatus.seen:
+        return AppColors.blueShade2;
+      case FieldStatus.nonSeen:
+        return AppColors.yellowShade2;
     }
   }
 
   static Color getFieldStatusBackgroundColor(FieldStatus value) {
-    if (value == FieldStatus.active) {
-      return AppColors.greenShade1;
-    } else if (value == FieldStatus.unActive) {
-      return AppColors.rockshade1;
-    } else if (value == FieldStatus.approved) {
-      return AppColors.blueShade1;
-    } else if (value == FieldStatus.unApproved) {
-      return AppColors.redShade1;
-    } else if (value == FieldStatus.seen) {
-      return AppColors.blueShade1;
-    } else if (value == FieldStatus.nonSeen) {
-      return AppColors.yellowShade1;
-    } else {
-      return AppColors.gray;
+    switch (value) {
+      case FieldStatus.active:
+        return AppColors.greenShade1;
+      case FieldStatus.unActive:
+        return AppColors.rockshade1;
+      case FieldStatus.approved:
+        return AppColors.blueShade1;
+      case FieldStatus.unApproved:
+        return AppColors.redShade1;
+      case FieldStatus.seen:
+        return AppColors.blueShade1;
+      case FieldStatus.nonSeen:
+        return AppColors.yellowShade1;
     }
   }
 }

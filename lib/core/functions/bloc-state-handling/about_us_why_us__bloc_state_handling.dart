@@ -7,9 +7,10 @@ import 'package:two_dashboard/core/widgets/animation/empty_status_animation.dart
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom/why-us/loading_why_us_table.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom/why-us/why_us_table.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/not_authorized_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
-import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/core/widgets/shimmers/card-loading/loading_site_card.dart';
 import 'package:two_dashboard/core/widgets/shimmers/card-loading/loading_working_time_card.dart';
 import 'package:two_dashboard/features/about-us%20&%20why-us/domain/entities/about_us_entity.dart';
@@ -17,7 +18,7 @@ import 'package:two_dashboard/features/about-us%20&%20why-us/presentation/bloc/a
 import 'package:two_dashboard/features/about-us%20&%20why-us/presentation/widgets/site_card.dart';
 import 'package:two_dashboard/features/about-us%20&%20why-us/presentation/widgets/working_time_card.dart';
 
-class AboutUsWhyUsStateHandling {
+class AboutUsWhyUsBlocStateHandling {
   Widget getAboutUs(AboutUsWhyUsState state, AboutUsEntity? aboutUsEntity) {
     if (state.getAboutUsStatus == CasualStatus.loading) {
       return const Row(
@@ -58,10 +59,10 @@ class AboutUsWhyUsStateHandling {
       context.read<AboutUsWhyUsBloc>().add(GetAboutUsEvent());
     } else if (state.createAboutUsStatus == CasualStatus.failure) {
       context.pop();
-      CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.createAboutUsStatus == CasualStatus.notAuthorized) {
+      showErrorDialog(context, state.message);
+    } else if (state.createAboutUsStatus == CasualStatus.not_authorized) {
       context.pop();
-      CustomQuickAlert().noTokenAlert(context);
+      showNotAuthorizedDialog(context);
     }
   }
 
@@ -76,10 +77,10 @@ class AboutUsWhyUsStateHandling {
       context.read<AboutUsWhyUsBloc>().add(GetAboutUsEvent());
     } else if (state.updateAboutUsStatus == CasualStatus.failure) {
       context.pop();
-      CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.updateAboutUsStatus == CasualStatus.notAuthorized) {
+      showErrorDialog(context, state.message);
+    } else if (state.updateAboutUsStatus == CasualStatus.not_authorized) {
       context.pop();
-      CustomQuickAlert().noTokenAlert(context);
+      showNotAuthorizedDialog(context);
     }
   }
 
@@ -109,9 +110,9 @@ class AboutUsWhyUsStateHandling {
       });
       context.read<AboutUsWhyUsBloc>().add(GetWhyUsEvent());
     } else if (state.createWhyUsStatus == CasualStatus.failure) {
-      CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.createWhyUsStatus == CasualStatus.notAuthorized) {
-      CustomQuickAlert().noTokenAlert(context);
+      showErrorDialog(context, state.message);
+    } else if (state.createWhyUsStatus == CasualStatus.not_authorized) {
+      showNotAuthorizedDialog(context);
     }
   }
 
@@ -129,11 +130,11 @@ class AboutUsWhyUsStateHandling {
     } else if (state.updateWhyUsStatus == CasualStatus.failure ||
         state.deleteWhyUsStatus == CasualStatus.failure) {
       context.pop();
-      CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.updateWhyUsStatus == CasualStatus.notAuthorized ||
-        state.deleteWhyUsStatus == CasualStatus.notAuthorized) {
+      showErrorDialog(context, state.message);
+    } else if (state.updateWhyUsStatus == CasualStatus.not_authorized ||
+        state.deleteWhyUsStatus == CasualStatus.not_authorized) {
       context.pop();
-      CustomQuickAlert().noTokenAlert(context);
+      showNotAuthorizedDialog(context);
     }
   }
 }

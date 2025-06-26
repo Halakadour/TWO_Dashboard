@@ -11,9 +11,9 @@ import 'package:two_dashboard/core/functions/bloc-state-handling/services_bloc_s
 import 'package:two_dashboard/core/widgets/breadcrumbs/breadcumbs_item.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/desmiss_elevated_buttom.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/save_elevated_button.dart';
+import 'package:two_dashboard/core/widgets/dialog/global/forget_some_thing_dialog.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_image_box.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
-import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
 import 'package:two_dashboard/features/auth/presentation/widgets/custom_text_form_field.dart';
 import 'package:two_dashboard/features/services/presentation/bloc/service_bloc.dart';
@@ -185,7 +185,7 @@ class _CreateServiceFormState extends State<CreateServiceForm> {
                   onPressed: () {
                     if (_formkey.currentState!.validate()) {
                       if (imageBytes == null) {
-                        CustomQuickAlert().addImageAlert(context);
+                        forgetSomeThingDialog(context, "image");
                       } else {
                         context.read<ServiceBloc>().add(
                           CreateServiceEvent(

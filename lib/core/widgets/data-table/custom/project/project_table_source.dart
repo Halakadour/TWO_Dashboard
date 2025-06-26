@@ -27,7 +27,7 @@ class ProjectRows extends DataTableSource {
         DataCell(
           Text(project.pType.name, style: AppTextStyle.dataTableCellStyle()),
         ),
-        DataCell(ProjectStatusContainer(projectStatus: project.status)),
+        DataCell(ProjectStatusContainer(projectStatus: project.pStatus)),
         DataCell(VisibilityStatusContainer(visibility: project.visibility)),
         DataCell(
           Text(

@@ -7,12 +7,10 @@ import 'package:two_dashboard/features/roles/data/models/role_response_model.dar
 class CustomDropdownListForRoleModel extends StatelessWidget {
   const CustomDropdownListForRoleModel({
     super.key,
-    required this.selectYour,
     required this.value,
     required this.items,
     required this.onChanged,
   });
-  final String selectYour;
   final RoleModel? value;
   final List<DropdownMenuItem<RoleModel>>? items;
   final void Function(RoleModel?)? onChanged;
@@ -38,7 +36,7 @@ class CustomDropdownListForRoleModel extends StatelessWidget {
         icon: const Icon(Icons.keyboard_arrow_down_sharp),
         elevation: 0,
         hint: Text(
-          "select your $selectYour",
+          "select your Role",
           style: AppTextStyle.bodySm(color: AppColors.fontLightGray),
         ),
         style: AppTextStyle.bodySm(color: AppColors.fontLightGray),

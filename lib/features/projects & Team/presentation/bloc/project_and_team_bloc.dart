@@ -78,7 +78,7 @@ class ProjectAndTeamBloc
               emit(state.copyWith(createProjectStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(createProjectStatus: CasualStatus.notAuthorized));
+        emit(state.copyWith(createProjectStatus: CasualStatus.not_authorized));
       }
     });
     // Delete Project
@@ -100,7 +100,7 @@ class ProjectAndTeamBloc
               emit(state.copyWith(deleteProjectStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(deleteProjectStatus: CasualStatus.notAuthorized));
+        emit(state.copyWith(deleteProjectStatus: CasualStatus.not_authorized));
       }
     });
     // Approve project
@@ -122,7 +122,7 @@ class ProjectAndTeamBloc
               emit(state.copyWith(approveProjectStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(approveProjectStatus: CasualStatus.notAuthorized));
+        emit(state.copyWith(approveProjectStatus: CasualStatus.not_authorized));
       }
     });
     // Reject Project
@@ -144,7 +144,7 @@ class ProjectAndTeamBloc
               emit(state.copyWith(rejectProjectStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(rejectProjectStatus: CasualStatus.notAuthorized));
+        emit(state.copyWith(rejectProjectStatus: CasualStatus.not_authorized));
       }
     });
     // Sent Edit Project Message
@@ -172,7 +172,7 @@ class ProjectAndTeamBloc
         );
       } else {
         emit(
-          state.copyWith(editRequestProjectStatus: CasualStatus.notAuthorized),
+          state.copyWith(editRequestProjectStatus: CasualStatus.not_authorized),
         );
       }
     });
@@ -201,7 +201,7 @@ class ProjectAndTeamBloc
       } else {
         emit(
           state.copyWith(
-            editProjectRequestsListStatus: CasualStatus.notAuthorized,
+            editProjectRequestsListStatus: CasualStatus.not_authorized,
           ),
         );
       }
@@ -227,7 +227,9 @@ class ProjectAndTeamBloc
           ),
         );
       } else {
-        emit(state.copyWith(allProjectsListStatus: CasualStatus.notAuthorized));
+        emit(
+          state.copyWith(allProjectsListStatus: CasualStatus.not_authorized),
+        );
       }
     });
     // Show Pended Projects
@@ -252,7 +254,7 @@ class ProjectAndTeamBloc
         );
       } else {
         emit(
-          state.copyWith(pendedProjectListStatus: CasualStatus.notAuthorized),
+          state.copyWith(pendedProjectListStatus: CasualStatus.not_authorized),
         );
       }
     });
@@ -297,7 +299,7 @@ class ProjectAndTeamBloc
         );
       } else {
         emit(
-          state.copyWith(userProjectsListStatus: CasualStatus.notAuthorized),
+          state.copyWith(userProjectsListStatus: CasualStatus.not_authorized),
         );
       }
     });
@@ -325,7 +327,7 @@ class ProjectAndTeamBloc
           (r) => emit(state.copyWith(createTeamStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(createTeamStatus: CasualStatus.notAuthorized));
+        emit(state.copyWith(createTeamStatus: CasualStatus.not_authorized));
       }
     });
     // Add New Memder
@@ -350,7 +352,7 @@ class ProjectAndTeamBloc
           (r) => emit(state.copyWith(addMemersStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(addMemersStatus: CasualStatus.notAuthorized));
+        emit(state.copyWith(addMemersStatus: CasualStatus.not_authorized));
       }
     });
     // Show Team
@@ -391,7 +393,7 @@ class ProjectAndTeamBloc
           (r) => emit(state.copyWith(addTeamStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(addTeamStatus: CasualStatus.notAuthorized));
+        emit(state.copyWith(addTeamStatus: CasualStatus.not_authorized));
       }
     });
   }

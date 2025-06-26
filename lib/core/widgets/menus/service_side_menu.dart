@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
-import 'package:two_dashboard/core/widgets/dialog/global/global_dialogs.dart';
+import 'package:two_dashboard/core/widgets/dialog/global/confirm_deletion_dialog.dart';
 import 'package:two_dashboard/core/widgets/menus/custom_side_menu_item.dart';
 import 'package:two_dashboard/features/services/domain/entities/service_entity.dart';
 import 'package:two_dashboard/features/services/presentation/bloc/service_bloc.dart';
@@ -56,7 +56,7 @@ void serviceCardSideMenu(
         },
       );
     } else if (value == 1) {
-      GlobalDialogs().confirmDeletionDialog(context, "this service", () {
+      confirmDeletionDialog(context, "this service", () {
         context.read<ServiceBloc>().add(
           DeleteServiceEvent(serviceId: serviceEntity.idE),
         );

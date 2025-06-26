@@ -38,7 +38,7 @@ class PendedProjectRows extends DataTableSource {
         DataCell(
           Text(project.pType.name, style: AppTextStyle.dataTableCellStyle()),
         ),
-        DataCell(ProjectStatusContainer(projectStatus: ProjectStatus.pended)),
+        DataCell(ProjectStatusContainer(projectStatus: WorkStatus.pended)),
         DataCell(
           VisibilityStatusContainer(visibility: ProjectVisibility.private),
         ),

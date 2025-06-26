@@ -64,7 +64,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
           (r) => emit(state.copyWith(createPostStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(createPostStatus: CasualStatus.notAuthorized));
+        emit(state.copyWith(createPostStatus: CasualStatus.not_authorized));
       }
     });
     // DELETE POST //
@@ -85,7 +85,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
           (r) => emit(state.copyWith(deletePostStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(deletePostStatus: CasualStatus.notAuthorized));
+        emit(state.copyWith(deletePostStatus: CasualStatus.not_authorized));
       }
     });
     // UN ACTIVE POST //
@@ -106,7 +106,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
           (r) => emit(state.copyWith(unActivePostStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(unActivePostStatus: CasualStatus.notAuthorized));
+        emit(state.copyWith(unActivePostStatus: CasualStatus.not_authorized));
       }
     });
     // GET ACTIVE POSTS //
@@ -171,7 +171,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         );
       } else {
         emit(
-          state.copyWith(postsRepliesListStatus: CasualStatus.notAuthorized),
+          state.copyWith(postsRepliesListStatus: CasualStatus.not_authorized),
         );
       }
     });
@@ -199,7 +199,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         );
       } else {
         emit(
-          state.copyWith(postsRepliesListStatus: CasualStatus.notAuthorized),
+          state.copyWith(postsRepliesListStatus: CasualStatus.not_authorized),
         );
       }
     });
@@ -221,7 +221,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
           (r) => emit(state.copyWith(acceptReplyStatus: CasualStatus.success)),
         );
       } else {
-        emit(state.copyWith(acceptReplyStatus: CasualStatus.notAuthorized));
+        emit(state.copyWith(acceptReplyStatus: CasualStatus.not_authorized));
       }
     });
     // REPLY TO POST //

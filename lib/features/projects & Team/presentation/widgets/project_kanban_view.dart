@@ -32,11 +32,11 @@ class _ProjectKanbanViewState extends State<ProjectKanbanView> {
         }
 
         final projectStatuses = [
-          ProjectStatus.pended,
-          ProjectStatus.inProgress,
-          ProjectStatus.inReview,
-          ProjectStatus.completed,
-          ProjectStatus.canceled,
+          WorkStatus.pended,
+          WorkStatus.inProgress,
+          WorkStatus.inReview,
+          WorkStatus.completed,
+          WorkStatus.canceled,
         ];
 
         return SingleChildScrollView(
@@ -64,7 +64,7 @@ class _ProjectKanbanViewState extends State<ProjectKanbanView> {
   }
 
   // Kanban Column
-  Widget _buildKanbanColumn(ProjectStatus projectStatus) {
+  Widget _buildKanbanColumn(WorkStatus projectStatus) {
     return Expanded(
       child: Container(
         padding: EdgeInsets.all(SizesConfig.md),
@@ -77,8 +77,8 @@ class _ProjectKanbanViewState extends State<ProjectKanbanView> {
           children: [
             // Project status and number
             TaskStatusTitleAndTaskCount(
-              title: HelperFunctions.getProjectStatusTitle(projectStatus),
-              colorState: HelperFunctions.getProjectStatusColor(projectStatus),
+              title: HelperFunctions.getWorkStatusTitle(projectStatus),
+              colorState: HelperFunctions.getWorkStatusColor(projectStatus),
               count: "3",
             ),
             PaddingConfig.h16,
@@ -90,7 +90,7 @@ class _ProjectKanbanViewState extends State<ProjectKanbanView> {
                 children: List.generate(
                   4,
                   (index) => ProjectCard(
-                    colorStatus: HelperFunctions.getProjectStatusColor(
+                    colorStatus: HelperFunctions.getWorkStatusColor(
                       projectStatus,
                     ),
                   ),

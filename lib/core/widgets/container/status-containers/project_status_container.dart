@@ -8,7 +8,7 @@ import '../custom_rounder_container.dart';
 
 class ProjectStatusContainer extends StatelessWidget {
   const ProjectStatusContainer({super.key, required this.projectStatus});
-  final ProjectStatus projectStatus;
+  final WorkStatus projectStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +19,13 @@ class ProjectStatusContainer extends StatelessWidget {
         vertical: SizesConfig.xs,
         horizontal: SizesConfig.md,
       ),
-      backgroundColor: HelperFunctions.getProjectStatusBackgroundColor(
+      backgroundColor: HelperFunctions.getWorkStatusBackgroundColor(
         projectStatus,
       ),
       child: Text(
         projectStatus.name.toLowerCase().toString(),
         style: AppTextStyle.bodyXs(
-          color: HelperFunctions.getProjectStatusColor(projectStatus),
+          color: HelperFunctions.getWorkStatusColor(projectStatus),
         ),
       ),
     );

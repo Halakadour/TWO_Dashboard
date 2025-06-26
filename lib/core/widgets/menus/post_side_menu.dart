@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
-import 'package:two_dashboard/core/widgets/dialog/global/global_dialogs.dart';
+import 'package:two_dashboard/core/widgets/dialog/global/confirm_deletion_dialog.dart';
 import 'package:two_dashboard/core/widgets/menus/custom_side_menu_item.dart';
 import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';
 
@@ -55,7 +55,7 @@ void showPostCardSideMenu(
     if (value == 0) {
       context.read<PostBloc>().add(UnActivePostEvent(postId: postId));
     } else if (value == 1) {
-      GlobalDialogs().confirmDeletionDialog(context, "this post", () {
+      confirmDeletionDialog(context, "this post", () {
         context.read<PostBloc>().add(DeletePostEvent(postId: postId));
         context.read<PostBloc>().add(GetActivePostsEvent());
         context.pop();

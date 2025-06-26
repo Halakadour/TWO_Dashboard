@@ -8,7 +8,7 @@ class TaskEntity {
   final int projectId;
   final String sprintName;
   final int sprintId;
-  final TaskStatus taskStatus;
+  final WorkStatus taskStatus;
   final String assignedTo;
   final Priority priority;
   final double completion;

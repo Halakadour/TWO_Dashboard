@@ -9,7 +9,7 @@ import '../../../../../config/constants/padding_config.dart';
 import '../../../../../features/about-us & why-us/presentation/bloc/about_us_why_us_bloc.dart';
 import '../../../buttons/hovered-buttons/delete_button.dart';
 import '../../../buttons/hovered-buttons/edit_button.dart';
-import '../../../dialog/global/global_dialogs.dart';
+import '../../../dialog/global/confirm_deletion_dialog.dart';
 import '../../../dialog/why-us-about-us/why_us_about_us_dialogs.dart';
 
 class WhyUsRows extends DataTableSource {
@@ -46,7 +46,7 @@ class WhyUsRows extends DataTableSource {
               PaddingConfig.w16,
               DeleteButton(
                 onTap: () {
-                  GlobalDialogs().confirmDeletionDialog(
+                  confirmDeletionDialog(
                     context,
                     whyUsList[index]!.whyUsDoc,
                     () {

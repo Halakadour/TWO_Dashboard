@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
-import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/functions/device_utility.dart';
@@ -14,12 +13,13 @@ import 'package:two_dashboard/core/widgets/animation/unauthorized_status_animati
 import 'package:two_dashboard/core/widgets/data-table/custom/employee/select/select_employee_table.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom/employee/view/employee_table.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom/employee/view/loading_employee_table.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/not_authorized_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/core/widgets/divider/divider_with_text.dart';
 import 'package:two_dashboard/core/widgets/dropdown-list/custom_dropdown_list_for_client_entity.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
-import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
 import 'package:two_dashboard/features/profile/domain/entities/client_entity.dart';
 import 'package:two_dashboard/features/profile/domain/entities/employee_entity.dart';
@@ -159,10 +159,10 @@ class ProfileBlocStateHandling {
       });
     } else if (state.toggleApproveStatus == CasualStatus.failure) {
       context.pop();
-      CustomQuickAlert().failureAlert(context, state.message);
-    } else if (state.toggleApproveStatus == CasualStatus.notAuthorized) {
+      showErrorDialog(context, state.message);
+    } else if (state.toggleApproveStatus == CasualStatus.not_authorized) {
       context.pop();
-      CustomQuickAlert().failureAlert(context, TextStrings.noToken);
+      showNotAuthorizedDialog(context);
     }
   }
 

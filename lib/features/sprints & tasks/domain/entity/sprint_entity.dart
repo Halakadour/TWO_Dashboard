@@ -7,7 +7,7 @@ class SprintEntity {
   final String goal;
   final DateTime start;
   final DateTime end;
-  final TaskStatus sprintStatus;
+  final WorkStatus sprintStatus;
   final int projectID;
 
   SprintEntity({

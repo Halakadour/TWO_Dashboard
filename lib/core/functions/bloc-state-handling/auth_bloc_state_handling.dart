@@ -3,11 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/services/shared_preferences_services.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
-import 'package:two_dashboard/core/widgets/quick-alert/custom_quick_alert.dart';
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
 
-class AuthStateHandling {
+class AuthBlocStateHandling {
   // Sign Up
   Future<void> signUp(AuthRoleProfileState state, BuildContext context) async {
     if (state.authModelStatus == CasualStatus.loading) {
@@ -17,10 +17,9 @@ class AuthStateHandling {
       context.pop();
       context.pushReplacementNamed(AppRouteConfig.fillEmployeeProfile);
     } else if (state.authModelStatus == CasualStatus.failure ||
-        state.authModelStatus == CasualStatus.notAuthorized) {
+        state.authModelStatus == CasualStatus.not_authorized) {
       context.pop();
-      CustomQuickAlert().failureAlert(context, state.message);
-      print(state.message);
+      showErrorDialog(context, state.message);
     } else {
       const SizedBox();
     }
@@ -35,9 +34,9 @@ class AuthStateHandling {
       context.pop();
       context.pushReplacementNamed(AppRouteConfig.dashboard);
     } else if (state.authModelStatus == CasualStatus.failure ||
-        state.authModelStatus == CasualStatus.notAuthorized) {
+        state.authModelStatus == CasualStatus.not_authorized) {
       context.pop();
-      CustomQuickAlert().failureAlert(context, state.message);
+      showErrorDialog(context, state.message);
       print(state.message);
     } else {
       const SizedBox();
@@ -53,7 +52,7 @@ class AuthStateHandling {
       context.pushReplacementNamed(AppRouteConfig.dashboard);
     } else if (state.updateEmployeeProfileStatus == CasualStatus.failure) {
       context.pop();
-      CustomQuickAlert().failureAlert(context, state.message);
+      showErrorDialog(context, state.message);
     }
   }
 }
