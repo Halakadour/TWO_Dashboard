@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 
 import '../../../../config/constants/padding_config.dart';
@@ -36,26 +37,29 @@ class FilterEmployee {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FilterOptionTitle(
-                      title: "Approvement",
+                      title: TextStrings.approvment,
                       iconData: Iconsax.activity,
                     ),
                     PaddingConfig.h8,
                     Row(
                       children: [
                         FilterOption(
-                          option: "approved",
+                          option: TextStrings.approved,
                           valueNotifier: approvedSelected,
                         ),
                         PaddingConfig.w8,
                         FilterOption(
-                          option: "not approved",
+                          option: TextStrings.unApproved,
                           valueNotifier: approvedSelected,
                           isOposite: true,
                         ),
                       ],
                     ),
                     PaddingConfig.h16,
-                    FilterOptionTitle(title: "Role", iconData: Iconsax.bag),
+                    FilterOptionTitle(
+                      title: TextStrings.role,
+                      iconData: Iconsax.bag,
+                    ),
                     PaddingConfig.h8,
                     BlocBuilder<AuthRoleProfileBloc, AuthRoleProfileState>(
                       buildWhen:

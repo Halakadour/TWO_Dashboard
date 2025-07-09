@@ -1,5 +1,3 @@
-import 'package:two_dashboard/core/network/enums.dart';
-
 class SprintEntity {
   final int id;
   final String label;
@@ -7,8 +5,7 @@ class SprintEntity {
   final String goal;
   final DateTime start;
   final DateTime end;
-  final WorkStatus sprintStatus;
-  final int projectID;
+  final String sprintStatus;
 
   SprintEntity({
     required this.id,
@@ -18,6 +15,5 @@ class SprintEntity {
     required this.start,
     required this.end,
     required this.sprintStatus,
-    required this.projectID,
   });
 }

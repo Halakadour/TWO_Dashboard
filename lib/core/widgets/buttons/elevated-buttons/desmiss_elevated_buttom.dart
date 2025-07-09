@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 
@@ -25,7 +26,7 @@ class DesmissElevatedButtom extends StatelessWidget {
       ),
       onPressed: () => context.pop(),
       child: Text(
-        "Dismiss",
+        TextStrings.dismiss,
         style: AppTextStyle.buttonStyle(color: AppColors.navy),
       ),
     );

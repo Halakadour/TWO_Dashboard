@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 
@@ -30,7 +31,7 @@ class FilterButton extends StatelessWidget {
           ),
           PaddingConfig.w8,
           Text(
-            "Filter",
+            TextStrings.filter,
             style: AppTextStyle.buttonStyle(color: AppColors.rockShade2),
           ),
         ],

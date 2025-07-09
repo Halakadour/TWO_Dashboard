@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
+import 'package:two_dashboard/core/widgets/dialog/why-us-about-us/update_why_us_dialog.dart';
 import 'package:two_dashboard/features/about-us%20&%20why-us/domain/entities/why_us_entity.dart';
 
 import '../../../../../config/constants/padding_config.dart';
@@ -10,7 +11,6 @@ import '../../../../../features/about-us & why-us/presentation/bloc/about_us_why
 import '../../../buttons/hovered-buttons/delete_button.dart';
 import '../../../buttons/hovered-buttons/edit_button.dart';
 import '../../../dialog/global/confirm_deletion_dialog.dart';
-import '../../../dialog/why-us-about-us/why_us_about_us_dialogs.dart';
 
 class WhyUsRows extends DataTableSource {
   final List<WhyUsEntity?> whyUsList;
@@ -36,7 +36,7 @@ class WhyUsRows extends DataTableSource {
             children: [
               EditButton(
                 onTap: () {
-                  AboutUsWhyUsDialogs().updateWhyUsDialog(
+                  updateWhyUsDialog(
                     context,
                     TextEditingController(text: whyUsList[index]!.whyUsDoc),
                     whyUsList[index]!.whyUsId,

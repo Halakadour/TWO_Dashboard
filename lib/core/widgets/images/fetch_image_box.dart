@@ -31,18 +31,6 @@ class FetchImageBox extends StatefulWidget {
 class _FetchImageBoxState extends State<FetchImageBox> {
   Uint8List? imageBytes;
 
-  // Future<void> _getImageFile() async {
-  //   final pickedFile = await ImagePicker().pickImage(
-  //     source: ImageSource.gallery,
-  //   );
-  //   if (pickedFile != null) {
-  //     final bytes = await pickedFile.readAsBytes();
-  //     imageBytes = bytes;
-  //     widget.imageB64 = base64Encode(bytes);
-  //     print(widget.imageB64);
-  //   }
-  // }
-
   Future<void> _getImageFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.image,
@@ -52,7 +40,6 @@ class _FetchImageBoxState extends State<FetchImageBox> {
       final bytes = await result.files.first.xFile.readAsBytes();
       imageBytes = bytes;
       widget.imageB64 = base64Encode(bytes);
-      print(widget.imageB64);
       widget.onUpdate(widget.imageB64);
     }
   }

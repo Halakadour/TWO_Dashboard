@@ -5,9 +5,9 @@ import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/edit_button.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/project_status_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/visibility_status_container.dart';
-import 'package:two_dashboard/core/widgets/dialog/sprint/sprint_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/project/show_poroject_details_dialog.dart';
 import 'package:two_dashboard/core/widgets/texts/linked_text.dart';
-import 'package:two_dashboard/features/projects%20&%20team/domain/entity/project_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
 
 class ProjectRows extends DataTableSource {
   final List<ProjectEntity> projectList;
@@ -19,7 +19,7 @@ class ProjectRows extends DataTableSource {
     final project = projectList[index];
     return DataRow2(
       onTap: () {
-        SprintDialog().showProjectDetails(context, project);
+        showProjectDetails(context, project);
       },
       selected: false,
       onSelectChanged: (value) {},

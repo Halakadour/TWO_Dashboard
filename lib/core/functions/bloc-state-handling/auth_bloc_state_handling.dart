@@ -5,6 +5,8 @@ import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/services/shared_preferences_services.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/not_authorized_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
 
 class AuthBlocStateHandling {
@@ -40,6 +42,29 @@ class AuthBlocStateHandling {
       print(state.message);
     } else {
       const SizedBox();
+    }
+  }
+
+  // Logout
+  void logoutStateHandling(
+    AuthRoleProfileState state,
+    BuildContext context,
+  ) async {
+    if (state.logoutStatusStatus == CasualStatus.loading) {
+      showLoadingDialog(context);
+    } else if (state.logoutStatusStatus == CasualStatus.success) {
+      context.pop();
+      await SharedPreferencesServices.deleteUserToken();
+      showSuccessDialog(context, () {
+        context.pushReplacementNamed(AppRouteConfig.login);
+        context.pop();
+      });
+    } else if (state.authModelStatus == CasualStatus.failure) {
+      context.pop();
+      showErrorDialog(context, state.message);
+    } else if (state.authModelStatus == CasualStatus.not_authorized) {
+      context.pop();
+      showNotAuthorizedDialog(context);
     }
   }
 

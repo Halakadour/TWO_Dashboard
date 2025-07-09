@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/apply_text_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/cancel_text_button.dart';
 import 'package:two_dashboard/core/widgets/dialog/filter/filter_custom_widgets.dart';
@@ -27,14 +28,20 @@ class FilterContactUs {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FilterOptionTitle(title: "Seen", iconData: Iconsax.eye),
+                  FilterOptionTitle(
+                    title: TextStrings.seenStatus,
+                    iconData: Iconsax.eye,
+                  ),
                   PaddingConfig.h8,
                   Row(
                     children: [
-                      FilterOption(option: "Seen", valueNotifier: seenSelected),
+                      FilterOption(
+                        option: TextStrings.seenStatus,
+                        valueNotifier: seenSelected,
+                      ),
                       PaddingConfig.w8,
                       FilterOption(
-                        option: "un seen",
+                        option: TextStrings.unSeenStatus,
                         valueNotifier: seenSelected,
                         isOposite: true,
                       ),
@@ -42,19 +49,19 @@ class FilterContactUs {
                   ),
                   PaddingConfig.h16,
                   FilterOptionTitle(
-                    title: "Approvment",
+                    title: TextStrings.approvment,
                     iconData: Iconsax.activity,
                   ),
                   PaddingConfig.h8,
                   Row(
                     children: [
                       FilterOption(
-                        option: "approved",
+                        option: TextStrings.approved,
                         valueNotifier: approvedSelected,
                       ),
                       PaddingConfig.w8,
                       FilterOption(
-                        option: "not approved",
+                        option: TextStrings.unApproved,
                         valueNotifier: approvedSelected,
                         isOposite: true,
                       ),

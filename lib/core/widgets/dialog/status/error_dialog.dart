@@ -3,6 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/strings/assets_path.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/close_elevated_button.dart';
@@ -32,7 +33,7 @@ void showErrorDialog(BuildContext context, String errorMessage) {
               ),
               PaddingConfig.h16,
               Text(
-                "Error",
+                TextStrings.error,
                 textAlign: TextAlign.center,
                 style: AppTextStyle.headerSm(color: AppColors.redShade2),
               ),

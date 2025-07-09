@@ -28,26 +28,26 @@ class CreateOrUpdateTaskParam {
   });
 }
 
-class ShowEmployeeTasksParam {
+class ShowMyProjectTasksParam {
   final String token;
   final int projectId;
   final String proirity;
 
-  ShowEmployeeTasksParam({
+  ShowMyProjectTasksParam({
     required this.token,
     required this.projectId,
     required this.proirity,
   });
 }
 
-class ShowEmployeeProjectTasksParam {
+class ShowMySprintTasksParam {
   final String token;
   final int projectId;
   final int sprinttId;
   final String proirity;
   final String status;
 
-  ShowEmployeeProjectTasksParam({
+  ShowMySprintTasksParam({
     required this.token,
     required this.projectId,
     required this.sprinttId,

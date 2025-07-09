@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/about_us_why_us__bloc_state_handling.dart';
-import 'package:two_dashboard/core/widgets/dialog/why-us-about-us/why_us_about_us_dialogs.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/update_elevated_button.dart';
+import 'package:two_dashboard/core/widgets/dialog/why-us-about-us/create_about_us_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/why-us-about-us/create_why_us_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/why-us-about-us/update_about_us_dialog.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
 import 'package:two_dashboard/features/about-us%20&%20why-us/domain/entities/about_us_entity.dart';
 import 'package:two_dashboard/features/about-us%20&%20why-us/presentation/bloc/about_us_why_us_bloc.dart';
@@ -29,6 +31,13 @@ class _AboutUsWhyUsPageState extends State<AboutUsWhyUsPage> {
   final TextEditingController _timeController = TextEditingController();
   final TextEditingController _siteController = TextEditingController();
   AboutUsEntity? aboutUsEntity;
+  @override
+  void dispose() {
+    _whyUsController.dispose();
+    _timeController.dispose();
+    _siteController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +68,7 @@ class _AboutUsWhyUsPageState extends State<AboutUsWhyUsPage> {
                       child: CreateElevatedButton(
                         addingType: "About Us",
                         onPressed: () {
-                          AboutUsWhyUsDialogs().addAboutUsDialog(
+                          createAboutUsDialog(
                             context,
                             _timeController,
                             _siteController,
@@ -84,7 +93,7 @@ class _AboutUsWhyUsPageState extends State<AboutUsWhyUsPage> {
                         updateType: "About Us",
                         onPressed: () {
                           if (aboutUsEntity != null) {
-                            AboutUsWhyUsDialogs().updateAboutUsDialog(
+                            updateAboutUsDialog(
                               context,
                               TextEditingController(
                                 text: aboutUsEntity!.aboutWorkTime,
@@ -132,10 +141,7 @@ class _AboutUsWhyUsPageState extends State<AboutUsWhyUsPage> {
                   child: CreateElevatedButton(
                     addingType: "Why Us",
                     onPressed: () {
-                      AboutUsWhyUsDialogs().craeteWhyUsDialog(
-                        context,
-                        _whyUsController,
-                      );
+                      craeteWhyUsDialog(context, _whyUsController);
                     },
                   ),
                 ),

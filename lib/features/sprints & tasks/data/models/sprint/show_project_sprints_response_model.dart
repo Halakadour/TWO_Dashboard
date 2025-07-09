@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:two_dashboard/features/projects%20&%20team/data/models/project/project_model.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/project_model.dart';
 
 ShowProjectSprintsResponseModel showProjectSprintsResponseModelFromJson(
   String str,

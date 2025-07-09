@@ -4,19 +4,18 @@ import 'package:two_dashboard/features/about-us%20&%20why-us/presentation/pages/
 import 'package:two_dashboard/features/auth/presentation/pages/fill-profile/fill_employee_profile_page.dart';
 import 'package:two_dashboard/features/auth/presentation/pages/login/login_page.dart';
 import 'package:two_dashboard/features/auth/presentation/pages/sign-up/sign_up_page.dart';
-import 'package:two_dashboard/features/calendar/presentation/pages/calender_page.dart';
-import 'package:two_dashboard/features/contact-us/presentation/pages/contact_us_page.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/my_projects_page.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/pended_projects_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/signature_board_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/contracts_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/create-contract/create_contract_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/create_draft_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/drafts_page.dart';
 import 'package:two_dashboard/features/dashboard/presentation/pages/dashboard_page.dart';
-import 'package:two_dashboard/features/inbox/presentation/pages/inbox_page.dart';
-import 'package:two_dashboard/features/projects%20&%20team/presentation/pages/create_project_page.dart';
-import 'package:two_dashboard/features/projects%20&%20team/presentation/pages/create_team_page.dart';
-import 'package:two_dashboard/features/projects%20&%20team/presentation/pages/projects_page.dart';
-import 'package:two_dashboard/features/projects%20&%20team/presentation/pages/select_team_page.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/create_project_page.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/create_team_page.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/all_projects_page.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/select_team_page.dart';
 import 'package:two_dashboard/features/services/presentation/pages/update-service/update_service_page.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/task_page.dart';
 import 'package:two_dashboard/root_page.dart';
@@ -62,23 +61,13 @@ class AppRouter {
               ),
             ],
           ),
-          // Tasks Branch
+          // All Projects Branch
           StatefulShellBranch(
             routes: [
               GoRoute(
-                name: AppRouteConfig.tasks,
-                path: '/tasks',
-                builder: (context, state) => const TaskPage(),
-              ),
-            ],
-          ),
-          // Projects Branch
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                name: AppRouteConfig.projects,
-                path: '/projects',
-                builder: (context, state) => const ProjectPage(),
+                name: AppRouteConfig.allProjects,
+                path: '/allProjects',
+                builder: (context, state) => const AllProjectPage(),
               ),
               GoRoute(
                 name: AppRouteConfig.createProject,
@@ -100,26 +89,56 @@ class AppRouter {
               ),
             ],
           ),
+          // My Project Branch
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                name: AppRouteConfig.myProjects,
+                path: '/myProjects',
+                builder: (context, state) => const MyProjectsPage(),
+              ),
+            ],
+          ),
+          // Pended Project Branch
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                name: AppRouteConfig.pendedProjects,
+                path: '/pendedProjects',
+                builder: (context, state) => const PendedProjectsPage(),
+              ),
+            ],
+          ),
+          // Tasks Branch
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                name: AppRouteConfig.tasks,
+                path: '/tasks',
+                builder: (context, state) => const TaskPage(),
+              ),
+            ],
+          ),
           // Calendar Branch
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                name: AppRouteConfig.calendar,
-                path: '/calendar',
-                builder: (context, state) => CalendarPage(),
-              ),
-            ],
-          ),
+          // StatefulShellBranch(
+          //   routes: [
+          //     GoRoute(
+          //       name: AppRouteConfig.calendar,
+          //       path: '/calendar',
+          //       builder: (context, state) => CalendarPage(),
+          //     ),
+          //   ],
+          // ),
           // Inbox Branch
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                name: AppRouteConfig.inbox,
-                path: '/inbox',
-                builder: (context, state) => const InboxPage(),
-              ),
-            ],
-          ),
+          // StatefulShellBranch(
+          //   routes: [
+          //     GoRoute(
+          //       name: AppRouteConfig.inbox,
+          //       path: '/inbox',
+          //       builder: (context, state) => const InboxPage(),
+          //     ),
+          //   ],
+          // ),
           // Acounts Branch
           StatefulShellBranch(
             routes: [
@@ -230,16 +249,6 @@ class AppRouter {
                     (context, state) => PostRepliesPage(
                       postId: state.pathParameters['id'] ?? '',
                     ),
-              ),
-            ],
-          ),
-          // Contact Us Branch
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                name: AppRouteConfig.contactUs,
-                path: '/contactUs',
-                builder: (context, state) => const ContactUsPage(),
               ),
             ],
           ),

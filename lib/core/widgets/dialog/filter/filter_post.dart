@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/apply_text_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/cancel_text_button.dart';
 import 'package:two_dashboard/core/widgets/dialog/filter/filter_custom_widgets.dart';
@@ -23,19 +24,19 @@ class FilterPost {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   FilterOptionTitle(
-                    title: "Activation",
+                    title: TextStrings.activation,
                     iconData: Iconsax.activity,
                   ),
                   PaddingConfig.h16,
                   Row(
                     children: [
                       FilterOption(
-                        option: "active",
+                        option: TextStrings.active,
                         valueNotifier: actriveSelected,
                       ),
                       PaddingConfig.w8,
                       FilterOption(
-                        option: "not active",
+                        option: TextStrings.notActive,
                         valueNotifier: actriveSelected,
                         isOposite: true,
                       ),

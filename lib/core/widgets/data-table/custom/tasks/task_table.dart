@@ -1,6 +1,7 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom_paginated_data_table.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom/tasks/task_table_source.dart';
@@ -16,11 +17,11 @@ class TaskTable extends StatelessWidget {
       tableHeight: 500,
       dataRowHeight: SizesConfig.xl * 1.2,
       columns: [
-        DataColumn2(label: Text("Task ID")),
-        DataColumn2(label: Text("Title")),
-        DataColumn2(label: Text("Description")),
-        DataColumn2(label: Text("Status")),
-        DataColumn2(label: Text("Priority")),
+        DataColumn2(label: Text(TextStrings.id)),
+        DataColumn2(label: Text(TextStrings.title)),
+        DataColumn2(label: Text(TextStrings.description)),
+        DataColumn2(label: Text(TextStrings.status)),
+        DataColumn2(label: Text(TextStrings.priority)),
       ],
       source: TaskRows(
         taskList: [
@@ -34,8 +35,8 @@ class TaskTable extends StatelessWidget {
             sprintId: 0,
             taskStatus: WorkStatus.inProgress,
             assignedTo: "front",
-            priority: Priority.low,
-            completion: 0.5,
+            tPriority: Priority.low,
+            tCompletion: 0.5,
             startDate: DateTime(2025, 5, 12),
             endDate: DateTime(2025, 6, 14),
           ),
@@ -49,8 +50,8 @@ class TaskTable extends StatelessWidget {
             sprintId: 0,
             taskStatus: WorkStatus.canceled,
             assignedTo: "front",
-            priority: Priority.medium,
-            completion: 0.5,
+            tPriority: Priority.medium,
+            tCompletion: 0.5,
             startDate: DateTime(2025, 5, 12),
             endDate: DateTime(2025, 6, 14),
           ),
@@ -64,8 +65,8 @@ class TaskTable extends StatelessWidget {
             sprintId: 0,
             taskStatus: WorkStatus.toDo,
             assignedTo: "front",
-            priority: Priority.high,
-            completion: 0.5,
+            tPriority: Priority.high,
+            tCompletion: 0.5,
             startDate: DateTime(2025, 5, 12),
             endDate: DateTime(2025, 6, 14),
           ),

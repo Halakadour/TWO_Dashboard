@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 
@@ -32,7 +33,7 @@ class UpdateElevatedButton extends StatelessWidget {
             const Icon(Iconsax.edit_2, color: AppColors.white),
             PaddingConfig.w8,
             Text(
-              "update $updateType",
+              "${TextStrings.update} $updateType",
               style: AppTextStyle.buttonStyle(color: AppColors.white),
             ),
           ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 
@@ -35,7 +36,7 @@ class BrowseButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(SizesConfig.buttonRadius),
                 ),
                 child: Text(
-                  "Browse",
+                  TextStrings.browse,
                   textAlign: TextAlign.center,
                   style: AppTextStyle.buttonStyle(
                     color: value ? AppColors.white : AppColors.blueShade2,

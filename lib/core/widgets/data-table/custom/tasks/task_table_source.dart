@@ -23,7 +23,7 @@ class TaskRows extends DataTableSource {
           Text(task.description, style: AppTextStyle.dataTableCellStyle()),
         ),
         DataCell(TaskStatusContainer(taskStatus: task.taskStatus)),
-        DataCell(PriorityContainer(priority: task.priority)),
+        DataCell(PriorityContainer(priority: task.tPriority)),
       ],
     );
   }

@@ -1,27 +1,38 @@
-class TaskModel {
-  final String title;
-  final String description;
+import 'package:two_dashboard/core/network/enums.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/task_entity.dart';
+
+class TaskModel extends TaskEntity {
   final String project;
   final String sprint;
   final String status;
-  final String assignedTo;
   final String priority;
   final String completion;
   final DateTime start;
   final DateTime end;
 
   TaskModel({
-    required this.title,
-    required this.description,
+    required super.title,
+    required super.description,
     required this.project,
     required this.sprint,
     required this.status,
-    required this.assignedTo,
+    required super.assignedTo,
     required this.priority,
     required this.completion,
     required this.start,
     required this.end,
-  });
+  }) : super(
+         id: 0,
+         projectId: 0,
+         projectName: "name",
+         sprintName: "name",
+         sprintId: 0,
+         taskStatus: WorkStatus.toDo,
+         tPriority: Priority.low,
+         startDate: start,
+         endDate: end,
+         tCompletion: double.parse(completion),
+       );
 
   factory TaskModel.fromJson(Map<String, dynamic> json) => TaskModel(
     title: json["title"],

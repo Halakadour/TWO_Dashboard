@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 
@@ -11,7 +12,7 @@ class ClearTextButton extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       child: Text(
-        "Clear",
+        TextStrings.clear,
         style: AppTextStyle.buttonStyle(color: AppColors.fontLightGray),
       ),
     );

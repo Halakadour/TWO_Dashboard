@@ -10,8 +10,8 @@ class TaskEntity {
   final int sprintId;
   final WorkStatus taskStatus;
   final String assignedTo;
-  final Priority priority;
-  final double completion;
+  final Priority tPriority;
+  final double tCompletion;
   final DateTime startDate;
   final DateTime endDate;
 
@@ -25,8 +25,8 @@ class TaskEntity {
     required this.sprintId,
     required this.taskStatus,
     required this.assignedTo,
-    required this.priority,
-    required this.completion,
+    required this.tPriority,
+    required this.tCompletion,
     required this.startDate,
     required this.endDate,
   });

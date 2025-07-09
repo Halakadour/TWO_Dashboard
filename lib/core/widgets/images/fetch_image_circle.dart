@@ -21,17 +21,6 @@ class FetchImageCircle extends StatefulWidget {
 
 class _FetchImageCircleState extends State<FetchImageCircle> {
   Uint8List? imageBytes;
-  // Future<void> _getImageFile() async {
-  //   ImagePicker().pickImage(source: ImageSource.gallery).then((value) async {
-  //     if (value != null) {
-  //       final bytes = await value.readAsBytes();
-  //       imageBytes = bytes;
-  //       widget.imageB64 = base64Encode(bytes);
-  //       print(widget.imageB64);
-  //       widget.onUpdate(widget.imageB64);
-  //     }
-  //   });
-  // }
   Future<void> _getImageFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.image,

@@ -1,7 +1,7 @@
 class AddTeamParam {
   String token;
-  String projectId;
-  String teamId;
+  int projectId;
+  int teamId;
   AddTeamParam({
     required this.token,
     required this.projectId,

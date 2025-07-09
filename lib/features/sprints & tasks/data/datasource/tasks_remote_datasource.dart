@@ -15,11 +15,11 @@ abstract class TaskRemoteDatasource {
   Future<ShowTaskListResponseModel> showProjectTasks(TokenWithIdParam project);
   Future<ShowTaskListResponseModel> showSprintTasks(TokenWithIdParam sprint);
   Future<ShowTaskResponseModel> showTask(TokenWithIdParam task);
-  Future<ShowTaskListResponseModel> showEmployeeTasks(
-    ShowEmployeeTasksParam param,
+  Future<ShowTaskListResponseModel> showMyProjectTasks(
+    ShowMyProjectTasksParam param,
   );
-  Future<ShowTaskListResponseModel> showEmployeeProjectTasks(
-    ShowEmployeeProjectTasksParam param,
+  Future<ShowTaskListResponseModel> showMySprintTasks(
+    ShowMySprintTasksParam param,
   );
 }
 
@@ -59,8 +59,8 @@ class TaskRemoteDatasourceImpl extends TaskRemoteDatasource {
   }
 
   @override
-  Future<ShowTaskListResponseModel> showEmployeeProjectTasks(
-    ShowEmployeeProjectTasksParam param,
+  Future<ShowTaskListResponseModel> showMySprintTasks(
+    ShowMySprintTasksParam param,
   ) async {
     final result = GetWithTokenApi(
       uri: Uri.parse(
@@ -73,8 +73,8 @@ class TaskRemoteDatasourceImpl extends TaskRemoteDatasource {
   }
 
   @override
-  Future<ShowTaskListResponseModel> showEmployeeTasks(
-    ShowEmployeeTasksParam param,
+  Future<ShowTaskListResponseModel> showMyProjectTasks(
+    ShowMyProjectTasksParam param,
   ) async {
     final result = GetWithTokenApi(
       uri: Uri.parse(

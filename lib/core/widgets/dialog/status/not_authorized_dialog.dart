@@ -3,6 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/strings/assets_path.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/close_elevated_button.dart';
@@ -32,13 +33,13 @@ void showNotAuthorizedDialog(BuildContext context) {
               ),
               PaddingConfig.h16,
               Text(
-                "Access Denaid",
+                TextStrings.accessDenaid,
                 textAlign: TextAlign.center,
                 style: AppTextStyle.headerSm(color: AppColors.redShade2),
               ),
               PaddingConfig.h8,
               Text(
-                "You Are Not Authorized",
+                TextStrings.youAreNotAuth,
                 textAlign: TextAlign.center,
                 style: AppTextStyle.bodyMd(color: AppColors.redShade1),
               ),

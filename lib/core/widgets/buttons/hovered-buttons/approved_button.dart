@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 
 // ignore: must_be_immutable
@@ -35,7 +36,7 @@ class ApprovedButton extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 child: Tooltip(
-                  message: "Approve",
+                  message: TextStrings.approve,
                   child: Icon(
                     Iconsax.like_1,
                     size: SizesConfig.iconsSm,

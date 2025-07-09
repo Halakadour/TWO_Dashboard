@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/cancel_text_button.dart';
@@ -14,7 +15,7 @@ Future<dynamic> confirmDeletionDialog(
     builder:
         (context) => AlertDialog(
           title: Text(
-            "Are you sure you want to delete $deleteItemName ?",
+            "${TextStrings.confirmDeletion} $deleteItemName ?",
             style: AppTextStyle.bodyLg(color: AppColors.redShade2),
           ),
           actions: [

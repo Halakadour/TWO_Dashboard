@@ -1,27 +1,106 @@
 class TextStrings {
-  // --ADMIN Default Credentials
-  static const String adminEmail = "admin@gmail.com";
-  static const String adminPassword = "admin";
+  // --MAIN TABS
+  static const String main = "Main";
+  static const String dashboard = "Dashboard";
+  static const String porojects = "Projects";
+  static const String myProjects = "My Projects";
+  static const String pendedProjects = "Pended Projects";
+  static const String sprintTasks = "Sprint & Tasks";
+  static const String company = "Company";
+  static const String members = "Members";
+  static const String contracts = "Contracts";
+  static const String drafts = "Drafts";
+  static const String aboutUsWhyUs = "About Us & Why Us";
+  static const String services = "Services";
+  static const String posts = "Posts";
+  static const String contactUs = "Contact Us";
+  static const String setting = "Setting";
+  static const String logout = "Logout";
 
-  // --GLOBAL Texts
-  static const String and = "and";
-  static const String skip = "Skip";
-  static const String done = "Done";
-  static const String submit = "Submit";
-  static const String appName = "Team Work Organizer";
-  static const String tcontinue = "Contine";
+  // --STATUS CONTAINERS
+  static const String noData = "There is no data!";
+
+  // --BUTTONS TEXTS
+  static const String tcontinue = "Continue";
+  static const String addNew = "Add New";
+  static const String close = "Close";
+  static const String add = "Add";
+  static const String dismiss = "Dismiss";
+  static const String okay = "Okay";
   static const String save = "Save";
-  static const String apply = "Apply";
+  static const String update = "update";
+  static const String accept = "Accept";
+  static const String approve = "Approve";
+  static const String browse = "Browse";
+  static const String deactivate = "Deactivate";
+  static const String delete = "Delete";
+  static const String edit = "Edit";
+  static const String sentMsg = "Sent Message";
+  static const String more = "More";
+  static const String reject = "Reject";
+  static const String seen = "Mark As Seen";
+  static const String back = "Back";
+  static const String filter = "Filter";
+  static const String sortBy = "Sort by";
+  static const String apply = "apply";
   static const String cancel = "Cancel";
+  static const String clear = "Clear";
+  static const String preview = "Preview";
   static const String yes = "Yes";
-  static const String no = "No";
 
-  // --ERROR Texts
+  // --TABLE TEXT
+  static const String profile = "Profile";
+  static const String name = "Name";
+  static const String phone = "Phone";
+  static const String subiect = "Subject";
+  static const String actions = "Actions";
+  static const String contract = "Contract";
+  static const String clientSign = "Client Sign";
+  static const String draft = "Draft";
+  static const String status = "Status";
+  static const String id = "ID";
+  static const String cv = "CV";
+  static const String type = "Type";
+  static const String visibility = "Visibility";
+  static const String cost = "Cost";
+  static const String duration = "Duration";
+  static const String documents = "Documents";
+  static const String coopertion = "Coopertion";
+  static const String title = "Title";
+  static const String description = "Description";
+  static const String requirements = "Requirements";
+  static const String priority = "Priority";
+
+  // -- DIALOG TEXTS
+  static const String wantToLogout = "Want to logout ? ";
+  static const String addClientSign = "Add The Client Signature :";
+  static const String confirmDeletion = "Are you sure you want to delete";
+  static const String forgetToAdd = "You forget to add the";
+  static const String passwordDoesNotMatch = "Password Doesn't Match!";
+  static const String sentMessage = "Sent a message :";
+  static const String message = "Message :";
+  // --FILTER TEXTS
+  static const String seenStatus = "Seen";
+  static const String unSeenStatus = "Not Seen";
+  static const String approvment = "Approvment";
+  static const String approved = "Approved";
+  static const String unApproved = "Not Approved";
+  static const String activation = "Activation";
+  static const String active = "active";
+  static const String notActive = "not active";
+  static const String filterBy = "Filter By :";
+
+  // --STATUS TEXTs
+  static const String error = "Error";
+  static const String loading = "Loading...";
   static const String noToken =
       "It Seems you are not authorized\n Please Make An Acount.";
+  static const String accessDenaid = "Access Denaid";
+  static const String youAreNotAuth = "You Are Not Authorized";
+  static const String success = "Success";
 
   // --AUTH Default Texts
-  static const String email = "E-mail";
+  static const String email = "Email";
   static const String fullName = "Full Name";
   static const String password = "Password";
   static const String passwordHint = "+8 Charaters";
@@ -52,6 +131,7 @@ class TextStrings {
   static const String dontHaveAccount = "Don't Have An Account?";
   static const String chooseType = "Please Choose Your Type";
   static const String jobTitle = "Job Title :";
+  static const String role = "Role";
   static const String client = "Client";
   static const String employee = "Employee";
   static const String freelance = "Freelance";

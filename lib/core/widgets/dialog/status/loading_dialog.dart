@@ -3,6 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/strings/assets_path.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 
@@ -31,7 +32,7 @@ void showLoadingDialog(BuildContext context) {
               ),
               PaddingConfig.h16,
               Text(
-                "Loading...",
+                TextStrings.loading,
                 style: AppTextStyle.buttonStyle(color: AppColors.blueShade2),
               ),
             ],

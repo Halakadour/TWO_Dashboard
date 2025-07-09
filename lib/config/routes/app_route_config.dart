@@ -12,10 +12,12 @@ class AppRouteConfig {
   static const acounts = 'acounts';
 
   // Project Branches
-  static const projects = 'projects';
+  static const allProjects = 'allProjects';
   static const createProject = 'createProject';
   static const selectTeam = 'selectTeam';
   static const createTeam = 'createTeam';
+  static const myProjects = 'myProjects';
+  static const pendedProjects = 'pendedProjects';
 
   // Contracts Branches //
   static const contracts = "contracts";

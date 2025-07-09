@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/theme/color.dart';
-import 'package:two_dashboard/core/widgets/dialog/project/project_dialog.dart';
+import 'package:two_dashboard/core/widgets/dialog/project/sent_edit_project_message_dialod.dart';
 import 'package:two_dashboard/core/widgets/menus/custom_side_menu_item.dart';
-import 'package:two_dashboard/features/projects%20&%20team/domain/entity/project_entity.dart';
-import 'package:two_dashboard/features/projects%20&%20team/presentation/bloc/project_and_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_and_team_bloc.dart';
 
 void showPendedProjectActionSideMenu(
   GlobalKey<State<StatefulWidget>> iconKey,
@@ -60,7 +60,7 @@ void showPendedProjectActionSideMenu(
         RejectProjectsEvent(projectId: project.id),
       );
     } else if (value == 2) {
-      ProjectDialog().sentEditProjectMessageDialog(
+      sentEditProjectMessageDialog(
         context,
         TextEditingController(
           // "Hello ${project.fullName}, We have reviewed your request regarding ${project.pType.name}.\nWe are pleased to share the following preliminary ${project.cType.name} with you:\nExpected project time: ${project.duration}\nExpected cost: ${project.cost}\nWe would like to invite you to an initial meeting to discuss the analysis in detail.",

@@ -10,7 +10,7 @@ import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/not_authorized_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
-import 'package:two_dashboard/features/projects%20&%20team/presentation/bloc/project_and_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_and_team_bloc.dart';
 
 class ProjectBlocStateHandling {
   // Create Project
@@ -21,7 +21,7 @@ class ProjectBlocStateHandling {
       context.pop();
       context.read<ProjectAndTeamBloc>().add(ShowAllProjectsEvent());
       showSuccessDialog(context, () {
-        context.pushReplacementNamed(AppRouteConfig.projects);
+        context.pushReplacementNamed(AppRouteConfig.allProjects);
         context.pop();
       });
     } else if (state.createProjectStatus == CasualStatus.failure) {

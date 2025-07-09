@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 
 import '../../../../config/constants/padding_config.dart';
 import '../../../../config/constants/sizes_config.dart';
@@ -33,7 +34,7 @@ class AddNewSomthingButton extends StatelessWidget {
           children: [
             Icon(Iconsax.add),
             PaddingConfig.w16,
-            Text("Add New $addingType"),
+            Text("${TextStrings.addNew} $addingType"),
           ],
         ),
       ),

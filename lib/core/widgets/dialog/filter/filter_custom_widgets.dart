@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 
@@ -95,6 +96,6 @@ class FilterByText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("Filter By :", style: AppTextStyle.bodyLg());
+    return Text(TextStrings.filterBy, style: AppTextStyle.bodyLg());
   }
 }

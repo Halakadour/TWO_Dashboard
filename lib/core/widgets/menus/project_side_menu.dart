@@ -4,7 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/widgets/menus/custom_side_menu_item.dart';
-import 'package:two_dashboard/features/projects%20&%20team/domain/entity/project_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
 
 void showPendedProjectActionSideMenu(
   GlobalKey<State<StatefulWidget>> iconKey,

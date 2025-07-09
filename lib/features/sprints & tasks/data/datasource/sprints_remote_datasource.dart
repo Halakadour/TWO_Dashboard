@@ -1,9 +1,3 @@
-// create : token,lable, description, goal, start, end, projectId, status
-// update : token, sprintId,lable, description, goal, start, end, projectId, status
-// show project sprints : token, projectId
-// delete sprint : token, sprintId, status, taskId
-// show sprint : token, taskId
-
 import 'package:two_dashboard/config/constants/base_uri.dart';
 import 'package:two_dashboard/core/api/get_with_token_api.dart';
 import 'package:two_dashboard/core/api/post_api_with_token.dart';
@@ -34,7 +28,7 @@ class SprintsRemoteDatasourceImpl extends SprintsRemoteDatasource {
   ) async {
     final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/create/sprint"),
-      token: param.token,
+      token: param.token!,
       body: ({
         'label': param.lable,
         'description': param.description,
@@ -89,7 +83,7 @@ class SprintsRemoteDatasourceImpl extends SprintsRemoteDatasource {
   ) async {
     final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/update/sprint"),
-      token: param.token,
+      token: param.token!,
       body: ({
         'label': param.lable,
         'description': param.description,
