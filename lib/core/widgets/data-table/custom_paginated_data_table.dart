@@ -56,7 +56,7 @@ class CustomPaginatedDataTable extends StatelessWidget {
       height: tableHeight,
       child: Theme(
         data: Theme.of(context).copyWith(
-          cardTheme: const CardTheme(color: AppColors.white, elevation: 0),
+          cardTheme: CardThemeData(color: AppColors.white, elevation: 0),
         ),
         child: PaginatedDataTable2(
           source: source,

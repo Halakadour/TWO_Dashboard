@@ -56,16 +56,18 @@ class HelperFunctions {
   }
 
   static WorkStatus getWorkStatusByName(String value) {
-    if (value.contains("pend")) {
+    if (value.contains("Pen")) {
       return WorkStatus.pended;
-    } else if (value.contains("web")) {
+    } else if (value.contains("IN PROGR")) {
       return WorkStatus.inProgress;
-    } else if (value.contains("syst")) {
+    } else if (value.contains("Review")) {
       return WorkStatus.inReview;
-    } else if (value.contains("soft")) {
+    } else if (value.contains("TO D")) {
       return WorkStatus.toDo;
-    } else {
+    } else if (value.contains("Done")) {
       return WorkStatus.completed;
+    } else {
+      return WorkStatus.pended;
     }
   }
 
@@ -100,6 +102,16 @@ class HelperFunctions {
       return 1;
     } else {
       return 0;
+    }
+  }
+
+  static Priority getPriorityByName(String value) {
+    if (value.contains("Lo")) {
+      return Priority.low;
+    } else if (value.contains("Mid")) {
+      return Priority.medium;
+    } else {
+      return Priority.high;
     }
   }
 

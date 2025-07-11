@@ -31,11 +31,15 @@ class SprintRepoImpl extends SprintRepo {
   }
 
   @override
-  Future<Either<Failure, Unit>> showProjectSprints(TokenWithIdParam project) {
+  Future<Either<Failure, List<SprintEntity>>> showProjectSprints(
+    TokenWithIdParam project,
+  ) {
     return wrapHandling(
       tryCall: () async {
-        await sprintsRemoteDatasource.showProjectSprints(project);
-        return Right(unit);
+        final result = await sprintsRemoteDatasource.showProjectSprints(
+          project,
+        );
+        return Right(result.data);
       },
     );
   }
@@ -57,6 +61,53 @@ class SprintRepoImpl extends SprintRepo {
     return wrapHandling(
       tryCall: () async {
         await sprintsRemoteDatasource.updateSprint(param);
+        return Right(unit);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> completeSprint(CompleteSprintParam param) {
+    return wrapHandling(
+      tryCall: () async {
+        await sprintsRemoteDatasource.completeSprint(param);
+        return Right(unit);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, List<SprintEntity>>> showProjectStartedSprints(
+    TokenWithIdParam project,
+  ) {
+    return wrapHandling(
+      tryCall: () async {
+        final result = await sprintsRemoteDatasource.showProjectStartedSprints(
+          project,
+        );
+        return Right(result.data);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, List<SprintEntity>>> showProjectUnCompleteSprints(
+    TokenWithIdParam project,
+  ) {
+    return wrapHandling(
+      tryCall: () async {
+        final result = await sprintsRemoteDatasource
+            .showProjectUnCompleteSprints(project);
+        return Right(result.data);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> startSprint(StartSprintParam param) {
+    return wrapHandling(
+      tryCall: () async {
+        await sprintsRemoteDatasource.startSprint(param);
         return Right(unit);
       },
     );

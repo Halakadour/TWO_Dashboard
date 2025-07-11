@@ -9,10 +9,18 @@ abstract class SprintRepo with HandlingExceptionManager {
   Future<Either<Failure, Unit>> createSprint(CreateOrUpdateSprintParam param);
   Future<Either<Failure, Unit>> updateSprint(CreateOrUpdateSprintParam param);
   Future<Either<Failure, Unit>> deleteSprint(TokenWithIdParam sprint);
-  // Future<Either<Failure, List<SprintEntity>>> showProjectSprints(
-  //   TokenWithIdParam project,
-  // );
-  Future<Either<Failure, Unit>> showProjectSprints(TokenWithIdParam project);
+  Future<Either<Failure, Unit>> startSprint(StartSprintParam param);
+  Future<Either<Failure, Unit>> completeSprint(CompleteSprintParam param);
+  Future<Either<Failure, List<SprintEntity>>> showProjectUnCompleteSprints(
+    TokenWithIdParam project,
+  );
+  Future<Either<Failure, List<SprintEntity>>> showProjectStartedSprints(
+    TokenWithIdParam project,
+  );
+
+  Future<Either<Failure, List<SprintEntity>>> showProjectSprints(
+    TokenWithIdParam project,
+  );
   Future<Either<Failure, SprintEntity>> showSprintDetails(
     TokenWithIdParam sprint,
   );

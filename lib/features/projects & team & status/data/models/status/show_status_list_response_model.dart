@@ -2,27 +2,25 @@ import 'dart:convert';
 
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/status/status_model.dart';
 
-ShowProjectStatusResponseModel showProjectStatusResponseModelFromJson(
-  String str,
-) => ShowProjectStatusResponseModel.fromJson(json.decode(str));
+ShowStatusListResponseModel showStatusListResponseModelFromJson(String str) =>
+    ShowStatusListResponseModel.fromJson(json.decode(str));
 
-String showProjectStatusResponseModelToJson(
-  ShowProjectStatusResponseModel data,
-) => json.encode(data.toJson());
+String showStatusListResponseModelToJson(ShowStatusListResponseModel data) =>
+    json.encode(data.toJson());
 
-class ShowProjectStatusResponseModel {
+class ShowStatusListResponseModel {
   final int status;
   final String msg;
   final List<StatusModel> data;
 
-  ShowProjectStatusResponseModel({
+  ShowStatusListResponseModel({
     required this.status,
     required this.msg,
     required this.data,
   });
 
-  factory ShowProjectStatusResponseModel.fromJson(Map<String, dynamic> json) =>
-      ShowProjectStatusResponseModel(
+  factory ShowStatusListResponseModel.fromJson(Map<String, dynamic> json) =>
+      ShowStatusListResponseModel(
         status: json["status"],
         msg: json["msg"],
         data: List<StatusModel>.from(

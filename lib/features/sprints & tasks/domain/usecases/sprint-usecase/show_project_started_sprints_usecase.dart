@@ -5,14 +5,15 @@ import 'package:two_dashboard/core/usecases/use_case.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/sprint_entity.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/repos/sprint_repo.dart';
 
-class ShowProjectSprintsUsecase
+class ShowProjectStartedSprintsUsecase
     extends
         UseCase<Future<Either<Failure, List<SprintEntity>>>, TokenWithIdParam> {
-  ShowProjectSprintsUsecase(this.sprintRepo);
   final SprintRepo sprintRepo;
+
+  ShowProjectStartedSprintsUsecase(this.sprintRepo);
 
   @override
   Future<Either<Failure, List<SprintEntity>>> call(TokenWithIdParam param) {
-    return sprintRepo.showProjectSprints(param);
+    return sprintRepo.showProjectStartedSprints(param);
   }
 }

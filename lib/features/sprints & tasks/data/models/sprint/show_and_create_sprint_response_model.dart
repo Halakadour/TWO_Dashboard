@@ -2,28 +2,28 @@ import 'dart:convert';
 
 import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/sprint/sprint_model.dart';
 
-ShowAndCreateSprintResponseModel showAndCreateSprintResponseModelFromJson(
+CreateAndShowSprintResponseModel createAndShowSprintResponseModelFromJson(
   String str,
-) => ShowAndCreateSprintResponseModel.fromJson(json.decode(str));
+) => CreateAndShowSprintResponseModel.fromJson(json.decode(str));
 
-String showAndCreateSprintResponseModelToJson(
-  ShowAndCreateSprintResponseModel data,
+String createAndShowSprintResponseModelToJson(
+  CreateAndShowSprintResponseModel data,
 ) => json.encode(data.toJson());
 
-class ShowAndCreateSprintResponseModel {
+class CreateAndShowSprintResponseModel {
   final int status;
   final String msg;
   final SprintModel data;
 
-  ShowAndCreateSprintResponseModel({
+  CreateAndShowSprintResponseModel({
     required this.status,
     required this.msg,
     required this.data,
   });
 
-  factory ShowAndCreateSprintResponseModel.fromJson(
+  factory CreateAndShowSprintResponseModel.fromJson(
     Map<String, dynamic> json,
-  ) => ShowAndCreateSprintResponseModel(
+  ) => CreateAndShowSprintResponseModel(
     status: json["status"],
     msg: json["msg"],
     data: SprintModel.fromJson(json["data"]),

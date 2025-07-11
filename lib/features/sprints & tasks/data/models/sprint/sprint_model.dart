@@ -11,7 +11,7 @@ class SprintModel extends SprintEntity {
     required super.start,
     required super.end,
     required this.status,
-  }) : super(sprintStatus: status ?? "");
+  }) : super(sprintStatus: status ?? "Un Started");
 
   factory SprintModel.fromJson(Map<String, dynamic> json) => SprintModel(
     id: json["id"],

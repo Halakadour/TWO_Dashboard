@@ -4,10 +4,6 @@ class TaskEntity {
   final int id;
   final String title;
   final String description;
-  final String projectName;
-  final int projectId;
-  final String sprintName;
-  final int sprintId;
   final WorkStatus taskStatus;
   final String assignedTo;
   final Priority tPriority;
@@ -19,10 +15,6 @@ class TaskEntity {
     required this.id,
     required this.title,
     required this.description,
-    required this.projectName,
-    required this.projectId,
-    required this.sprintName,
-    required this.sprintId,
     required this.taskStatus,
     required this.assignedTo,
     required this.tPriority,
