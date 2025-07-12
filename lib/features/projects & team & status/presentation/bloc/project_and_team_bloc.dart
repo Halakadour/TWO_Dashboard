@@ -2,9 +2,11 @@ import 'package:bloc/bloc.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/param/casule_param.dart';
 import 'package:two_dashboard/core/param/project_param.dart';
+import 'package:two_dashboard/core/param/status_param.dart';
 import 'package:two_dashboard/core/param/team_param.dart';
 import 'package:two_dashboard/core/services/shared_preferences_services.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/show_project_edit_request_response_model.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/status/status_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/team_entity.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/approved_project_usecase.dart';
@@ -17,6 +19,10 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/u
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_project_edit_request_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_public_projects_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_user_projects_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/create_status_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/delete_status_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/show_status_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/update_status_order_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/team/add_members_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/team/add_team_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/team/create_team_usecase.dart';
@@ -38,6 +44,11 @@ class ProjectAndTeamBloc
   final ShowPendedProjectUsecase showPendedProjectUsecase;
   final ShowPublicProjectsUsecase showPublicProjectsUsecase;
   final ShowUserProjectsUsecase showUserProjectsUsecase;
+  // Status Usecase
+  final CreateStatusUsecase createStatusUsecase;
+  final DeleteStatusUsecase deleteStatusUsecase;
+  final UpdateStatusOrderUsecase updateStatusOrderUsecase;
+  final ShowStatusUsecase showStatusUsecase;
   // Team Usecase
   final CreateTeamUsecase createTeamUsecase;
   final AddMembersUsecase addMembersUsecase;
@@ -55,6 +66,10 @@ class ProjectAndTeamBloc
     this.showPendedProjectUsecase,
     this.showPublicProjectsUsecase,
     this.showUserProjectsUsecase,
+    this.createStatusUsecase,
+    this.deleteStatusUsecase,
+    this.updateStatusOrderUsecase,
+    this.showStatusUsecase,
     this.createTeamUsecase,
     this.addMembersUsecase,
     this.showTeamsUsecase,
@@ -301,6 +316,110 @@ class ProjectAndTeamBloc
         emit(
           state.copyWith(userProjectsListStatus: CasualStatus.not_authorized),
         );
+      }
+    });
+    // ** STATUS SIDE ** //
+    // Create Status
+    on<CreateStatusEvent>((event, emit) async {
+      emit(state.copyWith(createStatus: CasualStatus.loading));
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await createStatusUsecase.call(
+          CreateStatusParam(
+            projectId: event.projectId,
+            name: event.statusName,
+            token: token,
+          ),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              createStatus: CasualStatus.failure,
+              message: l.message,
+              statusNum: l.hashCode,
+            ),
+          ),
+          (r) => emit(state.copyWith(createStatus: CasualStatus.success)),
+        );
+      } else {
+        emit(state.copyWith(createStatus: CasualStatus.not_authorized));
+      }
+    });
+    // Delete Status
+    on<DeleteStatusEvent>((event, emit) async {
+      emit(state.copyWith(deleteStatus: CasualStatus.loading));
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await deleteStatusUsecase.call(
+          DeleteStatusParam(
+            token: token,
+            projectId: event.projectId,
+            statusId: event.statusId,
+          ),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              deleteStatus: CasualStatus.failure,
+              message: l.message,
+              statusNum: l.hashCode,
+            ),
+          ),
+          (r) => emit(state.copyWith(deleteStatus: CasualStatus.success)),
+        );
+      } else {
+        emit(state.copyWith(deleteStatus: CasualStatus.not_authorized));
+      }
+    });
+    // Update Status Order
+    on<UpdateStatusOrderEvent>((event, emit) async {
+      emit(state.copyWith(updateOrderStatus: CasualStatus.loading));
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await updateStatusOrderUsecase.call(
+          UpdateStatusOrderParam(
+            token: token,
+            projectId: event.projectId,
+            statusId: event.statusId,
+            newOrder: event.newOrder,
+          ),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              updateOrderStatus: CasualStatus.failure,
+              message: l.message,
+              statusNum: l.hashCode,
+            ),
+          ),
+          (r) => emit(state.copyWith(updateOrderStatus: CasualStatus.success)),
+        );
+      } else {
+        emit(state.copyWith(updateOrderStatus: CasualStatus.not_authorized));
+      }
+    });
+    // Show Project Status
+    on<ShowProjectStatusEvent>((event, emit) async {
+      emit(state.copyWith(showStatus: CasualStatus.loading));
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await showStatusUsecase.call(
+          TokenWithIdParam(token: token, id: event.projectId),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              showStatus: CasualStatus.failure,
+              message: l.message,
+              statusNum: l.hashCode,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(showStatus: CasualStatus.success, showStatusList: r),
+          ),
+        );
+      } else {
+        emit(state.copyWith(showStatus: CasualStatus.not_authorized));
       }
     });
     // *** TEAM SIDE *** //

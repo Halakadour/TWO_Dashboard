@@ -1,6 +1,5 @@
-class CreateOrUpdateSprintParam {
-  final String? token;
-  final int? sprintId;
+class CreateSprintParam {
+  final String token;
   final String lable;
   final String description;
   final String goal;
@@ -9,9 +8,32 @@ class CreateOrUpdateSprintParam {
   final int projectId;
   final String status;
 
-  CreateOrUpdateSprintParam({
-    this.token,
-    this.sprintId,
+  CreateSprintParam({
+    required this.token,
+    required this.lable,
+    required this.description,
+    required this.goal,
+    required this.start,
+    required this.end,
+    required this.projectId,
+    required this.status,
+  });
+}
+
+class UpdateSprintParam {
+  final String token;
+  final int sprintId;
+  final String lable;
+  final String description;
+  final String goal;
+  final String start;
+  final String end;
+  final int projectId;
+  final String status;
+
+  UpdateSprintParam({
+    required this.sprintId,
+    required this.token,
     required this.lable,
     required this.description,
     required this.goal,

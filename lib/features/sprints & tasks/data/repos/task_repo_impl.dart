@@ -13,7 +13,7 @@ class TaskRepoImpl extends TaskRepo {
 
   final TaskRemoteDatasource taskRemoteDatasource;
   @override
-  Future<Either<Failure, Unit>> createTask(CreateOrUpdateTaskParam param) {
+  Future<Either<Failure, Unit>> createTask(CreateTaskParam param) {
     return wrapHandling(
       tryCall: () async {
         await taskRemoteDatasource.createTask(param);
@@ -79,7 +79,7 @@ class TaskRepoImpl extends TaskRepo {
   }
 
   @override
-  Future<Either<Failure, Unit>> updateTask(CreateOrUpdateTaskParam param) {
+  Future<Either<Failure, Unit>> updateTask(UpdateTaskParam param) {
     return wrapHandling(
       tryCall: () async {
         await taskRemoteDatasource.updateTask(param);

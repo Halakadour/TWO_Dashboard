@@ -1,6 +1,5 @@
-class CreateOrUpdateTaskParam {
-  final String? token;
-  final int? taskId;
+class CreateTaskParam {
+  final String token;
   final String title;
   final String description;
   final int projectId;
@@ -12,9 +11,38 @@ class CreateOrUpdateTaskParam {
   final String startDate;
   final String endDate;
 
-  CreateOrUpdateTaskParam({
-    this.token,
-    this.taskId,
+  CreateTaskParam({
+    required this.token,
+    required this.title,
+    required this.description,
+    required this.projectId,
+    required this.sprintId,
+    required this.statusId,
+    required this.userId,
+    required this.priority,
+    required this.completion,
+    required this.startDate,
+    required this.endDate,
+  });
+}
+
+class UpdateTaskParam {
+  final int taskId;
+  final String token;
+  final String title;
+  final String description;
+  final int projectId;
+  final int sprintId;
+  final int statusId;
+  final int userId;
+  final String priority;
+  final double completion;
+  final String startDate;
+  final String endDate;
+
+  UpdateTaskParam({
+    required this.taskId,
+    required this.token,
     required this.title,
     required this.description,
     required this.projectId,

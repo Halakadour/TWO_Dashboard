@@ -5,12 +5,12 @@ import 'package:two_dashboard/core/usecases/use_case.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/repos/task_repo.dart';
 
 class UpdateTaskUsecase
-    extends UseCase<Future<Either<Failure, Unit>>, CreateOrUpdateTaskParam> {
+    extends UseCase<Future<Either<Failure, Unit>>, UpdateTaskParam> {
   UpdateTaskUsecase(this.taskRepo);
   final TaskRepo taskRepo;
 
   @override
-  Future<Either<Failure, Unit>> call(CreateOrUpdateTaskParam param) {
+  Future<Either<Failure, Unit>> call(UpdateTaskParam param) {
     return taskRepo.updateTask(param);
   }
 }

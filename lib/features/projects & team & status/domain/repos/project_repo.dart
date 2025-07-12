@@ -9,9 +9,9 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/e
 
 abstract class ProjectRepo with HandlingExceptionManager {
   Future<Either<Failure, ProjectEntity>> createProject(
-    CreateOrUpdateProjectParam param,
+    UpdateProjectParam param,
   );
-  Future<Either<Failure, Unit>> updateProject(CreateOrUpdateProjectParam param);
+  Future<Either<Failure, Unit>> updateProject(UpdateProjectParam param);
   Future<Either<Failure, Unit>> deleteProject(TokenWithIdParam project);
   Future<Either<Failure, List<ProjectEntity>>> showPublicProjects();
   Future<Either<Failure, List<ProjectEntity>>> showAllProjects(String token);

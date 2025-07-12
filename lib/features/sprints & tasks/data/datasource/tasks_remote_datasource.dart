@@ -11,10 +11,8 @@ import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/task/crea
 import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/task/show_task_list_response_model.dart';
 
 abstract class TaskRemoteDatasource {
-  Future<CreateAndShowTaskResponseModel> createTask(
-    CreateOrUpdateTaskParam param,
-  );
-  Future<EmptyResponseModel> updateTask(CreateOrUpdateTaskParam param);
+  Future<CreateAndShowTaskResponseModel> createTask(CreateTaskParam param);
+  Future<EmptyResponseModel> updateTask(UpdateTaskParam param);
   Future<EmptyResponseModel> deleteTask(TokenWithIdParam task);
   Future<CreateAndShowTaskResponseModel> showTask(TokenWithIdParam task);
   Future<ShowTaskListResponseModel> showProjectTasks(TokenWithIdParam project);
@@ -43,11 +41,11 @@ abstract class TaskRemoteDatasource {
 class TaskRemoteDatasourceImpl extends TaskRemoteDatasource {
   @override
   Future<CreateAndShowTaskResponseModel> createTask(
-    CreateOrUpdateTaskParam param,
+    CreateTaskParam param,
   ) async {
     final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/create/task"),
-      token: param.token!,
+      token: param.token,
       body: ({
         'title': param.title,
         'description': param.description,
@@ -138,10 +136,10 @@ class TaskRemoteDatasourceImpl extends TaskRemoteDatasource {
   }
 
   @override
-  Future<EmptyResponseModel> updateTask(CreateOrUpdateTaskParam param) async {
+  Future<EmptyResponseModel> updateTask(UpdateTaskParam param) async {
     final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/update/task"),
-      token: param.token!,
+      token: param.token,
       body: ({
         'title': param.title,
         'description': param.description,

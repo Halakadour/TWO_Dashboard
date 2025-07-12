@@ -9,9 +9,9 @@ import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/sprint/sh
 
 abstract class SprintsRemoteDatasource {
   Future<CreateAndShowSprintResponseModel> createSprint(
-    CreateOrUpdateSprintParam param,
+    CreateSprintParam param,
   );
-  Future<EmptyResponseModel> updateSprint(CreateOrUpdateSprintParam param);
+  Future<EmptyResponseModel> updateSprint(UpdateSprintParam param);
   Future<EmptyResponseModel> deleteSprint(TokenWithIdParam sprint);
   Future<EmptyResponseModel> startSprint(StartSprintParam param);
   Future<EmptyResponseModel> completeSprint(CompleteSprintParam param);
@@ -32,11 +32,11 @@ abstract class SprintsRemoteDatasource {
 class SprintsRemoteDatasourceImpl extends SprintsRemoteDatasource {
   @override
   Future<CreateAndShowSprintResponseModel> createSprint(
-    CreateOrUpdateSprintParam param,
+    CreateSprintParam param,
   ) async {
     final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/create/sprint"),
-      token: param.token!,
+      token: param.token,
       body: ({
         'label': param.lable,
         'description': param.description,
@@ -86,12 +86,10 @@ class SprintsRemoteDatasourceImpl extends SprintsRemoteDatasource {
   }
 
   @override
-  Future<EmptyResponseModel> updateSprint(
-    CreateOrUpdateSprintParam param,
-  ) async {
+  Future<EmptyResponseModel> updateSprint(UpdateSprintParam param) async {
     final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/update/sprint"),
-      token: param.token!,
+      token: param.token,
       body: ({
         'label': param.lable,
         'description': param.description,

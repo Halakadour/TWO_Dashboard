@@ -4,13 +4,13 @@ class ProjectAndTeamEvent {}
 
 // Project Events
 class CreateProjectEvent extends ProjectAndTeamEvent {
-  CreateOrUpdateProjectParam param;
+  UpdateProjectParam param;
 
   CreateProjectEvent({required this.param});
 }
 
 class UpdateProjectEvent extends ProjectAndTeamEvent {
-  CreateOrUpdateProjectParam param;
+  UpdateProjectParam param;
 
   UpdateProjectEvent({required this.param});
 }
@@ -55,17 +55,40 @@ class ShowUserProjectsEvent extends ProjectAndTeamEvent {}
 
 class ShowPendedProjectsEvent extends ProjectAndTeamEvent {}
 
-class ShowToDoProjectsEvent extends ProjectAndTeamEvent {}
+// Status Events
+class CreateStatusEvent extends ProjectAndTeamEvent {
+  final int projectId;
+  final String statusName;
 
-class ShowInProgressProjectsEvent extends ProjectAndTeamEvent {}
+  CreateStatusEvent({required this.projectId, required this.statusName});
+}
 
-class ShowInReviewProjectsEvent extends ProjectAndTeamEvent {}
+class DeleteStatusEvent extends ProjectAndTeamEvent {
+  final int projectId;
+  final int statusId;
 
-class ShowCompletedProjectsEvent extends ProjectAndTeamEvent {}
+  DeleteStatusEvent({required this.projectId, required this.statusId});
+}
 
-class ShowCanceledProjectsEvent extends ProjectAndTeamEvent {}
+class UpdateStatusOrderEvent extends ProjectAndTeamEvent {
+  final int projectId;
+  final int statusId;
+  final int newOrder;
 
-// Team Event
+  UpdateStatusOrderEvent({
+    required this.projectId,
+    required this.statusId,
+    required this.newOrder,
+  });
+}
+
+class ShowProjectStatusEvent extends ProjectAndTeamEvent {
+  final int projectId;
+
+  ShowProjectStatusEvent({required this.projectId});
+}
+
+// Team Events
 class CreateTeamEvent extends ProjectAndTeamEvent {
   final String name;
   final int mgrId;

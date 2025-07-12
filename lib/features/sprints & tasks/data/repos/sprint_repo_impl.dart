@@ -11,7 +11,7 @@ class SprintRepoImpl extends SprintRepo {
 
   final SprintsRemoteDatasource sprintsRemoteDatasource;
   @override
-  Future<Either<Failure, Unit>> createSprint(CreateOrUpdateSprintParam param) {
+  Future<Either<Failure, Unit>> createSprint(CreateSprintParam param) {
     return wrapHandling(
       tryCall: () async {
         sprintsRemoteDatasource.createSprint(param);
@@ -57,7 +57,7 @@ class SprintRepoImpl extends SprintRepo {
   }
 
   @override
-  Future<Either<Failure, Unit>> updateSprint(CreateOrUpdateSprintParam param) {
+  Future<Either<Failure, Unit>> updateSprint(UpdateSprintParam param) {
     return wrapHandling(
       tryCall: () async {
         await sprintsRemoteDatasource.updateSprint(param);

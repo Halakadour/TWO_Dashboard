@@ -9,17 +9,12 @@ import '../../../../../core/error/failures.dart';
 
 class CreateProjectUsecase
     extends
-        UseCase<
-          Future<Either<Failure, ProjectEntity>>,
-          CreateOrUpdateProjectParam
-        > {
+        UseCase<Future<Either<Failure, ProjectEntity>>, UpdateProjectParam> {
   final ProjectRepo projectRepo;
 
   CreateProjectUsecase(this.projectRepo);
   @override
-  Future<Either<Failure, ProjectEntity>> call(
-    CreateOrUpdateProjectParam param,
-  ) {
+  Future<Either<Failure, ProjectEntity>> call(UpdateProjectParam param) {
     return projectRepo.createProject(param);
   }
 }

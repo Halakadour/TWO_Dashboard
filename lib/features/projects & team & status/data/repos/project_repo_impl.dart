@@ -14,7 +14,7 @@ class ProjectRepoImpl extends ProjectRepo {
   ProjectRepoImpl(this.projectRemoteDataSource);
   @override
   Future<Either<Failure, ProjectEntity>> createProject(
-    CreateOrUpdateProjectParam param,
+    UpdateProjectParam param,
   ) {
     return wrapHandling(
       tryCall: () async {
@@ -66,9 +66,7 @@ class ProjectRepoImpl extends ProjectRepo {
   }
 
   @override
-  Future<Either<Failure, Unit>> updateProject(
-    CreateOrUpdateProjectParam param,
-  ) {
+  Future<Either<Failure, Unit>> updateProject(UpdateProjectParam param) {
     return wrapHandling(
       tryCall: () async {
         await projectRemoteDataSource.updateProject(param);

@@ -6,8 +6,8 @@ import 'package:two_dashboard/core/param/sprint_param.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/sprint_entity.dart';
 
 abstract class SprintRepo with HandlingExceptionManager {
-  Future<Either<Failure, Unit>> createSprint(CreateOrUpdateSprintParam param);
-  Future<Either<Failure, Unit>> updateSprint(CreateOrUpdateSprintParam param);
+  Future<Either<Failure, Unit>> createSprint(CreateSprintParam param);
+  Future<Either<Failure, Unit>> updateSprint(UpdateSprintParam param);
   Future<Either<Failure, Unit>> deleteSprint(TokenWithIdParam sprint);
   Future<Either<Failure, Unit>> startSprint(StartSprintParam param);
   Future<Either<Failure, Unit>> completeSprint(CompleteSprintParam param);

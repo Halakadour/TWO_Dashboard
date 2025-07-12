@@ -8,8 +8,8 @@ import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/sprint/sp
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/task_entity.dart';
 
 abstract class TaskRepo with HandlingExceptionManager {
-  Future<Either<Failure, Unit>> createTask(CreateOrUpdateTaskParam param);
-  Future<Either<Failure, Unit>> updateTask(CreateOrUpdateTaskParam param);
+  Future<Either<Failure, Unit>> createTask(CreateTaskParam param);
+  Future<Either<Failure, Unit>> updateTask(UpdateTaskParam param);
   Future<Either<Failure, Unit>> deleteTask(TokenWithIdParam task);
   Future<Either<Failure, TaskEntity>> showTaskDetails(TokenWithIdParam task);
   Future<Either<Failure, List<TaskEntity>>> showProjectTasks(

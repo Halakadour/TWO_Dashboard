@@ -6,13 +6,13 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/r
 import '../../../../../core/error/failures.dart';
 
 class UpdateProjectUsecase
-    extends UseCase<Future<Either<Failure, Unit>>, CreateOrUpdateProjectParam> {
+    extends UseCase<Future<Either<Failure, Unit>>, UpdateProjectParam> {
   final ProjectRepo projectRepo;
 
   UpdateProjectUsecase(this.projectRepo);
 
   @override
-  Future<Either<Failure, Unit>> call(CreateOrUpdateProjectParam param) {
+  Future<Either<Failure, Unit>> call(UpdateProjectParam param) {
     return projectRepo.updateProject(param);
   }
 }

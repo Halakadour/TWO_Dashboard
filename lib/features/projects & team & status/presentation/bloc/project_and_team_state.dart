@@ -1,7 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'project_and_team_bloc.dart';
 
 class ProjectAndTeamState {
+  final int? statusNum;
   final String message;
   // Project State
   final CasualStatus createProjectStatus;
@@ -12,27 +12,23 @@ class ProjectAndTeamState {
   final CasualStatus editRequestProjectStatus;
   final CasualStatus editProjectRequestsListStatus;
   final List<MessageModel> editProjectRequestsList;
-  // public & private project List
+  // Public & Private Project List
   final List<ProjectEntity> publicProjectsList;
   final CasualStatus publicProjectsListStatus;
   final List<ProjectEntity> allProjectsList;
   final CasualStatus allProjectsListStatus;
-  // Project Lists Block
+  // Pended Project Lists
   final List<ProjectEntity> pendedProjectList;
   final CasualStatus pendedProjectListStatus;
-  final List<ProjectEntity> toDoProjectList;
-  final CasualStatus toDoProjectListStatus;
-  final List<ProjectEntity> inProgressProjectList;
-  final CasualStatus inProgressProjectListStatus;
-  final List<ProjectEntity> inReviewProjectList;
-  final CasualStatus inReviewProjectListStatus;
-  final List<ProjectEntity> completedProjectList;
-  final CasualStatus completedProjectListStatus;
-  final List<ProjectEntity> canceldProjectList;
-  final CasualStatus canceledProjectListStatus;
   // My Project List
   final List<ProjectEntity> userProjectsList;
   final CasualStatus userProjectsListStatus;
+  // Status State
+  final CasualStatus createStatus;
+  final CasualStatus deleteStatus;
+  final CasualStatus updateOrderStatus;
+  final CasualStatus showStatus;
+  final List<StatusModel> showStatusList;
   // Team State
   final CasualStatus createTeamStatus;
   final CasualStatus addMemersStatus;
@@ -41,6 +37,7 @@ class ProjectAndTeamState {
   final CasualStatus addTeamStatus;
 
   ProjectAndTeamState({
+    this.statusNum,
     this.message = "",
     this.createProjectStatus = CasualStatus.initial,
     this.updateProjectStatus = CasualStatus.initial,
@@ -54,20 +51,15 @@ class ProjectAndTeamState {
     this.publicProjectsListStatus = CasualStatus.initial,
     this.allProjectsList = const [],
     this.allProjectsListStatus = CasualStatus.initial,
-    this.pendedProjectListStatus = CasualStatus.initial,
     this.pendedProjectList = const [],
-    this.toDoProjectListStatus = CasualStatus.initial,
-    this.toDoProjectList = const [],
-    this.inProgressProjectListStatus = CasualStatus.initial,
-    this.inProgressProjectList = const [],
-    this.inReviewProjectListStatus = CasualStatus.initial,
-    this.inReviewProjectList = const [],
-    this.completedProjectListStatus = CasualStatus.initial,
-    this.completedProjectList = const [],
-    this.canceledProjectListStatus = CasualStatus.initial,
-    this.canceldProjectList = const [],
+    this.pendedProjectListStatus = CasualStatus.initial,
     this.userProjectsList = const [],
     this.userProjectsListStatus = CasualStatus.initial,
+    this.createStatus = CasualStatus.initial,
+    this.deleteStatus = CasualStatus.initial,
+    this.updateOrderStatus = CasualStatus.initial,
+    this.showStatusList = const [],
+    this.showStatus = CasualStatus.initial,
     this.createTeamStatus = CasualStatus.initial,
     this.addMemersStatus = CasualStatus.initial,
     this.showTeamsStatus = CasualStatus.initial,
@@ -76,6 +68,7 @@ class ProjectAndTeamState {
   });
 
   ProjectAndTeamState copyWith({
+    int? statusNum,
     String? message,
     CasualStatus? createProjectStatus,
     CasualStatus? updateProjectStatus,
@@ -91,18 +84,13 @@ class ProjectAndTeamState {
     CasualStatus? allProjectsListStatus,
     List<ProjectEntity>? pendedProjectList,
     CasualStatus? pendedProjectListStatus,
-    List<ProjectEntity>? toDoProjectList,
-    CasualStatus? toDoProjectListStatus,
-    List<ProjectEntity>? inProgressProjectList,
-    CasualStatus? inProgressProjectListStatus,
-    List<ProjectEntity>? inReviewProjectList,
-    CasualStatus? inReviewProjectListStatus,
-    List<ProjectEntity>? completedProjectList,
-    CasualStatus? completedProjectListStatus,
-    List<ProjectEntity>? canceldProjectList,
-    CasualStatus? canceledProjectListStatus,
     List<ProjectEntity>? userProjectsList,
     CasualStatus? userProjectsListStatus,
+    CasualStatus? createStatus,
+    CasualStatus? deleteStatus,
+    CasualStatus? updateOrderStatus,
+    CasualStatus? showStatus,
+    List<StatusModel>? showStatusList,
     CasualStatus? createTeamStatus,
     CasualStatus? addMemersStatus,
     CasualStatus? showTeamsStatus,
@@ -110,6 +98,7 @@ class ProjectAndTeamState {
     CasualStatus? addTeamStatus,
   }) {
     return ProjectAndTeamState(
+      statusNum: statusNum ?? this.statusNum,
       message: message ?? this.message,
       createProjectStatus: createProjectStatus ?? this.createProjectStatus,
       updateProjectStatus: updateProjectStatus ?? this.updateProjectStatus,
@@ -131,25 +120,14 @@ class ProjectAndTeamState {
       pendedProjectList: pendedProjectList ?? this.pendedProjectList,
       pendedProjectListStatus:
           pendedProjectListStatus ?? this.pendedProjectListStatus,
-      toDoProjectList: toDoProjectList ?? this.toDoProjectList,
-      toDoProjectListStatus:
-          toDoProjectListStatus ?? this.toDoProjectListStatus,
-      inProgressProjectList:
-          inProgressProjectList ?? this.inProgressProjectList,
-      inProgressProjectListStatus:
-          inProgressProjectListStatus ?? this.inProgressProjectListStatus,
-      inReviewProjectList: inReviewProjectList ?? this.inReviewProjectList,
-      inReviewProjectListStatus:
-          inReviewProjectListStatus ?? this.inReviewProjectListStatus,
-      completedProjectList: completedProjectList ?? this.completedProjectList,
-      completedProjectListStatus:
-          completedProjectListStatus ?? this.completedProjectListStatus,
-      canceldProjectList: canceldProjectList ?? this.canceldProjectList,
-      canceledProjectListStatus:
-          canceledProjectListStatus ?? this.canceledProjectListStatus,
       userProjectsList: userProjectsList ?? this.userProjectsList,
       userProjectsListStatus:
           userProjectsListStatus ?? this.userProjectsListStatus,
+      createStatus: createStatus ?? this.createStatus,
+      deleteStatus: deleteStatus ?? this.deleteStatus,
+      updateOrderStatus: updateOrderStatus ?? this.updateOrderStatus,
+      showStatus: showStatus ?? this.showStatus,
+      showStatusList: showStatusList ?? this.showStatusList,
       createTeamStatus: createTeamStatus ?? this.createTeamStatus,
       addMemersStatus: addMemersStatus ?? this.addMemersStatus,
       showTeamsStatus: showTeamsStatus ?? this.showTeamsStatus,

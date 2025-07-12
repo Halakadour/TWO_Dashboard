@@ -59,7 +59,10 @@ import 'package:two_dashboard/features/profile/domain/usecases/show_users_usecas
 import 'package:two_dashboard/features/profile/domain/usecases/toggle_user_approved_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/update_employee_profile_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/datasource/project_remote_data_source.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/datasource/status_remote_data_source.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/repos/status_repo_impl.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/repos/project_repo.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/repos/status_repo.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/repos/team_repo.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/approved_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/delete_project_usecase.dart';
@@ -70,6 +73,10 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/u
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_project_edit_request_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_public_projects_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_user_projects_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/create_status_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/delete_status_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/show_status_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/update_status_order_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/team/add_members_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/team/add_team_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/team/create_team_usecase.dart';
@@ -298,9 +305,13 @@ Future<void> init() async {
       sl(),
       sl(),
       sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
     ),
   );
-  // Usecase
+  // Project Usecase
   sl.registerLazySingleton(() => CreateProjectUsecase(sl()));
   sl.registerLazySingleton(() => DeleteProjectUsecase(sl()));
   sl.registerLazySingleton(() => ApproveProjectUsecase(sl()));
@@ -311,6 +322,12 @@ Future<void> init() async {
   sl.registerLazySingleton(() => ShowPendedProjectUsecase(sl()));
   sl.registerLazySingleton(() => ShowPublicProjectsUsecase(sl()));
   sl.registerLazySingleton(() => ShowUserProjectsUsecase(sl()));
+  // Status Usecase
+  sl.registerLazySingleton(() => CreateStatusUsecase(sl()));
+  sl.registerLazySingleton(() => DeleteStatusUsecase(sl()));
+  sl.registerLazySingleton(() => UpdateStatusOrderUsecase(sl()));
+  sl.registerLazySingleton(() => ShowStatusUsecase(sl()));
+  // Team Usecase
   sl.registerLazySingleton(() => CreateTeamUsecase(sl()));
   sl.registerLazySingleton(() => AddMembersUsecase(sl()));
   sl.registerLazySingleton(() => ShowTeamsUsecase(sl()));
@@ -318,10 +335,14 @@ Future<void> init() async {
 
   // Repo
   sl.registerLazySingleton<ProjectRepo>(() => ProjectRepoImpl(sl()));
+  sl.registerLazySingleton<StatusRepo>(() => StatusRepoImpl(sl()));
   sl.registerLazySingleton<TeamRepo>(() => TeamRepoImpl(sl()));
   // Datasource
   sl.registerLazySingleton<ProjectRemoteDataSource>(
     () => ProjectRemoteDataSourceImpl(),
+  );
+  sl.registerLazySingleton<StatusRemoteDataSource>(
+    () => StatusRemoteDataSourceImpl(),
   );
   sl.registerLazySingleton<TeamRemoteDataSource>(
     () => TeamRemoteDataSourceImpl(),

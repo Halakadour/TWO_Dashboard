@@ -11,10 +11,8 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/mod
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/show_project_response_model.dart';
 
 abstract class ProjectRemoteDataSource {
-  Future<CreateProjectResponseModel> createProject(
-    CreateOrUpdateProjectParam param,
-  );
-  Future<EmptyResponseModel> updateProject(CreateOrUpdateProjectParam param);
+  Future<CreateProjectResponseModel> createProject(UpdateProjectParam param);
+  Future<EmptyResponseModel> updateProject(UpdateProjectParam param);
   Future<EmptyResponseModel> deleteProject(TokenWithIdParam project);
   Future<ShowProjectsResponseModel> showPublicProjects();
   Future<ShowProjectsResponseModel> showAllProjects(String token);
@@ -34,7 +32,7 @@ abstract class ProjectRemoteDataSource {
 class ProjectRemoteDataSourceImpl extends ProjectRemoteDataSource {
   @override
   Future<CreateProjectResponseModel> createProject(
-    CreateOrUpdateProjectParam param,
+    UpdateProjectParam param,
   ) async {
     final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/create/project"),
@@ -99,9 +97,7 @@ class ProjectRemoteDataSourceImpl extends ProjectRemoteDataSource {
   }
 
   @override
-  Future<EmptyResponseModel> updateProject(
-    CreateOrUpdateProjectParam param,
-  ) async {
+  Future<EmptyResponseModel> updateProject(UpdateProjectParam param) async {
     final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/update/project"),
       token: param.token,

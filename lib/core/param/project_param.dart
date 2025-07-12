@@ -1,5 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-class CreateOrUpdateProjectParam {
+class UpdateProjectParam {
   final String token;
   final int projectId;
   final String fullName;
@@ -15,7 +14,7 @@ class CreateOrUpdateProjectParam {
   final String cooperationType;
   final String contactTime;
   final int visibility;
-  CreateOrUpdateProjectParam({
+  UpdateProjectParam({
     required this.token,
     required this.projectId,
     required this.fullName,
