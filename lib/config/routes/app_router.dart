@@ -12,12 +12,18 @@ import 'package:two_dashboard/features/contracts/presentation/pages/create-contr
 import 'package:two_dashboard/features/contracts/presentation/pages/create_draft_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/drafts_page.dart';
 import 'package:two_dashboard/features/dashboard/presentation/pages/dashboard_page.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/create_project_page.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/create_team_page.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/all_projects_page.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/project_details_page.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/select_team_page.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/update_project_page.dart';
 import 'package:two_dashboard/features/services/presentation/pages/update-service/update_service_page.dart';
-import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/task_page.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/create_sprint_page.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/create_task_page.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/sprint_details_page.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/task_details_page.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/update_sprint_page.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/update_task_page.dart';
 import 'package:two_dashboard/root_page.dart';
 import 'package:two_dashboard/features/posts/presentation/pages/create-post/create_post_page.dart';
 import 'package:two_dashboard/features/posts/presentation/pages/post_replies_page.dart';
@@ -29,7 +35,7 @@ import 'package:two_dashboard/features/services/presentation/pages/services_page
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/login',
+    initialLocation: '/projectDetails',
     routes: [
       // AUTH PAGES
       GoRoute(
@@ -70,9 +76,44 @@ class AppRouter {
                 builder: (context, state) => const AllProjectPage(),
               ),
               GoRoute(
-                name: AppRouteConfig.createProject,
-                path: '/createProject',
-                builder: (context, state) => const CreateProjectPage(),
+                name: AppRouteConfig.projectDetails,
+                path: '/projectDetails',
+                builder: (context, state) => const ProjectDetailsPage(),
+              ),
+              GoRoute(
+                name: AppRouteConfig.updateProject,
+                path: '/updateProject',
+                builder: (context, state) => const UpdateProjectPage(),
+              ),
+              GoRoute(
+                name: AppRouteConfig.createSprint,
+                path: '/createSprint',
+                builder: (context, state) => const CreateSprintPage(),
+              ),
+              GoRoute(
+                name: AppRouteConfig.createTask,
+                path: '/createTask',
+                builder: (context, state) => const CreateTaskPage(),
+              ),
+              GoRoute(
+                name: AppRouteConfig.updateSprint,
+                path: '/updateSprint',
+                builder: (context, state) => const UpdateSprintPage(),
+              ),
+              GoRoute(
+                name: AppRouteConfig.updateTask,
+                path: '/updateTask',
+                builder: (context, state) => const UpdateTaskPage(),
+              ),
+              GoRoute(
+                name: AppRouteConfig.sprintDetails,
+                path: '/sprintDetails',
+                builder: (context, state) => const SprintDetailsPage(),
+              ),
+              GoRoute(
+                name: AppRouteConfig.taskDetails,
+                path: '/taskDetails',
+                builder: (context, state) => const TaskDetailsPage(),
               ),
               GoRoute(
                 name: AppRouteConfig.selectTeam,
@@ -109,36 +150,6 @@ class AppRouter {
               ),
             ],
           ),
-          // Tasks Branch
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                name: AppRouteConfig.tasks,
-                path: '/tasks',
-                builder: (context, state) => const TaskPage(),
-              ),
-            ],
-          ),
-          // Calendar Branch
-          // StatefulShellBranch(
-          //   routes: [
-          //     GoRoute(
-          //       name: AppRouteConfig.calendar,
-          //       path: '/calendar',
-          //       builder: (context, state) => CalendarPage(),
-          //     ),
-          //   ],
-          // ),
-          // Inbox Branch
-          // StatefulShellBranch(
-          //   routes: [
-          //     GoRoute(
-          //       name: AppRouteConfig.inbox,
-          //       path: '/inbox',
-          //       builder: (context, state) => const InboxPage(),
-          //     ),
-          //   ],
-          // ),
           // Acounts Branch
           StatefulShellBranch(
             routes: [

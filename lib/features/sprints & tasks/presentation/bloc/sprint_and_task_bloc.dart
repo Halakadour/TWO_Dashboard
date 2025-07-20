@@ -95,7 +95,6 @@ class SprintAndTaskBloc extends Bloc<SprintAndTaskEvent, SprintAndTaskState> {
             start: event.start,
             end: event.end,
             projectId: event.projectId,
-            status: event.status,
           ),
         );
         result.fold(

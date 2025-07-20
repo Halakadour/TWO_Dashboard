@@ -15,12 +15,14 @@ class DateField extends StatelessWidget {
     this.date,
     required this.onTap,
   });
+
   final String label;
   final DateTime? date;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
+    final hasDate = date != null;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -36,12 +38,11 @@ class DateField extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  date != null ? HelperFunctions.formatDate(date!) : label,
+                  hasDate
+                      ? "${HelperFunctions.formatDate(date!)} - ${TimeOfDay.fromDateTime(date!).format(context)}"
+                      : label,
                   style: AppTextStyle.bodySm(
-                    color:
-                        date != null
-                            ? AppColors.black
-                            : AppColors.fontLightGray,
+                    color: hasDate ? AppColors.black : AppColors.fontLightGray,
                   ),
                 ),
                 const Icon(Iconsax.calendar_1, size: SizesConfig.iconsSm),

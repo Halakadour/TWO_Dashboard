@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:two_dashboard/core/widgets/images/group_of_image_circle.dart';
+import 'package:two_dashboard/core/widgets/images/image_circle.dart';
 
 import '../../../../config/constants/padding_config.dart';
 import '../../../../config/constants/sizes_config.dart';
@@ -8,7 +8,6 @@ import '../../../../config/theme/text_style.dart';
 import '../../../../core/functions/device_utility.dart';
 import '../../../../core/network/enums.dart';
 import '../../../../core/widgets/container/status-containers/priority_container.dart';
-import 'comments_box.dart';
 import 'custom_progress_bar.dart';
 
 class ProjectCard extends StatelessWidget {
@@ -30,13 +29,6 @@ class ProjectCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // task Image
-            // Image.asset(
-            //   ImagesPath.design,
-            //   height: 180,
-            //   width: double.infinity,
-            //   fit: BoxFit.cover,
-            // ),
             PaddingConfig.h16,
             // Task Details
             Padding(
@@ -57,34 +49,40 @@ class ProjectCard extends StatelessWidget {
                   PaddingConfig.h16,
                   // Progress Bar
                   CustomProgressBar(
-                    colorStatus: colorStatus,
                     lintWidth:
                         DeviceUtility.isMobileScreen(context)
                             ? DeviceUtility.getScreenWidth(context) * 0.45
                             : DeviceUtility.getScreenWidth(context) * 0.12,
                   ),
                   PaddingConfig.h16,
-                  SizedBox(
-                    width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // user image
-                        Expanded(
-                          child: GroupOfImageCircle(
-                            imagePaths: ["", "", "", "", "", ""],
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            CommentsBox(),
-                            PaddingConfig.w8,
-                            PriorityContainer(priority: Priority.low),
-                          ],
-                        ),
-                      ],
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ImageCircle(),
+                      PriorityContainer(priority: TaskPriority.low),
+                    ],
                   ),
+                  // SizedBox(
+                  //   width: double.infinity,
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     children: [
+                  //       // user image
+                  //       Expanded(
+                  //         child: GroupOfImageCircle(
+                  //           imagePaths: ["", "", "", "", "", ""],
+                  //         ),
+                  //       ),
+                  //       Row(
+                  //         children: [
+                  //           //CommentsBox(),
+                  //           PaddingConfig.w8,
+                  //           PriorityContainer(priority: Priority.low),
+                  //         ],
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                   PaddingConfig.h16,
                 ],
               ),

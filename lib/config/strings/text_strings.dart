@@ -15,6 +15,7 @@ class TextStrings {
   static const String posts = "Posts";
   static const String contactUs = "Contact Us";
   static const String setting = "Setting";
+  static const String forYou = "For You";
   static const String logout = "Logout";
 
   // --STATUS CONTAINERS

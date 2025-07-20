@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/team_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/breadcrumbs/breadcumbs_item.dart';
+import 'package:two_dashboard/core/widgets/divider/custom_page_divider.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_and_team_bloc.dart';
@@ -50,6 +51,7 @@ class _CreateTeamPageState extends State<CreateTeamPage> {
                   PageTitle(pageTitle: "Create Team"),
                 ],
               ),
+              CustomPageDivider(),
               PaddingConfig.h16,
               BlocListener<ProjectAndTeamBloc, ProjectAndTeamState>(
                 listener: (context, state) {

@@ -8,7 +8,7 @@ import '../custom_rounder_container.dart';
 
 class TaskStatusContainer extends StatelessWidget {
   const TaskStatusContainer({super.key, required this.taskStatus});
-  final WorkStatus taskStatus;
+  final TaskStatus taskStatus;
 
   @override
   Widget build(BuildContext context) {

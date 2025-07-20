@@ -11,7 +11,6 @@ class CreateSprintEvent extends SprintAndTaskEvent {
     required this.start,
     required this.end,
     required this.projectId,
-    required this.status,
   });
   final String lable;
   final String description;
@@ -19,7 +18,6 @@ class CreateSprintEvent extends SprintAndTaskEvent {
   final String start;
   final String end;
   final int projectId;
-  final String status;
 }
 
 class UpdateSprintEvent extends SprintAndTaskEvent {

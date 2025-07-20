@@ -4,9 +4,9 @@ class TaskEntity {
   final int id;
   final String title;
   final String description;
-  final WorkStatus taskStatus;
+  final TaskStatus taskStatus;
   final String assignedTo;
-  final Priority tPriority;
+  final TaskPriority tPriority;
   final double tCompletion;
   final DateTime startDate;
   final DateTime endDate;

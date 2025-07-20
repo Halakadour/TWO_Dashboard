@@ -17,7 +17,7 @@ class ProjectListView extends StatefulWidget {
 }
 
 class _ProjectListViewState extends State<ProjectListView> {
-  WorkStatus selectedStatus = WorkStatus.pended;
+  TaskStatus selectedStatus = TaskStatus.pended;
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +28,10 @@ class _ProjectListViewState extends State<ProjectListView> {
           spacing: 12,
           runSpacing: 12,
           children: [
-            _getTaskStatusBox(WorkStatus.pended, "9"),
-            _getTaskStatusBox(WorkStatus.inProgress, "9"),
-            _getTaskStatusBox(WorkStatus.inReview, "9"),
-            _getTaskStatusBox(WorkStatus.completed, "9"),
+            _getTaskStatusBox(TaskStatus.pended, "9"),
+            _getTaskStatusBox(TaskStatus.inProgress, "9"),
+            _getTaskStatusBox(TaskStatus.inReview, "9"),
+            _getTaskStatusBox(TaskStatus.completed, "9"),
           ],
         ),
         PaddingConfig.h16,
@@ -57,7 +57,7 @@ class _ProjectListViewState extends State<ProjectListView> {
     );
   }
 
-  Widget _getTaskStatusBox(WorkStatus projectStatus, String count) {
+  Widget _getTaskStatusBox(TaskStatus projectStatus, String count) {
     bool isSelected = selectedStatus == projectStatus;
 
     return GestureDetector(

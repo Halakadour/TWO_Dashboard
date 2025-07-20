@@ -18,7 +18,7 @@ class Breadcrumbs extends StatelessWidget {
           children: [
             if (index > 0)
               Text(
-                ' / ',
+                ' > ',
                 style: AppTextStyle.bodyXs(color: AppColors.fontLightGray),
               ),
             GestureDetector(
@@ -29,7 +29,7 @@ class Breadcrumbs extends StatelessWidget {
                 pages[index],
                 style: AppTextStyle.bodyXs(
                   color:
-                      isLast ? AppColors.greenShade2 : AppColors.fontLightGray,
+                      isLast ? AppColors.blueShade2 : AppColors.fontLightGray,
                 ),
               ),
             ),

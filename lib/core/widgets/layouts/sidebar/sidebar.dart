@@ -40,7 +40,7 @@ class _CustomSidebarState extends State<CustomSidebar> {
       shape: const BeveledRectangleBorder(),
       child: Container(
         decoration: const BoxDecoration(
-          color: AppColors.navy,
+          color: Colors.black,
           border: Border(right: BorderSide(color: AppColors.gray, width: 1)),
         ),
         child: SingleChildScrollView(
@@ -77,7 +77,7 @@ class _CustomSidebarState extends State<CustomSidebar> {
                       children: [
                         Expanded(
                           child: MenuItem(
-                            icon: IconsPath.paper,
+                            icon: IconsPath.task,
                             itemName: TextStrings.porojects,
                             pageNum: 1,
                             currentPage: widget.currentPageIndex,
@@ -128,115 +128,74 @@ class _CustomSidebarState extends State<CustomSidebar> {
                         ],
                       ),
                     ),
+                    PaddingConfig.h8,
+                    PaddingConfig.h8,
                     MenuItem(
-                      icon: IconsPath.task,
-                      itemName: TextStrings.sprintTasks,
+                      icon: IconsPath.threeUsers,
+                      itemName: TextStrings.members,
                       pageNum: 4,
                       currentPage: widget.currentPageIndex,
                       onTap: widget.onItemSelected,
                     ),
-                    // MenuItem(
-                    //   icon: IconsPath.calender,
-                    //   itemName: "Calender",
-                    //   pageNum: 4,
-                    //   currentPage: widget.currentPageIndex,
-                    //   onTap: widget.onItemSelected,
-                    // ),
-                    PaddingConfig.h8,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          TextStrings.company.toUpperCase(),
-                          style: AppTextStyle.bodySm(
-                            color: AppColors.white,
-                            letterSpacing: 1.2,
+                        Expanded(
+                          child: MenuItem(
+                            icon: IconsPath.paper,
+                            itemName: TextStrings.contracts,
+                            pageNum: 5,
+                            currentPage: widget.currentPageIndex,
+                            onTap: widget.onItemSelected,
                           ),
                         ),
                         VisibilityButton(
-                          isdown: campony,
+                          isdown: contracts,
                           onPressed: () {
                             setState(() {
-                              campony = !campony;
+                              contracts = !contracts;
                             });
                           },
                         ),
                       ],
                     ),
-                    PaddingConfig.h8,
                     Visibility(
-                      visible: campony,
-                      child: Column(
+                      visible: contracts,
+                      child: Row(
                         children: [
-                          MenuItem(
-                            icon: IconsPath.threeUsers,
-                            itemName: TextStrings.members,
-                            pageNum: 5,
-                            currentPage: widget.currentPageIndex,
-                            onTap: widget.onItemSelected,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: MenuItem(
-                                  icon: IconsPath.paper,
-                                  itemName: TextStrings.contracts,
-                                  pageNum: 6,
-                                  currentPage: widget.currentPageIndex,
-                                  onTap: widget.onItemSelected,
-                                ),
-                              ),
-                              VisibilityButton(
-                                isdown: contracts,
-                                onPressed: () {
-                                  setState(() {
-                                    contracts = !contracts;
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                          Visibility(
-                            visible: contracts,
-                            child: Row(
-                              children: [
-                                PaddingConfig.w24,
-                                Expanded(
-                                  child: MenuItem(
-                                    icon: IconsPath.bookMarker,
-                                    itemName: TextStrings.drafts,
-                                    pageNum: 7,
-                                    currentPage: widget.currentPageIndex,
-                                    onTap: widget.onItemSelected,
-                                  ),
-                                ),
-                              ],
+                          PaddingConfig.w24,
+                          Expanded(
+                            child: MenuItem(
+                              icon: IconsPath.bookMarker,
+                              itemName: TextStrings.drafts,
+                              pageNum: 6,
+                              currentPage: widget.currentPageIndex,
+                              onTap: widget.onItemSelected,
                             ),
-                          ),
-                          MenuItem(
-                            icon: IconsPath.editSquare,
-                            itemName: TextStrings.aboutUsWhyUs,
-                            pageNum: 8,
-                            currentPage: widget.currentPageIndex,
-                            onTap: widget.onItemSelected,
-                          ),
-                          MenuItem(
-                            icon: IconsPath.bag,
-                            itemName: TextStrings.services,
-                            pageNum: 9,
-                            currentPage: widget.currentPageIndex,
-                            onTap: widget.onItemSelected,
-                          ),
-                          MenuItem(
-                            icon: IconsPath.send,
-                            itemName: TextStrings.posts,
-                            pageNum: 10,
-                            currentPage: widget.currentPageIndex,
-                            onTap: widget.onItemSelected,
                           ),
                         ],
                       ),
+                    ),
+                    MenuItem(
+                      icon: IconsPath.editSquare,
+                      itemName: TextStrings.aboutUsWhyUs,
+                      pageNum: 7,
+                      currentPage: widget.currentPageIndex,
+                      onTap: widget.onItemSelected,
+                    ),
+                    MenuItem(
+                      icon: IconsPath.bag,
+                      itemName: TextStrings.services,
+                      pageNum: 8,
+                      currentPage: widget.currentPageIndex,
+                      onTap: widget.onItemSelected,
+                    ),
+                    MenuItem(
+                      icon: IconsPath.send,
+                      itemName: TextStrings.posts,
+                      pageNum: 9,
+                      currentPage: widget.currentPageIndex,
+                      onTap: widget.onItemSelected,
                     ),
                     PaddingConfig.h8,
                     Row(
@@ -266,8 +225,8 @@ class _CustomSidebarState extends State<CustomSidebar> {
                         children: [
                           MenuItem(
                             icon: IconsPath.setting,
-                            itemName: TextStrings.setting,
-                            pageNum: 11,
+                            itemName: TextStrings.forYou,
+                            pageNum: 10,
                             currentPage: widget.currentPageIndex,
                             onTap: widget.onItemSelected,
                           ),

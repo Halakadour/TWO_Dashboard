@@ -8,6 +8,7 @@ import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart
 import 'package:two_dashboard/core/widgets/animation/loading_status_animation.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/save_elevated_button.dart';
+import 'package:two_dashboard/core/widgets/divider/custom_page_divider.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/team_entity.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_and_team_bloc.dart';
@@ -57,6 +58,7 @@ class _SelectTeamPageState extends State<SelectTeamPage> {
                 PageTitle(pageTitle: "Select Team"),
               ],
             ),
+            CustomPageDivider(),
             PaddingConfig.h16,
             Row(
               mainAxisAlignment: MainAxisAlignment.end,

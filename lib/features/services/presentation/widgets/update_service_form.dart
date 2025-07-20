@@ -11,6 +11,7 @@ import 'package:two_dashboard/core/widgets/breadcrumbs/breadcumbs_item.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/desmiss_elevated_buttom.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/save_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/dialog/global/forget_some_thing_dialog.dart';
+import 'package:two_dashboard/core/widgets/divider/custom_page_divider.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_image_box.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
@@ -75,6 +76,7 @@ class _UpdateServiceFormState extends State<UpdateServiceForm> {
                 PageTitle(pageTitle: "Update Service"),
               ],
             ),
+            CustomPageDivider(),
             PaddingConfig.h24,
             SizedBox(
               height: 400,

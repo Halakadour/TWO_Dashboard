@@ -38,4 +38,10 @@ class PaddingConfig {
   static const SizedBox w32 = SizedBox(width: 32);
   static const SizedBox w40 = SizedBox(width: 40);
   static const SizedBox w48 = SizedBox(width: 48);
+  static const SizedBox w56 = SizedBox(width: 56);
+  static const SizedBox w64 = SizedBox(width: 64);
+  static const SizedBox w72 = SizedBox(width: 72);
+  static const SizedBox w80 = SizedBox(width: 80);
+  static const SizedBox w88 = SizedBox(width: 88);
+  static const SizedBox w96 = SizedBox(width: 96);
 }

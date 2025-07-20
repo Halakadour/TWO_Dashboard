@@ -17,7 +17,7 @@ import 'package:two_dashboard/features/posts/presentation/widgets/post_card.dart
 
 class PostsBlocStateHandling {
   // Get Post Table
-  Widget getPostsTable(PostState state, bool actriveSelected) {
+  Widget getPostsGridView(PostState state, bool actriveSelected) {
     if (state.activePostsListStatus == CasualStatus.loading ||
         state.unActivePostsListStatus == CasualStatus.loading) {
       return Center(child: const LoadingStatusAnimation());

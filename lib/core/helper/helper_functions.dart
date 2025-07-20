@@ -1,11 +1,12 @@
 import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 
 class HelperFunctions {
-  static String projectDurationText(DateTime startDate, DateTime endDate) {
+  static String getDurationText(DateTime startDate, DateTime endDate) {
     final duration = endDate.difference(startDate);
 
     if (duration.inDays < 0) return "End Date Must Be After The Strating Date.";
@@ -55,38 +56,38 @@ class HelperFunctions {
     }
   }
 
-  static WorkStatus getWorkStatusByName(String value) {
+  static TaskStatus getWorkStatusByName(String value) {
     if (value.contains("Pen")) {
-      return WorkStatus.pended;
+      return TaskStatus.pended;
     } else if (value.contains("IN PROGR")) {
-      return WorkStatus.inProgress;
+      return TaskStatus.inProgress;
     } else if (value.contains("Review")) {
-      return WorkStatus.inReview;
+      return TaskStatus.inReview;
     } else if (value.contains("TO D")) {
-      return WorkStatus.toDo;
+      return TaskStatus.toDo;
     } else if (value.contains("Done")) {
-      return WorkStatus.completed;
+      return TaskStatus.completed;
     } else {
-      return WorkStatus.pended;
+      return TaskStatus.pended;
     }
   }
 
-  static WorkStatus getWorkStatusByNum(int value) {
+  static TaskStatus getWorkStatusByNum(int value) {
     switch (value) {
       case 0:
-        return WorkStatus.pended;
+        return TaskStatus.pended;
       case 1:
-        return WorkStatus.toDo;
+        return TaskStatus.toDo;
       case 2:
-        return WorkStatus.inProgress;
+        return TaskStatus.inProgress;
       case 3:
-        return WorkStatus.inReview;
+        return TaskStatus.inReview;
       case 4:
-        return WorkStatus.completed;
+        return TaskStatus.completed;
       case 5:
-        return WorkStatus.canceled;
+        return TaskStatus.canceled;
     }
-    return WorkStatus.pended;
+    return TaskStatus.pended;
   }
 
   static ProjectVisibility getVisibilityByNum(int value) {
@@ -105,88 +106,121 @@ class HelperFunctions {
     }
   }
 
-  static Priority getPriorityByName(String value) {
+  static TaskPriority getPriorityByName(String value) {
     if (value.contains("Lo")) {
-      return Priority.low;
+      return TaskPriority.low;
     } else if (value.contains("Mid")) {
-      return Priority.medium;
+      return TaskPriority.medium;
     } else {
-      return Priority.high;
+      return TaskPriority.high;
     }
   }
 
   // Project Status Title
-  static String getWorkStatusTitle(WorkStatus value) {
+  static String getWorkStatusTitle(TaskStatus value) {
     switch (value) {
-      case WorkStatus.pended:
+      case TaskStatus.pended:
         return "Pending";
-      case WorkStatus.toDo:
+      case TaskStatus.toDo:
         return "To Do";
-      case WorkStatus.inProgress:
+      case TaskStatus.inProgress:
         return "In Progress";
-      case WorkStatus.inReview:
+      case TaskStatus.inReview:
         return "In Review";
-      case WorkStatus.completed:
+      case TaskStatus.completed:
         return "Completed";
-      case WorkStatus.canceled:
+      case TaskStatus.canceled:
         return "Canceled";
     }
   }
 
-  // Project Status Color Returning
-  static Color getWorkStatusColor(WorkStatus value) {
+  //////// **************** COLORS **************** ////////
+
+  // Project Type Color Returning
+  static Color getProjectTypeColor(ProjectType value) {
     switch (value) {
-      case WorkStatus.pended:
-        return AppColors.yellowShade2;
-      case WorkStatus.toDo:
-        return AppColors.rockShade2;
-      case WorkStatus.inProgress:
+      case ProjectType.mobile:
         return AppColors.blueShade2;
-      case WorkStatus.inReview:
-        return AppColors.redShade2;
-      case WorkStatus.completed:
+      case ProjectType.maintain:
+        return AppColors.yellowShade2;
+      case ProjectType.website:
         return AppColors.greenShade2;
-      case WorkStatus.canceled:
+      case ProjectType.softwareTestisng:
+        return AppColors.redShade2;
+      case ProjectType.systemAnalysis:
+        return AppColors.rockShade2;
+    }
+  }
+
+  static Color getProjectTypeBackgroundColor(ProjectType value) {
+    switch (value) {
+      case ProjectType.mobile:
+        return AppColors.blueShade1;
+      case ProjectType.maintain:
+        return AppColors.yellowShade1;
+      case ProjectType.website:
+        return AppColors.greenShade1;
+      case ProjectType.softwareTestisng:
+        return AppColors.redShade1;
+      case ProjectType.systemAnalysis:
+        return AppColors.rockshade1;
+    }
+  }
+
+  // Project Status Color Returning
+  static Color getWorkStatusColor(TaskStatus value) {
+    switch (value) {
+      case TaskStatus.pended:
+        return AppColors.yellowShade2;
+      case TaskStatus.toDo:
+        return AppColors.rockShade2;
+      case TaskStatus.inProgress:
+        return AppColors.blueShade2;
+      case TaskStatus.inReview:
+        return AppColors.redShade2;
+      case TaskStatus.completed:
+        return AppColors.greenShade2;
+      case TaskStatus.canceled:
         return AppColors.redShade2;
     }
   }
 
-  static Color getWorkStatusBackgroundColor(WorkStatus value) {
+  static Color getWorkStatusBackgroundColor(TaskStatus value) {
     switch (value) {
-      case WorkStatus.pended:
+      case TaskStatus.pended:
         return AppColors.yellowShade1;
-      case WorkStatus.toDo:
+      case TaskStatus.toDo:
         return AppColors.rockshade1;
-      case WorkStatus.inProgress:
+      case TaskStatus.inProgress:
         return AppColors.blueShade1;
-      case WorkStatus.inReview:
+      case TaskStatus.inReview:
         return AppColors.redShade1;
-      case WorkStatus.completed:
+      case TaskStatus.completed:
         return AppColors.greenShade1;
-      case WorkStatus.canceled:
+      case TaskStatus.canceled:
         return AppColors.redShade1;
     }
   }
   // Priority Color Returning
 
-  static Color getPriorityColor(Priority value) {
+  static Color getPriorityColor(TaskPriority value) {
     switch (value) {
-      case Priority.low:
+      case TaskPriority.low:
         return AppColors.yellowShade2;
-      case Priority.medium:
+      case TaskPriority.medium:
         return AppColors.blueShade2;
-      case Priority.high:
+      case TaskPriority.high:
         return AppColors.redShade2;
     }
   }
 
-  static Color getPriorityBackgroundColor(Priority value) {
+  static Color getPriorityBackgroundColor(TaskPriority value) {
     switch (value) {
-      case Priority.low:
+      case TaskPriority.low:
         return AppColors.yellowShade1;
-      case Priority.medium:
+      case TaskPriority.medium:
         return AppColors.blueShade1;
-      case Priority.high:
+      case TaskPriority.high:
         return AppColors.redShade1;
     }
   }
@@ -243,6 +277,33 @@ class HelperFunctions {
         return AppColors.blueShade1;
       case FieldStatus.nonSeen:
         return AppColors.yellowShade1;
+    }
+  }
+
+  // Cooperation Type Color Returning
+  static Color getCooperationTypeColor(CooperationType value) {
+    switch (value) {
+      case CooperationType.analysis:
+        return AppColors.blueShade2;
+      case CooperationType.development:
+        return AppColors.greenShade2;
+      case CooperationType.managment:
+        return Colors.orange;
+      case CooperationType.test:
+        return Colors.purple;
+    }
+  }
+
+  static Color getCooperationTypeBackgroundColor(CooperationType value) {
+    switch (value) {
+      case CooperationType.analysis:
+        return AppColors.blueShade1;
+      case CooperationType.development:
+        return AppColors.greenShade1;
+      case CooperationType.managment:
+        return Colors.orange.shade100;
+      case CooperationType.test:
+        return Colors.purple.shade100;
     }
   }
 }

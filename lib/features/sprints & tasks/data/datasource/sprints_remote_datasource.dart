@@ -44,7 +44,6 @@ class SprintsRemoteDatasourceImpl extends SprintsRemoteDatasource {
         'start': param.start,
         'end': param.end,
         'project_id': param.projectId,
-        'status': param.status,
       }),
       fromJson: createAndShowSprintResponseModelFromJson,
     );

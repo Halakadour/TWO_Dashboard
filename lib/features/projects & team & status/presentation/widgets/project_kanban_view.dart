@@ -32,11 +32,11 @@ class _ProjectKanbanViewState extends State<ProjectKanbanView> {
         }
 
         final projectStatuses = [
-          WorkStatus.pended,
-          WorkStatus.inProgress,
-          WorkStatus.inReview,
-          WorkStatus.completed,
-          WorkStatus.canceled,
+          TaskStatus.pended,
+          TaskStatus.inProgress,
+          TaskStatus.inReview,
+          TaskStatus.completed,
+          TaskStatus.canceled,
         ];
 
         return SingleChildScrollView(
@@ -64,7 +64,7 @@ class _ProjectKanbanViewState extends State<ProjectKanbanView> {
   }
 
   // Kanban Column
-  Widget _buildKanbanColumn(WorkStatus projectStatus) {
+  Widget _buildKanbanColumn(TaskStatus projectStatus) {
     return Expanded(
       child: Container(
         padding: EdgeInsets.all(SizesConfig.md),

@@ -146,7 +146,7 @@ class _CreateProjectFormState extends State<CreateProjectForm> {
                 if (_startDate != null && _endDate != null) PaddingConfig.h8,
                 if (_startDate != null && _endDate != null)
                   Text(
-                    HelperFunctions.projectDurationText(_startDate!, _endDate!),
+                    HelperFunctions.getDurationText(_startDate!, _endDate!),
                     style: AppTextStyle.bodyXs(color: AppColors.fontLightGray),
                   ),
               ],

@@ -6,7 +6,6 @@ class CreateSprintParam {
   final String start;
   final String end;
   final int projectId;
-  final String status;
 
   CreateSprintParam({
     required this.token,
@@ -16,7 +15,6 @@ class CreateSprintParam {
     required this.start,
     required this.end,
     required this.projectId,
-    required this.status,
   });
 }
 

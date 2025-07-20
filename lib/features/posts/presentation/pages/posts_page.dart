@@ -71,7 +71,7 @@ class _ShowPostsPageState extends State<PostsPage> {
                               previous.unActivePostsListStatus !=
                                   current.unActivePostsListStatus),
                   builder: (context, state) {
-                    return PostsBlocStateHandling().getPostsTable(
+                    return PostsBlocStateHandling().getPostsGridView(
                       state,
                       actriveSelected.value,
                     );

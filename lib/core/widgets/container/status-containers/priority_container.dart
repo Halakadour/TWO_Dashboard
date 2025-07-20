@@ -8,7 +8,7 @@ import '../custom_rounder_container.dart';
 
 class PriorityContainer extends StatelessWidget {
   const PriorityContainer({super.key, required this.priority});
-  final Priority priority;
+  final TaskPriority priority;
 
   @override
   Widget build(BuildContext context) {

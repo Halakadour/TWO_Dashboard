@@ -2,13 +2,13 @@ enum CasualStatus { initial, loading, success, failure, not_authorized }
 
 enum ImageType { asset, network, file, memory }
 
-enum Priority { low, medium, high }
+enum TaskPriority { low, medium, high }
 
 enum ProjectVisibility { public, private }
 
 enum ProjectType { mobile, website, systemAnalysis, softwareTestisng, maintain }
 
-enum WorkStatus { pended, toDo, inProgress, inReview, completed, canceled }
+enum TaskStatus { pended, toDo, inProgress, inReview, completed, canceled }
 
 enum SprintStatus { pended, started, completed }
 

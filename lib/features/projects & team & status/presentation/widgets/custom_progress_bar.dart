@@ -5,12 +5,7 @@ import '../../../../config/theme/color.dart';
 import '../../../../config/theme/text_style.dart';
 
 class CustomProgressBar extends StatelessWidget {
-  const CustomProgressBar({
-    super.key,
-    required this.colorStatus,
-    required this.lintWidth,
-  });
-  final Color colorStatus;
+  const CustomProgressBar({super.key, required this.lintWidth});
   final double lintWidth;
 
   @override
@@ -23,8 +18,8 @@ class CustomProgressBar extends StatelessWidget {
           child: LinearProgressIndicator(
             value: 0.5,
             trackGap: 2,
-            backgroundColor: AppColors.white,
-            color: colorStatus,
+            backgroundColor: AppColors.greenShade1,
+            color: AppColors.greenShade2,
             minHeight: 8.0,
             borderRadius: BorderRadius.circular(10.0),
           ),

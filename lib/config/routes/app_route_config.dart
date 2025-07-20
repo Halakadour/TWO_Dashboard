@@ -13,11 +13,20 @@ class AppRouteConfig {
 
   // Project Branches
   static const allProjects = 'allProjects';
+  static const projectDetails = 'projectDetails';
   static const createProject = 'createProject';
+  static const updateProject = 'updateProject';
   static const selectTeam = 'selectTeam';
   static const createTeam = 'createTeam';
   static const myProjects = 'myProjects';
   static const pendedProjects = 'pendedProjects';
+  // Sprint & Task
+  static const createSprint = 'createSprint';
+  static const createTask = 'createTask';
+  static const updateSprint = 'updateSprint';
+  static const updateTask = 'updateTask';
+  static const sprintDetails = 'sprintDetails';
+  static const taskDetails = 'taskDetails';
 
   // Contracts Branches //
   static const contracts = "contracts";

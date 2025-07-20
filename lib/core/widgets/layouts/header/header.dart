@@ -47,8 +47,8 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
                           SizesConfig.inputFieldRadius,
                         ),
                         borderSide: const BorderSide(
-                          color: AppColors.fieldColor,
-                          width: 2,
+                          color: AppColors.gray,
+                          width: 1,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
@@ -56,13 +56,15 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
                           SizesConfig.inputFieldRadius,
                         ),
                         borderSide: const BorderSide(
-                          color: AppColors.fieldColor,
-                          width: 2,
+                          color: AppColors.gray,
+                          width: 1,
                         ),
                       ),
                       prefixIcon: const Icon(Iconsax.search_normal),
                       hintText: 'Search anything...',
-                      hintStyle: AppTextStyle.textfieldStyle(),
+                      hintStyle: AppTextStyle.textfieldStyle(
+                        color: AppColors.fontLightGray,
+                      ),
                     ),
                   ),
                 )

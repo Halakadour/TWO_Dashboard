@@ -11,6 +11,7 @@ import 'package:two_dashboard/core/widgets/buttons/icon-buttons/back_button.dart
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/desmiss_elevated_buttom.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/save_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/dialog/global/forget_some_thing_dialog.dart';
+import 'package:two_dashboard/core/widgets/divider/custom_page_divider.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_image_box.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
@@ -67,6 +68,7 @@ class _CreatePostFormState extends State<CreatePostForm> {
                   PageTitle(pageTitle: "Create Post"),
                 ],
               ),
+              CustomPageDivider(),
               PaddingConfig.h24,
               Container(
                 width: double.infinity,
