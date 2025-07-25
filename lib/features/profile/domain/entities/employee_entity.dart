@@ -1,19 +1,19 @@
 class EmployeeEntity {
-  final int eId;
-  final String eName;
-  final String eEmail;
-  final String? eImage;
-  final String eRole;
-  final String? eCv;
-  final int eApproved;
+  final int id;
+  final String name;
+  final String email;
+  final String? image;
+  final String role;
+  final String? cv;
+  final int approved;
 
   EmployeeEntity({
-    required this.eId,
-    required this.eName,
-    required this.eEmail,
-    this.eImage,
-    required this.eRole,
-    this.eCv,
-    required this.eApproved,
+    required this.id,
+    required this.name,
+    required this.email,
+    this.image,
+    required this.role,
+    this.cv,
+    required this.approved,
   });
 }

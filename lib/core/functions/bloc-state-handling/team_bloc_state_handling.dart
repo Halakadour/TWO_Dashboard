@@ -36,8 +36,8 @@ class TeamBlocStateHandling {
       showLoadingDialog(context);
     } else if (state.addTeamStatus == CasualStatus.success) {
       context.pop();
+      context.read<ProjectAndTeamBloc>().add(ShowAllProjectsEvent());
       showSuccessDialog(context, () {
-        context.pushReplacementNamed(AppRouteConfig.allProjects);
         context.pop();
       });
     } else if (state.addTeamStatus == CasualStatus.failure) {

@@ -7,8 +7,13 @@ import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_
 import 'package:two_dashboard/features/contact-us/presentation/bloc/contact_us_bloc.dart';
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
 import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_status_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_and_team_bloc.dart';
+import 'package:two_dashboard/features/roles/data/datasources/role_local_datasource.dart';
+import 'package:two_dashboard/features/roles/data/models/role_response_model.dart';
 import 'package:two_dashboard/features/services/presentation/bloc/service_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 import 'config/theme/theme_cubit.dart';
 import 'injection_container.dart' as di;
 
@@ -18,6 +23,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
   await EasyLocalization.ensureInitialized();
+  await Hive.initFlutter();
+
+  // Register adapters
+  Hive.registerAdapter(RoleModelAdapter());
+  Hive.registerAdapter(ProjectStatusAdapter());
+
+  // Open boxes
+  await Hive.openBox<RoleModel>(CACHED_ROLES);
+  await Hive.openBox<ProjectStatus>(CACHED_STATUS);
   runApp(
     EasyLocalization(
       path: 'assets/lang',
@@ -40,11 +54,12 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(create: (context) => di.sl<AuthRoleProfileBloc>()),
         BlocProvider(create: (context) => di.sl<ProjectAndTeamBloc>()),
-        BlocProvider(create: (context) => di.sl<PostBloc>()),
-        BlocProvider(create: (context) => di.sl<ServiceBloc>()),
+        BlocProvider(create: (context) => di.sl<SprintAndTaskBloc>()),
         BlocProvider(create: (context) => di.sl<AboutUsWhyUsBloc>()),
         BlocProvider(create: (context) => di.sl<ContactUsBloc>()),
         BlocProvider(create: (context) => di.sl<ContractBloc>()),
+        BlocProvider(create: (context) => di.sl<ServiceBloc>()),
+        BlocProvider(create: (context) => di.sl<PostBloc>()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

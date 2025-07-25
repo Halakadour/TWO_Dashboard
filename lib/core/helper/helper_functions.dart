@@ -29,15 +29,20 @@ class HelperFunctions {
     return DateFormat('yyyy/MM/dd').format(date);
   }
 
+  static String formateDateForBack(DateTime date) {
+    final formatted = DateFormat('yyyy-MM-dd HH:mm:ss').format(date);
+    return formatted;
+  }
+
   // Get Status By Number Or Name
   static ProjectType getProjectTypeByName(String value) {
-    if (value.contains("mob") || value.contains("موب")) {
+    if (value.toLowerCase().contains("mob") || value.contains("موب")) {
       return ProjectType.mobile;
-    } else if (value.contains("web") || value.contains("موق")) {
+    } else if (value.toLowerCase().contains("web") || value.contains("موق")) {
       return ProjectType.website;
-    } else if (value.contains("syst") || value.contains("تحل")) {
+    } else if (value.toLowerCase().contains("syst") || value.contains("تحل")) {
       return ProjectType.systemAnalysis;
-    } else if (value.contains("soft") || value.contains("اختب")) {
+    } else if (value.toLowerCase().contains("soft") || value.contains("اختب")) {
       return ProjectType.softwareTestisng;
     } else {
       return ProjectType.maintain;
@@ -45,34 +50,34 @@ class HelperFunctions {
   }
 
   static CooperationType getCooperationTypeByName(String value) {
-    if (value.contains("anal") || value.contains("تحل")) {
+    if (value.toLowerCase().contains("anal") || value.contains("تحل")) {
       return CooperationType.analysis;
-    } else if (value.contains("deve") || value.contains("تطو")) {
+    } else if (value.toLowerCase().contains("deve") || value.contains("تطو")) {
       return CooperationType.development;
-    } else if (value.contains("tes") || value.contains("اختب")) {
+    } else if (value.toLowerCase().contains("tes") || value.contains("اختب")) {
       return CooperationType.test;
     } else {
       return CooperationType.managment;
     }
   }
 
-  static TaskStatus getWorkStatusByName(String value) {
-    if (value.contains("Pen")) {
+  static TaskStatus getTaskStatusByName(String value) {
+    if (value.toLowerCase().contains("pen")) {
       return TaskStatus.pended;
-    } else if (value.contains("IN PROGR")) {
+    } else if (value.toLowerCase().contains("in pro")) {
       return TaskStatus.inProgress;
-    } else if (value.contains("Review")) {
+    } else if (value.toLowerCase().contains("in rev")) {
       return TaskStatus.inReview;
-    } else if (value.contains("TO D")) {
+    } else if (value.toLowerCase().contains("to d")) {
       return TaskStatus.toDo;
-    } else if (value.contains("Done")) {
+    } else if (value.toLowerCase().contains("done")) {
       return TaskStatus.completed;
     } else {
       return TaskStatus.pended;
     }
   }
 
-  static TaskStatus getWorkStatusByNum(int value) {
+  static TaskStatus getTaskStatusByNum(int value) {
     switch (value) {
       case 0:
         return TaskStatus.pended;
@@ -107,17 +112,28 @@ class HelperFunctions {
   }
 
   static TaskPriority getPriorityByName(String value) {
-    if (value.contains("Lo")) {
+    if (value.toLowerCase().contains("lo")) {
       return TaskPriority.low;
-    } else if (value.contains("Mid")) {
+    } else if (value.toLowerCase().contains("mid")) {
       return TaskPriority.medium;
     } else {
       return TaskPriority.high;
     }
   }
 
+  static String getPriorityName(TaskPriority value) {
+    switch (value) {
+      case TaskPriority.low:
+        return "Low";
+      case TaskPriority.medium:
+        return "Mid";
+      case TaskPriority.high:
+        return "High";
+    }
+  }
+
   // Project Status Title
-  static String getWorkStatusTitle(TaskStatus value) {
+  static String getTaskStatusTitle(TaskStatus value) {
     switch (value) {
       case TaskStatus.pended:
         return "Pending";
@@ -168,7 +184,7 @@ class HelperFunctions {
   }
 
   // Project Status Color Returning
-  static Color getWorkStatusColor(TaskStatus value) {
+  static Color getTaskStatusColor(TaskStatus value) {
     switch (value) {
       case TaskStatus.pended:
         return AppColors.yellowShade2;
@@ -185,7 +201,7 @@ class HelperFunctions {
     }
   }
 
-  static Color getWorkStatusBackgroundColor(TaskStatus value) {
+  static Color getTaskStatusBackgroundColor(TaskStatus value) {
     switch (value) {
       case TaskStatus.pended:
         return AppColors.yellowShade1;

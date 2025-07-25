@@ -100,6 +100,34 @@ import 'package:two_dashboard/features/services/domain/usecases/delete_service_u
 import 'package:two_dashboard/features/services/domain/usecases/show_service_usecase.dart';
 import 'package:two_dashboard/features/services/domain/usecases/update_service_usecase.dart';
 import 'package:two_dashboard/features/services/presentation/bloc/service_bloc.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/data/datasource/sprints_remote_datasource.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/data/datasource/tasks_remote_datasource.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/data/repos/sprint_repo_impl.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/data/repos/task_repo_impl.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/repos/sprint_repo.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/repos/task_repo.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprint-usecase/complete_sprint_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprint-usecase/create_sprint_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprint-usecase/delete_sprint_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprint-usecase/show_project_sprints_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprint-usecase/show_project_started_sprints_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprint-usecase/show_project_un_complete_sprints_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprint-usecase/show_sprint_details_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprint-usecase/start_sprint_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprint-usecase/update_sprint_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/create_backlog_tasks_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/create_task_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/delete_task_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_my_project_tasks_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_my_sprint_tasks_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_pending_sprint_tasks_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_project_backlog_tasks_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_project_board_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_project_tasks_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_sprint_tasks_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_task_details_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/update_task_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 
 import 'features/posts/domain/usecases/create_post_usecase.dart';
 import 'features/posts/domain/usecases/delete_post_usecase.dart';
@@ -288,7 +316,7 @@ Future<void> init() async {
     () => ContractRemoteDatasourceImpl(),
   );
 
-  /**----------------- PROJECTS-TEAM FEATURE -----------------------**/
+  /**----------------- PROJECTS-STATUS-TEAM FEATURE -----------------------**/
   sl.registerFactory(
     () => ProjectAndTeamBloc(
       sl(),
@@ -346,6 +374,67 @@ Future<void> init() async {
   );
   sl.registerLazySingleton<TeamRemoteDataSource>(
     () => TeamRemoteDataSourceImpl(),
+  );
+
+  /**----------------- SPRINT-TASK FEATURE -----------------------**/
+  sl.registerFactory(
+    () => SprintAndTaskBloc(
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+    ),
+  );
+  // Sprint Usecase
+  sl.registerLazySingleton(() => CreateSprintUsecase(sl()));
+  sl.registerLazySingleton(() => UpdateSprintUsecase(sl()));
+  sl.registerLazySingleton(() => DeleteSprintUsecase(sl()));
+  sl.registerLazySingleton(() => StartSprintUsecase(sl()));
+  sl.registerLazySingleton(() => CompleteSprintUsecase(sl()));
+  sl.registerLazySingleton(() => ShowProjectUnCompleteSprintsUsecase(sl()));
+  sl.registerLazySingleton(() => ShowProjectStartedSprintsUsecase(sl()));
+  sl.registerLazySingleton(() => ShowProjectSprintsUsecase(sl()));
+  sl.registerLazySingleton(() => ShowSprintDetailsUsecase(sl()));
+  // Task Usecase
+  sl.registerLazySingleton(() => CreateTaskUsecase(sl()));
+  sl.registerLazySingleton(() => UpdateTaskUsecase(sl()));
+  sl.registerLazySingleton(() => DeleteTaskUsecase(sl()));
+  sl.registerLazySingleton(() => ShowTaskDetailsUsecase(sl()));
+  sl.registerLazySingleton(() => ShowProjectTasksUsecase(sl()));
+  sl.registerLazySingleton(() => ShowSprintTasksUsecase(sl()));
+  sl.registerLazySingleton(() => ShowMyProjectTasksUsecase(sl()));
+  sl.registerLazySingleton(() => ShowMySprintTasksUsecase(sl()));
+  sl.registerLazySingleton(() => ShowProjectBoardUsecase(sl()));
+  sl.registerLazySingleton(() => ShowPendingSprintTasksUsecase(sl()));
+  sl.registerLazySingleton(() => ShowProjectBacklogTasksUsecase(sl()));
+  sl.registerLazySingleton(() => CreateBacklogTasksUsecase(sl()));
+
+  // Repo
+  sl.registerLazySingleton<SprintRepo>(() => SprintRepoImpl(sl()));
+  sl.registerLazySingleton<TaskRepo>(() => TaskRepoImpl(sl()));
+  // Datasource
+  sl.registerLazySingleton<SprintsRemoteDatasource>(
+    () => SprintsRemoteDatasourceImpl(),
+  );
+  sl.registerLazySingleton<TaskRemoteDatasource>(
+    () => TaskRemoteDatasourceImpl(),
   );
 
   ///////////////////////////////////////////////////////////////////////////////////////

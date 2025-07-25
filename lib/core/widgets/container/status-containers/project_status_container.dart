@@ -19,13 +19,13 @@ class ProjectStatusContainer extends StatelessWidget {
         vertical: SizesConfig.xs,
         horizontal: SizesConfig.md,
       ),
-      backgroundColor: HelperFunctions.getWorkStatusBackgroundColor(
+      backgroundColor: HelperFunctions.getTaskStatusBackgroundColor(
         projectStatus,
       ),
       child: Text(
         projectStatus.name.toLowerCase().toString(),
         style: AppTextStyle.bodyXs(
-          color: HelperFunctions.getWorkStatusColor(projectStatus),
+          color: HelperFunctions.getTaskStatusColor(projectStatus),
         ),
       ),
     );

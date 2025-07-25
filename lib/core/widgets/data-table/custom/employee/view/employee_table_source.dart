@@ -23,40 +23,36 @@ class EmployeeRows extends DataTableSource {
     return DataRow2(
       cells: [
         DataCell(
-          Text("${employee.eId}", style: AppTextStyle.dataTableCellStyle()),
+          Text("${employee.id}", style: AppTextStyle.dataTableCellStyle()),
         ),
+        DataCell(Text(employee.name, style: AppTextStyle.dataTableCellStyle())),
         DataCell(
-          Text(employee.eName, style: AppTextStyle.dataTableCellStyle()),
-        ),
-        DataCell(
-          Text(employee.eEmail, style: AppTextStyle.dataTableCellStyle()),
+          Text(employee.email, style: AppTextStyle.dataTableCellStyle()),
         ),
         DataCell(
           FetchNetworkImage(
             height: 50,
             width: 50,
             shape: BoxShape.circle,
-            imagePath: employee.eImage,
+            imagePath: employee.image,
           ),
         ),
-        DataCell(
-          Text(employee.eRole, style: AppTextStyle.dataTableCellStyle()),
-        ),
-        DataCell(LinkedText(link: employee.eCv)),
+        DataCell(Text(employee.role, style: AppTextStyle.dataTableCellStyle())),
+        DataCell(LinkedText(link: employee.cv)),
         DataCell(
           FieldStatusContainer(
             fieldStatus:
-                (employee.eApproved == 0)
+                (employee.approved == 0)
                     ? FieldStatus.unApproved
                     : FieldStatus.approved,
           ),
         ),
         DataCell(
-          (employee.eApproved == 0)
+          (employee.approved == 0)
               ? ApprovedButton(
                 onTap: () {
                   context.read<AuthRoleProfileBloc>().add(
-                    ToggleUserApprovedEvent(userId: employeeList[index].eId),
+                    ToggleUserApprovedEvent(userId: employeeList[index].id),
                   );
                   context.read<AuthRoleProfileBloc>().add(
                     ShowUsersWithFilterEvent(),
@@ -66,7 +62,7 @@ class EmployeeRows extends DataTableSource {
               : RejectButton(
                 onTap: () {
                   context.read<AuthRoleProfileBloc>().add(
-                    ToggleUserApprovedEvent(userId: employeeList[index].eId),
+                    ToggleUserApprovedEvent(userId: employeeList[index].id),
                   );
                   context.read<AuthRoleProfileBloc>().add(
                     ShowUsersWithFilterEvent(),

@@ -7,7 +7,6 @@ import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/functions/device_utility.dart';
 import 'package:two_dashboard/core/helper/helper_functions.dart';
-import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/breadcrumbs/breadcumbs_item.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/update_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/icon-buttons/back_button.dart';
@@ -17,9 +16,11 @@ import 'package:two_dashboard/core/widgets/divider/custom_page_divider.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/custom_progress_bar.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/task_entity.dart';
 
 class TaskDetailsPage extends StatelessWidget {
-  const TaskDetailsPage({super.key});
+  const TaskDetailsPage({super.key, required this.taskEntity});
+  final TaskEntity taskEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +87,7 @@ class TaskDetailsPage extends StatelessWidget {
                           ),
                           SizedBox(width: 75),
                           Text(
-                            "Some Text",
+                            taskEntity.title,
                             style: AppTextStyle.bodySm(
                               color: AppColors.fontLightGray,
                             ),
@@ -110,7 +111,7 @@ class TaskDetailsPage extends StatelessWidget {
                             child: SizedBox(
                               width: 200,
                               child: Text(
-                                "Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text ",
+                                taskEntity.description,
                                 style: AppTextStyle.bodySm(
                                   color: AppColors.fontLightGray,
                                 ),
@@ -132,7 +133,9 @@ class TaskDetailsPage extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: 72),
-                          TaskStatusContainer(taskStatus: TaskStatus.canceled),
+                          TaskStatusContainer(
+                            taskStatus: taskEntity.taskStatus,
+                          ),
                         ],
                       ),
                       PaddingConfig.h32,
@@ -149,7 +152,9 @@ class TaskDetailsPage extends StatelessWidget {
                           ),
                           PaddingConfig.w80,
                           Text(
-                            HelperFunctions.formatDate(DateTime.now()),
+                            HelperFunctions.formateDateForBack(
+                              taskEntity.startDate,
+                            ),
                             style: AppTextStyle.bodySm(
                               color: AppColors.fontLightGray,
                             ),
@@ -170,7 +175,10 @@ class TaskDetailsPage extends StatelessWidget {
                           ),
                           PaddingConfig.w88,
                           Text(
-                            "${HelperFunctions.formatDate(DateTime.now())} - ${TimeOfDay.fromDateTime(DateTime.now()).format(context)}",
+                            HelperFunctions.formateDateForBack(
+                              taskEntity.endDate,
+                            ),
+                            // "${HelperFunctions.formatDate(DateTime.now())} - ${TimeOfDay.fromDateTime(DateTime.now()).format(context)}",
                             style: AppTextStyle.bodySm(
                               color: AppColors.fontLightGray,
                             ),
@@ -203,7 +211,7 @@ class TaskDetailsPage extends StatelessWidget {
                           ),
                           SizedBox(width: 75),
                           Text(
-                            "Some human",
+                            taskEntity.assignedTo,
                             style: AppTextStyle.bodySm(
                               color: AppColors.fontLightGray,
                             ),
@@ -223,7 +231,7 @@ class TaskDetailsPage extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: 72),
-                          PriorityContainer(priority: TaskPriority.medium),
+                          PriorityContainer(priority: taskEntity.taskPriority),
                         ],
                       ),
                       PaddingConfig.h24,
@@ -239,7 +247,10 @@ class TaskDetailsPage extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: 72),
-                          CustomProgressBar(lintWidth: 200),
+                          CustomProgressBar(
+                            lintWidth: 200,
+                            value: taskEntity.taskCompletion,
+                          ),
                         ],
                       ),
                     ],

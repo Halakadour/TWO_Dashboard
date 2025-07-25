@@ -52,11 +52,11 @@ class CustomTeamGridView extends StatelessWidget {
                 child: CustomRounderContainer(
                   width: double.infinity,
                   backgroundColor:
-                      (value!.id == team.id)
+                      (value != null && value.id == team.id)
                           ? AppColors.blueShade1
                           : AppColors.white,
                   borderColor:
-                      (value.id == team.id)
+                      (value != null && value.id == team.id)
                           ? AppColors.blueShade2
                           : AppColors.grayShade2,
                   child: Column(
@@ -75,21 +75,21 @@ class CustomTeamGridView extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     FetchNetworkImage(
-                                      imagePath: member.eImage,
+                                      imagePath: member.image,
                                       shape: BoxShape.circle,
                                       height: 50,
                                       width: 50,
                                     ),
                                     PaddingConfig.h8,
                                     Text(
-                                      member.eName,
+                                      member.name,
                                       style: AppTextStyle.bodySm(),
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.center,
                                       maxLines: 1,
                                     ),
                                     Text(
-                                      member.eRole,
+                                      member.role,
                                       style: AppTextStyle.bodyXs(
                                         color: AppColors.fontLightGray,
                                       ),

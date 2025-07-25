@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/task_bloc_state_handling.dart';
 import 'package:two_dashboard/core/functions/device_utility.dart';
 import 'package:two_dashboard/core/helper/helper_functions.dart';
 import 'package:two_dashboard/core/network/enums.dart';
@@ -13,11 +15,20 @@ import 'package:two_dashboard/core/widgets/dropdown-list/custom_dropdown_list_fo
 import 'package:two_dashboard/core/widgets/images/image_circle.dart';
 import 'package:two_dashboard/features/auth/presentation/widgets/custom_text_form_field.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_status_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/date_field.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 
 class CreateTaskForm extends StatefulWidget {
-  const CreateTaskForm({super.key, required this.projectTeam});
+  const CreateTaskForm({
+    super.key,
+    required this.projectTeam,
+    required this.projectId,
+    required this.sprintId,
+  });
   final Team projectTeam;
+  final int projectId;
+  final int sprintId;
 
   @override
   State<CreateTaskForm> createState() => _CreateTaskFormState();
@@ -28,12 +39,14 @@ class _CreateTaskFormState extends State<CreateTaskForm> {
   late final TextEditingController _titleController;
   late final TextEditingController _descriptionController;
   Member? user;
-  TaskPriority? priority;
+  String? priority;
   TaskStatus? taskStatus;
   int? statusId;
 
   DateTime? _startDate;
   DateTime? _endDate;
+
+  List<ProjectStatus> _statusList = [];
 
   Future<void> _pickDate({required bool isStart}) async {
     final DateTime? picked = await showDatePicker(
@@ -57,11 +70,20 @@ class _CreateTaskFormState extends State<CreateTaskForm> {
     }
   }
 
+  Future<void> _loadStatuses() async {
+    final allStatuses = getSavedStatusesForProject(widget.projectId);
+    print(allStatuses.asMap());
+    setState(() {
+      _statusList = allStatuses;
+    });
+  }
+
   @override
   void initState() {
     _formKey = GlobalKey<FormState>();
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
+    _loadStatuses(); // ← تحميل الحالات
     super.initState();
   }
 
@@ -84,6 +106,7 @@ class _CreateTaskFormState extends State<CreateTaskForm> {
               children: [
                 Text("Basic Information", style: AppTextStyle.bodySm()),
                 PaddingConfig.h16,
+                // Task Title
                 CustomTextFormField(
                   labelText: "Task Title",
                   controller: _titleController,
@@ -96,6 +119,7 @@ class _CreateTaskFormState extends State<CreateTaskForm> {
                   },
                 ),
                 PaddingConfig.h16,
+                // Task Description
                 CustomTextFormField(
                   labelText: "Task description",
                   maxLines: 6,
@@ -109,6 +133,7 @@ class _CreateTaskFormState extends State<CreateTaskForm> {
                   },
                 ),
                 PaddingConfig.h16,
+                // Assigned To
                 Text("Assigned To", style: AppTextStyle.bodySm()),
                 PaddingConfig.h16,
                 CustomDropdownListForMemberModel(
@@ -155,11 +180,11 @@ class _CreateTaskFormState extends State<CreateTaskForm> {
                     CustomRounderContainer(
                       child: Row(
                         children: [
-                          _buildRadioForPriority(TaskPriority.high, "High"),
+                          _buildRadioForPriority("High", "High"),
                           PaddingConfig.w24,
-                          _buildRadioForPriority(TaskPriority.medium, "Medium"),
+                          _buildRadioForPriority("Mid", "Medium"),
                           PaddingConfig.w24,
-                          _buildRadioForPriority(TaskPriority.low, "Low"),
+                          _buildRadioForPriority("Low", "Low"),
                         ],
                       ),
                     ),
@@ -167,23 +192,19 @@ class _CreateTaskFormState extends State<CreateTaskForm> {
                     // Status
                     Text("Status", style: AppTextStyle.bodySm()),
                     PaddingConfig.h16,
-                    CustomRounderContainer(
-                      child: Row(
-                        children: [
-                          _buildRadioForStatus(TaskStatus.toDo, "To Do"),
-                          PaddingConfig.w24,
-                          _buildRadioForStatus(
-                            TaskStatus.inProgress,
-                            "In Progress",
-                          ),
-                          PaddingConfig.w24,
-                          _buildRadioForStatus(
-                            TaskStatus.completed,
-                            "Completed",
-                          ),
-                        ],
+                    if (_statusList.isEmpty)
+                      Text(
+                        "No statuses available",
+                        style: AppTextStyle.bodyXs(),
+                      )
+                    else
+                      Wrap(
+                        spacing: 16,
+                        children:
+                            _statusList
+                                .map(_buildRadioForStatusFromHive)
+                                .toList(),
                       ),
-                    ),
                     // Date Time
                     PaddingConfig.h16,
                     Row(
@@ -226,12 +247,46 @@ class _CreateTaskFormState extends State<CreateTaskForm> {
                 children: [
                   CancelTextButton(),
                   PaddingConfig.w24,
-                  SaveElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate() &&
-                          _startDate != null &&
-                          _endDate != null) {}
+                  BlocListener<SprintAndTaskBloc, SprintAndTaskState>(
+                    listener: (context, state) {
+                      TaskBlocStateHandling().createTaskListener(
+                        state,
+                        context,
+                      );
                     },
+                    listenWhen:
+                        (previous, current) =>
+                            previous.createTaskStatus !=
+                            current.createTaskStatus,
+                    child: SaveElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate() &&
+                            _startDate != null &&
+                            _endDate != null &&
+                            user != null &&
+                            statusId != null &&
+                            priority != null) {
+                          context.read<SprintAndTaskBloc>().add(
+                            CreateTaskEvent(
+                              title: _titleController.text,
+                              description: _descriptionController.text,
+                              projectId: widget.projectId,
+                              sprintId: widget.sprintId,
+                              statusId: statusId!,
+                              userId: user!.id,
+                              priority: priority!,
+                              completion: 0.0,
+                              startDate: HelperFunctions.formateDateForBack(
+                                _startDate!,
+                              ),
+                              endDate: HelperFunctions.formateDateForBack(
+                                _endDate!,
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -243,14 +298,14 @@ class _CreateTaskFormState extends State<CreateTaskForm> {
     );
   }
 
-  Widget _buildRadioForPriority(TaskPriority value, String label) {
+  Widget _buildRadioForPriority(String value, String label) {
     return Row(
       children: [
-        Radio<TaskPriority>(
+        Radio<String>(
           value: value,
           groupValue: priority,
           activeColor: AppColors.greenShade2,
-          onChanged: (TaskPriority? newValue) {
+          onChanged: (String? newValue) {
             setState(() {
               priority = newValue;
             });
@@ -261,20 +316,20 @@ class _CreateTaskFormState extends State<CreateTaskForm> {
     );
   }
 
-  Widget _buildRadioForStatus(TaskStatus value, String label) {
+  Widget _buildRadioForStatusFromHive(ProjectStatus status) {
     return Row(
       children: [
-        Radio<TaskStatus>(
-          value: value,
-          groupValue: taskStatus,
+        Radio<int>(
+          value: status.id,
+          groupValue: statusId,
           activeColor: AppColors.greenShade2,
-          onChanged: (TaskStatus? newValue) {
+          onChanged: (int? newValue) {
             setState(() {
-              taskStatus = newValue;
+              statusId = newValue;
             });
           },
         ),
-        Text(label, style: AppTextStyle.bodySm()),
+        Text(status.name, style: AppTextStyle.bodySm()),
       ],
     );
   }

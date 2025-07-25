@@ -52,14 +52,14 @@ class ProfileBlocStateHandling {
           DividerWithText(text: "User Information"),
           SizedBox(height: SizesConfig.spaceBtwSections),
           FetchNetworkImage(
-            imagePath: state.employeeEntity!.eImage,
+            imagePath: state.employeeEntity!.image,
             height: 200,
             width: 200,
           ),
           SizedBox(height: SizesConfig.spaceBtwSections),
-          UserInfoRow(title: "user name", value: state.employeeEntity!.eName),
-          UserInfoRow(title: "user email", value: state.employeeEntity!.eEmail),
-          UserInfoRow(title: "user job", value: state.employeeEntity!.eRole),
+          UserInfoRow(title: "user name", value: state.employeeEntity!.name),
+          UserInfoRow(title: "user email", value: state.employeeEntity!.email),
+          UserInfoRow(title: "user job", value: state.employeeEntity!.role),
           UserInfoRow(title: "user cv", value: "cv.pdf"),
         ],
       );
@@ -298,7 +298,7 @@ class UserHeaderInfo extends StatelessWidget {
               height: 50,
               width: 50,
               shape: BoxShape.circle,
-              imagePath: employeeEntity.eImage,
+              imagePath: employeeEntity.image,
             ),
           ],
         ),
@@ -310,11 +310,11 @@ class UserHeaderInfo extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                employeeEntity.eName,
+                employeeEntity.name,
                 style: AppTextStyle.bodyMd(color: AppColors.fontDarkGray),
               ),
               Text(
-                employeeEntity.eRole,
+                employeeEntity.role,
                 style: AppTextStyle.bodySm(color: AppColors.fontLightGray),
               ),
             ],

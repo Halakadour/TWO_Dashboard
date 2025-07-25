@@ -1,13 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/task_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/icon-buttons/filter_button.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/project-details/backlog_card.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 
-class BacklogTabBarView extends StatelessWidget {
-  const BacklogTabBarView({super.key});
+class BacklogTabBarView extends StatefulWidget {
+  const BacklogTabBarView({
+    super.key,
+    required this.projectId,
+    required this.team,
+  });
+  final int projectId;
+  final Team? team;
+
+  @override
+  State<BacklogTabBarView> createState() => _BacklogTabBarViewState();
+}
+
+class _BacklogTabBarViewState extends State<BacklogTabBarView> {
+  @override
+  void didChangeDependencies() {
+    context.read<SprintAndTaskBloc>().add(
+      ShowPendedSprintTasksEvent(projectId: widget.projectId),
+    );
+    context.read<SprintAndTaskBloc>().add(
+      ShowProjectBacklogTasksEvent(projectId: widget.projectId),
+    );
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +47,45 @@ class BacklogTabBarView extends StatelessWidget {
                 CreateElevatedButton(
                   addingType: "New Sprint",
                   onPressed:
-                      () => context.pushNamed(AppRouteConfig.createSprint),
+                      () => context.pushNamed(
+                        AppRouteConfig.createSprint,
+                        pathParameters: {
+                          'projectId': widget.projectId.toString(),
+                        },
+                      ),
                 ),
                 PaddingConfig.w8,
                 FilterButton(onPressed: () {}),
               ],
             ),
             PaddingConfig.h32,
-            BacklogCard(title: "Pended Sprint"),
+            BlocBuilder<SprintAndTaskBloc, SprintAndTaskState>(
+              buildWhen:
+                  (previous, current) =>
+                      previous.pendedSprintTasksListStatus !=
+                      current.pendedSprintTasksListStatus,
+              builder: (context, state) {
+                return TaskBlocStateHandling().getPendedSprintTasksList(
+                  state,
+                  widget.projectId,
+                  widget.team,
+                );
+              },
+            ),
             PaddingConfig.h32,
-            BacklogCard(title: "Backlog Sprint"),
+            BlocBuilder<SprintAndTaskBloc, SprintAndTaskState>(
+              buildWhen:
+                  (previous, current) =>
+                      previous.backlogTasksListStatus !=
+                      current.backlogTasksListStatus,
+              builder: (context, state) {
+                return TaskBlocStateHandling().getBacklogTasksList(
+                  state,
+                  widget.projectId,
+                  widget.team,
+                );
+              },
+            ),
             PaddingConfig.h40,
           ],
         ),

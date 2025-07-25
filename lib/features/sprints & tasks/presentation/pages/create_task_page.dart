@@ -10,7 +10,15 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/mod
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/widgets/create_task_form.dart';
 
 class CreateTaskPage extends StatelessWidget {
-  const CreateTaskPage({super.key});
+  const CreateTaskPage({
+    super.key,
+    required this.projectTeam,
+    required this.projectId,
+    required this.sprintId,
+  });
+  final Team projectTeam;
+  final String projectId;
+  final String sprintId;
 
   @override
   Widget build(BuildContext context) {
@@ -43,31 +51,9 @@ class CreateTaskPage extends StatelessWidget {
             CustomPageDivider(),
             PaddingConfig.h24,
             CreateTaskForm(
-              projectTeam: Team(
-                id: 0,
-                name: 'Mobile Team',
-                members: [
-                  Member(
-                    id: 0,
-                    name: "Hala Kad",
-                    email: "email",
-                    isManager: true,
-                  ),
-                  Member(
-                    id: 0,
-                    name: "Laile",
-                    email: "email",
-                    isManager: false,
-                  ),
-                  Member(
-                    id: 0,
-                    name: "Lilian",
-                    email: "email",
-                    isManager: false,
-                  ),
-                  Member(id: 0, name: "Ruha", email: "email", isManager: false),
-                ],
-              ),
+              projectTeam: projectTeam,
+              projectId: int.parse(projectId),
+              sprintId: int.parse(sprintId),
             ),
           ],
         ),

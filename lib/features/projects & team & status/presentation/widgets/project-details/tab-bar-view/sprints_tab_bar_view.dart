@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
+import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/sprint_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/container/custom_rounder_container.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/project-details/sprint_card.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/sprint_entity.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 
 class SprintsTabBarView extends StatefulWidget {
-  const SprintsTabBarView({super.key});
+  const SprintsTabBarView({super.key, required this.projectId});
+  final int projectId;
 
   @override
   State<SprintsTabBarView> createState() => _SprintsTabBarViewState();
@@ -18,16 +23,53 @@ class SprintsTabBarView extends StatefulWidget {
 class _SprintsTabBarViewState extends State<SprintsTabBarView> {
   ValueNotifier<int> filter = ValueNotifier(0);
 
+  late final List<SprintEntity> allSprints;
+  late final List<SprintEntity> startedSprints;
+  late final List<SprintEntity> uncompletedSprints;
+
+  @override
+  void initState() {
+    super.initState();
+    // All Sprints
+    context.read<SprintAndTaskBloc>().add(
+      ShowProjectSprintsEvent(projectId: widget.projectId),
+    );
+  }
+
   Widget _buildRadio(int value, String label) {
     return Row(
       children: [
-        Radio<int>(
-          value: value,
-          groupValue: filter.value,
-          activeColor: AppColors.blueShade2,
-          onChanged: (int? newValue) {
-            filter.value = newValue!;
-          },
+        ValueListenableBuilder(
+          valueListenable: filter,
+          builder:
+              (_, v, _) => Radio<int>(
+                value: value,
+                groupValue: filter.value,
+                activeColor: AppColors.blueShade2,
+                onChanged: (int? newValue) {
+                  filter.value = newValue!;
+                  if (newValue == 1) {
+                    // Started Sprints
+                    context.read<SprintAndTaskBloc>().add(
+                      ShowProjectStartedSprintEvent(
+                        projectId: widget.projectId,
+                      ),
+                    );
+                  } else if (newValue == 2) {
+                    // Un Completed Sprints
+                    context.read<SprintAndTaskBloc>().add(
+                      ShowProjectUnCompleteSprintEvent(
+                        projectId: widget.projectId,
+                      ),
+                    );
+                  } else {
+                    // All Sprints
+                    context.read<SprintAndTaskBloc>().add(
+                      ShowProjectSprintsEvent(projectId: widget.projectId),
+                    );
+                  }
+                },
+              ),
         ),
         Text(label, style: AppTextStyle.bodySm()),
       ],
@@ -36,18 +78,6 @@ class _SprintsTabBarViewState extends State<SprintsTabBarView> {
 
   @override
   Widget build(BuildContext context) {
-    final list = List.filled(
-      10,
-      SprintEntity(
-        id: 0,
-        label: "label",
-        description: "description",
-        goal: "goal",
-        start: DateTime.now(),
-        end: DateTime.now(),
-        sprintStatus: "sprintStatus",
-      ),
-    );
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
@@ -55,7 +85,16 @@ class _SprintsTabBarViewState extends State<SprintsTabBarView> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              CreateElevatedButton(addingType: "New Sprint", onPressed: () {}),
+              CreateElevatedButton(
+                addingType: "New Sprint",
+                onPressed:
+                    () => context.pushNamed(
+                      AppRouteConfig.createSprint,
+                      pathParameters: {
+                        'projectId': widget.projectId.toString(),
+                      },
+                    ),
+              ),
             ],
           ),
           PaddingConfig.h32,
@@ -87,16 +126,64 @@ class _SprintsTabBarViewState extends State<SprintsTabBarView> {
                 ),
                 PaddingConfig.w16,
                 Expanded(
-                  child: GridView.builder(
-                    itemCount: list.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                    ),
-                    itemBuilder:
-                        (context, index) =>
-                            SprintCard(sprintEntity: list[index]),
+                  child: ValueListenableBuilder<int>(
+                    valueListenable: filter,
+                    builder: (_, value, __) {
+                      if (value == 1) {
+                        // Started Sprints
+                        return BlocBuilder<
+                          SprintAndTaskBloc,
+                          SprintAndTaskState
+                        >(
+                          buildWhen:
+                              (previous, current) =>
+                                  previous.projectStartedSprintsListStatus !=
+                                  current.projectStartedSprintsListStatus,
+                          builder: (context, state) {
+                            return SprintBlocStateHandling()
+                                .getStartedSprintsList(
+                                  state,
+                                  widget.projectId.toString(),
+                                );
+                          },
+                        );
+                      } else if (value == 2) {
+                        // Un Completed Sprints
+                        return BlocBuilder<
+                          SprintAndTaskBloc,
+                          SprintAndTaskState
+                        >(
+                          buildWhen:
+                              (previous, current) =>
+                                  previous.projectUnCompleteSprintsListStatus !=
+                                  current.projectUnCompleteSprintsListStatus,
+                          builder: (context, state) {
+                            return SprintBlocStateHandling()
+                                .getUnCompletedSprintsList(
+                                  state,
+                                  widget.projectId.toString(),
+                                );
+                          },
+                        );
+                      } else {
+                        // All Sprints
+                        return BlocBuilder<
+                          SprintAndTaskBloc,
+                          SprintAndTaskState
+                        >(
+                          buildWhen:
+                              (previous, current) =>
+                                  previous.projectSprintsListStatus !=
+                                  current.projectSprintsListStatus,
+                          builder: (context, state) {
+                            return SprintBlocStateHandling().getAllSprintsList(
+                              state,
+                              widget.projectId.toString(),
+                            );
+                          },
+                        );
+                      }
+                    },
                   ),
                 ),
               ],

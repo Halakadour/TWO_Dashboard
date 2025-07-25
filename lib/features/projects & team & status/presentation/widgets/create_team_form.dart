@@ -59,11 +59,11 @@ class _CreateTeamFormState extends State<CreateTeamForm>
                 if (selectedEmployees.isNotEmpty && selectedManager != null) {
                   // From EmployeeEntity to Int
                   List<int> memebersIdList =
-                      selectedEmployees.map((e) => e.eId).toList();
+                      selectedEmployees.map((e) => e.id).toList();
                   context.read<ProjectAndTeamBloc>().add(
                     CreateTeamEvent(
                       name: _teamNameController.text,
-                      mgrId: selectedManager!.eId,
+                      mgrId: selectedManager!.id,
                       memebersIdList: memebersIdList,
                     ),
                   );
@@ -101,12 +101,9 @@ class _CreateTeamFormState extends State<CreateTeamForm>
                   label: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(selectedManager!.name, style: AppTextStyle.bodySm()),
                       Text(
-                        selectedManager!.eName,
-                        style: AppTextStyle.bodySm(),
-                      ),
-                      Text(
-                        selectedManager!.eRole,
+                        selectedManager!.role,
                         style: AppTextStyle.bodyXs(
                           color: AppColors.fontLightGray,
                         ),
@@ -138,9 +135,9 @@ class _CreateTeamFormState extends State<CreateTeamForm>
                             label: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(emp.eName, style: AppTextStyle.bodySm()),
+                                Text(emp.name, style: AppTextStyle.bodySm()),
                                 Text(
-                                  emp.eRole,
+                                  emp.role,
                                   style: AppTextStyle.bodyXs(
                                     color: AppColors.fontLightGray,
                                   ),

@@ -40,7 +40,7 @@ class _CustomSidebarState extends State<CustomSidebar> {
       shape: const BeveledRectangleBorder(),
       child: Container(
         decoration: const BoxDecoration(
-          color: Colors.black,
+          color: AppColors.navy,
           border: Border(right: BorderSide(color: AppColors.gray, width: 1)),
         ),
         child: SingleChildScrollView(

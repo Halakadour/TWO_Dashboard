@@ -1,23 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
+import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/update_elevated_button.dart';
-import 'package:two_dashboard/core/widgets/images/image_circle.dart';
+import 'package:two_dashboard/core/widgets/container/custom_rounder_container.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
 
 class TeamTabBarView extends StatelessWidget {
-  const TeamTabBarView({super.key, required this.team});
-  final Team team;
+  const TeamTabBarView({
+    super.key,
+    required this.team,
+    required this.projectId,
+  });
+  final Team? team;
+  final int projectId;
 
   @override
   Widget build(BuildContext context) {
-    final teamMgr = team.members.firstWhere(
+    final teamMgr = team?.members.firstWhere(
       (element) => element.isManager == true,
     );
     final membersList =
-        team.members.where((element) => element.isManager == false).toList();
+        team?.members.where((element) => element.isManager == false).toList() ??
+        [];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
@@ -25,91 +33,126 @@ class TeamTabBarView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              UpdateElevatedButton(updateType: "Team", onPressed: () {}),
+              UpdateElevatedButton(updateType: "Members", onPressed: () {}),
               PaddingConfig.w8,
-              CreateElevatedButton(addingType: "New Team", onPressed: () {}),
+              CreateElevatedButton(
+                addingType: "New Team",
+                onPressed:
+                    () => context.pushReplacementNamed(
+                      AppRouteConfig.selectTeam,
+                      pathParameters: {'id': projectId.toString()},
+                    ),
+              ),
             ],
           ),
           PaddingConfig.h32,
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text("Team Name", style: AppTextStyle.bodyMd()),
-                        PaddingConfig.w48,
-                        Text(
-                          team.name,
-                          style: AppTextStyle.bodySm(
-                            color: AppColors.fontLightGray,
-                          ),
-                        ),
-                      ],
-                    ),
-                    PaddingConfig.h32,
-                    Row(
-                      children: [
-                        Text("Team Manager", style: AppTextStyle.bodyMd()),
-                        PaddingConfig.w32,
-                        Row(
-                          children: [
-                            ImageCircle(),
-                            PaddingConfig.w8,
-                            Text(
-                              teamMgr.name,
-                              style: AppTextStyle.bodySm(
-                                color: AppColors.fontLightGray,
-                              ),
+          CustomRounderContainer(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "Team Name",
+                            style: AppTextStyle.bodyMd(
+                              color: AppColors.blueShade2,
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    PaddingConfig.h16,
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Team Members"),
-                    PaddingConfig.w32,
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 300,
-                          width: 300,
-                          child: ListView.builder(
-                            itemCount: membersList.length,
-                            itemBuilder:
-                                (context, index) => Padding(
-                                  padding: const EdgeInsets.only(bottom: 8.0),
-                                  child: Row(
-                                    children: [
-                                      ImageCircle(),
-                                      PaddingConfig.w8,
-                                      Text(
-                                        membersList[index].name,
-                                        style: AppTextStyle.bodySm(
-                                          color: AppColors.fontLightGray,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          PaddingConfig.w48,
+                          Text(
+                            team?.name ?? "NO Team Selected",
+                            style: AppTextStyle.bodySm(
+                              color: AppColors.fontDarkGray,
+                            ),
+                          ),
+                        ],
+                      ),
+                      PaddingConfig.h32,
+                      Row(
+                        children: [
+                          Text(
+                            "Team Manager",
+                            style: AppTextStyle.bodyMd(
+                              color: AppColors.blueShade2,
+                            ),
+                          ),
+                          PaddingConfig.w32,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                teamMgr?.name ?? "NO Team Selected",
+                                style: AppTextStyle.bodySm(
+                                  color: AppColors.fontDarkGray,
+                                ),
+                              ),
+                              PaddingConfig.h8,
+                              Text(
+                                teamMgr?.email ?? "NO Team Selected",
+                                style: AppTextStyle.bodyXs(
+                                  color: AppColors.fontLightGray,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      PaddingConfig.h16,
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                Expanded(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Team Members",
+                        style: AppTextStyle.bodyMd(color: AppColors.blueShade2),
+                      ),
+                      PaddingConfig.w32,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 300,
+                            width: 300,
+                            child: ListView.builder(
+                              itemCount: membersList.length,
+                              itemBuilder:
+                                  (context, index) => Padding(
+                                    padding: const EdgeInsets.only(bottom: 8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          membersList[index].name,
+                                          style: AppTextStyle.bodySm(
+                                            color: AppColors.fontDarkGray,
+                                          ),
+                                        ),
+                                        PaddingConfig.h8,
+                                        Text(
+                                          membersList[index].email,
+                                          style: AppTextStyle.bodyXs(
+                                            color: AppColors.fontLightGray,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

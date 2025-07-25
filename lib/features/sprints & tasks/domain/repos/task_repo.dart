@@ -5,6 +5,7 @@ import 'package:two_dashboard/core/param/casule_param.dart';
 import 'package:two_dashboard/core/param/task_param.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/status/status_model.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/sprint/sprint.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/task/task_model.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/task_entity.dart';
 
 abstract class TaskRepo with HandlingExceptionManager {
@@ -31,7 +32,7 @@ abstract class TaskRepo with HandlingExceptionManager {
   Future<Either<Failure, List<Sprint>>> showPenedingSprintsTasks(
     TokenWithIdParam project,
   );
-  Future<Either<Failure, List<TaskEntity>>> showProjectBackLogTasks(
+  Future<Either<Failure, List<TaskModel>>> showProjectBackLogTasks(
     TokenWithIdParam project,
   );
   Future<Either<Failure, Unit>> createBacklogTasksSprint(

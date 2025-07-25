@@ -16,7 +16,7 @@ class ProjectEntity {
   final CooperationType cType;
   final String contactTime;
   final ProjectVisibility visibility;
-  final TaskStatus pStatus;
+  final String status;
   final String? contract;
   final Team? team;
 
@@ -35,7 +35,7 @@ class ProjectEntity {
     required this.cType,
     required this.contactTime,
     required this.visibility,
-    this.pStatus = TaskStatus.pended,
+    required this.status,
     this.contract,
     this.team,
   });

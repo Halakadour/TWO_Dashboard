@@ -1,31 +1,15 @@
 import 'package:two_dashboard/features/profile/domain/entities/employee_entity.dart';
 
 class EmployeeModel extends EmployeeEntity {
-  final int id;
-  final String name;
-  final String email;
-  final String image;
-  final String role;
-  final String? cv;
-  final int approved;
-
   EmployeeModel({
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.image,
-    required this.role,
-    required this.cv,
-    required this.approved,
-  }) : super(
-         eId: id,
-         eName: name,
-         eEmail: email,
-         eImage: image,
-         eRole: role,
-         eCv: cv,
-         eApproved: approved,
-       );
+    required super.id,
+    required super.name,
+    required super.email,
+    required super.image,
+    required super.role,
+    required super.cv,
+    required super.approved,
+  });
 
   factory EmployeeModel.fromJson(Map<String, dynamic> json) => EmployeeModel(
     id: json["id"],

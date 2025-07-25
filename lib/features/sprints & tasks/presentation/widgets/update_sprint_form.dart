@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/sprint_bloc_state_handling.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/sprint_entity.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/strings/text_strings.dart';
@@ -11,10 +13,16 @@ import 'package:two_dashboard/core/widgets/buttons/text-buttons/cancel_text_butt
 import 'package:two_dashboard/core/widgets/container/custom_rounder_container.dart';
 import 'package:two_dashboard/features/auth/presentation/widgets/custom_text_form_field.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/date_field.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 
 class UpdateSprintForm extends StatefulWidget {
-  const UpdateSprintForm({super.key, required this.sprintEntity});
+  const UpdateSprintForm({
+    super.key,
+    required this.sprintEntity,
+    required this.projectId,
+  });
   final SprintEntity sprintEntity;
+  final int projectId;
 
   @override
   State<UpdateSprintForm> createState() => _UpdateSprintFormState();
@@ -194,12 +202,42 @@ class _UpdateSprintFormState extends State<UpdateSprintForm> {
                 children: [
                   CancelTextButton(),
                   PaddingConfig.w24,
-                  SaveElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate() &&
-                          _startDate != null &&
-                          _endDate != null) {}
+                  BlocListener<SprintAndTaskBloc, SprintAndTaskState>(
+                    listenWhen:
+                        (previous, current) =>
+                            previous.updateSprintStatus !=
+                            current.updateSprintStatus,
+                    listener: (context, state) {
+                      SprintBlocStateHandling().updateSprintListener(
+                        state,
+                        context,
+                        widget.projectId,
+                      );
                     },
+                    child: SaveElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate() &&
+                            _startDate != null &&
+                            _endDate != null) {
+                          context.read<SprintAndTaskBloc>().add(
+                            UpdateSprintEvent(
+                              sprintId: widget.sprintEntity.id,
+                              lable: _lableController.text,
+                              description: _descriptionController.text,
+                              goal: _goalController.text,
+                              start: HelperFunctions.formateDateForBack(
+                                _startDate!,
+                              ),
+                              end: HelperFunctions.formateDateForBack(
+                                _endDate!,
+                              ),
+                              projectId: widget.projectId,
+                              status: widget.sprintEntity.sprintStatus,
+                            ),
+                          );
+                        }
+                      },
+                    ),
                   ),
                 ],
               ),

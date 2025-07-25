@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:two_dashboard/core/helper/helper_functions.dart';
-import 'package:two_dashboard/core/network/enums.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/project_card.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/status/status_model.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/task_board_card.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/widgets/task_status_title_and_task_count.dart';
 
 import '../../../../config/constants/padding_config.dart';
 import '../../../../config/constants/sizes_config.dart';
 import '../../../../config/theme/color.dart';
 
-class ProjectKanbanView extends StatefulWidget {
-  const ProjectKanbanView({super.key});
+class StatusKanbanView extends StatefulWidget {
+  const StatusKanbanView({super.key, required this.statusList});
+  final List<StatusModel> statusList;
 
   @override
-  State<ProjectKanbanView> createState() => _ProjectKanbanViewState();
+  State<StatusKanbanView> createState() => _StatusKanbanViewState();
 }
 
-class _ProjectKanbanViewState extends State<ProjectKanbanView> {
+class _StatusKanbanViewState extends State<StatusKanbanView> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -31,14 +32,6 @@ class _ProjectKanbanViewState extends State<ProjectKanbanView> {
           columnsCount = 1; // موبايل
         }
 
-        final projectStatuses = [
-          TaskStatus.pended,
-          TaskStatus.inProgress,
-          TaskStatus.inReview,
-          TaskStatus.completed,
-          TaskStatus.canceled,
-        ];
-
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           physics: AlwaysScrollableScrollPhysics(),
@@ -50,7 +43,7 @@ class _ProjectKanbanViewState extends State<ProjectKanbanView> {
               spacing: 16,
               runSpacing: 16,
               children:
-                  projectStatuses.map((status) {
+                  widget.statusList.map((status) {
                     return SizedBox(
                       width: width / columnsCount - 20, // عرض العمود
                       child: _buildKanbanColumn(status),
@@ -64,7 +57,7 @@ class _ProjectKanbanViewState extends State<ProjectKanbanView> {
   }
 
   // Kanban Column
-  Widget _buildKanbanColumn(TaskStatus projectStatus) {
+  Widget _buildKanbanColumn(StatusModel projectStatus) {
     return Expanded(
       child: Container(
         padding: EdgeInsets.all(SizesConfig.md),
@@ -77,9 +70,11 @@ class _ProjectKanbanViewState extends State<ProjectKanbanView> {
           children: [
             // Project status and number
             TaskStatusTitleAndTaskCount(
-              title: HelperFunctions.getWorkStatusTitle(projectStatus),
-              colorState: HelperFunctions.getWorkStatusColor(projectStatus),
-              count: "3",
+              title: projectStatus.name,
+              colorState: HelperFunctions.getTaskStatusColor(
+                HelperFunctions.getTaskStatusByName(projectStatus.name),
+              ),
+              count: projectStatus.tasks.length.toString(),
             ),
             PaddingConfig.h16,
             PaddingConfig.h16,
@@ -88,12 +83,9 @@ class _ProjectKanbanViewState extends State<ProjectKanbanView> {
               height: MediaQuery.of(context).size.height * 0.5,
               child: ListView(
                 children: List.generate(
-                  4,
-                  (index) => ProjectCard(
-                    colorStatus: HelperFunctions.getWorkStatusColor(
-                      projectStatus,
-                    ),
-                  ),
+                  projectStatus.tasks.length,
+                  (index) =>
+                      TaskBoardCard(taskEntity: projectStatus.tasks[index]),
                 ),
               ),
             ),

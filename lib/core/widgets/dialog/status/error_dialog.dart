@@ -42,6 +42,7 @@ void showErrorDialog(BuildContext context, String errorMessage) {
                 errorMessage,
                 textAlign: TextAlign.center,
                 style: AppTextStyle.bodyMd(color: AppColors.redShade1),
+                overflow: TextOverflow.fade,
               ),
               PaddingConfig.h24,
               CloseElevatedButton(),

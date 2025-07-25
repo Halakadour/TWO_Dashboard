@@ -9,7 +9,8 @@ import 'package:two_dashboard/core/widgets/texts/page_title.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/widgets/create_sprint_form.dart';
 
 class CreateSprintPage extends StatelessWidget {
-  const CreateSprintPage({super.key});
+  const CreateSprintPage({super.key, required this.projectId});
+  final String projectId;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class CreateSprintPage extends StatelessWidget {
             ),
             CustomPageDivider(),
             PaddingConfig.h24,
-            CreateSprintForm(),
+            CreateSprintForm(projectId: int.parse(projectId)),
           ],
         ),
       ),

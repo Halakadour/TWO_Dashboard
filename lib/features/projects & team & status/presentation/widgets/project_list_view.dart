@@ -74,20 +74,20 @@ class _ProjectListViewState extends State<ProjectListView> {
         decoration: BoxDecoration(
           color:
               isSelected
-                  ? HelperFunctions.getWorkStatusBackgroundColor(projectStatus)
+                  ? HelperFunctions.getTaskStatusBackgroundColor(projectStatus)
                   : AppColors.white,
           borderRadius: BorderRadius.circular(SizesConfig.borderRadiusSm),
           border: Border.all(
             color:
                 isSelected
-                    ? HelperFunctions.getWorkStatusColor(projectStatus)
+                    ? HelperFunctions.getTaskStatusColor(projectStatus)
                     : AppColors.gray,
             width: isSelected ? 1.8 : 0.8,
           ),
         ),
         child: TaskStatusTitleAndTaskCount(
-          title: HelperFunctions.getWorkStatusTitle(projectStatus),
-          colorState: HelperFunctions.getWorkStatusColor(projectStatus),
+          title: HelperFunctions.getTaskStatusTitle(projectStatus),
+          colorState: HelperFunctions.getTaskStatusColor(projectStatus),
           count: count,
         ),
       ),

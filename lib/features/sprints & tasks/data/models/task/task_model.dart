@@ -7,7 +7,7 @@ class TaskModel extends TaskEntity {
   final String status;
   final DateTime start;
   final DateTime end;
-  final dynamic sprint;
+  final String? sprint;
 
   TaskModel({
     required super.id,
@@ -21,9 +21,9 @@ class TaskModel extends TaskEntity {
     required this.end,
     required this.sprint,
   }) : super(
-         tPriority: HelperFunctions.getPriorityByName(priority),
-         taskStatus: HelperFunctions.getWorkStatusByName(status),
-         tCompletion: double.parse(completion),
+         taskPriority: HelperFunctions.getPriorityByName(priority),
+         taskStatus: HelperFunctions.getTaskStatusByName(status),
+         taskCompletion: double.parse(completion),
          startDate: start,
          endDate: end,
        );
@@ -36,7 +36,7 @@ class TaskModel extends TaskEntity {
     status: json["status"],
     assignedTo: json["assigned_to"],
     priority: json["priority"],
-    completion: json["completion"],
+    completion: json["completion"].toString(),
     start: DateTime.parse(json["start"]),
     end: DateTime.parse(json["end"]),
   );

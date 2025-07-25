@@ -1,15 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
-import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
-import 'package:two_dashboard/config/theme/text_style.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/task_bloc_state_handling.dart';
+import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/complete_sprint_elevated_button.dart';
-import 'package:two_dashboard/core/widgets/buttons/icon-buttons/filter_button.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/project_kanban_view.dart';
+import 'package:two_dashboard/core/widgets/container/custom_rounder_container.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/sprint_entity.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 
-class BoardTabBarView extends StatelessWidget {
-  const BoardTabBarView({super.key});
+class BoardTabBarView extends StatefulWidget {
+  const BoardTabBarView({super.key, required this.projectId});
+  final int projectId;
+
+  @override
+  State<BoardTabBarView> createState() => _BoardTabBarViewState();
+}
+
+class _BoardTabBarViewState extends State<BoardTabBarView> {
+  ValueNotifier<List<int>> selectedSprintIds = ValueNotifier([]);
+
+  Widget _buildSprintFilterList(List<SprintEntity> sprints) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children:
+          sprints.map((sprint) {
+            return ValueListenableBuilder<List<int>>(
+              valueListenable: selectedSprintIds,
+              builder: (_, selectedIds, __) {
+                final isSelected = selectedIds.contains(sprint.id);
+                return CheckboxListTile(
+                  value: isSelected,
+                  onChanged: (val) {
+                    if (val == true) {
+                      selectedSprintIds.value = [...selectedIds, sprint.id];
+                    } else {
+                      selectedSprintIds.value =
+                          selectedIds.where((id) => id != sprint.id).toList();
+                    }
+                    // Get project board based on sprints that I select
+                    context.read<SprintAndTaskBloc>().add(
+                      ShowProjectBoardEvent(
+                        projectId: widget.projectId,
+                        sprintsIdList: selectedSprintIds.value,
+                      ),
+                    );
+                  },
+                  title: Text(sprint.label),
+                  activeColor: AppColors.blueShade2,
+                  controlAffinity: ListTileControlAffinity.leading,
+                  dense: true,
+                );
+              },
+            );
+          }).toList(),
+    );
+  }
+
+  @override
+  void didChangeDependencies() {
+    // Get the project sprints for filtering
+    context.read<SprintAndTaskBloc>().add(
+      ShowProjectSprintsEvent(projectId: widget.projectId),
+    );
+    // Get project board for the first time were the list is still empty
+    context.read<SprintAndTaskBloc>().add(
+      ShowProjectBoardEvent(
+        projectId: widget.projectId,
+        sprintsIdList: selectedSprintIds.value,
+      ),
+    );
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,47 +82,61 @@ class BoardTabBarView extends StatelessWidget {
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [CompleteSprintElevatedButton(onPressed: () {})],
+            ),
+            PaddingConfig.h32,
+            Row(
               children: [
-                DropdownMenu(
-                  hintText: "Sprint",
-                  trailingIcon: Icon(
-                    Iconsax.arrow_down_1,
-                    size: SizesConfig.iconsSm,
+                PaddingConfig.w8,
+                CustomRounderContainer(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Iconsax.filter),
+                          PaddingConfig.w8,
+                          Text("Filter By Sprint:"),
+                        ],
+                      ),
+                      PaddingConfig.h16,
+                      BlocBuilder<SprintAndTaskBloc, SprintAndTaskState>(
+                        builder: (context, state) {
+                          if (state.projectSprintsListStatus ==
+                              CasualStatus.loading) {
+                            return const CircularProgressIndicator();
+                          } else if (state.projectSprintsListStatus ==
+                              CasualStatus.success) {
+                            //return Text("Success");
+                            if (state.projectSprintsList.isEmpty) {
+                              return Text("Empty");
+                            } else {
+                              return _buildSprintFilterList(
+                                state.projectSprintsList,
+                              );
+                            }
+                          } else {
+                            return const Text("No sprints available");
+                          }
+                        },
+                      ),
+                    ],
                   ),
-                  selectedTrailingIcon: Icon(
-                    Iconsax.arrow_up_2,
-                    size: SizesConfig.iconsSm,
-                  ),
-                  inputDecorationTheme: InputDecorationTheme(
-                    hintStyle: AppTextStyle.bodySm(),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.gray),
-                    ),
-                    disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.gray),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.gray),
-                    ),
-                  ),
-                  dropdownMenuEntries: [
-                    DropdownMenuEntry(value: "Sprint", label: "Sprint"),
-                    DropdownMenuEntry(value: "Sprint", label: "Sprint"),
-                    DropdownMenuEntry(value: "Sprint", label: "Sprint"),
-                  ],
                 ),
-                Row(
-                  children: [
-                    CompleteSprintElevatedButton(onPressed: () {}),
-                    PaddingConfig.w8,
-                    FilterButton(onPressed: () {}),
-                  ],
+                PaddingConfig.w16,
+                BlocBuilder<SprintAndTaskBloc, SprintAndTaskState>(
+                  buildWhen:
+                      (previous, current) =>
+                          previous.projectBoardListStatus !=
+                          current.projectBoardListStatus,
+                  builder: (context, state) {
+                    return TaskBlocStateHandling().getProjectBoardList(state);
+                  },
                 ),
               ],
             ),
-            PaddingConfig.h32,
-            ProjectKanbanView(),
             PaddingConfig.h48,
           ],
         ),

@@ -6,8 +6,15 @@ import '../../../../config/theme/text_style.dart';
 import '../custom_rounder_container.dart';
 
 class DynamicStatusContainer extends StatelessWidget {
-  const DynamicStatusContainer({super.key, required this.status});
+  const DynamicStatusContainer({
+    super.key,
+    required this.status,
+    this.fontColor,
+    this.color,
+  });
   final String status;
+  final Color? fontColor;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +25,10 @@ class DynamicStatusContainer extends StatelessWidget {
         vertical: SizesConfig.xs,
         horizontal: SizesConfig.md,
       ),
-      backgroundColor: AppColors.greenShade1,
+      backgroundColor: color ?? AppColors.greenShade1,
       child: Text(
         status.toLowerCase(),
-        style: AppTextStyle.bodyXs(color: AppColors.greenShade2),
+        style: AppTextStyle.bodyXs(color: fontColor ?? AppColors.greenShade2),
       ),
     );
   }

@@ -6,8 +6,8 @@ class TaskEntity {
   final String description;
   final TaskStatus taskStatus;
   final String assignedTo;
-  final TaskPriority tPriority;
-  final double tCompletion;
+  final TaskPriority taskPriority;
+  final double taskCompletion;
   final DateTime startDate;
   final DateTime endDate;
 
@@ -17,8 +17,8 @@ class TaskEntity {
     required this.description,
     required this.taskStatus,
     required this.assignedTo,
-    required this.tPriority,
-    required this.tCompletion,
+    required this.taskPriority,
+    required this.taskCompletion,
     required this.startDate,
     required this.endDate,
   });

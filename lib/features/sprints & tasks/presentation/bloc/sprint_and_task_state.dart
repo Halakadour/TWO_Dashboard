@@ -44,7 +44,7 @@ class SprintAndTaskState {
   final List<TaskEntity> mySprintTasksList;
   final CasualStatus mySprintTasksListStatus;
 
-  final List<TaskEntity> backlogTasksList;
+  final List<TaskModel> backlogTasksList;
   final CasualStatus backlogTasksListStatus;
 
   // Other Lists (Project-Board-Status-List, Pended-Sprint-Tasks-List)
@@ -127,7 +127,7 @@ class SprintAndTaskState {
     CasualStatus? myProjectTasksListStatus,
     List<TaskEntity>? mySprintTasksList,
     CasualStatus? mySprintTasksListStatus,
-    List<TaskEntity>? backlogTasksList,
+    List<TaskModel>? backlogTasksList,
     CasualStatus? backlogTasksListStatus,
     List<StatusModel>? projectBoardList,
     CasualStatus? projectBoardListStatus,

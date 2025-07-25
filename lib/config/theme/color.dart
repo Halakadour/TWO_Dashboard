@@ -47,7 +47,7 @@ class AppColors {
   static const Color yellowShade3 = Color(0xFFC3BC00);
 
   // theme colors
-  static const Color mainColor = blueShade2;
+  static const Color mainColor = greenShade2;
   static const Color secondaryColor = navy;
   static const Color scaffoldBackgroundColor = Color(0xFFF6F6F6);
 }

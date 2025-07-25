@@ -1,11 +1,12 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
+import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/edit_button.dart';
-import 'package:two_dashboard/core/widgets/container/status-containers/project_status_container.dart';
+import 'package:two_dashboard/core/widgets/container/status-containers/dynamic_status_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/visibility_status_container.dart';
-import 'package:two_dashboard/core/widgets/dialog/project/show_poroject_details_dialog.dart';
 import 'package:two_dashboard/core/widgets/texts/linked_text.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
 
@@ -19,7 +20,7 @@ class ProjectRows extends DataTableSource {
     final project = projectList[index];
     return DataRow2(
       onTap: () {
-        showProjectDetails(context, project);
+        context.pushNamed(AppRouteConfig.projectDetails, extra: project);
       },
       selected: false,
       onSelectChanged: (value) {},
@@ -27,7 +28,7 @@ class ProjectRows extends DataTableSource {
         DataCell(
           Text(project.pType.name, style: AppTextStyle.dataTableCellStyle()),
         ),
-        DataCell(ProjectStatusContainer(projectStatus: project.pStatus)),
+        DataCell(DynamicStatusContainer(status: project.status)),
         DataCell(VisibilityStatusContainer(visibility: project.visibility)),
         DataCell(
           Text(

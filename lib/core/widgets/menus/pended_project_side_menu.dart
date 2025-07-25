@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/theme/color.dart';
-import 'package:two_dashboard/core/widgets/dialog/project/sent_edit_project_message_dialod.dart';
+import 'package:two_dashboard/core/widgets/dialog/project/sent_edit_project_message_dialog.dart';
 import 'package:two_dashboard/core/widgets/menus/custom_side_menu_item.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_and_team_bloc.dart';

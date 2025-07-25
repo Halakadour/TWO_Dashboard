@@ -1,9 +1,12 @@
 import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
+import 'package:two_dashboard/core/param/task_param.dart';
 import 'package:two_dashboard/features/about-us%20&%20why-us/presentation/pages/about_us_why_us_page.dart';
 import 'package:two_dashboard/features/auth/presentation/pages/fill-profile/fill_employee_profile_page.dart';
 import 'package:two_dashboard/features/auth/presentation/pages/login/login_page.dart';
 import 'package:two_dashboard/features/auth/presentation/pages/sign-up/sign_up_page.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/my_projects_page.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/pended_projects_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/signature_board_page.dart';
@@ -18,6 +21,8 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presenta
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/select_team_page.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/update_project_page.dart';
 import 'package:two_dashboard/features/services/presentation/pages/update-service/update_service_page.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/sprint_entity.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/task_entity.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/create_sprint_page.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/create_task_page.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/sprint_details_page.dart';
@@ -35,7 +40,7 @@ import 'package:two_dashboard/features/services/presentation/pages/services_page
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/projectDetails',
+    initialLocation: '/login',
     routes: [
       // AUTH PAGES
       GoRoute(
@@ -78,42 +83,70 @@ class AppRouter {
               GoRoute(
                 name: AppRouteConfig.projectDetails,
                 path: '/projectDetails',
-                builder: (context, state) => const ProjectDetailsPage(),
+                builder:
+                    (context, state) => ProjectDetailsPage(
+                      projectEntity: state.extra! as ProjectEntity,
+                    ),
               ),
               GoRoute(
                 name: AppRouteConfig.updateProject,
                 path: '/updateProject',
-                builder: (context, state) => const UpdateProjectPage(),
+                builder:
+                    (context, state) => UpdateProjectPage(
+                      projectEntity: state.extra! as ProjectEntity,
+                    ),
               ),
               GoRoute(
                 name: AppRouteConfig.createSprint,
-                path: '/createSprint',
-                builder: (context, state) => const CreateSprintPage(),
+                path: '/createSprint/:projectId',
+                builder:
+                    (context, state) => CreateSprintPage(
+                      projectId: state.pathParameters['projectId'] ?? '',
+                    ),
               ),
               GoRoute(
                 name: AppRouteConfig.createTask,
-                path: '/createTask',
-                builder: (context, state) => const CreateTaskPage(),
+                path: '/createTask/:projectId/:sprintId',
+                builder:
+                    (context, state) => CreateTaskPage(
+                      projectTeam: state.extra as Team,
+                      projectId: state.pathParameters['projectId'] ?? '',
+                      sprintId: state.pathParameters['sprintId'] ?? '',
+                    ),
               ),
               GoRoute(
                 name: AppRouteConfig.updateSprint,
-                path: '/updateSprint',
-                builder: (context, state) => const UpdateSprintPage(),
+                path: '/updateSprint/:projectId',
+                builder:
+                    (context, state) => UpdateSprintPage(
+                      sprintEntity: state.extra as SprintEntity,
+                      projectId: state.pathParameters['projectId'] ?? '',
+                    ),
               ),
               GoRoute(
                 name: AppRouteConfig.updateTask,
-                path: '/updateTask',
-                builder: (context, state) => const UpdateTaskPage(),
+                path: '/updateTask/:projectId/:sprintId',
+                builder:
+                    (context, state) => UpdateTaskPage(
+                      taskEntityAndTeam: state.extra as UpdateTaskPageParam,
+                      projectId: state.pathParameters['projectId'] ?? '',
+                      sprintId: state.pathParameters['sprintId'] ?? '',
+                    ),
               ),
               GoRoute(
                 name: AppRouteConfig.sprintDetails,
                 path: '/sprintDetails',
-                builder: (context, state) => const SprintDetailsPage(),
+                builder:
+                    (context, state) => SprintDetailsPage(
+                      sprintEntity: state.extra as SprintEntity,
+                    ),
               ),
               GoRoute(
                 name: AppRouteConfig.taskDetails,
                 path: '/taskDetails',
-                builder: (context, state) => const TaskDetailsPage(),
+                builder:
+                    (context, state) =>
+                        TaskDetailsPage(taskEntity: state.error as TaskEntity),
               ),
               GoRoute(
                 name: AppRouteConfig.selectTeam,

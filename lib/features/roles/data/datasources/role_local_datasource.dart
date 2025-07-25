@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
+import 'package:hive/hive.dart';
 import 'package:two_dashboard/features/roles/data/models/role_response_model.dart';
 
 import '../../../../core/error/exceptions.dart';
@@ -17,27 +16,22 @@ class RoleLocalDatasourceImpl extends RoleLocalDatasource {
   get sharedPreferences => null;
 
   @override
-  Future<Unit> cacheRoles(List<RoleModel> roleList) {
-    List roleModelToJson =
-        roleList.map<Map<String, dynamic>>((role) => role.toJson()).toList();
-    sharedPreferences.setString(CACHED_ROLES, json.encode(roleModelToJson));
+  Future<Unit> cacheRoles(List<RoleModel> roleList) async {
+    final box = Hive.box<RoleModel>(CACHED_ROLES);
+    await box.clear();
+    for (var role in roleList) {
+      await box.put(role.id, role);
+    }
     return Future.value(unit);
   }
 
   @override
   Future<List<RoleModel>> getCachedRoles() {
-    final jsonString = sharedPreferences.getString(CACHED_ROLES);
-    if (jsonString != null) {
-      List decodeJsonData = json.decode(jsonString);
-      List<RoleModel> jsonToRoleModel =
-          decodeJsonData
-              .map<RoleModel>(
-                (jsonRoleModel) => RoleModel.fromJson(jsonRoleModel),
-              )
-              .toList();
-      return Future.value(jsonToRoleModel);
-    } else {
+    final box = Hive.box<RoleModel>(CACHED_ROLES);
+    if (box.isEmpty) {
       throw EmptyCacheException(message: "Empty Cache Exception");
+    } else {
+      return Future.value(box.values.toList());
     }
   }
 }

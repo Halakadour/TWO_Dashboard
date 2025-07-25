@@ -97,9 +97,11 @@ class _SelectTeamPageState extends State<SelectTeamPage> {
                 if (state.showTeamsStatus == CasualStatus.loading) {
                   return Center(child: LoadingStatusAnimation());
                 } else if (state.showTeamsStatus == CasualStatus.success) {
+                  print(state.showTeams[0].membersList);
                   if (state.showTeams.isEmpty) {
                     return Center(child: EmptyStatusAnimation());
                   } else {
+                    //return Center(child: Text("Hi"));
                     return CustomTeamGridView(
                       teamList: state.showTeams,
                       selectedTeam: selectedTeam,

@@ -8,7 +8,7 @@ import 'package:two_dashboard/core/functions/device_utility.dart';
 import 'package:two_dashboard/core/widgets/breadcrumbs/breadcumbs_item.dart';
 import 'package:two_dashboard/core/widgets/buttons/icon-buttons/back_button.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/project-details/tab-bar-view/backlog_tab_bar_view.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/project-details/tab-bar-view/board_tab_bar_view.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/project-details/tab-bar-view/contract_tab_bar_view.dart';
@@ -20,7 +20,8 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presenta
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/tab_bar_item.dart';
 
 class ProjectDetailsPage extends StatelessWidget {
-  const ProjectDetailsPage({super.key});
+  const ProjectDetailsPage({super.key, required this.projectEntity});
+  final ProjectEntity projectEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -69,44 +70,19 @@ class ProjectDetailsPage extends StatelessWidget {
           Expanded(
             child: TabBarView(
               children: [
-                SummaryTabBarView(),
+                SummaryTabBarView(projectEntity: projectEntity),
                 ContractTabBarView(),
-                BacklogTabBarView(),
-                BoardTabBarView(),
-                StatusTabBarView(),
-                SprintsTabBarView(),
-                TasksTabBarView(),
+                BacklogTabBarView(
+                  projectId: projectEntity.id,
+                  team: projectEntity.team,
+                ),
+                BoardTabBarView(projectId: projectEntity.id),
+                StatusTabBarView(projectId: projectEntity.id),
+                SprintsTabBarView(projectId: projectEntity.id),
+                TasksTabBarView(projectId: projectEntity.id),
                 TeamTabBarView(
-                  team: Team(
-                    id: 0,
-                    name: 'Mobile Team',
-                    members: [
-                      Member(
-                        id: 0,
-                        name: "Hala Kad",
-                        email: "email",
-                        isManager: true,
-                      ),
-                      Member(
-                        id: 0,
-                        name: "Laile",
-                        email: "email",
-                        isManager: false,
-                      ),
-                      Member(
-                        id: 0,
-                        name: "Lilian",
-                        email: "email",
-                        isManager: false,
-                      ),
-                      Member(
-                        id: 0,
-                        name: "Ruha",
-                        email: "email",
-                        isManager: false,
-                      ),
-                    ],
-                  ),
+                  team: projectEntity.team,
+                  projectId: projectEntity.id,
                 ),
               ],
             ),

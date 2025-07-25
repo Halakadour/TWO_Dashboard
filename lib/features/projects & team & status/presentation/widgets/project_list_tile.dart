@@ -47,6 +47,7 @@ class ProjectListTile extends StatelessWidget {
 
             PriorityContainer(priority: TaskPriority.medium),
             CustomProgressBar(
+              value: 50,
               lintWidth:
                   DeviceUtility.isMobileScreen(context)
                       ? DeviceUtility.getScreenWidth(context) * 0.4

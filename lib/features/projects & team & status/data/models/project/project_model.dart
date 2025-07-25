@@ -6,7 +6,6 @@ class ProjectModel extends ProjectEntity {
   final String projectType;
   final String cooperationType;
   final int private;
-  final String status;
 
   ProjectModel({
     required super.id,
@@ -22,15 +21,14 @@ class ProjectModel extends ProjectEntity {
     required super.contactTime,
     required super.contract,
     required super.team,
+    required super.status,
     required this.projectType,
     required this.cooperationType,
     required this.private,
-    required this.status,
   }) : super(
          pType: HelperFunctions.getProjectTypeByName(projectType),
          cType: HelperFunctions.getCooperationTypeByName(cooperationType),
          visibility: HelperFunctions.getVisibilityByNum(private),
-         pStatus: HelperFunctions.getWorkStatusByName(status),
        );
 
   factory ProjectModel.fromJson(Map<String, dynamic> json) => ProjectModel(

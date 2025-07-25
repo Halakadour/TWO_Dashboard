@@ -70,6 +70,7 @@ class ImagesPath {
   // PNGs //
   static const profile = '${_pngImagesPath}photo.jpg';
   static const design = '${_pngImagesPath}mobile_design.jpg';
+  static const background = '${_pngImagesPath}background.jpg';
 }
 
 class JsonPath {

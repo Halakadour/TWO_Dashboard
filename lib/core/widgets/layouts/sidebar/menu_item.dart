@@ -42,7 +42,7 @@ class MenuItem extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                   child: VerticalDivider(
-                    color: AppColors.blueShade2,
+                    color: AppColors.greenShade2,
                     thickness: 3,
                   ),
                 ),
@@ -56,7 +56,7 @@ class MenuItem extends StatelessWidget {
                   // ignore: deprecated_member_use
                   color:
                       (pageNum == currentPage)
-                          ? AppColors.blueShade2
+                          ? AppColors.greenShade2
                           : AppColors.white,
                 ),
               ),
@@ -65,7 +65,7 @@ class MenuItem extends StatelessWidget {
                 style: AppTextStyle.navRailStyle(
                   color:
                       (pageNum == currentPage)
-                          ? AppColors.blueShade2
+                          ? AppColors.greenShade2
                           : AppColors.white,
                 ),
               ),

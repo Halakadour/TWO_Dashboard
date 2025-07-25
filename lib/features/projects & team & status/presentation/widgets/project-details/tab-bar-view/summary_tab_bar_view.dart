@@ -6,15 +6,16 @@ import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/functions/device_utility.dart';
-import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/update_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/cooperation_type_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/dynamic_status_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/project_type_status_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/visibility_status_container.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
 
 class SummaryTabBarView extends StatelessWidget {
-  const SummaryTabBarView({super.key});
+  const SummaryTabBarView({super.key, required this.projectEntity});
+  final ProjectEntity projectEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,10 @@ class SummaryTabBarView extends StatelessWidget {
                 UpdateElevatedButton(
                   updateType: "Project",
                   onPressed:
-                      () => context.pushNamed(AppRouteConfig.updateProject),
+                      () => context.pushNamed(
+                        AppRouteConfig.updateProject,
+                        extra: projectEntity,
+                      ),
                 ),
               ],
             ),
@@ -62,7 +66,28 @@ class SummaryTabBarView extends StatelessWidget {
                           ),
                           SizedBox(width: 75),
                           Text(
-                            "Some Text",
+                            projectEntity.fullName,
+                            style: AppTextStyle.bodySm(
+                              color: AppColors.fontLightGray,
+                            ),
+                          ),
+                        ],
+                      ),
+                      PaddingConfig.h24,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(Iconsax.building, color: AppColors.blueShade2),
+                          PaddingConfig.w8,
+                          Text(
+                            "Company Name",
+                            style: AppTextStyle.bodyMd(
+                              color: AppColors.blueShade2,
+                            ),
+                          ),
+                          SizedBox(width: 50),
+                          Text(
+                            projectEntity.companyName,
                             style: AppTextStyle.bodySm(
                               color: AppColors.fontLightGray,
                             ),
@@ -86,7 +111,7 @@ class SummaryTabBarView extends StatelessWidget {
                             child: SizedBox(
                               width: 200,
                               child: Text(
-                                "Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text ",
+                                projectEntity.projectDescription,
                                 style: AppTextStyle.bodySm(
                                   color: AppColors.fontLightGray,
                                 ),
@@ -115,7 +140,7 @@ class SummaryTabBarView extends StatelessWidget {
                             child: SizedBox(
                               width: 200,
                               child: Text(
-                                "Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text ",
+                                projectEntity.requirements,
                                 style: AppTextStyle.bodySm(
                                   color: AppColors.fontLightGray,
                                 ),
@@ -138,7 +163,7 @@ class SummaryTabBarView extends StatelessWidget {
                           ),
                           PaddingConfig.w56,
                           Text(
-                            "Some Text",
+                            projectEntity.duration,
                             style: AppTextStyle.bodySm(
                               color: AppColors.fontLightGray,
                             ),
@@ -159,7 +184,7 @@ class SummaryTabBarView extends StatelessWidget {
                           ),
                           SizedBox(width: 84),
                           Text(
-                            "Some Text",
+                            projectEntity.cost,
                             style: AppTextStyle.bodySm(
                               color: AppColors.fontLightGray,
                             ),
@@ -191,7 +216,7 @@ class SummaryTabBarView extends StatelessWidget {
                           ),
                           SizedBox(width: 84),
                           ProjectTypeStatusContainer(
-                            projectType: ProjectType.mobile,
+                            projectType: projectEntity.pType,
                           ),
                         ],
                       ),
@@ -209,7 +234,7 @@ class SummaryTabBarView extends StatelessWidget {
                           ),
                           SizedBox(width: 44),
                           CooperationTypeContainer(
-                            cooperationType: CooperationType.development,
+                            cooperationType: projectEntity.cType,
                           ),
                         ],
                       ),
@@ -227,7 +252,7 @@ class SummaryTabBarView extends StatelessWidget {
                           ),
                           SizedBox(width: 120),
                           VisibilityStatusContainer(
-                            visibility: ProjectVisibility.private,
+                            visibility: projectEntity.visibility,
                           ),
                         ],
                       ),
@@ -244,7 +269,7 @@ class SummaryTabBarView extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: 80),
-                          DynamicStatusContainer(status: "Loading"),
+                          DynamicStatusContainer(status: projectEntity.status),
                         ],
                       ),
                       PaddingConfig.h24,

@@ -54,7 +54,7 @@ class TaskRemoteDatasourceImpl extends TaskRemoteDatasource {
         'status_id': param.statusId.toString(),
         'user_id': param.userId.toString(),
         'priority': param.priority,
-        'completion': param.completion,
+        'completion': param.completion.toString(),
         'start': param.startDate,
         'end': param.endDate,
       }),

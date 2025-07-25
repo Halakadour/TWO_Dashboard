@@ -17,10 +17,12 @@ import 'package:two_dashboard/core/widgets/divider/custom_page_divider.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/project-details/task_card.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/sprint_entity.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/task_entity.dart';
 
 class SprintDetailsPage extends StatefulWidget {
-  const SprintDetailsPage({super.key});
+  const SprintDetailsPage({super.key, required this.sprintEntity});
+  final SprintEntity sprintEntity;
 
   @override
   State<SprintDetailsPage> createState() => _SprintDetailsPageState();
@@ -75,7 +77,11 @@ class _SprintDetailsPageState extends State<SprintDetailsPage> {
                 UpdateElevatedButton(
                   updateType: "Sprint",
                   onPressed:
-                      () => context.pushNamed(AppRouteConfig.updateSprint),
+                      () => context.pushNamed(
+                        AppRouteConfig.updateSprint,
+                        extra: widget.sprintEntity,
+                        pathParameters: {'projectId': "1"},
+                      ),
                 ),
                 PaddingConfig.w8,
                 CreateElevatedButton(
@@ -110,7 +116,7 @@ class _SprintDetailsPageState extends State<SprintDetailsPage> {
                           ),
                           SizedBox(width: 75),
                           Text(
-                            "Some Text",
+                            widget.sprintEntity.label,
                             style: AppTextStyle.bodySm(
                               color: AppColors.fontLightGray,
                             ),
@@ -134,7 +140,7 @@ class _SprintDetailsPageState extends State<SprintDetailsPage> {
                             child: SizedBox(
                               width: 200,
                               child: Text(
-                                "Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text ",
+                                widget.sprintEntity.description,
                                 style: AppTextStyle.bodySm(
                                   color: AppColors.fontLightGray,
                                 ),
@@ -160,7 +166,7 @@ class _SprintDetailsPageState extends State<SprintDetailsPage> {
                             child: SizedBox(
                               width: 200,
                               child: Text(
-                                "Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text ",
+                                widget.sprintEntity.goal,
                                 style: AppTextStyle.bodySm(
                                   color: AppColors.fontLightGray,
                                 ),
@@ -182,7 +188,9 @@ class _SprintDetailsPageState extends State<SprintDetailsPage> {
                             ),
                           ),
                           SizedBox(width: 72),
-                          DynamicStatusContainer(status: "Status"),
+                          DynamicStatusContainer(
+                            status: widget.sprintEntity.sprintStatus,
+                          ),
                         ],
                       ),
                       PaddingConfig.h32,
@@ -199,7 +207,9 @@ class _SprintDetailsPageState extends State<SprintDetailsPage> {
                           ),
                           PaddingConfig.w80,
                           Text(
-                            HelperFunctions.formatDate(DateTime.now()),
+                            HelperFunctions.formateDateForBack(
+                              widget.sprintEntity.start,
+                            ),
                             style: AppTextStyle.bodySm(
                               color: AppColors.fontLightGray,
                             ),
@@ -220,7 +230,10 @@ class _SprintDetailsPageState extends State<SprintDetailsPage> {
                           ),
                           PaddingConfig.w88,
                           Text(
-                            "${HelperFunctions.formatDate(DateTime.now())} - ${TimeOfDay.fromDateTime(DateTime.now()).format(context)}",
+                            HelperFunctions.formateDateForBack(
+                              widget.sprintEntity.end,
+                            ),
+                            // "${HelperFunctions.formatDate(DateTime.now())} - ${TimeOfDay.fromDateTime(DateTime.now()).format(context)}",
                             style: AppTextStyle.bodySm(
                               color: AppColors.fontLightGray,
                             ),
@@ -284,8 +297,8 @@ class _SprintDetailsPageState extends State<SprintDetailsPage> {
                                     description: "description",
                                     taskStatus: TaskStatus.canceled,
                                     assignedTo: "Hello",
-                                    tPriority: TaskPriority.medium,
-                                    tCompletion: 45,
+                                    taskPriority: TaskPriority.medium,
+                                    taskCompletion: 45,
                                     startDate: DateTime.now(),
                                     endDate: DateTime.now(),
                                   ),

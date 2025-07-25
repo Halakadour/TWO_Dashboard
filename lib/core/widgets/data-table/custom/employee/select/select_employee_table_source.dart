@@ -31,15 +31,11 @@ class SelectEmployeeRows extends DataTableSource {
             height: 50,
             width: 50,
             shape: BoxShape.circle,
-            imagePath: employee.eImage,
+            imagePath: employee.image,
           ),
         ),
-        DataCell(
-          Text(employee.eName, style: AppTextStyle.dataTableCellStyle()),
-        ),
-        DataCell(
-          Text(employee.eRole, style: AppTextStyle.dataTableCellStyle()),
-        ),
+        DataCell(Text(employee.name, style: AppTextStyle.dataTableCellStyle())),
+        DataCell(Text(employee.role, style: AppTextStyle.dataTableCellStyle())),
         DataCell(
           Row(
             children: [
