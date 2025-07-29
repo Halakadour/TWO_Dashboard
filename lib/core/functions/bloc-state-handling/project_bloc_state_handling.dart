@@ -10,16 +10,16 @@ import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/not_authorized_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_and_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 
 class ProjectBlocStateHandling {
   // Create Project
-  void createProject(ProjectAndTeamState state, BuildContext context) {
+  void createProject(ProjectStatusTeamState state, BuildContext context) {
     if (state.createProjectStatus == CasualStatus.loading) {
       showLoadingDialog(context);
     } else if (state.createProjectStatus == CasualStatus.success) {
       context.pop();
-      context.read<ProjectAndTeamBloc>().add(ShowAllProjectsEvent());
+      context.read<ProjectStatusTeamBloc>().add(ShowAllProjectsEvent());
       showSuccessDialog(context, () {
         context.pushReplacementNamed(AppRouteConfig.allProjects);
         context.pop();
@@ -34,7 +34,7 @@ class ProjectBlocStateHandling {
   }
 
   // Get All Projects Table
-  Widget getAllProjectsTable(ProjectAndTeamState state) {
+  Widget getAllProjectsTable(ProjectStatusTeamState state) {
     if (state.allProjectsListStatus == CasualStatus.loading) {
       return const LoadingPendedProjectTable();
     } else if (state.allProjectsListStatus == CasualStatus.success) {
@@ -47,7 +47,7 @@ class ProjectBlocStateHandling {
   }
 
   // Get Pended Projects Table
-  Widget getPendedProjectsTable(ProjectAndTeamState state) {
+  Widget getPendedProjectsTable(ProjectStatusTeamState state) {
     if (state.pendedProjectListStatus == CasualStatus.loading) {
       return const LoadingPendedProjectTable();
     } else if (state.pendedProjectListStatus == CasualStatus.success) {
@@ -60,7 +60,10 @@ class ProjectBlocStateHandling {
   }
 
   // Sent Edit Project Message
-  void sentEditProjectMessage(ProjectAndTeamState state, BuildContext context) {
+  void sentEditProjectMessage(
+    ProjectStatusTeamState state,
+    BuildContext context,
+  ) {
     if (state.editRequestProjectStatus == CasualStatus.loading) {
       showLoadingDialog(context);
     } else if (state.editRequestProjectStatus == CasualStatus.success) {

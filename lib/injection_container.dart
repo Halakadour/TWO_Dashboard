@@ -81,7 +81,7 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/u
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/team/add_team_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/team/create_team_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/team/show_teams_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_and_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/datasource/team__remote_data_source.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/repos/project_repo_impl.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/repos/team_repo_impl.dart';
@@ -318,7 +318,7 @@ Future<void> init() async {
 
   /**----------------- PROJECTS-STATUS-TEAM FEATURE -----------------------**/
   sl.registerFactory(
-    () => ProjectAndTeamBloc(
+    () => ProjectStatusTeamBloc(
       sl(),
       sl(),
       sl(),

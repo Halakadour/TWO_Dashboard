@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/core/network/enums.dart';
+import 'package:two_dashboard/core/widgets/animation/empty_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/loading_status_animation.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
@@ -95,12 +96,12 @@ class SprintBlocStateHandling {
         ShowProjectSprintsEvent(projectId: projectId),
       );
       showSuccessDialog(context, () {
-        context.pushReplacementNamed(AppRouteConfig.projectDetails);
         context.pop();
       });
     } else if (state.startSprintStatus == CasualStatus.failure) {
       context.pop();
       showErrorDialog(context, state.errorMessage);
+      print(state.errorMessage);
     }
   }
 
@@ -134,23 +135,22 @@ class SprintBlocStateHandling {
       return LoadingStatusAnimation();
     } else if (state.projectSprintsListStatus == CasualStatus.success) {
       if (state.projectSprintsList.isEmpty) {
-        return Text("Empty");
+        return EmptyStatusAnimation();
       } else {
-        return Text("Success");
+        return GridView.builder(
+          itemCount: state.projectSprintsList.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemBuilder:
+              (context, index) => SprintCard(
+                sprintEntity: state.projectSprintsList[index],
+                projectId: projectId,
+              ),
+        );
       }
-      // return GridView.builder(
-      //   itemCount: state.projectSprintsList.length,
-      //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      //     crossAxisCount: 4,
-      //     crossAxisSpacing: 10,
-      //     mainAxisSpacing: 10,
-      //   ),
-      //   itemBuilder:
-      //       (context, index) => SprintCard(
-      //         sprintEntity: state.projectSprintsList[index],
-      //         projectId: projectId,
-      //       ),
-      // );
     } else if (state.projectSprintsListStatus == CasualStatus.failure) {
       print(state.errorMessage);
       return ErrorStatusAnimation(errorMessage: state.errorMessage);
@@ -164,19 +164,23 @@ class SprintBlocStateHandling {
     if (state.projectStartedSprintsListStatus == CasualStatus.loading) {
       return LoadingStatusAnimation();
     } else if (state.projectStartedSprintsListStatus == CasualStatus.success) {
-      return GridView.builder(
-        itemCount: state.projectStartedSprintsList.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-        ),
-        itemBuilder:
-            (context, index) => SprintCard(
-              sprintEntity: state.projectStartedSprintsList[index],
-              projectId: projectId,
-            ),
-      );
+      if (state.projectStartedSprintsList.isEmpty) {
+        return EmptyStatusAnimation();
+      } else {
+        return GridView.builder(
+          itemCount: state.projectStartedSprintsList.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemBuilder:
+              (context, index) => SprintCard(
+                sprintEntity: state.projectStartedSprintsList[index],
+                projectId: projectId,
+              ),
+        );
+      }
     } else if (state.projectStartedSprintsListStatus == CasualStatus.failure) {
       print(state.errorMessage);
       return ErrorStatusAnimation(errorMessage: state.errorMessage);
@@ -191,19 +195,23 @@ class SprintBlocStateHandling {
       return LoadingStatusAnimation();
     } else if (state.projectUnCompleteSprintsListStatus ==
         CasualStatus.success) {
-      return GridView.builder(
-        itemCount: state.projectUnCompleteSprintsList.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-        ),
-        itemBuilder:
-            (context, index) => SprintCard(
-              sprintEntity: state.projectUnCompleteSprintsList[index],
-              projectId: projectId,
-            ),
-      );
+      if (state.projectUnCompleteSprintsList.isEmpty) {
+        return EmptyStatusAnimation();
+      } else {
+        return GridView.builder(
+          itemCount: state.projectUnCompleteSprintsList.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemBuilder:
+              (context, index) => SprintCard(
+                sprintEntity: state.projectUnCompleteSprintsList[index],
+                projectId: projectId,
+              ),
+        );
+      }
     } else if (state.projectUnCompleteSprintsListStatus ==
         CasualStatus.failure) {
       print(state.errorMessage);

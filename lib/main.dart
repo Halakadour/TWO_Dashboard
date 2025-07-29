@@ -8,7 +8,7 @@ import 'package:two_dashboard/features/contact-us/presentation/bloc/contact_us_b
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
 import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_status_model.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_and_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 import 'package:two_dashboard/features/roles/data/datasources/role_local_datasource.dart';
 import 'package:two_dashboard/features/roles/data/models/role_response_model.dart';
 import 'package:two_dashboard/features/services/presentation/bloc/service_bloc.dart';
@@ -53,7 +53,7 @@ class MainApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(create: (context) => di.sl<AuthRoleProfileBloc>()),
-        BlocProvider(create: (context) => di.sl<ProjectAndTeamBloc>()),
+        BlocProvider(create: (context) => di.sl<ProjectStatusTeamBloc>()),
         BlocProvider(create: (context) => di.sl<SprintAndTaskBloc>()),
         BlocProvider(create: (context) => di.sl<AboutUsWhyUsBloc>()),
         BlocProvider(create: (context) => di.sl<ContactUsBloc>()),

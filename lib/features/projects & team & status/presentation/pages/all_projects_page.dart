@@ -6,7 +6,7 @@ import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/project_bloc_state_handling.dart';
 import 'package:two_dashboard/core/functions/device_utility.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_and_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 
 import '../../../../config/constants/padding_config.dart';
 import '../../../../config/constants/sizes_config.dart';
@@ -27,7 +27,7 @@ class _AllProjectPageState extends State<AllProjectPage> {
   bool isKanban = true;
   @override
   void didChangeDependencies() {
-    context.read<ProjectAndTeamBloc>().add(ShowAllProjectsEvent());
+    context.read<ProjectStatusTeamBloc>().add(ShowAllProjectsEvent());
     super.didChangeDependencies();
   }
 
@@ -47,7 +47,7 @@ class _AllProjectPageState extends State<AllProjectPage> {
             _buildFilters(),
             PaddingConfig.h32,
             Flexible(
-              child: BlocBuilder<ProjectAndTeamBloc, ProjectAndTeamState>(
+              child: BlocBuilder<ProjectStatusTeamBloc, ProjectStatusTeamState>(
                 buildWhen:
                     (previous, current) =>
                         (previous.allProjectsListStatus !=

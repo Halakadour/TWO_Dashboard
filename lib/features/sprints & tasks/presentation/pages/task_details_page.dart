@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/task_bloc_state_handling.dart';
 import 'package:two_dashboard/core/functions/device_utility.dart';
 import 'package:two_dashboard/core/helper/helper_functions.dart';
 import 'package:two_dashboard/core/widgets/breadcrumbs/breadcumbs_item.dart';
+import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/delete_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/update_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/icon-buttons/back_button.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/priority_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/task_status_container.dart';
+import 'package:two_dashboard/core/widgets/dialog/global/confirm_deletion_dialog.dart';
 import 'package:two_dashboard/core/widgets/divider/custom_page_divider.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/custom_progress_bar.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/task_entity.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 
 class TaskDetailsPage extends StatelessWidget {
   const TaskDetailsPage({super.key, required this.taskEntity});
@@ -59,6 +64,25 @@ class TaskDetailsPage extends StatelessWidget {
                   onPressed: () => context.pushNamed(AppRouteConfig.updateTask),
                 ),
                 PaddingConfig.w8,
+                BlocListener<SprintAndTaskBloc, SprintAndTaskState>(
+                  listenWhen:
+                      (previous, current) =>
+                          previous.deleteTaskStatus != current.deleteTaskStatus,
+                  listener: (context, state) {
+                    TaskBlocStateHandling().deleteTaskListener(state, context);
+                  },
+                  child: DeleteElevatedButton(
+                    deleteType: "Task",
+                    onPressed:
+                        () => confirmDeletionDialog(
+                          context,
+                          "this task",
+                          () => context.read<SprintAndTaskBloc>().add(
+                            DeleteTaskEvent(taskId: taskEntity.id),
+                          ),
+                        ),
+                  ),
+                ),
               ],
             ),
             PaddingConfig.h24,

@@ -5,7 +5,7 @@ import 'package:two_dashboard/core/widgets/breadcrumbs/breadcumbs_item.dart';
 import 'package:two_dashboard/core/widgets/divider/custom_page_divider.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_and_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/create_team_form.dart';
 
 import '../../../../config/constants/padding_config.dart';
@@ -53,7 +53,7 @@ class _CreateTeamPageState extends State<CreateTeamPage> {
               ),
               CustomPageDivider(),
               PaddingConfig.h16,
-              BlocListener<ProjectAndTeamBloc, ProjectAndTeamState>(
+              BlocListener<ProjectStatusTeamBloc, ProjectStatusTeamState>(
                 listener: (context, state) {
                   TeamBlocStateHandling().createTeam(state, context);
                 },

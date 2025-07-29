@@ -16,6 +16,7 @@ import 'package:two_dashboard/core/widgets/container/status-containers/task_stat
 import 'package:two_dashboard/core/widgets/images/image_circle.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/sprint/sprint.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/task/task_model.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/sprint_entity.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 
@@ -138,33 +139,8 @@ class BacklogCard extends StatelessWidget {
               child: ListView.builder(
                 itemCount: sprint.tasks.length,
                 itemBuilder:
-                    (context, index) => CustomRounderContainer(
-                      margin: EdgeInsets.only(bottom: 16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(Iconsax.tag),
-                              PaddingConfig.w8,
-                              Text(sprint.tasks[index].title),
-                            ],
-                          ),
-                          TaskStatusContainer(
-                            taskStatus: HelperFunctions.getTaskStatusByName(
-                              sprint.tasks[index].status,
-                            ),
-                          ),
-                          PriorityContainer(
-                            priority: HelperFunctions.getPriorityByName(
-                              sprint.tasks[index].priority,
-                            ),
-                          ),
-                          ImageCircle(),
-                          Icon(Iconsax.more),
-                        ],
-                      ),
-                    ),
+                    (context, index) =>
+                        BacklogTaskListTile(task: sprint.tasks[index]),
               ),
             ),
             PaddingConfig.h16,
@@ -182,6 +158,38 @@ class BacklogCard extends StatelessWidget {
                 children: [Icon(Iconsax.add), PaddingConfig.w8, Text("Create")],
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BacklogTaskListTile extends StatelessWidget {
+  const BacklogTaskListTile({super.key, required this.task});
+
+  final TaskModel task;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => context.pushNamed(AppRouteConfig.taskDetails, extra: task),
+      child: CustomRounderContainer(
+        margin: EdgeInsets.only(bottom: 16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [Icon(Iconsax.tag), PaddingConfig.w8, Text(task.title)],
+            ),
+            TaskStatusContainer(
+              taskStatus: HelperFunctions.getTaskStatusByName(task.status),
+            ),
+            PriorityContainer(
+              priority: HelperFunctions.getPriorityByName(task.priority),
+            ),
+            ImageCircle(),
+            Icon(Iconsax.more),
           ],
         ),
       ),

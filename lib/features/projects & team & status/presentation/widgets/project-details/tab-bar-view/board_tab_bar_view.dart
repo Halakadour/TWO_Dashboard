@@ -26,33 +26,33 @@ class _BoardTabBarViewState extends State<BoardTabBarView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children:
           sprints.map((sprint) {
-            return ValueListenableBuilder<List<int>>(
-              valueListenable: selectedSprintIds,
-              builder: (_, selectedIds, __) {
-                final isSelected = selectedIds.contains(sprint.id);
-                return CheckboxListTile(
-                  value: isSelected,
-                  onChanged: (val) {
-                    if (val == true) {
-                      selectedSprintIds.value = [...selectedIds, sprint.id];
-                    } else {
-                      selectedSprintIds.value =
-                          selectedIds.where((id) => id != sprint.id).toList();
-                    }
-                    // Get project board based on sprints that I select
-                    context.read<SprintAndTaskBloc>().add(
-                      ShowProjectBoardEvent(
-                        projectId: widget.projectId,
-                        sprintsIdList: selectedSprintIds.value,
-                      ),
-                    );
-                  },
-                  title: Text(sprint.label),
-                  activeColor: AppColors.blueShade2,
-                  controlAffinity: ListTileControlAffinity.leading,
-                  dense: true,
+            final isSelected = selectedSprintIds.value.contains(sprint.id);
+            return CheckboxListTile(
+              value: isSelected,
+              onChanged: (val) {
+                if (val == true) {
+                  selectedSprintIds.value = [
+                    ...selectedSprintIds.value,
+                    sprint.id,
+                  ];
+                } else {
+                  selectedSprintIds.value =
+                      selectedSprintIds.value
+                          .where((id) => id != sprint.id)
+                          .toList();
+                }
+                // Get project board based on sprints that I select
+                context.read<SprintAndTaskBloc>().add(
+                  ShowProjectBoardEvent(
+                    projectId: widget.projectId,
+                    sprintsIdList: selectedSprintIds.value,
+                  ),
                 );
               },
+              title: Text(sprint.label),
+              activeColor: AppColors.blueShade2,
+              controlAffinity: ListTileControlAffinity.leading,
+              dense: true,
             );
           }).toList(),
     );
@@ -87,9 +87,12 @@ class _BoardTabBarViewState extends State<BoardTabBarView> {
             ),
             PaddingConfig.h32,
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 PaddingConfig.w8,
                 CustomRounderContainer(
+                  height: 200,
+                  width: 200,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
@@ -106,13 +109,17 @@ class _BoardTabBarViewState extends State<BoardTabBarView> {
                         builder: (context, state) {
                           if (state.projectSprintsListStatus ==
                               CasualStatus.loading) {
-                            return const CircularProgressIndicator();
+                            return Center(
+                              child: const CircularProgressIndicator(
+                                color: AppColors.blueShade2,
+                              ),
+                            );
                           } else if (state.projectSprintsListStatus ==
                               CasualStatus.success) {
-                            //return Text("Success");
                             if (state.projectSprintsList.isEmpty) {
                               return Text("Empty");
                             } else {
+                              //return Text("Susss");
                               return _buildSprintFilterList(
                                 state.projectSprintsList,
                               );
@@ -126,14 +133,19 @@ class _BoardTabBarViewState extends State<BoardTabBarView> {
                   ),
                 ),
                 PaddingConfig.w16,
-                BlocBuilder<SprintAndTaskBloc, SprintAndTaskState>(
-                  buildWhen:
-                      (previous, current) =>
-                          previous.projectBoardListStatus !=
-                          current.projectBoardListStatus,
-                  builder: (context, state) {
-                    return TaskBlocStateHandling().getProjectBoardList(state);
-                  },
+                Expanded(
+                  child: BlocBuilder<SprintAndTaskBloc, SprintAndTaskState>(
+                    buildWhen:
+                        (previous, current) =>
+                            previous.projectBoardListStatus !=
+                            current.projectBoardListStatus,
+                    builder: (context, state) {
+                      return TaskBlocStateHandling().getProjectBoardList(
+                        state,
+                        widget.projectId,
+                      );
+                    },
+                  ),
                 ),
               ],
             ),

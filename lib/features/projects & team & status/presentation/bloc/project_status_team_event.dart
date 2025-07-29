@@ -1,76 +1,76 @@
-part of 'project_and_team_bloc.dart';
+part of 'project_status_team_bloc.dart';
 
-class ProjectAndTeamEvent {}
+class ProjectStatusTeamEvent {}
 
 // Project Events
-class CreateProjectEvent extends ProjectAndTeamEvent {
+class CreateProjectEvent extends ProjectStatusTeamEvent {
   UpdateProjectParam param;
 
   CreateProjectEvent({required this.param});
 }
 
-class UpdateProjectEvent extends ProjectAndTeamEvent {
+class UpdateProjectEvent extends ProjectStatusTeamEvent {
   UpdateProjectParam param;
 
   UpdateProjectEvent({required this.param});
 }
 
-class DeleteProjectsEvent extends ProjectAndTeamEvent {
+class DeleteProjectsEvent extends ProjectStatusTeamEvent {
   final int projectId;
 
   DeleteProjectsEvent({required this.projectId});
 }
 
-class ApproveProjectsEvent extends ProjectAndTeamEvent {
+class ApproveProjectsEvent extends ProjectStatusTeamEvent {
   final int projectId;
 
   ApproveProjectsEvent({required this.projectId});
 }
 
-class RejectProjectsEvent extends ProjectAndTeamEvent {
+class RejectProjectsEvent extends ProjectStatusTeamEvent {
   final int projectId;
 
   RejectProjectsEvent({required this.projectId});
 }
 
-class SentEditProjectMessageEvent extends ProjectAndTeamEvent {
+class SentEditProjectMessageEvent extends ProjectStatusTeamEvent {
   final int projectId;
   final String message;
 
   SentEditProjectMessageEvent({required this.projectId, required this.message});
 }
 
-class ShowEditProjectRequestEvent extends ProjectAndTeamEvent {
+class ShowEditProjectRequestEvent extends ProjectStatusTeamEvent {
   final int projectId;
 
   ShowEditProjectRequestEvent({required this.projectId});
 }
 
 // Show Project Events
-class ShowAllProjectsEvent extends ProjectAndTeamEvent {}
+class ShowAllProjectsEvent extends ProjectStatusTeamEvent {}
 
-class ShowPublicProjectsEvent extends ProjectAndTeamEvent {}
+class ShowPublicProjectsEvent extends ProjectStatusTeamEvent {}
 
-class ShowUserProjectsEvent extends ProjectAndTeamEvent {}
+class ShowUserProjectsEvent extends ProjectStatusTeamEvent {}
 
-class ShowPendedProjectsEvent extends ProjectAndTeamEvent {}
+class ShowPendedProjectsEvent extends ProjectStatusTeamEvent {}
 
 // Status Events
-class CreateStatusEvent extends ProjectAndTeamEvent {
+class CreateStatusEvent extends ProjectStatusTeamEvent {
   final int projectId;
   final String statusName;
 
   CreateStatusEvent({required this.projectId, required this.statusName});
 }
 
-class DeleteStatusEvent extends ProjectAndTeamEvent {
+class DeleteStatusEvent extends ProjectStatusTeamEvent {
   final int projectId;
   final int statusId;
 
   DeleteStatusEvent({required this.projectId, required this.statusId});
 }
 
-class UpdateStatusOrderEvent extends ProjectAndTeamEvent {
+class UpdateStatusOrderEvent extends ProjectStatusTeamEvent {
   final int projectId;
   final int statusId;
   final int newOrder;
@@ -82,14 +82,14 @@ class UpdateStatusOrderEvent extends ProjectAndTeamEvent {
   });
 }
 
-class ShowProjectStatusEvent extends ProjectAndTeamEvent {
+class ShowProjectStatusEvent extends ProjectStatusTeamEvent {
   final int projectId;
 
   ShowProjectStatusEvent({required this.projectId});
 }
 
 // Team Events
-class CreateTeamEvent extends ProjectAndTeamEvent {
+class CreateTeamEvent extends ProjectStatusTeamEvent {
   final String name;
   final int mgrId;
   final List<int> memebersIdList;
@@ -101,16 +101,16 @@ class CreateTeamEvent extends ProjectAndTeamEvent {
   });
 }
 
-class AddMembersEvent extends ProjectAndTeamEvent {
+class AddMembersEvent extends ProjectStatusTeamEvent {
   final int teamId;
   final List<int> memebersIdList;
 
   AddMembersEvent({required this.teamId, required this.memebersIdList});
 }
 
-class ShowTeamsEvent extends ProjectAndTeamEvent {}
+class ShowTeamsEvent extends ProjectStatusTeamEvent {}
 
-class AddProjectTeamEvent extends ProjectAndTeamEvent {
+class AddProjectTeamEvent extends ProjectStatusTeamEvent {
   final int projectId;
   final int teamId;
 

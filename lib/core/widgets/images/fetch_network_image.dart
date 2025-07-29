@@ -16,11 +16,13 @@ class FetchNetworkImage extends StatefulWidget {
     this.shape = BoxShape.rectangle,
     this.height,
     this.width,
+    this.border,
   });
   final String? imagePath;
   final BoxShape shape;
   final double? height;
   final double? width;
+  final BoxBorder? border;
 
   @override
   State<FetchNetworkImage> createState() => _FetchNetworkImageState();
@@ -67,6 +69,7 @@ class _FetchNetworkImageState extends State<FetchNetworkImage> {
                 (widget.shape != BoxShape.circle)
                     ? BorderRadius.circular(SizesConfig.borderRadiusSm)
                     : null,
+            border: widget.border,
             shape: widget.shape,
           ),
           child: Icon(Iconsax.frame_1, color: AppColors.white),
@@ -83,6 +86,7 @@ class _FetchNetworkImageState extends State<FetchNetworkImage> {
                     ? BorderRadius.circular(SizesConfig.borderRadiusSm)
                     : null,
             shape: widget.shape,
+            border: widget.border,
           ),
           child: Image.memory(imageBytes!, fit: BoxFit.cover),
         )

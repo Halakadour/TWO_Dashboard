@@ -1,6 +1,6 @@
-part of 'project_and_team_bloc.dart';
+part of 'project_status_team_bloc.dart';
 
-class ProjectAndTeamState {
+class ProjectStatusTeamState {
   final int? statusNum;
   final String message;
   // Project State
@@ -36,7 +36,7 @@ class ProjectAndTeamState {
   final List<TeamEntity> showTeams;
   final CasualStatus addTeamStatus;
 
-  ProjectAndTeamState({
+  ProjectStatusTeamState({
     this.statusNum,
     this.message = "",
     this.createProjectStatus = CasualStatus.initial,
@@ -67,7 +67,7 @@ class ProjectAndTeamState {
     this.addTeamStatus = CasualStatus.initial,
   });
 
-  ProjectAndTeamState copyWith({
+  ProjectStatusTeamState copyWith({
     int? statusNum,
     String? message,
     CasualStatus? createProjectStatus,
@@ -97,7 +97,7 @@ class ProjectAndTeamState {
     List<TeamEntity>? showTeams,
     CasualStatus? addTeamStatus,
   }) {
-    return ProjectAndTeamState(
+    return ProjectStatusTeamState(
       statusNum: statusNum ?? this.statusNum,
       message: message ?? this.message,
       createProjectStatus: createProjectStatus ?? this.createProjectStatus,

@@ -156,12 +156,15 @@ class SprintsRemoteDatasourceImpl extends SprintsRemoteDatasource {
 
   @override
   Future<EmptyResponseModel> startSprint(StartSprintParam param) async {
-    final result = GetWithTokenApi(
+    final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/start/sprint"),
       token: param.token,
-      body: ({'project_id': param.projectId, 'sprint_id': param.sprintId}),
+      body: ({
+        'project_id': param.projectId.toString(),
+        'sprint_id': param.sprintId.toString(),
+      }),
       fromJson: emptyResponseModelFromJson,
     );
-    return await result.callRequest();
+    return await result.call();
   }
 }

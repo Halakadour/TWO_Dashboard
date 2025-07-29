@@ -15,8 +15,10 @@ class AuthRoleProfileState {
   CasualStatus roleListStatus;
   //Profile States //
   CasualStatus updateEmployeeProfileStatus;
-  CasualStatus employeeEntityStatus;
-  EmployeeEntity? employeeEntity;
+  CasualStatus userHeaderStatus;
+  EmployeeEntity? userHeader;
+  CasualStatus userProfileStatus;
+  EmployeeEntity? userProfile;
   CasualStatus toggleApproveStatus;
   List<EmployeeEntity> userList;
   CasualStatus userListStatus;
@@ -35,8 +37,10 @@ class AuthRoleProfileState {
     this.roleList = const [],
     this.roleListStatus = CasualStatus.initial,
     this.updateEmployeeProfileStatus = CasualStatus.initial,
-    this.employeeEntityStatus = CasualStatus.initial,
-    this.employeeEntity,
+    this.userHeaderStatus = CasualStatus.initial,
+    this.userHeader,
+    this.userProfileStatus = CasualStatus.initial,
+    this.userProfile,
     this.toggleApproveStatus = CasualStatus.initial,
     this.userList = const [],
     this.userListStatus = CasualStatus.initial,
@@ -56,8 +60,10 @@ class AuthRoleProfileState {
     List<RoleModel>? roleList,
     CasualStatus? roleListStatus,
     CasualStatus? updateEmployeeProfileStatus,
-    CasualStatus? employeeEntityStatus,
-    EmployeeEntity? employeeEntity,
+    CasualStatus? userHeaderStatus,
+    EmployeeEntity? userHeader,
+    CasualStatus? userProfileStatus,
+    EmployeeEntity? userProfile,
     CasualStatus? toggleApproveStatus,
     List<EmployeeEntity>? userList,
     CasualStatus? userListStatus,
@@ -79,8 +85,10 @@ class AuthRoleProfileState {
       roleListStatus: roleListStatus ?? this.roleListStatus,
       updateEmployeeProfileStatus:
           updateEmployeeProfileStatus ?? this.updateEmployeeProfileStatus,
-      employeeEntityStatus: employeeEntityStatus ?? this.employeeEntityStatus,
-      employeeEntity: employeeEntity ?? this.employeeEntity,
+      userHeaderStatus: userHeaderStatus ?? this.userHeaderStatus,
+      userHeader: userHeader ?? this.userHeader,
+      userProfileStatus: userProfileStatus ?? this.userProfileStatus,
+      userProfile: userProfile ?? this.userProfile,
       toggleApproveStatus: toggleApproveStatus ?? this.toggleApproveStatus,
       userList: userList ?? this.userList,
       userListStatus: userListStatus ?? this.userListStatus,

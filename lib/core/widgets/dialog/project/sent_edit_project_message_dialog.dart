@@ -8,7 +8,7 @@ import 'package:two_dashboard/core/functions/bloc-state-handling/project_bloc_st
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/cancel_text_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/save_text_button.dart';
 import 'package:two_dashboard/features/auth/presentation/widgets/custom_text_form_field.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_and_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 
 Future<dynamic> sentEditProjectMessageDialog(
   BuildContext context,
@@ -43,7 +43,7 @@ Future<dynamic> sentEditProjectMessageDialog(
             ),
             actions: [
               const CancelTextButton(),
-              BlocListener<ProjectAndTeamBloc, ProjectAndTeamState>(
+              BlocListener<ProjectStatusTeamBloc, ProjectStatusTeamState>(
                 listenWhen:
                     (previous, current) =>
                         previous.editRequestProjectStatus !=
@@ -56,7 +56,7 @@ Future<dynamic> sentEditProjectMessageDialog(
                 },
                 child: SaveTextButton(
                   onPressed: () {
-                    context.read<ProjectAndTeamBloc>().add(
+                    context.read<ProjectStatusTeamBloc>().add(
                       SentEditProjectMessageEvent(
                         projectId: projectId,
                         message: messageController.text,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/core/helper/helper_functions.dart';
 import 'package:two_dashboard/core/widgets/images/image_circle.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/task_entity.dart';
@@ -18,7 +20,9 @@ class TaskBoardCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap:
+          () =>
+              context.pushNamed(AppRouteConfig.taskDetails, extra: taskEntity),
       child: Container(
         clipBehavior: Clip.hardEdge,
         margin: const EdgeInsets.symmetric(vertical: 8),

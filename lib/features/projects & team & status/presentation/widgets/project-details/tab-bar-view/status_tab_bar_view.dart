@@ -3,9 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/status_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
-import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/update_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/dialog/project/create_project_status_dialog.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_and_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 
 class StatusTabBarView extends StatefulWidget {
   const StatusTabBarView({super.key, required this.projectId});
@@ -18,7 +17,7 @@ class StatusTabBarView extends StatefulWidget {
 class _StatusTabBarViewState extends State<StatusTabBarView> {
   @override
   void didChangeDependencies() {
-    context.read<ProjectAndTeamBloc>().add(
+    context.read<ProjectStatusTeamBloc>().add(
       ShowProjectStatusEvent(projectId: widget.projectId),
     );
     super.didChangeDependencies();
@@ -43,15 +42,10 @@ class _StatusTabBarViewState extends State<StatusTabBarView> {
                         widget.projectId,
                       ),
                 ),
-                PaddingConfig.w8,
-                UpdateElevatedButton(
-                  updateType: "Status Order",
-                  onPressed: () {},
-                ),
               ],
             ),
             PaddingConfig.h32,
-            BlocBuilder<ProjectAndTeamBloc, ProjectAndTeamState>(
+            BlocBuilder<ProjectStatusTeamBloc, ProjectStatusTeamState>(
               buildWhen:
                   (previous, current) =>
                       previous.showStatus != current.showStatus,

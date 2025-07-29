@@ -11,7 +11,7 @@ import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/save_elevate
 import 'package:two_dashboard/core/widgets/divider/custom_page_divider.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/team_entity.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_and_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/custom_team_grid_view.dart';
 
 import '../../../../config/constants/padding_config.dart';
@@ -32,7 +32,7 @@ class _SelectTeamPageState extends State<SelectTeamPage> {
   ValueNotifier<TeamEntity?> selectedTeam = ValueNotifier(null);
   @override
   void didChangeDependencies() {
-    context.read<ProjectAndTeamBloc>().add(ShowTeamsEvent());
+    context.read<ProjectStatusTeamBloc>().add(ShowTeamsEvent());
     super.didChangeDependencies();
   }
 
@@ -63,7 +63,7 @@ class _SelectTeamPageState extends State<SelectTeamPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                BlocListener<ProjectAndTeamBloc, ProjectAndTeamState>(
+                BlocListener<ProjectStatusTeamBloc, ProjectStatusTeamState>(
                   listener: (context, state) {
                     TeamBlocStateHandling().addTeam(state, context);
                   },
@@ -72,7 +72,7 @@ class _SelectTeamPageState extends State<SelectTeamPage> {
                           previous.addTeamStatus != current.addTeamStatus,
                   child: SaveElevatedButton(
                     onPressed: () {
-                      context.read<ProjectAndTeamBloc>().add(
+                      context.read<ProjectStatusTeamBloc>().add(
                         AddProjectTeamEvent(
                           projectId: int.parse(widget.projectId),
                           teamId: selectedTeam.value!.id,
@@ -89,7 +89,7 @@ class _SelectTeamPageState extends State<SelectTeamPage> {
               ],
             ),
             PaddingConfig.h32,
-            BlocBuilder<ProjectAndTeamBloc, ProjectAndTeamState>(
+            BlocBuilder<ProjectStatusTeamBloc, ProjectStatusTeamState>(
               buildWhen:
                   (previous, current) =>
                       previous.showTeamsStatus != current.showTeamsStatus,

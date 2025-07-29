@@ -146,7 +146,7 @@ class AppRouter {
                 path: '/taskDetails',
                 builder:
                     (context, state) =>
-                        TaskDetailsPage(taskEntity: state.error as TaskEntity),
+                        TaskDetailsPage(taskEntity: state.extra as TaskEntity),
               ),
               GoRoute(
                 name: AppRouteConfig.selectTeam,
@@ -302,7 +302,7 @@ class AppRouter {
               GoRoute(
                 name: AppRouteConfig.settings,
                 path: '/settings',
-                builder: (context, state) => const SettingPage(),
+                builder: (context, state) => const ProfilePage(),
               ),
             ],
           ),

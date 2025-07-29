@@ -197,27 +197,50 @@ class AuthRoleProfileBloc
         );
       }
     });
-    on<GetUserProfileEvent>((event, emit) async {
-      emit(state.copyWith(employeeEntityStatus: CasualStatus.loading));
+    on<GetUserHeaderEvent>((event, emit) async {
+      emit(state.copyWith(userHeaderStatus: CasualStatus.loading));
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
         final result = await getUserProfileUsecase.call(token);
         result.fold(
           (l) => emit(
             state.copyWith(
-              employeeEntityStatus: CasualStatus.failure,
+              userHeaderStatus: CasualStatus.failure,
               message: l.message,
             ),
           ),
           (r) => emit(
             state.copyWith(
-              employeeEntityStatus: CasualStatus.success,
-              employeeEntity: r,
+              userHeaderStatus: CasualStatus.success,
+              userHeader: r,
             ),
           ),
         );
       } else {
-        emit(state.copyWith(employeeEntityStatus: CasualStatus.not_authorized));
+        emit(state.copyWith(userHeaderStatus: CasualStatus.not_authorized));
+      }
+    });
+    on<GetUserProfileEvent>((event, emit) async {
+      emit(state.copyWith(userProfileStatus: CasualStatus.loading));
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await getUserProfileUsecase.call(token);
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              userProfileStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(
+              userProfileStatus: CasualStatus.success,
+              userProfile: r,
+            ),
+          ),
+        );
+      } else {
+        emit(state.copyWith(userProfileStatus: CasualStatus.not_authorized));
       }
     });
     on<ToggleUserApprovedEvent>((event, emit) async {

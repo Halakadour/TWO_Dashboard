@@ -39,55 +39,62 @@ class _BacklogTabBarViewState extends State<BacklogTabBarView> {
     return Padding(
       padding: EdgeInsetsGeometry.symmetric(horizontal: 16.0),
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CreateElevatedButton(
-                  addingType: "New Sprint",
-                  onPressed:
-                      () => context.pushNamed(
-                        AppRouteConfig.createSprint,
-                        pathParameters: {
-                          'projectId': widget.projectId.toString(),
-                        },
-                      ),
+        child: SizedBox(
+          height: 1000,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  CreateElevatedButton(
+                    addingType: "New Sprint",
+                    onPressed:
+                        () => context.pushNamed(
+                          AppRouteConfig.createSprint,
+                          pathParameters: {
+                            'projectId': widget.projectId.toString(),
+                          },
+                        ),
+                  ),
+                  PaddingConfig.w8,
+                  FilterButton(onPressed: () {}),
+                ],
+              ),
+              PaddingConfig.h32,
+              Expanded(
+                child: BlocBuilder<SprintAndTaskBloc, SprintAndTaskState>(
+                  buildWhen:
+                      (previous, current) =>
+                          previous.pendedSprintTasksListStatus !=
+                          current.pendedSprintTasksListStatus,
+                  builder: (context, state) {
+                    return TaskBlocStateHandling().getPendedSprintTasksList(
+                      state,
+                      widget.projectId,
+                      widget.team,
+                    );
+                  },
                 ),
-                PaddingConfig.w8,
-                FilterButton(onPressed: () {}),
-              ],
-            ),
-            PaddingConfig.h32,
-            BlocBuilder<SprintAndTaskBloc, SprintAndTaskState>(
-              buildWhen:
-                  (previous, current) =>
-                      previous.pendedSprintTasksListStatus !=
-                      current.pendedSprintTasksListStatus,
-              builder: (context, state) {
-                return TaskBlocStateHandling().getPendedSprintTasksList(
-                  state,
-                  widget.projectId,
-                  widget.team,
-                );
-              },
-            ),
-            PaddingConfig.h32,
-            BlocBuilder<SprintAndTaskBloc, SprintAndTaskState>(
-              buildWhen:
-                  (previous, current) =>
-                      previous.backlogTasksListStatus !=
-                      current.backlogTasksListStatus,
-              builder: (context, state) {
-                return TaskBlocStateHandling().getBacklogTasksList(
-                  state,
-                  widget.projectId,
-                  widget.team,
-                );
-              },
-            ),
-            PaddingConfig.h40,
-          ],
+              ),
+              PaddingConfig.h32,
+              Expanded(
+                child: BlocBuilder<SprintAndTaskBloc, SprintAndTaskState>(
+                  buildWhen:
+                      (previous, current) =>
+                          previous.backlogTasksListStatus !=
+                          current.backlogTasksListStatus,
+                  builder: (context, state) {
+                    return TaskBlocStateHandling().getBacklogTasksList(
+                      state,
+                      widget.projectId,
+                      widget.team,
+                    );
+                  },
+                ),
+              ),
+              PaddingConfig.h40,
+            ],
+          ),
         ),
       ),
     );

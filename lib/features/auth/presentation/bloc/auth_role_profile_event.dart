@@ -46,6 +46,8 @@ class UpdateEmployeeProfileEvent extends AuthRoleProfileEvent {
   });
 }
 
+class GetUserHeaderEvent extends AuthRoleProfileEvent {}
+
 class GetUserProfileEvent extends AuthRoleProfileEvent {}
 
 class ToggleUserApprovedEvent extends AuthRoleProfileEvent {

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/task_bloc_state_handling.dart';
 import 'package:two_dashboard/core/functions/device_utility.dart';
 import 'package:two_dashboard/core/helper/helper_functions.dart';
-import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/breadcrumbs/breadcumbs_item.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/update_elevated_button.dart';
@@ -16,9 +17,8 @@ import 'package:two_dashboard/core/widgets/container/status-containers/dynamic_s
 import 'package:two_dashboard/core/widgets/divider/custom_page_divider.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/project-details/task_card.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/sprint_entity.dart';
-import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/task_entity.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 
 class SprintDetailsPage extends StatefulWidget {
   const SprintDetailsPage({super.key, required this.sprintEntity});
@@ -34,13 +34,28 @@ class _SprintDetailsPageState extends State<SprintDetailsPage> {
   Widget _buildRadio(int value, String label) {
     return Row(
       children: [
-        Radio<int>(
-          value: value,
-          groupValue: filter.value,
-          activeColor: AppColors.blueShade2,
-          onChanged: (int? newValue) {
-            filter.value = newValue!;
-          },
+        ValueListenableBuilder(
+          valueListenable: filter,
+          builder:
+              (_, vv, _) => Radio<int>(
+                value: value,
+                groupValue: filter.value,
+                activeColor: AppColors.blueShade2,
+                onChanged: (int? newValue) {
+                  filter.value = newValue!;
+                  if (newValue == 0) {
+                    // 0 ---> All Tasks
+                    context.read<SprintAndTaskBloc>().add(
+                      ShowSprintTasksEvent(sprintId: widget.sprintEntity.id),
+                    );
+                  } else {
+                    // 1 ---> My Tasks
+                    // context.read<SprintAndTaskBloc>().add(
+                    //   ShowMySprintTasksEvent(projectId: projectId, sprinttId: sprinttId, proirity: proirity, status: status)
+                    // );
+                  }
+                },
+              ),
         ),
         Text(label, style: AppTextStyle.bodySm()),
       ],
@@ -285,25 +300,38 @@ class _SprintDetailsPageState extends State<SprintDetailsPage> {
                       PaddingConfig.h16,
                       SizedBox(
                         height: 400,
-                        child: ListView.builder(
-                          itemCount: 3,
-                          itemBuilder:
-                              (context, index) => Padding(
-                                padding: const EdgeInsets.only(bottom: 16.0),
-                                child: TaskCard(
-                                  taskEntity: TaskEntity(
-                                    id: 0,
-                                    title: "title",
-                                    description: "description",
-                                    taskStatus: TaskStatus.canceled,
-                                    assignedTo: "Hello",
-                                    taskPriority: TaskPriority.medium,
-                                    taskCompletion: 45,
-                                    startDate: DateTime.now(),
-                                    endDate: DateTime.now(),
-                                  ),
-                                ),
-                              ),
+                        child: ValueListenableBuilder(
+                          valueListenable: filter,
+                          builder: (_, value, _) {
+                            if (value == 0) {
+                              // All Tasks
+                              return BlocBuilder<
+                                SprintAndTaskBloc,
+                                SprintAndTaskState
+                              >(
+                                buildWhen:
+                                    (previous, current) =>
+                                        previous.sprintTasksListStatus !=
+                                        current.sprintTasksListStatus,
+                                builder:
+                                    (context, state) => TaskBlocStateHandling()
+                                        .getAllTasksInsideSprint(state),
+                              );
+                            } else {
+                              return BlocBuilder<
+                                SprintAndTaskBloc,
+                                SprintAndTaskState
+                              >(
+                                buildWhen:
+                                    (previous, current) =>
+                                        previous.mySprintTasksListStatus !=
+                                        current.mySprintTasksList,
+                                builder:
+                                    (context, state) => TaskBlocStateHandling()
+                                        .getMyTasksInsideSprint(state),
+                              );
+                            }
+                          },
                         ),
                       ),
                     ],

@@ -42,7 +42,7 @@ class _SprintsTabBarViewState extends State<SprintsTabBarView> {
         ValueListenableBuilder(
           valueListenable: filter,
           builder:
-              (_, v, _) => Radio<int>(
+              (_, vv, _) => Radio<int>(
                 value: value,
                 groupValue: filter.value,
                 activeColor: AppColors.blueShade2,

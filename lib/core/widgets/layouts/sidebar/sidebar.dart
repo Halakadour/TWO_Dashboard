@@ -39,10 +39,7 @@ class _CustomSidebarState extends State<CustomSidebar> {
     return Drawer(
       shape: const BeveledRectangleBorder(),
       child: Container(
-        decoration: const BoxDecoration(
-          color: AppColors.navy,
-          border: Border(right: BorderSide(color: AppColors.gray, width: 1)),
-        ),
+        decoration: const BoxDecoration(color: AppColors.navy),
         child: SingleChildScrollView(
           child: Column(
             children: [

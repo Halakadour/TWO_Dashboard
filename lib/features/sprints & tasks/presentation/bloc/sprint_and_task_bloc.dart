@@ -302,7 +302,7 @@ class SprintAndTaskBloc extends Bloc<SprintAndTaskEvent, SprintAndTaskState> {
           (r) => emit(
             state.copyWith(
               projectSprintsListStatus: CasualStatus.success,
-              projectSprintsList: [],
+              projectSprintsList: r,
             ),
           ),
         );

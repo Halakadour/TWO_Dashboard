@@ -5,7 +5,7 @@ import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/widgets/dialog/project/sent_edit_project_message_dialog.dart';
 import 'package:two_dashboard/core/widgets/menus/custom_side_menu_item.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_and_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 
 void showPendedProjectActionSideMenu(
   GlobalKey<State<StatefulWidget>> iconKey,
@@ -52,11 +52,11 @@ void showPendedProjectActionSideMenu(
     ],
   ).then((value) {
     if (value == 0) {
-      context.read<ProjectAndTeamBloc>().add(
+      context.read<ProjectStatusTeamBloc>().add(
         ApproveProjectsEvent(projectId: project.id),
       );
     } else if (value == 1) {
-      context.read<ProjectAndTeamBloc>().add(
+      context.read<ProjectStatusTeamBloc>().add(
         RejectProjectsEvent(projectId: project.id),
       );
     } else if (value == 2) {

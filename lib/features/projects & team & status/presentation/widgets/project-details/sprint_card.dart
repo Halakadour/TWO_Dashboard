@@ -30,7 +30,11 @@ class SprintCard extends StatelessWidget {
     final GlobalKey iconKey = GlobalKey();
 
     return GestureDetector(
-      onTap: () => context.pushNamed(AppRouteConfig.sprintDetails),
+      onTap:
+          () => context.pushNamed(
+            AppRouteConfig.sprintDetails,
+            extra: sprintEntity,
+          ),
       child: CustomRounderContainer(
         key: iconKey,
         child: Column(

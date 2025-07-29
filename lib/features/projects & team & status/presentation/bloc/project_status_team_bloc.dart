@@ -28,11 +28,11 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/u
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/team/create_team_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/team/show_teams_usecase.dart';
 
-part 'project_and_team_event.dart';
-part 'project_and_team_state.dart';
+part 'project_status_team_event.dart';
+part 'project_status_team_state.dart';
 
-class ProjectAndTeamBloc
-    extends Bloc<ProjectAndTeamEvent, ProjectAndTeamState> {
+class ProjectStatusTeamBloc
+    extends Bloc<ProjectStatusTeamEvent, ProjectStatusTeamState> {
   // Project UseCase
   final CreateProjectUsecase createProjectUsecase;
   final DeleteProjectUsecase deleteProjectUsecase;
@@ -55,7 +55,7 @@ class ProjectAndTeamBloc
   final ShowTeamsUsecase showTeamsUsecase;
   final AddTeamUsecase addTeamUsecase;
 
-  ProjectAndTeamBloc(
+  ProjectStatusTeamBloc(
     this.createProjectUsecase,
     this.deleteProjectUsecase,
     this.approvedProjectUsecase,
@@ -74,7 +74,7 @@ class ProjectAndTeamBloc
     this.addMembersUsecase,
     this.showTeamsUsecase,
     this.addTeamUsecase,
-  ) : super(ProjectAndTeamState()) {
+  ) : super(ProjectStatusTeamState()) {
     // *** PROJECT SIDE *** //
     // Create Project
     on<CreateProjectEvent>((event, emit) async {
