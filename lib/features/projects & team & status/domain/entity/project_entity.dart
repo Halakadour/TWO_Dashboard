@@ -1,4 +1,5 @@
 import 'package:two_dashboard/core/network/enums.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/contract.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
 
 class ProjectEntity {
@@ -17,21 +18,21 @@ class ProjectEntity {
   final String contactTime;
   final ProjectVisibility visibility;
   final String status;
-  final String? contract;
+  final Contract? contract;
   final Team? team;
 
   ProjectEntity({
     required this.id,
-    required this.fullName,
-    required this.companyName,
-    required this.email,
-    required this.phone,
+    this.fullName = '',
+    this.companyName = '',
+    this.email = '',
+    this.phone = '',
     required this.pType,
-    required this.projectDescription,
-    required this.cost,
-    required this.duration,
-    required this.requirements,
-    required this.document,
+    this.projectDescription = '',
+    this.cost = '',
+    this.duration = '',
+    this.requirements = '',
+    this.document = '',
     required this.cType,
     required this.contactTime,
     required this.visibility,

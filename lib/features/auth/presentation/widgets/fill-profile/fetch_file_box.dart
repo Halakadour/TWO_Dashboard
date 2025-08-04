@@ -2,13 +2,11 @@ import 'dart:convert';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
-import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
 
 // ignore: must_be_immutable
 class FetchFileBox extends StatefulWidget {
@@ -42,12 +40,6 @@ class _FetchFileBoxState extends State<FetchFileBox> {
       widget.fileB64 = base64Encode(bytes);
       widget.onUpdate(widget.fileB64);
     }
-  }
-
-  @override
-  void didChangeDependencies() {
-    context.read<ContractBloc>().add(GetDrafEvent());
-    super.didChangeDependencies();
   }
 
   @override

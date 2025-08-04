@@ -13,7 +13,7 @@ import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/save_elevate
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/cancel_text_button.dart';
 import 'package:two_dashboard/core/widgets/container/custom_rounder_container.dart';
 import 'package:two_dashboard/core/widgets/dropdown-list/custom_dropdown_list_for_member_model.dart';
-import 'package:two_dashboard/core/widgets/images/image_circle.dart';
+import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/features/auth/presentation/widgets/custom_text_form_field.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_status_model.dart';
@@ -112,7 +112,7 @@ class _UpdateTaskFormState extends State<UpdateTaskForm> {
       text: widget.taskEntity.description,
     );
     user = widget.team.members.firstWhere(
-      (element) => element.id == int.parse(widget.taskEntity.assignedTo),
+      (element) => element.id == widget.taskEntity.assignedUser.id,
     );
     priority = HelperFunctions.getPriorityName(widget.taskEntity.taskPriority);
     taskStatus = widget.taskEntity.taskStatus;
@@ -177,9 +177,39 @@ class _UpdateTaskFormState extends State<UpdateTaskForm> {
                           value: user,
                           child: Row(
                             children: [
-                              ImageCircle(),
-                              PaddingConfig.w16,
-                              Text(user.name),
+                              // Assigned to
+                              Row(
+                                children: [
+                                  // image
+                                  FetchNetworkImage(
+                                    height: 50,
+                                    width: 50,
+                                    shape: BoxShape.circle,
+                                    imagePath: user.image,
+                                  ),
+                                  PaddingConfig.w8,
+                                  // Name and Email
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        user.name,
+                                        style: AppTextStyle.bodyMd(
+                                          color: AppColors.fontDarkGray,
+                                        ),
+                                      ),
+                                      Text(
+                                        user.role,
+                                        style: AppTextStyle.bodySm(
+                                          color: AppColors.fontLightGray,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         );

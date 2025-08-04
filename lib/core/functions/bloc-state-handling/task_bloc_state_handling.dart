@@ -116,6 +116,8 @@ class TaskBlocStateHandling {
             end: DateTime.now(),
             status: "Backloged",
             tasks: state.backlogTasksList,
+            projectId: projectId,
+            incompleteTasksCount: 0,
           ),
           projectId: projectId,
           team: team,

@@ -29,11 +29,14 @@ class AppRouteConfig {
   static const taskDetails = 'taskDetails';
 
   // Contracts Branches //
-  static const contracts = "contracts";
+  static const cmContracts = "contrcat-manager-contracts";
+  static const adminContracts = "admin-contracts";
   static const addSign = "addSign";
-  static const createContract = "createContract";
+  static const createContract = "create-contract";
   static const drafts = "drafts";
   static const createDraft = "createDraft";
+  static const cmUpdateContract = "cm-update-contract";
+  static const pmUpdateContract = "pm-update-contract";
 
   // About Us Branchs //
   static const aboutUsWhyUs = 'aboutUsWhyUs';

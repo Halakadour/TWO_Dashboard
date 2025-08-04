@@ -27,19 +27,19 @@ class FilterContracts {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   FilterOptionTitle(
-                    title: TextStrings.approvment,
-                    iconData: Iconsax.activity,
+                    title: TextStrings.signature,
+                    iconData: Iconsax.designtools,
                   ),
                   PaddingConfig.h24,
                   Row(
                     children: [
                       FilterOption(
-                        option: TextStrings.approved,
+                        option: TextStrings.signed,
                         valueNotifier: approvedSelected,
                       ),
                       PaddingConfig.w8,
                       FilterOption(
-                        option: TextStrings.unApproved,
+                        option: TextStrings.nonSigned,
                         valueNotifier: approvedSelected,
                         isOposite: true,
                       ),
@@ -53,7 +53,9 @@ class FilterContracts {
               ApplyTextButton(
                 onPressed: () {
                   context.read<ContractBloc>().add(
-                    GetContractEvent(filter: approvedSelected.value ? 1 : 0),
+                    AdminShowContractsEvent(
+                      adminSignFilter: approvedSelected.value ? 1 : 0,
+                    ),
                   );
                   context.pop();
                 },
@@ -104,9 +106,9 @@ class FilterContracts {
               const CancelTextButton(),
               ApplyTextButton(
                 onPressed: () {
-                  context.read<ContractBloc>().add(
-                    GetDrafEvent(filter: approvedSelected.value ? 1 : 0),
-                  );
+                  // context.read<ContractBloc>().add(
+                  //   GetDrafEvent(filter: approvedSelected.value ? 1 : 0),
+                  // );
                   context.pop();
                 },
               ),

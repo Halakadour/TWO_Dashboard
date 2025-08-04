@@ -2,10 +2,8 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/strings/text_strings.dart';
-import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom_paginated_data_table.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom/tasks/task_table_source.dart';
-import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/task_entity.dart';
 
 class TaskTable extends StatelessWidget {
   const TaskTable({super.key});
@@ -23,42 +21,8 @@ class TaskTable extends StatelessWidget {
         DataColumn2(label: Text(TextStrings.status)),
         DataColumn2(label: Text(TextStrings.priority)),
       ],
-      source: TaskRows(
-        taskList: [
-          TaskEntity(
-            id: 0,
-            title: "test",
-            description: "test",
-            taskStatus: TaskStatus.inProgress,
-            assignedTo: "front",
-            taskPriority: TaskPriority.low,
-            taskCompletion: 0.5,
-            startDate: DateTime(2025, 5, 12),
-            endDate: DateTime(2025, 6, 14),
-          ),
-          TaskEntity(
-            id: 0,
-            title: "test",
-            description: "test",
-            taskStatus: TaskStatus.canceled,
-            assignedTo: "front",
-            taskPriority: TaskPriority.medium,
-            taskCompletion: 0.5,
-            startDate: DateTime(2025, 5, 12),
-            endDate: DateTime(2025, 6, 14),
-          ),
-          TaskEntity(
-            id: 0,
-            title: "test",
-            description: "test",
-            taskStatus: TaskStatus.toDo,
-            assignedTo: "front",
-            taskPriority: TaskPriority.high,
-            taskCompletion: 0.5,
-            startDate: DateTime(2025, 5, 12),
-            endDate: DateTime(2025, 6, 14),
-          ),
-        ],
+      source: TaskRows(taskList: [
+        ]
       ),
     );
   }

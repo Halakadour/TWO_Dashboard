@@ -31,6 +31,7 @@ void main() async {
 
   // Open boxes
   await Hive.openBox<RoleModel>(CACHED_ROLES);
+
   await Hive.openBox<ProjectStatus>(CACHED_STATUS);
   runApp(
     EasyLocalization(

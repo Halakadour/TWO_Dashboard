@@ -1,51 +1,78 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'contract_bloc.dart';
 
 class ContractEvent {}
 
-// Contracts Events
-class GetContractEvent extends ContractEvent {
-  final int filter;
+class AddDraftEvent extends ContractEvent {
+  final String pdfFilePath;
+  final int projectId;
 
-  GetContractEvent({this.filter = 0});
+  AddDraftEvent({required this.pdfFilePath, required this.projectId});
 }
 
-class GetClientContractEvent extends ContractEvent {
-  int filter;
-  String clientId;
-  GetClientContractEvent({required this.filter, required this.clientId});
+class ShowContractsEvent extends ContractEvent {
+  final int stateFilter;
+
+  ShowContractsEvent({required this.stateFilter});
 }
 
-class CreateContractEvent extends ContractEvent {
-  String contract;
-  int clientId;
-  int drafId;
-  CreateContractEvent({
-    required this.contract,
-    required this.clientId,
-    required this.drafId,
+// For The Contract Manager
+
+class ContractManagerShowContractsEvent extends ContractEvent {}
+
+class ContractManagerUpdateContractEvent extends ContractEvent {
+  final String pdfFilePath;
+  final String contractId;
+
+  ContractManagerUpdateContractEvent({
+    required this.pdfFilePath,
+    required this.contractId,
   });
 }
 
-class AddSignEvent extends ContractEvent {
-  String signature;
-  int contractId;
-  AddSignEvent({required this.signature, required this.contractId});
+class ContractManagerApproveContractEvent extends ContractEvent {
+  final int contractId;
+  final int projectId;
+
+  ContractManagerApproveContractEvent({
+    required this.contractId,
+    required this.projectId,
+  });
 }
 
-// Drafs Events
-class GetDrafEvent extends ContractEvent {
-  int filter;
-  GetDrafEvent({this.filter = 0});
+// For The Project Manager
+class ProjectManagerUpdateContractEvent extends ContractEvent {
+  final String pdfFilePath;
+  final String contractId;
+  final String projectId;
+
+  ProjectManagerUpdateContractEvent({
+    required this.pdfFilePath,
+    required this.contractId,
+    required this.projectId,
+  });
 }
 
-class CreateDrafEvent extends ContractEvent {
-  String draf;
-  int clientId;
-  CreateDrafEvent({required this.draf, required this.clientId});
+class ProjectManagerApproveContractEvent extends ContractEvent {
+  final int contractId;
+  final int projectId;
+
+  ProjectManagerApproveContractEvent({
+    required this.contractId,
+    required this.projectId,
+  });
 }
 
-class DeleteDrafEvent extends ContractEvent {
-  int drafId;
-  DeleteDrafEvent({required this.drafId});
+// For The Admin
+
+class AdminShowContractsEvent extends ContractEvent {
+  final int adminSignFilter;
+
+  AdminShowContractsEvent({required this.adminSignFilter});
+}
+
+class AdminSignContractEvent extends ContractEvent {
+  final String signature;
+  final String contractId;
+
+  AdminSignContractEvent({required this.signature, required this.contractId});
 }

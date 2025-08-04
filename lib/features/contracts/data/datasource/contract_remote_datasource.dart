@@ -2,47 +2,70 @@ import 'package:two_dashboard/config/constants/base_uri.dart';
 import 'package:two_dashboard/core/api/get_with_token_api.dart';
 import 'package:two_dashboard/core/api/post_api_with_token.dart';
 import 'package:two_dashboard/core/models/empty_response_model.dart';
-import 'package:two_dashboard/core/param/casule_param.dart';
-import 'package:two_dashboard/core/param/contract_draft_param.dart';
-import 'package:two_dashboard/features/contracts/data/models/contract/add_contract_response_model.dart';
-import 'package:two_dashboard/features/contracts/data/models/contract/show_contract_response_model.dart';
-import 'package:two_dashboard/features/contracts/data/models/draft/add_draft_response_model.dart';
-import 'package:two_dashboard/features/contracts/data/models/draft/show_draft_response_model.dart';
+import 'package:two_dashboard/core/param/contract_param.dart';
+import 'package:two_dashboard/features/contracts/data/models/add_draft_response_model.dart';
+import 'package:two_dashboard/features/contracts/data/models/show_contract_list_response_model.dart';
 
 abstract class ContractRemoteDatasource {
-  //Contract ones
-  Future<AddContractResponseModel> addContract(AddContractParam param);
-  Future<EmptyResponseModel> addSign(AddSignParam param);
-  Future<ShowContractResponseModel> getContracts(GetDraftOrContractParam param);
-  Future<ShowContractResponseModel> getClientContract(
-    GetDraftOrContractParam param,
+  // create draft & CreateDraftParam
+  Future<AddDraftResponseModel> addDraft(AddDraftParam param);
+  // show contact & ShowContractParam
+  Future<ShowContractListResponseModel> showContractList(
+    ShowContractParam param,
   );
-  // Draf ones
-  Future<AddDraftResponseModel> createDraft(CreateDraftParam param);
-  Future<EmptyResponseModel> deletDraft(TokenWithIdParam draft);
-  Future<ShowDraftResponseModel> getDrafts(GetDraftOrContractParam param);
+  //** for contract manager **//
+  // show contract list & token
+  Future<ShowContractListResponseModel> showContractManagerContrcatList(
+    String token,
+  );
+  // update contract & CMUpdateContractParam
+  Future<EmptyResponseModel> contractManagerUpdateContract(
+    CMUpdateContractParam param,
+  );
+  // approve contract & ApproveContractParam
+  Future<EmptyResponseModel> contractManagerApproveContract(
+    ApproveContractParam param,
+  );
+
+  //** for project manager **//
+  // update contract & PMUpdateContractParam
+  Future<EmptyResponseModel> projectManagerUpdateContract(
+    PMUpdateContractParam param,
+  );
+  // approve contract & ApproveContractParam
+  Future<EmptyResponseModel> projectManagerApproveContract(
+    ApproveContractParam param,
+  );
+  //** for admin **//
+  // show contract list & ShowAdminContractParam
+  Future<ShowContractListResponseModel> showAdminContractList(
+    ShowAdminContractParam param,
+  );
+  // admin sign contract & AdminSignContractParam
+  Future<EmptyResponseModel> adminSignContract(AdminSignContractParam param);
 }
 
 class ContractRemoteDatasourceImpl implements ContractRemoteDatasource {
   @override
-  Future<AddContractResponseModel> addContract(AddContractParam param) async {
+  Future<AddDraftResponseModel> addDraft(AddDraftParam param) async {
     final result = PostWithTokenApi(
-      uri: Uri.parse("$baseUri/api/create/contract"),
+      uri: Uri.parse("$baseUri/api/create/draft"),
       token: param.token,
       body: ({
-        'contract': '$pdfBase64${param.contract}',
-        'client_id': param.clientId.toString(),
-        'draft_id': param.drafId.toString(),
+        'contract': '$pdfBase64${param.pdfFilePath}',
+        'project_id': param.projectId,
       }),
-      fromJson: addContractResponseModelFromJson,
+      fromJson: addDraftResponseModelFromJson,
     );
     return await result.call();
   }
 
   @override
-  Future<EmptyResponseModel> addSign(AddSignParam param) async {
+  Future<EmptyResponseModel> adminSignContract(
+    AdminSignContractParam param,
+  ) async {
     final result = PostWithTokenApi(
-      uri: Uri.parse("$baseUri/api/add/sign"),
+      uri: Uri.parse("$baseUri/api/ceo/add/signature"),
       token: param.token,
       body: ({
         'signature': '$imageBase64${param.signature}',
@@ -54,65 +77,100 @@ class ContractRemoteDatasourceImpl implements ContractRemoteDatasource {
   }
 
   @override
-  Future<AddDraftResponseModel> createDraft(CreateDraftParam param) async {
+  Future<EmptyResponseModel> contractManagerApproveContract(
+    ApproveContractParam param,
+  ) async {
     final result = PostWithTokenApi(
-      uri: Uri.parse("$baseUri/api/create/draft"),
+      uri: Uri.parse("$baseUri/api/contract-manager/approve/contract"),
       token: param.token,
-      body: ({
-        'contract': '$documentBase64${param.draf}',
-        'user_id': param.clientId,
-      }),
-      fromJson: addDraftResponseModelFromJson,
+      body: ({'contract_id': param.contractId, 'project_id': param.projectId}),
+      fromJson: emptyResponseModelFromJson,
     );
     return await result.call();
   }
 
   @override
-  Future<EmptyResponseModel> deletDraft(TokenWithIdParam draft) async {
-    final result = GetWithTokenApi(
-      uri: Uri.parse("$baseUri/api/delete/draft/contract/${draft.id}"),
-      token: draft.token,
+  Future<EmptyResponseModel> contractManagerUpdateContract(
+    CMUpdateContractParam param,
+  ) async {
+    final result = PostWithTokenApi(
+      uri: Uri.parse("$baseUri/api/contract-manager/update/contract"),
+      token: param.token,
+      body: ({
+        'contract': '$pdfBase64${param.pdfFilePath}',
+        'contract_id': param.contractId,
+      }),
       fromJson: emptyResponseModelFromJson,
     );
-    return await result.callRequest();
+    return await result.call();
   }
 
   @override
-  Future<ShowContractResponseModel> getClientContract(
-    GetDraftOrContractParam param,
+  Future<EmptyResponseModel> projectManagerApproveContract(
+    ApproveContractParam param,
+  ) async {
+    final result = PostWithTokenApi(
+      uri: Uri.parse("$baseUri/api/project-manager/approve/contract"),
+      token: param.token,
+      body: ({'contract_id': param.contractId, 'project_id': param.projectId}),
+      fromJson: emptyResponseModelFromJson,
+    );
+    return await result.call();
+  }
+
+  @override
+  Future<EmptyResponseModel> projectManagerUpdateContract(
+    PMUpdateContractParam param,
+  ) async {
+    final result = PostWithTokenApi(
+      uri: Uri.parse("$baseUri/api/project-manager/update/contract"),
+      token: param.token,
+      body: ({
+        'contract': '$pdfBase64${param.pdfFilePath}',
+        'contract_id': param.contractId,
+        'project_id': param.projectId,
+      }),
+      fromJson: emptyResponseModelFromJson,
+    );
+    return await result.call();
+  }
+
+  @override
+  Future<ShowContractListResponseModel> showAdminContractList(
+    ShowAdminContractParam param,
   ) async {
     final result = GetWithTokenApi(
       uri: Uri.parse(
-        "$baseUri/api/show/client/contracts?filter[state]=${param.filter}",
+        "$baseUri/api/show/admin/contracts?filter[admin_sign]=${param.adminSignFilter}",
       ),
       token: param.token,
-      fromJson: showContractResponseModelFromJson,
+      fromJson: showContractListResponseModelFromJson,
     );
     return await result.callRequest();
   }
 
   @override
-  Future<ShowContractResponseModel> getContracts(
-    GetDraftOrContractParam param,
+  Future<ShowContractListResponseModel> showContractList(
+    ShowContractParam param,
   ) async {
     final result = GetWithTokenApi(
       uri: Uri.parse(
-        "$baseUri/api/show/contracts?filter[state]=${param.filter}",
+        "$baseUri/api/show/contracts?filter[state]=${param.stateFilter}",
       ),
       token: param.token,
-      fromJson: showContractResponseModelFromJson,
+      fromJson: showContractListResponseModelFromJson,
     );
     return await result.callRequest();
   }
 
   @override
-  Future<ShowDraftResponseModel> getDrafts(
-    GetDraftOrContractParam param,
+  Future<ShowContractListResponseModel> showContractManagerContrcatList(
+    String token,
   ) async {
     final result = GetWithTokenApi(
-      uri: Uri.parse("$baseUri/api/show/drafts?filter[state]=${param.filter}"),
-      token: param.token,
-      fromJson: showDraftResponseModelFromJson,
+      uri: Uri.parse("$baseUri/api/show/contract-manager/contracts"),
+      token: token,
+      fromJson: showContractListResponseModelFromJson,
     );
     return await result.callRequest();
   }

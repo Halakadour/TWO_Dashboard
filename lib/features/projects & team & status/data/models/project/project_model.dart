@@ -1,4 +1,5 @@
 import 'package:two_dashboard/core/helper/helper_functions.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/contract.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
 
@@ -46,7 +47,8 @@ class ProjectModel extends ProjectEntity {
     cooperationType: json["cooperation_type"],
     contactTime: json["contact_time"],
     private: json["private"],
-    contract: json["contract"],
+    contract:
+        json["contract"] == null ? null : Contract.fromJson(json["contract"]),
     status: json["status"],
     team: json["team"] == null ? null : Team.fromJson(json["team"]),
   );
@@ -66,7 +68,7 @@ class ProjectModel extends ProjectEntity {
     "cooperation_type": cooperationType,
     "contact_time": contactTime,
     "private": private,
-    "contract": contract,
+    "contract": contract?.toJson(),
     "status": status,
     "team": team?.toJson(),
   };

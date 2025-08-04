@@ -61,7 +61,8 @@ class _BacklogTabBarViewState extends State<BacklogTabBarView> {
                 ],
               ),
               PaddingConfig.h32,
-              Expanded(
+              SizedBox(
+                height: 300,
                 child: BlocBuilder<SprintAndTaskBloc, SprintAndTaskState>(
                   buildWhen:
                       (previous, current) =>
@@ -77,20 +78,18 @@ class _BacklogTabBarViewState extends State<BacklogTabBarView> {
                 ),
               ),
               PaddingConfig.h32,
-              Expanded(
-                child: BlocBuilder<SprintAndTaskBloc, SprintAndTaskState>(
-                  buildWhen:
-                      (previous, current) =>
-                          previous.backlogTasksListStatus !=
-                          current.backlogTasksListStatus,
-                  builder: (context, state) {
-                    return TaskBlocStateHandling().getBacklogTasksList(
-                      state,
-                      widget.projectId,
-                      widget.team,
-                    );
-                  },
-                ),
+              BlocBuilder<SprintAndTaskBloc, SprintAndTaskState>(
+                buildWhen:
+                    (previous, current) =>
+                        previous.backlogTasksListStatus !=
+                        current.backlogTasksListStatus,
+                builder: (context, state) {
+                  return TaskBlocStateHandling().getBacklogTasksList(
+                    state,
+                    widget.projectId,
+                    widget.team,
+                  );
+                },
               ),
               PaddingConfig.h40,
             ],

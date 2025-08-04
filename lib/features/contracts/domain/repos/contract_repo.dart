@@ -1,25 +1,44 @@
 import 'package:dartz/dartz.dart';
 import 'package:two_dashboard/core/error/failures.dart';
 import 'package:two_dashboard/core/error/handling_exception_manager.dart';
-import 'package:two_dashboard/core/param/casule_param.dart';
-import 'package:two_dashboard/core/param/contract_draft_param.dart';
-import 'package:two_dashboard/features/contracts/domain/entities/contract_entity.dart';
-import 'package:two_dashboard/features/contracts/domain/entities/draft_entity.dart';
+import 'package:two_dashboard/core/param/contract_param.dart';
+import 'package:two_dashboard/features/contracts/data/models/contract_model.dart';
 
 abstract class ContractRepo with HandlingExceptionManager {
-  //Contract ones
-  Future<Either<Failure, ContractEntity>> addContract(AddContractParam param);
-  Future<Either<Failure, Unit>> addSign(AddSignParam param);
-  Future<Either<Failure, List<ContractEntity>>> getContracts(
-    GetDraftOrContractParam param,
+  // create draft & CreateDraftParam
+  Future<Either<Failure, Unit>> addDraft(AddDraftParam param);
+  // show contact & ShowContractParam
+  Future<Either<Failure, List<ContractModel>>> showContractList(
+    ShowContractParam param,
   );
-  Future<Either<Failure, List<ContractEntity>>> getClientContract(
-    GetDraftOrContractParam param,
+  //** for contract manager **//
+  // show contract list & token
+  Future<Either<Failure, List<ContractModel>>> showContractManagerContrcatList(
+    String token,
   );
-  // Draf ones
-  Future<Either<Failure, DraftEntity>> createDraft(CreateDraftParam param);
-  Future<Either<Failure, Unit>> deletDraft(TokenWithIdParam draft);
-  Future<Either<Failure, List<DraftEntity>>> getDrafts(
-    GetDraftOrContractParam param,
+  // update contract & CMUpdateContractParam
+  Future<Either<Failure, Unit>> contractManagerUpdateContract(
+    CMUpdateContractParam param,
   );
+  // approve contract & ApproveContractParam
+  Future<Either<Failure, Unit>> contractManagerApproveContract(
+    ApproveContractParam param,
+  );
+
+  //** for project manager **//
+  // update contract & PMUpdateContractParam
+  Future<Either<Failure, Unit>> projectManagerUpdateContract(
+    PMUpdateContractParam param,
+  );
+  // approve contract & ApproveContractParam
+  Future<Either<Failure, Unit>> projectManagerApproveContract(
+    ApproveContractParam param,
+  );
+  //** for admin **//
+  // show contract list & ShowAdminContractParam
+  Future<Either<Failure, List<ContractModel>>> showAdminContractList(
+    ShowAdminContractParam param,
+  );
+  // admin sign contract & AdminSignContractParam
+  Future<Either<Failure, Unit>> adminSignContract(AdminSignContractParam param);
 }

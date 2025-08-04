@@ -14,6 +14,7 @@ import 'package:two_dashboard/core/widgets/container/custom_rounder_container.da
 import 'package:two_dashboard/core/widgets/container/status-containers/duration_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/priority_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/task_status_container.dart';
+import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/core/widgets/menus/task_side_menu.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/custom_progress_bar.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/task_entity.dart';
@@ -114,25 +115,33 @@ class TaskCard extends StatelessWidget {
               ],
             ),
             PaddingConfig.h16,
-            // Assigned To
+            // Assigned to
             Row(
               children: [
-                SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: CircleAvatar(
-                    backgroundColor: AppColors.gray,
-                    child: Icon(
-                      Iconsax.frame_1,
-                      size: SizesConfig.iconsSm,
-                      color: AppColors.fontDarkGray,
-                    ),
-                  ),
+                // image
+                FetchNetworkImage(
+                  height: 50,
+                  width: 50,
+                  shape: BoxShape.circle,
+                  imagePath: taskEntity.assignedUser.image,
                 ),
                 PaddingConfig.w8,
-                Text(
-                  taskEntity.assignedTo,
-                  style: AppTextStyle.bodySm(color: AppColors.fontLightGray),
+                // Name and Email
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      taskEntity.assignedUser.name,
+                      style: AppTextStyle.bodyMd(color: AppColors.fontDarkGray),
+                    ),
+                    Text(
+                      taskEntity.assignedUser.role,
+                      style: AppTextStyle.bodySm(
+                        color: AppColors.fontLightGray,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

@@ -14,4 +14,13 @@ enum SprintStatus { pended, started, completed }
 
 enum CooperationType { analysis, development, test, managment }
 
-enum FieldStatus { approved, unApproved, seen, nonSeen, active, unActive }
+enum FieldStatus {
+  approved,
+  unApproved,
+  seen,
+  nonSeen,
+  active,
+  unActive,
+  needed,
+  nonNeeded,
+}

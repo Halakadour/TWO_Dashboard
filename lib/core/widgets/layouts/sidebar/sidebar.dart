@@ -125,8 +125,7 @@ class _CustomSidebarState extends State<CustomSidebar> {
                         ],
                       ),
                     ),
-                    PaddingConfig.h8,
-                    PaddingConfig.h8,
+                    PaddingConfig.h16,
                     MenuItem(
                       icon: IconsPath.threeUsers,
                       itemName: TextStrings.members,
@@ -134,63 +133,31 @@ class _CustomSidebarState extends State<CustomSidebar> {
                       currentPage: widget.currentPageIndex,
                       onTap: widget.onItemSelected,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: MenuItem(
-                            icon: IconsPath.paper,
-                            itemName: TextStrings.contracts,
-                            pageNum: 5,
-                            currentPage: widget.currentPageIndex,
-                            onTap: widget.onItemSelected,
-                          ),
-                        ),
-                        VisibilityButton(
-                          isdown: contracts,
-                          onPressed: () {
-                            setState(() {
-                              contracts = !contracts;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                    Visibility(
-                      visible: contracts,
-                      child: Row(
-                        children: [
-                          PaddingConfig.w24,
-                          Expanded(
-                            child: MenuItem(
-                              icon: IconsPath.bookMarker,
-                              itemName: TextStrings.drafts,
-                              pageNum: 6,
-                              currentPage: widget.currentPageIndex,
-                              onTap: widget.onItemSelected,
-                            ),
-                          ),
-                        ],
-                      ),
+                    MenuItem(
+                      icon: IconsPath.paper,
+                      itemName: TextStrings.contracts,
+                      pageNum: 5,
+                      currentPage: widget.currentPageIndex,
+                      onTap: widget.onItemSelected,
                     ),
                     MenuItem(
                       icon: IconsPath.editSquare,
                       itemName: TextStrings.aboutUsWhyUs,
-                      pageNum: 7,
+                      pageNum: 6,
                       currentPage: widget.currentPageIndex,
                       onTap: widget.onItemSelected,
                     ),
                     MenuItem(
                       icon: IconsPath.bag,
                       itemName: TextStrings.services,
-                      pageNum: 8,
+                      pageNum: 7,
                       currentPage: widget.currentPageIndex,
                       onTap: widget.onItemSelected,
                     ),
                     MenuItem(
                       icon: IconsPath.send,
                       itemName: TextStrings.posts,
-                      pageNum: 9,
+                      pageNum: 8,
                       currentPage: widget.currentPageIndex,
                       onTap: widget.onItemSelected,
                     ),
@@ -223,7 +190,7 @@ class _CustomSidebarState extends State<CustomSidebar> {
                           MenuItem(
                             icon: IconsPath.setting,
                             itemName: TextStrings.forYou,
-                            pageNum: 10,
+                            pageNum: 9,
                             currentPage: widget.currentPageIndex,
                             onTap: widget.onItemSelected,
                           ),

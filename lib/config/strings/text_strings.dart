@@ -32,6 +32,7 @@ class TextStrings {
   static const String update = "update";
   static const String accept = "Accept";
   static const String approve = "Approve";
+  static const String sign = "Sign";
   static const String browse = "Browse";
   static const String deactivate = "Deactivate";
   static const String delete = "Delete";
@@ -59,6 +60,10 @@ class TextStrings {
   static const String clientSign = "Client Sign";
   static const String draft = "Draft";
   static const String status = "Status";
+  static const String contractManagerApprovment = "Contract Manager Approvment";
+  static const String projectManagerApprovment = "Project Manager Approvment";
+  static const String needEdit = "Need Edit ?";
+  static const String adminSign = "Admin Sign";
   static const String id = "ID";
   static const String cv = "CV";
   static const String type = "Type";
@@ -84,8 +89,11 @@ class TextStrings {
   static const String seenStatus = "Seen";
   static const String unSeenStatus = "Not Seen";
   static const String approvment = "Approvment";
+  static const String signature = "Signature";
   static const String approved = "Approved";
   static const String unApproved = "Not Approved";
+  static const String signed = "Signed";
+  static const String nonSigned = "Not Signed";
   static const String activation = "Activation";
   static const String active = "active";
   static const String notActive = "not active";

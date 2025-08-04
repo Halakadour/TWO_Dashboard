@@ -276,6 +276,10 @@ class HelperFunctions {
         return AppColors.blueShade2;
       case FieldStatus.nonSeen:
         return AppColors.yellowShade2;
+      case FieldStatus.needed:
+        return AppColors.greenShade2;
+      case FieldStatus.nonNeeded:
+        return AppColors.yellowShade2;
     }
   }
 
@@ -292,6 +296,10 @@ class HelperFunctions {
       case FieldStatus.seen:
         return AppColors.blueShade1;
       case FieldStatus.nonSeen:
+        return AppColors.yellowShade1;
+      case FieldStatus.needed:
+        return AppColors.greenShade1;
+      case FieldStatus.nonNeeded:
         return AppColors.yellowShade1;
     }
   }

@@ -1,57 +1,75 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'contract_bloc.dart';
 
 class ContractState {
-  final String message;
-  final List<ContractEntity> contractList;
-  final List<ContractEntity> clientContractList;
-  final CasualStatus contrcatListStatus;
-  final CasualStatus clientContrcatListStatus;
-  final CasualStatus createContractStatus;
-  final CasualStatus addSignStatus;
-  final CasualStatus createDrafStatus;
-  final CasualStatus deleteDrafStatus;
-  final List<DraftEntity> drafList;
-  final CasualStatus drafListStatus;
+  String errorMessage;
+  CasualStatus addDraftStatus;
+  List<ContractModel> contrcatList;
+  CasualStatus contrcatListStatus;
+  // For The Contract Manager -- CM
+  List<ContractModel> contrcatListForCM;
+  CasualStatus contrcatListForCMStatus;
+  CasualStatus updateContractByCMStatus;
+  CasualStatus approveContractByCMStatus;
+  // For The Project Manager -- PM
+  CasualStatus updateContractByPMStatus;
+  CasualStatus approveContractByPMStatus;
+  // For The Admin -- AD
+  List<ContractModel> contrcatListForAD;
+  CasualStatus contrcatListForADStatus;
+  CasualStatus adminSignContractStatus;
   ContractState({
-    this.message = "",
-    this.contractList = const [],
-    this.clientContractList = const [],
+    this.errorMessage = "",
+    this.addDraftStatus = CasualStatus.initial,
+    this.contrcatList = const [],
     this.contrcatListStatus = CasualStatus.initial,
-    this.clientContrcatListStatus = CasualStatus.initial,
-    this.createContractStatus = CasualStatus.initial,
-    this.addSignStatus = CasualStatus.initial,
-    this.createDrafStatus = CasualStatus.initial,
-    this.deleteDrafStatus = CasualStatus.initial,
-    this.drafList = const [],
-    this.drafListStatus = CasualStatus.initial,
+    this.contrcatListForCM = const [],
+    this.contrcatListForCMStatus = CasualStatus.initial,
+    this.updateContractByCMStatus = CasualStatus.initial,
+    this.approveContractByCMStatus = CasualStatus.initial,
+    this.updateContractByPMStatus = CasualStatus.initial,
+    this.approveContractByPMStatus = CasualStatus.initial,
+    this.contrcatListForAD = const [],
+    this.contrcatListForADStatus = CasualStatus.initial,
+    this.adminSignContractStatus = CasualStatus.initial,
   });
 
   ContractState copyWith({
-    String? message,
-    List<ContractEntity>? contractList,
-    List<ContractEntity>? clientContractList,
+    String? errorMessage,
+    CasualStatus? addDraftStatus,
+    List<ContractModel>? contrcatList,
     CasualStatus? contrcatListStatus,
-    CasualStatus? clientContrcatListStatus,
-    CasualStatus? addContractStatus,
-    CasualStatus? addSignStatus,
-    CasualStatus? createDrafStatus,
-    CasualStatus? deleteDrafStatus,
-    List<DraftEntity>? drafList,
-    CasualStatus? drafListStatus,
+    List<ContractModel>? contrcatListForCM,
+    CasualStatus? contrcatListForCMStatus,
+    CasualStatus? updateContractByCMStatus,
+    CasualStatus? approveContractByCMStatus,
+    CasualStatus? updateContractByPMStatus,
+    CasualStatus? approveContractByPMStatus,
+    List<ContractModel>? contrcatListForAD,
+    CasualStatus? contrcatListForADStatus,
+    CasualStatus? adminSignContractStatus,
   }) {
     return ContractState(
-      message: message ?? this.message,
-      contractList: contractList ?? this.contractList,
-      clientContractList: clientContractList ?? this.clientContractList,
+      errorMessage: errorMessage ?? this.errorMessage,
+      addDraftStatus: addDraftStatus ?? this.addDraftStatus,
+      contrcatList: contrcatList ?? this.contrcatList,
       contrcatListStatus: contrcatListStatus ?? this.contrcatListStatus,
-      clientContrcatListStatus:
-          clientContrcatListStatus ?? this.clientContrcatListStatus,
-      createContractStatus: addContractStatus ?? this.createContractStatus,
-      addSignStatus: addSignStatus ?? this.addSignStatus,
-      createDrafStatus: createDrafStatus ?? this.createDrafStatus,
-      deleteDrafStatus: deleteDrafStatus ?? this.deleteDrafStatus,
-      drafList: drafList ?? this.drafList,
-      drafListStatus: drafListStatus ?? this.drafListStatus,
+      contrcatListForCM: contrcatListForCM ?? this.contrcatListForCM,
+      contrcatListForCMStatus:
+          contrcatListForCMStatus ?? this.contrcatListForCMStatus,
+      updateContractByCMStatus:
+          updateContractByCMStatus ?? this.updateContractByCMStatus,
+      approveContractByCMStatus:
+          approveContractByCMStatus ?? this.approveContractByCMStatus,
+      updateContractByPMStatus:
+          updateContractByPMStatus ?? this.updateContractByPMStatus,
+      approveContractByPMStatus:
+          approveContractByPMStatus ?? this.approveContractByPMStatus,
+      contrcatListForAD: contrcatListForAD ?? this.contrcatListForAD,
+      contrcatListForADStatus:
+          contrcatListForADStatus ?? this.contrcatListForADStatus,
+      adminSignContractStatus:
+          adminSignContractStatus ?? this.adminSignContractStatus,
     );
   }
 }

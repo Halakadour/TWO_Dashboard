@@ -22,12 +22,16 @@ class Member {
   final int id;
   final String name;
   final String email;
+  final String? image;
+  final String role;
   final bool isManager;
 
   Member({
     required this.id,
     required this.name,
     required this.email,
+    required this.image,
+    required this.role,
     required this.isManager,
   });
 
@@ -35,6 +39,8 @@ class Member {
     id: json["id"],
     name: json["name"],
     email: json["email"],
+    image: json["image"],
+    role: json["role"],
     isManager: json["is_manager"],
   );
 
@@ -42,6 +48,8 @@ class Member {
     "id": id,
     "name": name,
     "email": email,
+    "image": image,
+    "role": role,
     "is_manager": isManager,
   };
 }

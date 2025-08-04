@@ -6,7 +6,6 @@ import 'package:two_dashboard/core/functions/bloc-state-handling/contracts_bloc_
 import 'package:two_dashboard/core/widgets/buttons/icon-buttons/back_button.dart';
 import 'package:two_dashboard/core/widgets/dialog/global/forget_some_thing_dialog.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
-import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
 
 import '../../../../config/constants/sizes_config.dart';
 import '../../../../config/routes/app_route_config.dart';
@@ -18,15 +17,15 @@ import '../../../../core/widgets/layouts/templates/page_template.dart';
 import '../../../auth/presentation/widgets/fill-profile/fetch_file_box.dart';
 import '../bloc/contract_bloc.dart';
 
-class CreateDraftForm extends StatefulWidget {
-  const CreateDraftForm({super.key, required this.projectId});
-  final int projectId;
+class CmUpdateContractForm extends StatefulWidget {
+  const CmUpdateContractForm({super.key, required this.contractId});
+  final String contractId;
 
   @override
-  State<CreateDraftForm> createState() => _CreateDraftFormState();
+  State<CmUpdateContractForm> createState() => _CreateDraftFormState();
 }
 
-class _CreateDraftFormState extends State<CreateDraftForm> {
+class _CreateDraftFormState extends State<CmUpdateContractForm> {
   String? pdfByte;
   void updatePDFBytes(String? bytes) {
     setState(() {
@@ -35,37 +34,32 @@ class _CreateDraftFormState extends State<CreateDraftForm> {
   }
 
   @override
-  void didChangeDependencies() {
-    context.read<AuthRoleProfileBloc>().add(ShowClientsEvent());
-    super.didChangeDependencies();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocListener<ContractBloc, ContractState>(
       listener: (context, state) {
-        ContractsBlocStateHandling().addDraft(state, context);
+        ContractsBlocStateHandling().updateCMContract(state, context);
       },
       listenWhen:
           (previous, current) =>
-              previous.addDraftStatus != current.addDraftStatus,
+              previous.updateContractByCMStatus !=
+              current.updateContractByCMStatus,
       child: PageTemplate(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Breadcrumbs(
               paths: [
-                AppRouteConfig.projectDetails,
-                AppRouteConfig.createDraft,
+                AppRouteConfig.cmContracts,
+                AppRouteConfig.cmUpdateContract,
               ],
-              pages: ["Project Details", "Add Draft"],
+              pages: ["Contract Manager Contracts", "Update Contract"],
             ),
             PaddingConfig.h16,
             Row(
               children: [
                 CustomBackButton(),
                 PaddingConfig.w8,
-                PageTitle(pageTitle: "Add Draft"),
+                PageTitle(pageTitle: "Update Contract"),
               ],
             ),
             PaddingConfig.h24,
@@ -85,7 +79,7 @@ class _CreateDraftFormState extends State<CreateDraftForm> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Draft File", style: AppTextStyle.bodySm()),
+                        Text("New Contract File", style: AppTextStyle.bodySm()),
                         PaddingConfig.h32,
                         FetchFileBox(
                           fileB64: pdfByte,
@@ -109,12 +103,12 @@ class _CreateDraftFormState extends State<CreateDraftForm> {
                 SaveElevatedButton(
                   onPressed: () {
                     if (pdfByte == null) {
-                      forgetSomeThingDialog(context, "The Draft");
+                      forgetSomeThingDialog(context, "The New Contract");
                     } else {
                       context.read<ContractBloc>().add(
-                        AddDraftEvent(
+                        ContractManagerUpdateContractEvent(
                           pdfFilePath: pdfByte!,
-                          projectId: widget.projectId,
+                          contractId: widget.contractId,
                         ),
                       );
                     }

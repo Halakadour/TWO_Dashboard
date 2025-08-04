@@ -8,6 +8,8 @@ class Sprint {
   final DateTime start;
   final DateTime end;
   final String status;
+  final int projectId;
+  final int incompleteTasksCount;
   final List<TaskModel> tasks;
 
   Sprint({
@@ -18,6 +20,8 @@ class Sprint {
     required this.start,
     required this.end,
     required this.status,
+    required this.projectId,
+    required this.incompleteTasksCount,
     required this.tasks,
   });
 
@@ -29,6 +33,8 @@ class Sprint {
     start: DateTime.parse(json["start"]),
     end: DateTime.parse(json["end"]),
     status: json["status"],
+    projectId: json["project_id"],
+    incompleteTasksCount: json["incomplete_tasks_count"],
     tasks: List<TaskModel>.from(
       json["tasks"].map((x) => TaskModel.fromJson(x)),
     ),
@@ -42,6 +48,8 @@ class Sprint {
     "start": start.toIso8601String(),
     "end": end.toIso8601String(),
     "status": status,
+    "project_id": projectId,
+    "incomplete_tasks_count": incompleteTasksCount,
     "tasks": List<dynamic>.from(tasks.map((x) => x.toJson())),
   };
 }

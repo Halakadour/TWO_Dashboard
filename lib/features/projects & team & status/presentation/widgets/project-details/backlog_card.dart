@@ -41,12 +41,14 @@ class BacklogCard extends StatelessWidget {
             AppRouteConfig.sprintDetails,
             extra: SprintEntity(
               id: sprint.id,
+              projectId: sprint.projectId,
               label: sprint.label,
               description: sprint.description,
               goal: sprint.goal,
               start: sprint.start,
               end: sprint.end,
               sprintStatus: sprint.status,
+              incompleteTasksCount: sprint.incompleteTasksCount,
             ),
           ),
       child: CustomRounderContainer(

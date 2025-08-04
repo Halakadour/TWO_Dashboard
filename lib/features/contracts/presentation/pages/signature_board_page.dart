@@ -60,19 +60,23 @@ class _SignatureBoardPageState extends State<SignatureBoardPage> {
     return Scaffold(
       body: BlocListener<ContractBloc, ContractState>(
         listener: (context, state) {
-          ContractsBlocStateHandling().addSign(state, context);
+          ContractsBlocStateHandling().adminSignContract(state, context);
         },
         listenWhen:
             (previous, current) =>
-                previous.addSignStatus != current.addSignStatus,
+                previous.adminSignContractStatus !=
+                current.adminSignContractStatus,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 const Breadcrumbs(
-                  paths: [AppRouteConfig.contracts, AppRouteConfig.addSign],
-                  pages: ["Contracts", "Signature Board"],
+                  paths: [
+                    AppRouteConfig.adminContracts,
+                    AppRouteConfig.addSign,
+                  ],
+                  pages: ["Admin Contracts", "Signature Board"],
                 ),
                 PaddingConfig.h16,
                 Row(
@@ -110,9 +114,9 @@ class _SignatureBoardPageState extends State<SignatureBoardPage> {
                       SaveElevatedButton(
                         onPressed: () {
                           context.read<ContractBloc>().add(
-                            AddSignEvent(
+                            AdminSignContractEvent(
                               signature: base64Image!,
-                              contractId: int.parse(widget.id),
+                              contractId: widget.id,
                             ),
                           );
                         },

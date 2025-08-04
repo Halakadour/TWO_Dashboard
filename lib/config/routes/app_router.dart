@@ -5,15 +5,15 @@ import 'package:two_dashboard/features/about-us%20&%20why-us/presentation/pages/
 import 'package:two_dashboard/features/auth/presentation/pages/fill-profile/fill_employee_profile_page.dart';
 import 'package:two_dashboard/features/auth/presentation/pages/login/login_page.dart';
 import 'package:two_dashboard/features/auth/presentation/pages/sign-up/sign_up_page.dart';
+import 'package:two_dashboard/features/contracts/presentation/pages/admin_contracts_page.dart';
+import 'package:two_dashboard/features/contracts/presentation/pages/cm_update_contract_page.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/my_projects_page.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/pended_projects_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/signature_board_page.dart';
-import 'package:two_dashboard/features/contracts/presentation/pages/contracts_page.dart';
-import 'package:two_dashboard/features/contracts/presentation/pages/create-contract/create_contract_page.dart';
+import 'package:two_dashboard/features/contracts/presentation/pages/cm_contracts_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/create_draft_page.dart';
-import 'package:two_dashboard/features/contracts/presentation/pages/drafts_page.dart';
 import 'package:two_dashboard/features/dashboard/presentation/pages/dashboard_page.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/create_team_page.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/all_projects_page.dart';
@@ -86,6 +86,14 @@ class AppRouter {
                 builder:
                     (context, state) => ProjectDetailsPage(
                       projectEntity: state.extra! as ProjectEntity,
+                    ),
+              ),
+              GoRoute(
+                name: AppRouteConfig.createDraft,
+                path: '/createDraft',
+                builder:
+                    (context, state) => CreateDraftPage(
+                      projectId: state.pathParameters['projectId'] ?? '',
                     ),
               ),
               GoRoute(
@@ -197,14 +205,22 @@ class AppRouter {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                name: AppRouteConfig.contracts,
-                path: '/contracts',
-                builder: (context, state) => const ContractsPage(),
+                name: AppRouteConfig.cmContracts,
+                path: '/contrcat-manager-contracts',
+                builder: (context, state) => const CMContractsPage(),
               ),
               GoRoute(
-                name: AppRouteConfig.createContract,
-                path: '/createContracts',
-                builder: (context, state) => const CreateContractPage(),
+                name: AppRouteConfig.cmUpdateContract,
+                path: 'cm-update-contract/:id',
+                builder:
+                    (context, state) => CmUpdateContractPage(
+                      contractId: state.pathParameters['id'] ?? '',
+                    ),
+              ),
+              GoRoute(
+                name: AppRouteConfig.adminContracts,
+                path: '/admin-contracts',
+                builder: (context, state) => const AdminContractsPage(),
               ),
               GoRoute(
                 name: AppRouteConfig.addSign,
@@ -213,21 +229,6 @@ class AppRouter {
                     (context, state) => SignatureBoardPage(
                       id: state.pathParameters['id'] ?? '',
                     ),
-              ),
-            ],
-          ),
-          // Drafts Branch
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                name: AppRouteConfig.drafts,
-                path: '/drafts',
-                builder: (context, state) => const DraftsPage(),
-              ),
-              GoRoute(
-                name: AppRouteConfig.createDraft,
-                path: '/createDraft',
-                builder: (context, state) => CreateDraftPage(),
               ),
             ],
           ),

@@ -34,13 +34,15 @@ import 'package:two_dashboard/features/contact-us/presentation/bloc/contact_us_b
 import 'package:two_dashboard/features/contracts/data/datasource/contract_remote_datasource.dart';
 import 'package:two_dashboard/features/contracts/data/repos/contract_repo_impl.dart';
 import 'package:two_dashboard/features/contracts/domain/repos/contract_repo.dart';
-import 'package:two_dashboard/features/contracts/domain/usecases/contract-usecase/add_contract_usecase.dart';
-import 'package:two_dashboard/features/contracts/domain/usecases/contract-usecase/add_sign_usecase.dart';
-import 'package:two_dashboard/features/contracts/domain/usecases/contract-usecase/get_client_contract_usecase.dart';
-import 'package:two_dashboard/features/contracts/domain/usecases/contract-usecase/get_contracts_usecase.dart';
-import 'package:two_dashboard/features/contracts/domain/usecases/draft-usecase/create_draft_usecase.dart';
-import 'package:two_dashboard/features/contracts/domain/usecases/draft-usecase/delete_draft_usecase.dart';
-import 'package:two_dashboard/features/contracts/domain/usecases/draft-usecase/get_draft_usecase.dart';
+import 'package:two_dashboard/features/contracts/domain/usecases/add_draft_usecase.dart';
+import 'package:two_dashboard/features/contracts/domain/usecases/admin_sign_contract_usecase.dart';
+import 'package:two_dashboard/features/contracts/domain/usecases/contract_manager_approve_contract_usecase.dart';
+import 'package:two_dashboard/features/contracts/domain/usecases/contract_manager_update_contract_usecase.dart';
+import 'package:two_dashboard/features/contracts/domain/usecases/project_manager_approve_contract_usecase.dart';
+import 'package:two_dashboard/features/contracts/domain/usecases/project_manager_update_contract_usecase.dart';
+import 'package:two_dashboard/features/contracts/domain/usecases/show_admin_contract_list_usecase.dart';
+import 'package:two_dashboard/features/contracts/domain/usecases/show_contract_list_usecase.dart';
+import 'package:two_dashboard/features/contracts/domain/usecases/show_contract_manager_contract_list_usecase.dart';
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
 import 'package:two_dashboard/features/posts/data/datasources/posts_local_datasource.dart';
 import 'package:two_dashboard/features/posts/data/datasources/posts_remote_datasource.dart';
@@ -299,16 +301,19 @@ Future<void> init() async {
 
   /**----------------- CONTRACTS-DRAFTS FEATURE -----------------------**/
   sl.registerFactory(
-    () => ContractBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl()),
+    () => ContractBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl()),
   );
   // Usecase
-  sl.registerLazySingleton(() => AddContractUsecase(sl()));
-  sl.registerLazySingleton(() => AddSignUsecase(sl()));
-  sl.registerLazySingleton(() => GetClientContractUsecase(sl()));
-  sl.registerLazySingleton(() => GetContractsUsecase(sl()));
-  sl.registerLazySingleton(() => CreateDraftUsecase(sl()));
-  sl.registerLazySingleton(() => DeleteDraftUsecase(sl()));
-  sl.registerLazySingleton(() => GetDraftUsecase(sl()));
+  sl.registerLazySingleton(() => AddDraftUsecase(sl()));
+  sl.registerLazySingleton(() => AdminSignContractUsecase(sl()));
+  sl.registerLazySingleton(() => ContractManagerApproveContractUsecase(sl()));
+  sl.registerLazySingleton(() => ContractManagerUpdateContractUsecase(sl()));
+  sl.registerLazySingleton(() => ProjectManagerApproveContractUsecase(sl()));
+  sl.registerLazySingleton(() => ProjectManagerUpdateContractUsecase(sl()));
+  sl.registerLazySingleton(() => ShowAdminContractListUsecase(sl()));
+  sl.registerLazySingleton(() => ShowContractListUsecase(sl()));
+  sl.registerLazySingleton(() => ShowContractManagerContractListUsecase(sl()));
+
   // Repo
   sl.registerLazySingleton<ContractRepo>(() => ContractRepoImpl(sl()));
   // Datasource

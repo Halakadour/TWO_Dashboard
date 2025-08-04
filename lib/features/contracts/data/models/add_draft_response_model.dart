@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:two_dashboard/features/contracts/data/models/draft/draft_model.dart';
+import 'package:two_dashboard/features/contracts/data/models/contract_model.dart';
 
 AddDraftResponseModel addDraftResponseModelFromJson(String str) =>
     AddDraftResponseModel.fromJson(json.decode(str));
@@ -11,7 +11,7 @@ String addDraftResponseModelToJson(AddDraftResponseModel data) =>
 class AddDraftResponseModel {
   final int status;
   final String msg;
-  final DraftModel data;
+  final ContractModel data;
 
   AddDraftResponseModel({
     required this.status,
@@ -23,7 +23,7 @@ class AddDraftResponseModel {
       AddDraftResponseModel(
         status: json["status"],
         msg: json["msg"],
-        data: DraftModel.fromJson(json["data"]),
+        data: ContractModel.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {

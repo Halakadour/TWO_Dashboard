@@ -5,7 +5,9 @@ import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom/project/loading_pended_project_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/project/loading_project_table.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom/project/pended_project_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/project/project_table.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/not_authorized_dialog.dart';
@@ -36,9 +38,9 @@ class ProjectBlocStateHandling {
   // Get All Projects Table
   Widget getAllProjectsTable(ProjectStatusTeamState state) {
     if (state.allProjectsListStatus == CasualStatus.loading) {
-      return const LoadingPendedProjectTable();
+      return const LoadingProjectTable();
     } else if (state.allProjectsListStatus == CasualStatus.success) {
-      return PendedProjectTable(projectList: state.allProjectsList);
+      return ProjectTable(projectList: state.allProjectsList);
     } else if (state.allProjectsListStatus == CasualStatus.failure) {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));
     } else {
