@@ -12,6 +12,7 @@ import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/not_authorized_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 
 class ProjectBlocStateHandling {
@@ -40,6 +41,12 @@ class ProjectBlocStateHandling {
     if (state.allProjectsListStatus == CasualStatus.loading) {
       return const LoadingProjectTable();
     } else if (state.allProjectsListStatus == CasualStatus.success) {
+      for (int i = 0; i < state.allProjectsList.length; i++) {
+        var project = state.allProjectsList[i];
+        if (project.team != null) {
+          cacheTeamForProject(project.id, project.team!);
+        }
+      }
       return ProjectTable(projectList: state.allProjectsList);
     } else if (state.allProjectsListStatus == CasualStatus.failure) {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));
@@ -58,27 +65,6 @@ class ProjectBlocStateHandling {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));
     } else {
       return const SizedBox();
-    }
-  }
-
-  // Sent Edit Project Message
-  void sentEditProjectMessage(
-    ProjectStatusTeamState state,
-    BuildContext context,
-  ) {
-    if (state.editRequestProjectStatus == CasualStatus.loading) {
-      showLoadingDialog(context);
-    } else if (state.editRequestProjectStatus == CasualStatus.success) {
-      context.pop();
-      showSuccessDialog(context, () {
-        context.pop();
-      });
-    } else if (state.editRequestProjectStatus == CasualStatus.failure) {
-      context.pop();
-      showErrorDialog(context, state.message);
-    } else if (state.editRequestProjectStatus == CasualStatus.not_authorized) {
-      context.pop();
-      showNotAuthorizedDialog(context);
     }
   }
 }

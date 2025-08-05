@@ -17,4 +17,8 @@ abstract class StatusRepo with HandlingExceptionManager {
   Future<Either<Failure, List<StatusModel>>> showStatus(
     TokenWithIdParam project,
   );
+  // get board
+  Future<Either<Failure, List<StatusModel>>> showProjectBoard(
+    ShowProjectBoardParam param,
+  );
 }

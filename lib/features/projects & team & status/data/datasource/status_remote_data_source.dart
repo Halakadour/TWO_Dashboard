@@ -1,4 +1,5 @@
 import 'package:two_dashboard/config/constants/base_uri.dart';
+import 'package:two_dashboard/core/api/get_with_token_api.dart';
 import 'package:two_dashboard/core/api/post_api_with_token.dart';
 import 'package:two_dashboard/core/models/empty_response_model.dart';
 import 'package:two_dashboard/core/param/casule_param.dart';
@@ -7,15 +8,16 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/mod
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/status/show_status_list_response_model.dart';
 
 abstract class StatusRemoteDataSource {
-  // craete status
+  // Status Actions 💚 : Create - Update - Delete
   Future<CreateStatusResponseModel> createStatus(CreateStatusParam param);
-  // delete status
   Future<EmptyResponseModel> deleteStatus(DeleteStatusParam param);
-  // update order
   Future<EmptyResponseModel> updateStatusOrder(UpdateStatusOrderParam param);
-
-  // get status
+  // Status List
   Future<ShowStatusListResponseModel> showStatus(TokenWithIdParam project);
+  // Status List with Tasks List Inside - Project Board 🔥
+  Future<ShowStatusListResponseModel> showProjectBoard(
+    ShowProjectBoardParam param,
+  );
 }
 
 class StatusRemoteDataSourceImpl extends StatusRemoteDataSource {
@@ -71,5 +73,20 @@ class StatusRemoteDataSourceImpl extends StatusRemoteDataSource {
       fromJson: emptyResponseModelFromJson,
     );
     return await result.call();
+  }
+
+  @override
+  Future<ShowStatusListResponseModel> showProjectBoard(
+    ShowProjectBoardParam param,
+  ) async {
+    final result = GetWithTokenApi(
+      uri: Uri.parse(
+        "$baseUri/api/project/${param.projectId}/board?filter[sprint_id]=${param.sprintsIdList}",
+      ),
+      body: ({'project_id': param.projectId}),
+      token: param.token,
+      fromJson: showStatusListResponseModelFromJson,
+    );
+    return await result.callRequest();
   }
 }

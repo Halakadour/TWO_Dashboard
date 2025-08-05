@@ -21,6 +21,7 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/u
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_user_projects_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/create_status_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/delete_status_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/show_project_board_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/show_status_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/update_status_order_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/team/add_members_usecase.dart';
@@ -49,6 +50,7 @@ class ProjectStatusTeamBloc
   final DeleteStatusUsecase deleteStatusUsecase;
   final UpdateStatusOrderUsecase updateStatusOrderUsecase;
   final ShowStatusUsecase showStatusUsecase;
+  final ShowProjectBoardUsecase showProjectBoardUsecase;
   // Team Usecase
   final CreateTeamUsecase createTeamUsecase;
   final AddMembersUsecase addMembersUsecase;
@@ -70,6 +72,7 @@ class ProjectStatusTeamBloc
     this.deleteStatusUsecase,
     this.updateStatusOrderUsecase,
     this.showStatusUsecase,
+    this.showProjectBoardUsecase,
     this.createTeamUsecase,
     this.addMembersUsecase,
     this.showTeamsUsecase,
@@ -420,6 +423,38 @@ class ProjectStatusTeamBloc
         );
       } else {
         emit(state.copyWith(showStatus: CasualStatus.not_authorized));
+      }
+    });
+    // View The Project Board
+    on<ShowProjectBoardEvent>((event, emit) async {
+      emit(state.copyWith(projectBoardListStatus: CasualStatus.loading));
+      final token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await showProjectBoardUsecase.call(
+          ShowProjectBoardParam(
+            token: token,
+            projectId: event.projectId,
+            sprintsIdList: event.sprintsIdList,
+          ),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              projectBoardListStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(
+              projectBoardListStatus: CasualStatus.success,
+              projectBoardList: r,
+            ),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(projectBoardListStatus: CasualStatus.not_authorized),
+        );
       }
     });
     // *** TEAM SIDE *** //

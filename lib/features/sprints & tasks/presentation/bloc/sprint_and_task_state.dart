@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'sprint_and_task_bloc.dart';
 
 class SprintAndTaskState {
@@ -10,12 +11,15 @@ class SprintAndTaskState {
   final CasualStatus startSprintStatus;
   final CasualStatus completeSprintStatus;
 
-  // Sprint Lists (Uncomplete, Started, Casual)
+  // Sprint Lists (Uncomplete, Started, pended ,Casual)
   final List<SprintEntity> projectUnCompleteSprintsList;
   final CasualStatus projectUnCompleteSprintsListStatus;
 
   final List<SprintEntity> projectStartedSprintsList;
   final CasualStatus projectStartedSprintsListStatus;
+
+  final List<Sprint> projectPendedSprintsList;
+  final CasualStatus projectPendedSprintsListStatus;
 
   final List<SprintEntity> projectSprintsList;
   final CasualStatus projectSprintsListStatus;
@@ -30,7 +34,10 @@ class SprintAndTaskState {
   final CasualStatus deleteTaskStatus;
   final CasualStatus createBacklogTasksSprintStatus;
 
-  // Tasks Lists (Project-Tasks, Sprint-Tasks, My-Project-Tasks, My-Sprints-Tasks- Backlog-Tasks)
+  // Tasks Lists (All-Tasks ,Project-Tasks, Sprint-Tasks, My-Project-Tasks, My-Sprints-Tasks- Backlog-Tasks)
+
+  final List<TaskEntity> allTasksList;
+  final CasualStatus allTasksListStatus;
 
   final List<TaskEntity> projectTasksList;
   final CasualStatus projectTasksListStatus;
@@ -47,14 +54,6 @@ class SprintAndTaskState {
   final List<TaskModel> backlogTasksList;
   final CasualStatus backlogTasksListStatus;
 
-  // Other Lists (Project-Board-Status-List, Pended-Sprint-Tasks-List)
-
-  final List<StatusModel> projectBoardList;
-  final CasualStatus projectBoardListStatus;
-
-  final List<Sprint> pendedSprintTasksList;
-  final CasualStatus pendedSprintTasksListStatus;
-
   // Tasks Details
   final TaskEntity? taskEntity;
   final CasualStatus taskEntityStatus;
@@ -68,6 +67,8 @@ class SprintAndTaskState {
     this.deleteSprintStatus = CasualStatus.initial,
     this.startSprintStatus = CasualStatus.initial,
     this.completeSprintStatus = CasualStatus.initial,
+    this.allTasksList = const [],
+    this.allTasksListStatus = CasualStatus.initial,
     this.projectUnCompleteSprintsList = const [],
     this.projectUnCompleteSprintsListStatus = CasualStatus.initial,
     this.projectStartedSprintsList = const [],
@@ -91,10 +92,8 @@ class SprintAndTaskState {
     this.mySprintTasksListStatus = CasualStatus.initial,
     this.backlogTasksList = const [],
     this.backlogTasksListStatus = CasualStatus.initial,
-    this.projectBoardList = const [],
-    this.projectBoardListStatus = CasualStatus.initial,
-    this.pendedSprintTasksList = const [],
-    this.pendedSprintTasksListStatus = CasualStatus.initial,
+    this.projectPendedSprintsList = const [],
+    this.projectPendedSprintsListStatus = CasualStatus.initial,
     this.taskEntity,
     this.taskEntityStatus = CasualStatus.initial,
   });
@@ -111,6 +110,8 @@ class SprintAndTaskState {
     CasualStatus? projectUnCompleteSprintsListStatus,
     List<SprintEntity>? projectStartedSprintsList,
     CasualStatus? projectStartedSprintsListStatus,
+    List<Sprint>? projectPendedSprintsList,
+    CasualStatus? projectPendedSprintsListStatus,
     List<SprintEntity>? projectSprintsList,
     CasualStatus? projectSprintsListStatus,
     SprintEntity? sprintEntity,
@@ -119,6 +120,8 @@ class SprintAndTaskState {
     CasualStatus? updateTaskStatus,
     CasualStatus? deleteTaskStatus,
     CasualStatus? createBacklogTasksSprintStatus,
+    List<TaskEntity>? allTasksList,
+    CasualStatus? allTasksListStatus,
     List<TaskEntity>? projectTasksList,
     CasualStatus? projectTasksListStatus,
     List<TaskEntity>? sprintTasksList,
@@ -129,10 +132,6 @@ class SprintAndTaskState {
     CasualStatus? mySprintTasksListStatus,
     List<TaskModel>? backlogTasksList,
     CasualStatus? backlogTasksListStatus,
-    List<StatusModel>? projectBoardList,
-    CasualStatus? projectBoardListStatus,
-    List<Sprint>? pendedSprintTasksList,
-    CasualStatus? pendedSprintTasksListStatus,
     TaskEntity? taskEntity,
     CasualStatus? taskEntityStatus,
   }) {
@@ -164,6 +163,8 @@ class SprintAndTaskState {
       deleteTaskStatus: deleteTaskStatus ?? this.deleteTaskStatus,
       createBacklogTasksSprintStatus:
           createBacklogTasksSprintStatus ?? this.createBacklogTasksSprintStatus,
+      allTasksList: allTasksList ?? this.allTasksList,
+      allTasksListStatus: allTasksListStatus ?? this.allTasksListStatus,
       projectTasksList: projectTasksList ?? this.projectTasksList,
       projectTasksListStatus:
           projectTasksListStatus ?? this.projectTasksListStatus,
@@ -179,13 +180,10 @@ class SprintAndTaskState {
       backlogTasksList: backlogTasksList ?? this.backlogTasksList,
       backlogTasksListStatus:
           backlogTasksListStatus ?? this.backlogTasksListStatus,
-      projectBoardList: projectBoardList ?? this.projectBoardList,
-      projectBoardListStatus:
-          projectBoardListStatus ?? this.projectBoardListStatus,
-      pendedSprintTasksList:
-          pendedSprintTasksList ?? this.pendedSprintTasksList,
-      pendedSprintTasksListStatus:
-          pendedSprintTasksListStatus ?? this.pendedSprintTasksListStatus,
+      projectPendedSprintsList:
+          projectPendedSprintsList ?? this.projectPendedSprintsList,
+      projectPendedSprintsListStatus:
+          projectPendedSprintsListStatus ?? this.projectPendedSprintsListStatus,
       taskEntity: taskEntity ?? this.taskEntity,
       taskEntityStatus: taskEntityStatus ?? this.taskEntityStatus,
     );

@@ -29,7 +29,7 @@ class _StatusTabBarViewState extends State<ContractTabBarView> {
                       () => context.pushNamed(
                         AppRouteConfig.createDraft,
                         pathParameters: {
-                          'projectId': widget.projectId.toString(),
+                          'project-id': widget.projectId.toString(),
                         },
                       ),
                 ),

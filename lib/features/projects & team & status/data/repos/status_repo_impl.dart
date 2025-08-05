@@ -53,4 +53,16 @@ class StatusRepoImpl extends StatusRepo {
       },
     );
   }
+
+  @override
+  Future<Either<Failure, List<StatusModel>>> showProjectBoard(
+    ShowProjectBoardParam param,
+  ) {
+    return wrapHandling(
+      tryCall: () async {
+        final result = await statusRemoteDataSource.showProjectBoard(param);
+        return Right(result.data);
+      },
+    );
+  }
 }

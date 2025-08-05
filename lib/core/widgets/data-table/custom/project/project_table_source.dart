@@ -30,24 +30,28 @@ class ProjectRows extends DataTableSource {
         ),
         DataCell(DynamicStatusContainer(status: project.status)),
         DataCell(VisibilityStatusContainer(visibility: project.visibility)),
-        DataCell(
-          Text(
-            project.projectDescription,
-            style: AppTextStyle.dataTableCellStyle(),
-          ),
-        ),
         DataCell(Text(project.cost, style: AppTextStyle.dataTableCellStyle())),
         DataCell(
           Text(project.duration, style: AppTextStyle.dataTableCellStyle()),
-        ),
-        DataCell(
-          Text(project.requirements, style: AppTextStyle.dataTableCellStyle()),
         ),
         DataCell(LinkedText(link: project.document)),
         DataCell(
           Text(project.cType.name, style: AppTextStyle.dataTableCellStyle()),
         ),
-        DataCell(Row(children: [EditButton(onTap: () {}), PaddingConfig.w8])),
+        DataCell(
+          Row(
+            children: [
+              EditButton(
+                onTap:
+                    () => context.pushNamed(
+                      AppRouteConfig.updateProject,
+                      extra: project,
+                    ),
+              ),
+              PaddingConfig.w8,
+            ],
+          ),
+        ),
       ],
     );
   }

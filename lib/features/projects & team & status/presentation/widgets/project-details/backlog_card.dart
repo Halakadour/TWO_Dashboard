@@ -150,10 +150,9 @@ class BacklogCard extends StatelessWidget {
               onTap:
                   () => context.pushNamed(
                     AppRouteConfig.createTask,
-                    extra: team,
                     pathParameters: {
-                      'projectId': projectId.toString(),
-                      'sprintId': sprint.id.toString(),
+                      'project-id': projectId.toString(),
+                      'sprint-id': sprint.id.toString(),
                     },
                   ),
               child: Row(

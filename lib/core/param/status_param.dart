@@ -35,3 +35,15 @@ class UpdateStatusOrderParam {
     required this.newOrder,
   });
 }
+
+class ShowProjectBoardParam {
+  final String token;
+  final int projectId;
+  final List<int> sprintsIdList;
+
+  ShowProjectBoardParam({
+    required this.token,
+    required this.projectId,
+    required this.sprintsIdList,
+  });
+}

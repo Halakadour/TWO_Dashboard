@@ -3,6 +3,7 @@ import 'package:two_dashboard/core/error/failures.dart';
 import 'package:two_dashboard/core/error/handling_exception_manager.dart';
 import 'package:two_dashboard/core/param/casule_param.dart';
 import 'package:two_dashboard/core/param/sprint_param.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/sprint/sprint.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/sprint_entity.dart';
 
 abstract class SprintRepo with HandlingExceptionManager {
@@ -17,11 +18,16 @@ abstract class SprintRepo with HandlingExceptionManager {
   Future<Either<Failure, List<SprintEntity>>> showProjectStartedSprints(
     TokenWithIdParam project,
   );
-
+  Future<Either<Failure, List<Sprint>>> showPenedingSprintsTasks(
+    TokenWithIdParam project,
+  );
   Future<Either<Failure, List<SprintEntity>>> showProjectSprints(
     TokenWithIdParam project,
   );
   Future<Either<Failure, SprintEntity>> showSprintDetails(
     TokenWithIdParam sprint,
+  );
+  Future<Either<Failure, Unit>> createBacklogTasksSprint(
+    CreateBacklogSprintParam param,
   );
 }

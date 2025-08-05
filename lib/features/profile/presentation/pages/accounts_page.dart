@@ -123,7 +123,7 @@ class _AccountsPageState extends State<AccountsPage> {
                   (previous.toggleApproveStatus != current.toggleApproveStatus),
           child: Column(
             children: [
-              const PageTitle(pageTitle: "Employees"),
+              const PageTitle(pageTitle: "Accounts"),
               const SizedBox(height: SizesConfig.spaceBtwSections),
               if (!DeviceUtility.isDesktopScreen(context))
                 Row(

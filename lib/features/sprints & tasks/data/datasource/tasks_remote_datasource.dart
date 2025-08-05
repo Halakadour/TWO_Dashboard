@@ -4,17 +4,17 @@ import 'package:two_dashboard/core/api/post_api_with_token.dart';
 import 'package:two_dashboard/core/models/empty_response_model.dart';
 import 'package:two_dashboard/core/param/casule_param.dart';
 import 'package:two_dashboard/core/param/task_param.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/status/show_status_list_response_model.dart';
-import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/sprint/create_backlog_tasks_sprint_response_model.dart';
-import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/sprint/show_pending_sprints_tasks.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/task/create_and_show_task_response_model.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/task/show_task_list_response_model.dart';
 
 abstract class TaskRemoteDatasource {
+  //Task Actions : 🧠 Create - Update - Delete
   Future<CreateAndShowTaskResponseModel> createTask(CreateTaskParam param);
   Future<EmptyResponseModel> updateTask(UpdateTaskParam param);
   Future<EmptyResponseModel> deleteTask(TokenWithIdParam task);
-  Future<CreateAndShowTaskResponseModel> showTask(TokenWithIdParam task);
+  Future<CreateAndShowTaskResponseModel> showTaskDetails(TokenWithIdParam task);
+  // Tasks Lists (All-Tasks ,Project-Tasks, Sprint-Tasks, My-Project-Tasks, My-Sprints-Tasks- Backlog-Tasks)
+  Future<ShowTaskListResponseModel> showAllTasks(String token);
   Future<ShowTaskListResponseModel> showProjectTasks(TokenWithIdParam project);
   Future<ShowTaskListResponseModel> showSprintTasks(TokenWithIdParam sprint);
   Future<ShowTaskListResponseModel> showMyProjectTasks(
@@ -23,18 +23,8 @@ abstract class TaskRemoteDatasource {
   Future<ShowTaskListResponseModel> showMySprintTasks(
     ShowMySprintTasksParam param,
   );
-
-  Future<ShowStatusListResponseModel> showProjectBoard(
-    ShowProjectBoardParam param,
-  );
-  Future<ShowPendingSprintsTasksResponseModel> showPenedingSprintsTasks(
-    TokenWithIdParam project,
-  );
   Future<ShowTaskListResponseModel> showProjectBackLogTasks(
     TokenWithIdParam project,
-  );
-  Future<CreateBacklogTasksSprintResponseModel> createBacklogTasksSprint(
-    CreateBacklogTasksSprintParam param,
   );
 }
 
@@ -88,6 +78,16 @@ class TaskRemoteDatasourceImpl extends TaskRemoteDatasource {
   }
 
   @override
+  Future<ShowTaskListResponseModel> showAllTasks(String token) async {
+    final result = GetWithTokenApi(
+      uri: Uri.parse("$baseUri/api/show/employee/tasks"),
+      token: token,
+      fromJson: showTaskListResponseModelFromJson,
+    );
+    return await result.callRequest();
+  }
+
+  @override
   Future<ShowTaskListResponseModel> showMyProjectTasks(
     ShowMyProjectTasksParam param,
   ) async {
@@ -126,7 +126,9 @@ class TaskRemoteDatasourceImpl extends TaskRemoteDatasource {
   }
 
   @override
-  Future<CreateAndShowTaskResponseModel> showTask(TokenWithIdParam task) async {
+  Future<CreateAndShowTaskResponseModel> showTaskDetails(
+    TokenWithIdParam task,
+  ) async {
     final result = GetWithTokenApi(
       uri: Uri.parse("$baseUri/api/show/task/${task.id}"),
       token: task.token,
@@ -159,41 +161,6 @@ class TaskRemoteDatasourceImpl extends TaskRemoteDatasource {
   }
 
   @override
-  Future<CreateBacklogTasksSprintResponseModel> createBacklogTasksSprint(
-    CreateBacklogTasksSprintParam param,
-  ) async {
-    final result = PostWithTokenApi(
-      uri: Uri.parse("$baseUri/api/create/backlog/tasks/sprint"),
-      token: param.token,
-      body: ({
-        "label": param.label,
-        "description": param.description,
-        "goal": param.goal,
-        "start": param.startDate,
-        "end": param.endDate,
-        "project_id": param.projectId,
-        "tasks_ids": param.tasksIds,
-      }),
-      fromJson: createBacklogTasksSprintResponseModelFromJson,
-    );
-    return await result.call();
-  }
-
-  @override
-  Future<ShowPendingSprintsTasksResponseModel> showPenedingSprintsTasks(
-    TokenWithIdParam project,
-  ) async {
-    final result = GetWithTokenApi(
-      uri: Uri.parse(
-        "$baseUri/api/show/project/pending-sprints/tasks/${project.id}",
-      ),
-      token: project.token,
-      fromJson: showPendingSprintsTasksResponseModelFromJson,
-    );
-    return await result.callRequest();
-  }
-
-  @override
   Future<ShowTaskListResponseModel> showProjectBackLogTasks(
     TokenWithIdParam project,
   ) async {
@@ -201,21 +168,6 @@ class TaskRemoteDatasourceImpl extends TaskRemoteDatasource {
       uri: Uri.parse("$baseUri/api/show/project/backlog/tasks/${project.id}"),
       token: project.token,
       fromJson: showTaskListResponseModelFromJson,
-    );
-    return await result.callRequest();
-  }
-
-  @override
-  Future<ShowStatusListResponseModel> showProjectBoard(
-    ShowProjectBoardParam param,
-  ) async {
-    final result = GetWithTokenApi(
-      uri: Uri.parse(
-        "$baseUri/api/project/${param.projectId}/board?filter[sprint_id]=${param.sprintsIdList}",
-      ),
-      body: ({'project_id': param.projectId}),
-      token: param.token,
-      fromJson: showStatusListResponseModelFromJson,
     );
     return await result.callRequest();
   }

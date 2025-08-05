@@ -9,7 +9,6 @@ class ProjectStatusTeamState {
   final CasualStatus deleteProjectStatus;
   final CasualStatus approveProjectStatus;
   final CasualStatus rejectProjectStatus;
-  final CasualStatus editRequestProjectStatus;
   final CasualStatus editProjectRequestsListStatus;
   final List<MessageModel> editProjectRequestsList;
   // Public & Private Project List
@@ -29,6 +28,9 @@ class ProjectStatusTeamState {
   final CasualStatus updateOrderStatus;
   final CasualStatus showStatus;
   final List<StatusModel> showStatusList;
+  final CasualStatus projectBoardListStatus;
+  final List<StatusModel> projectBoardList;
+
   // Team State
   final CasualStatus createTeamStatus;
   final CasualStatus addMemersStatus;
@@ -44,7 +46,6 @@ class ProjectStatusTeamState {
     this.deleteProjectStatus = CasualStatus.initial,
     this.approveProjectStatus = CasualStatus.initial,
     this.rejectProjectStatus = CasualStatus.initial,
-    this.editRequestProjectStatus = CasualStatus.initial,
     this.editProjectRequestsListStatus = CasualStatus.initial,
     this.editProjectRequestsList = const [],
     this.publicProjectsList = const [],
@@ -60,6 +61,8 @@ class ProjectStatusTeamState {
     this.updateOrderStatus = CasualStatus.initial,
     this.showStatusList = const [],
     this.showStatus = CasualStatus.initial,
+    this.projectBoardList = const [],
+    this.projectBoardListStatus = CasualStatus.initial,
     this.createTeamStatus = CasualStatus.initial,
     this.addMemersStatus = CasualStatus.initial,
     this.showTeamsStatus = CasualStatus.initial,
@@ -91,6 +94,8 @@ class ProjectStatusTeamState {
     CasualStatus? updateOrderStatus,
     CasualStatus? showStatus,
     List<StatusModel>? showStatusList,
+    List<StatusModel>? projectBoardList,
+    CasualStatus? projectBoardListStatus,
     CasualStatus? createTeamStatus,
     CasualStatus? addMemersStatus,
     CasualStatus? showTeamsStatus,
@@ -105,8 +110,6 @@ class ProjectStatusTeamState {
       deleteProjectStatus: deleteProjectStatus ?? this.deleteProjectStatus,
       approveProjectStatus: approveProjectStatus ?? this.approveProjectStatus,
       rejectProjectStatus: rejectProjectStatus ?? this.rejectProjectStatus,
-      editRequestProjectStatus:
-          editRequestProjectStatus ?? this.editRequestProjectStatus,
       editProjectRequestsListStatus:
           editProjectRequestsListStatus ?? this.editProjectRequestsListStatus,
       editProjectRequestsList:

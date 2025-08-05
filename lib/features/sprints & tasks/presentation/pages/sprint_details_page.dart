@@ -95,13 +95,24 @@ class _SprintDetailsPageState extends State<SprintDetailsPage> {
                       () => context.pushNamed(
                         AppRouteConfig.updateSprint,
                         extra: widget.sprintEntity,
-                        pathParameters: {'projectId': "1"},
+                        pathParameters: {
+                          'project-id':
+                              widget.sprintEntity.projectId.toString(),
+                        },
                       ),
                 ),
                 PaddingConfig.w8,
                 CreateElevatedButton(
                   addingType: "New Task",
-                  onPressed: () => context.pushNamed(AppRouteConfig.createTask),
+                  onPressed:
+                      () => context.pushNamed(
+                        AppRouteConfig.createTask,
+                        pathParameters: {
+                          'project-id':
+                              widget.sprintEntity.projectId.toString(),
+                          'sprint-id': widget.sprintEntity.id.toString(),
+                        },
+                      ),
                 ),
               ],
             ),

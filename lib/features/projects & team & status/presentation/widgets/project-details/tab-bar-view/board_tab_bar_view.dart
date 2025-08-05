@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
-import 'package:two_dashboard/core/functions/bloc-state-handling/task_bloc_state_handling.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/status_bloc_state_handling.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/complete_sprint_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/container/custom_rounder_container.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/sprint_entity.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 
@@ -42,7 +43,7 @@ class _BoardTabBarViewState extends State<BoardTabBarView> {
                           .toList();
                 }
                 // Get project board based on sprints that I select
-                context.read<SprintAndTaskBloc>().add(
+                context.read<ProjectStatusTeamBloc>().add(
                   ShowProjectBoardEvent(
                     projectId: widget.projectId,
                     sprintsIdList: selectedSprintIds.value,
@@ -65,7 +66,7 @@ class _BoardTabBarViewState extends State<BoardTabBarView> {
       ShowProjectSprintsEvent(projectId: widget.projectId),
     );
     // Get project board for the first time were the list is still empty
-    context.read<SprintAndTaskBloc>().add(
+    context.read<ProjectStatusTeamBloc>().add(
       ShowProjectBoardEvent(
         projectId: widget.projectId,
         sprintsIdList: selectedSprintIds.value,
@@ -134,13 +135,16 @@ class _BoardTabBarViewState extends State<BoardTabBarView> {
                 ),
                 PaddingConfig.w16,
                 Expanded(
-                  child: BlocBuilder<SprintAndTaskBloc, SprintAndTaskState>(
+                  child: BlocBuilder<
+                    ProjectStatusTeamBloc,
+                    ProjectStatusTeamState
+                  >(
                     buildWhen:
                         (previous, current) =>
                             previous.projectBoardListStatus !=
                             current.projectBoardListStatus,
                     builder: (context, state) {
-                      return TaskBlocStateHandling().getProjectBoardList(
+                      return StatusBlocStateHandling().getProjectBoardList(
                         state,
                         widget.projectId,
                       );

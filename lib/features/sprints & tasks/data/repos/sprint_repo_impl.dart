@@ -3,6 +3,7 @@ import 'package:two_dashboard/core/error/failures.dart';
 import 'package:two_dashboard/core/param/casule_param.dart';
 import 'package:two_dashboard/core/param/sprint_param.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/data/datasource/sprints_remote_datasource.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/sprint/sprint.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/sprint_entity.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/repos/sprint_repo.dart';
 
@@ -91,6 +92,20 @@ class SprintRepoImpl extends SprintRepo {
   }
 
   @override
+  Future<Either<Failure, List<Sprint>>> showPenedingSprintsTasks(
+    TokenWithIdParam project,
+  ) {
+    return wrapHandling(
+      tryCall: () async {
+        final result = await sprintsRemoteDatasource.showPenedingSprintsTasks(
+          project,
+        );
+        return Right(result.data);
+      },
+    );
+  }
+
+  @override
   Future<Either<Failure, List<SprintEntity>>> showProjectUnCompleteSprints(
     TokenWithIdParam project,
   ) {
@@ -108,6 +123,18 @@ class SprintRepoImpl extends SprintRepo {
     return wrapHandling(
       tryCall: () async {
         await sprintsRemoteDatasource.startSprint(param);
+        return Right(unit);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> createBacklogTasksSprint(
+    CreateBacklogSprintParam param,
+  ) {
+    return wrapHandling(
+      tryCall: () async {
+        await sprintsRemoteDatasource.createBacklogSprint(param);
         return Right(unit);
       },
     );

@@ -62,7 +62,15 @@ class TaskDetailsPage extends StatelessWidget {
               children: [
                 UpdateElevatedButton(
                   updateType: "Task",
-                  onPressed: () => context.pushNamed(AppRouteConfig.updateTask),
+                  onPressed:
+                      () => context.pushNamed(
+                        AppRouteConfig.updateTask,
+                        extra: taskEntity,
+                        pathParameters: {
+                          'project-id': taskEntity.projectId.toString(),
+                          'sprint-id': taskEntity.sprintId.toString(),
+                        },
+                      ),
                 ),
                 PaddingConfig.w8,
                 BlocListener<SprintAndTaskBloc, SprintAndTaskState>(

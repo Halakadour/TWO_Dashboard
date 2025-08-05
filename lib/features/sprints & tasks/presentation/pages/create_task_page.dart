@@ -6,17 +6,14 @@ import 'package:two_dashboard/core/widgets/buttons/icon-buttons/back_button.dart
 import 'package:two_dashboard/core/widgets/divider/custom_page_divider.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/widgets/create_task_form.dart';
 
 class CreateTaskPage extends StatelessWidget {
   const CreateTaskPage({
     super.key,
-    required this.projectTeam,
     required this.projectId,
     required this.sprintId,
   });
-  final Team projectTeam;
   final String projectId;
   final String sprintId;
 
@@ -51,7 +48,6 @@ class CreateTaskPage extends StatelessWidget {
             CustomPageDivider(),
             PaddingConfig.h24,
             CreateTaskForm(
-              projectTeam: projectTeam,
               projectId: int.parse(projectId),
               sprintId: int.parse(sprintId),
             ),

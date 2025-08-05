@@ -4,7 +4,6 @@ import 'package:two_dashboard/core/param/casule_param.dart';
 import 'package:two_dashboard/core/param/sprint_param.dart';
 import 'package:two_dashboard/core/param/task_param.dart';
 import 'package:two_dashboard/core/services/shared_preferences_services.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/status/status_model.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/sprint/sprint.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/task/task_model.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/sprint_entity.dart';
@@ -18,14 +17,14 @@ import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprin
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprint-usecase/show_sprint_details_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprint-usecase/start_sprint_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprint-usecase/update_sprint_usecase.dart';
-import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/create_backlog_tasks_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprint-usecase/create_backlog_sprint_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/create_task_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/delete_task_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_all_tasks_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_my_project_tasks_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_my_sprint_tasks_usecase.dart';
-import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_pending_sprint_tasks_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprint-usecase/show_project_pending_sprint_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_project_backlog_tasks_usecase.dart';
-import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_project_board_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_project_tasks_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_sprint_tasks_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_task_details_usecase.dart';
@@ -43,21 +42,21 @@ class SprintAndTaskBloc extends Bloc<SprintAndTaskEvent, SprintAndTaskState> {
   final CompleteSprintUsecase completeSprintUsecase;
   final ShowProjectUnCompleteSprintsUsecase showProjectUnCompleteSprintsUsecase;
   final ShowProjectStartedSprintsUsecase showProjectStartedSprintsUsecase;
+  final ShowProjectPendedSprintsUsecase showPendingSprintTasksUsecase;
   final ShowProjectSprintsUsecase showProjectSprintsUsecase;
   final ShowSprintDetailsUsecase showSprintDetailsUsecase;
+  final CreateBacklogSprintUsecase createBacklogTasksUsecase;
   // Task Use cases
   final CreateTaskUsecase createTaskUsecase;
   final UpdateTaskUsecase updateTaskUsecase;
   final DeleteTaskUsecase deleteTaskUsecase;
   final ShowTaskDetailsUsecase showTaskDetailsUsecase;
+  final ShowAllTasksUsecase showAllTasksUsecase;
   final ShowProjectTasksUsecase showProjectTasksUsecase;
   final ShowSprintTasksUsecase showSprintTasksUsecase;
   final ShowMyProjectTasksUsecase showMyProjectTasksUsecase;
   final ShowMySprintTasksUsecase showMySprintTasksUsecase;
-  final ShowProjectBoardUsecase showProjectBoardUsecase;
-  final ShowPendingSprintTasksUsecase showPendingSprintTasksUsecase;
   final ShowProjectBacklogTasksUsecase showProjectBacklogTasksUsecase;
-  final CreateBacklogTasksUsecase createBacklogTasksUsecase;
   SprintAndTaskBloc(
     this.createSprintUsecase,
     this.updateSprintUsecase,
@@ -72,16 +71,16 @@ class SprintAndTaskBloc extends Bloc<SprintAndTaskEvent, SprintAndTaskState> {
     this.updateTaskUsecase,
     this.deleteTaskUsecase,
     this.showTaskDetailsUsecase,
+    this.showAllTasksUsecase,
     this.showProjectTasksUsecase,
     this.showSprintTasksUsecase,
     this.showMyProjectTasksUsecase,
     this.showMySprintTasksUsecase,
-    this.showProjectBoardUsecase,
     this.showPendingSprintTasksUsecase,
     this.showProjectBacklogTasksUsecase,
     this.createBacklogTasksUsecase,
   ) : super(SprintAndTaskState()) {
-    // ** SPRINT BLOC ** //
+    /////////////////////////////// ********* SPRINT BLOC ******** ////////////////////////////////////////
     // create sprint
     on<CreateSprintEvent>((event, emit) async {
       emit(state.copyWith(createSprintStatus: CasualStatus.loading));
@@ -217,7 +216,7 @@ class SprintAndTaskBloc extends Bloc<SprintAndTaskEvent, SprintAndTaskState> {
       }
     });
     // Show Project Un Complete Sprints
-    on<ShowProjectUnCompleteSprintEvent>((event, emit) async {
+    on<ShowProjectUnCompleteSprintsEvent>((event, emit) async {
       emit(
         state.copyWith(
           projectUnCompleteSprintsListStatus: CasualStatus.loading,
@@ -252,7 +251,7 @@ class SprintAndTaskBloc extends Bloc<SprintAndTaskEvent, SprintAndTaskState> {
       }
     });
     // Show Project Started Sprints
-    on<ShowProjectStartedSprintEvent>((event, emit) async {
+    on<ShowProjectStartedSprintsEvent>((event, emit) async {
       emit(
         state.copyWith(projectStartedSprintsListStatus: CasualStatus.loading),
       );
@@ -312,6 +311,38 @@ class SprintAndTaskBloc extends Bloc<SprintAndTaskEvent, SprintAndTaskState> {
         );
       }
     });
+    // View Pended Sprint
+    on<ShowProjectPendedSprintsEvent>((event, emit) async {
+      emit(
+        state.copyWith(projectPendedSprintsListStatus: CasualStatus.loading),
+      );
+      final token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await showPendingSprintTasksUsecase.call(
+          TokenWithIdParam(token: token, id: event.projectId),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              projectPendedSprintsListStatus: CasualStatus.failure,
+              errorMessage: l.message,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(
+              projectPendedSprintsListStatus: CasualStatus.success,
+              projectPendedSprintsList: r,
+            ),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            projectPendedSprintsListStatus: CasualStatus.not_authorized,
+          ),
+        );
+      }
+    });
     // Show Sprint Details
     on<ShowSprintDetailsEvent>((event, emit) async {
       emit(state.copyWith(sprintEntityStatus: CasualStatus.loading));
@@ -338,7 +369,47 @@ class SprintAndTaskBloc extends Bloc<SprintAndTaskEvent, SprintAndTaskState> {
         emit(state.copyWith(sprintEntityStatus: CasualStatus.not_authorized));
       }
     });
-    // ** TASK BLOC ** //
+    // Create Backlog Tasks Sprint
+    on<CreateBacklogSprintEvent>((event, emit) async {
+      emit(
+        state.copyWith(createBacklogTasksSprintStatus: CasualStatus.loading),
+      );
+      final token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await createBacklogTasksUsecase.call(
+          CreateBacklogSprintParam(
+            token: token,
+            projectId: event.projectId,
+            label: event.label,
+            description: event.description,
+            goal: event.goal,
+            startDate: event.startDate,
+            endDate: event.endDate,
+            tasksIds: event.tasksIds,
+          ),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              createBacklogTasksSprintStatus: CasualStatus.failure,
+              errorMessage: l.message,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(
+              createBacklogTasksSprintStatus: CasualStatus.success,
+            ),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            createBacklogTasksSprintStatus: CasualStatus.not_authorized,
+          ),
+        );
+      }
+    });
+    ////////////////////////////////////////// ************** TASK BLOC ************** /////////////////////////////////////////////
     // Create Task
     on<CreateTaskEvent>((event, emit) async {
       emit(state.copyWith(createTaskStatus: CasualStatus.loading));
@@ -482,6 +553,31 @@ class SprintAndTaskBloc extends Bloc<SprintAndTaskEvent, SprintAndTaskState> {
         );
       }
     });
+    // View All Tasks
+    on<ShowAllTasksEvent>((event, emit) async {
+      emit(state.copyWith(allTasksListStatus: CasualStatus.loading));
+      final token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await showAllTasksUsecase.call(token);
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              allTasksListStatus: CasualStatus.failure,
+              errorMessage: l.message,
+              statusNum: l.hashCode,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(
+              allTasksListStatus: CasualStatus.success,
+              allTasksList: r,
+            ),
+          ),
+        );
+      } else {
+        emit(state.copyWith(allTasksListStatus: CasualStatus.not_authorized));
+      }
+    });
     // View Tasks On This Sprint
     on<ShowSprintTasksEvent>((event, emit) async {
       emit(state.copyWith(sprintTasksListStatus: CasualStatus.loading));
@@ -576,68 +672,6 @@ class SprintAndTaskBloc extends Bloc<SprintAndTaskEvent, SprintAndTaskState> {
         );
       }
     });
-    // View The Project Board
-    on<ShowProjectBoardEvent>((event, emit) async {
-      emit(state.copyWith(projectBoardListStatus: CasualStatus.loading));
-      final token = await SharedPreferencesServices.getUserToken();
-      if (token != null) {
-        final result = await showProjectBoardUsecase.call(
-          ShowProjectBoardParam(
-            token: token,
-            projectId: event.projectId,
-            sprintsIdList: event.sprintsIdList,
-          ),
-        );
-        result.fold(
-          (l) => emit(
-            state.copyWith(
-              projectBoardListStatus: CasualStatus.failure,
-              errorMessage: l.message,
-            ),
-          ),
-          (r) => emit(
-            state.copyWith(
-              projectBoardListStatus: CasualStatus.success,
-              projectBoardList: r,
-            ),
-          ),
-        );
-      } else {
-        emit(
-          state.copyWith(projectBoardListStatus: CasualStatus.not_authorized),
-        );
-      }
-    });
-    // View Tasks In The Pended Sprint
-    on<ShowPendedSprintTasksEvent>((event, emit) async {
-      emit(state.copyWith(pendedSprintTasksListStatus: CasualStatus.loading));
-      final token = await SharedPreferencesServices.getUserToken();
-      if (token != null) {
-        final result = await showPendingSprintTasksUsecase.call(
-          TokenWithIdParam(token: token, id: event.projectId),
-        );
-        result.fold(
-          (l) => emit(
-            state.copyWith(
-              pendedSprintTasksListStatus: CasualStatus.failure,
-              errorMessage: l.message,
-            ),
-          ),
-          (r) => emit(
-            state.copyWith(
-              pendedSprintTasksListStatus: CasualStatus.success,
-              pendedSprintTasksList: r,
-            ),
-          ),
-        );
-      } else {
-        emit(
-          state.copyWith(
-            pendedSprintTasksListStatus: CasualStatus.not_authorized,
-          ),
-        );
-      }
-    });
     // View Backlog Tasks in This Project
     on<ShowProjectBacklogTasksEvent>((event, emit) async {
       emit(state.copyWith(backlogTasksListStatus: CasualStatus.loading));
@@ -664,46 +698,6 @@ class SprintAndTaskBloc extends Bloc<SprintAndTaskEvent, SprintAndTaskState> {
       } else {
         emit(
           state.copyWith(backlogTasksListStatus: CasualStatus.not_authorized),
-        );
-      }
-    });
-    // Create Backlog Tasks Sprint
-    on<CreateBacklogTasksSprintEvent>((event, emit) async {
-      emit(
-        state.copyWith(createBacklogTasksSprintStatus: CasualStatus.loading),
-      );
-      final token = await SharedPreferencesServices.getUserToken();
-      if (token != null) {
-        final result = await createBacklogTasksUsecase.call(
-          CreateBacklogTasksSprintParam(
-            token: token,
-            projectId: event.projectId,
-            label: event.label,
-            description: event.description,
-            goal: event.goal,
-            startDate: event.startDate,
-            endDate: event.endDate,
-            tasksIds: event.tasksIds,
-          ),
-        );
-        result.fold(
-          (l) => emit(
-            state.copyWith(
-              createBacklogTasksSprintStatus: CasualStatus.failure,
-              errorMessage: l.message,
-            ),
-          ),
-          (r) => emit(
-            state.copyWith(
-              createBacklogTasksSprintStatus: CasualStatus.success,
-            ),
-          ),
-        );
-      } else {
-        emit(
-          state.copyWith(
-            createBacklogTasksSprintStatus: CasualStatus.not_authorized,
-          ),
         );
       }
     });

@@ -1,6 +1,17 @@
-class Team {
+import 'package:hive/hive.dart';
+import 'package:two_dashboard/core/error/exceptions.dart';
+
+part 'team.g.dart';
+
+@HiveType(typeId: 2)
+class Team extends HiveObject {
+  @HiveField(0)
   final int id;
+
+  @HiveField(1)
   final String name;
+
+  @HiveField(2)
   final List<Member> members;
 
   Team({required this.id, required this.name, required this.members});
@@ -18,12 +29,24 @@ class Team {
   };
 }
 
-class Member {
+@HiveType(typeId: 3)
+class Member extends HiveObject {
+  @HiveField(0)
   final int id;
+
+  @HiveField(1)
   final String name;
+
+  @HiveField(2)
   final String email;
+
+  @HiveField(3)
   final String? image;
+
+  @HiveField(4)
   final String role;
+
+  @HiveField(5)
   final bool isManager;
 
   Member({
@@ -40,7 +63,7 @@ class Member {
     name: json["name"],
     email: json["email"],
     image: json["image"],
-    role: json["role"],
+    role: json["role"] ?? "No Role",
     isManager: json["is_manager"],
   );
 
@@ -52,4 +75,21 @@ class Member {
     "role": role,
     "is_manager": isManager,
   };
+}
+
+// ignore: constant_identifier_names
+const String CACHED_TEAM = "CACHED-TEAM";
+
+Future<void> cacheTeamForProject(int projectId, Team team) async {
+  final box = Hive.box<Team>(CACHED_TEAM);
+  await box.clear();
+  box.put(projectId, team);
+}
+
+Future<Team?> getCachedTeamForProject(int projectId) async {
+  final box = Hive.box<Team>(CACHED_TEAM);
+  if (box.isEmpty) {
+    throw EmptyCacheException(message: "No Team Saved");
+  }
+  return box.get(projectId);
 }

@@ -51,14 +51,14 @@ class _SprintsTabBarViewState extends State<SprintsTabBarView> {
                   if (newValue == 1) {
                     // Started Sprints
                     context.read<SprintAndTaskBloc>().add(
-                      ShowProjectStartedSprintEvent(
+                      ShowProjectStartedSprintsEvent(
                         projectId: widget.projectId,
                       ),
                     );
                   } else if (newValue == 2) {
                     // Un Completed Sprints
                     context.read<SprintAndTaskBloc>().add(
-                      ShowProjectUnCompleteSprintEvent(
+                      ShowProjectUnCompleteSprintsEvent(
                         projectId: widget.projectId,
                       ),
                     );
@@ -91,7 +91,7 @@ class _SprintsTabBarViewState extends State<SprintsTabBarView> {
                     () => context.pushNamed(
                       AppRouteConfig.createSprint,
                       pathParameters: {
-                        'projectId': widget.projectId.toString(),
+                        'project-id': widget.projectId.toString(),
                       },
                     ),
               ),

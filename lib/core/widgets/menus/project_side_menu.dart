@@ -44,7 +44,10 @@ void showPendedProjectActionSideMenu(
   ).then((value) {
     if (value == 0) {
     } else if (value == 1) {
-      context.pushNamed(AppRouteConfig.selectTeam);
+      context.pushNamed(
+        AppRouteConfig.selectTeam,
+        pathParameters: {'project-id': project.id.toString()},
+      );
     }
   });
 }

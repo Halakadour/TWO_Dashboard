@@ -46,15 +46,7 @@ void serviceCardSideMenu(
     ],
   ).then((value) {
     if (value == 0) {
-      context.pushNamed(
-        AppRouteConfig.updateService,
-        pathParameters: {
-          'id': serviceEntity.idE.toString(),
-          'title': serviceEntity.titleE,
-          'description': serviceEntity.descriptionE,
-          'image': serviceEntity.imageE,
-        },
-      );
+      context.pushNamed(AppRouteConfig.updateService, extra: serviceEntity);
     } else if (value == 1) {
       confirmDeletionDialog(context, "this service", () {
         context.read<ServiceBloc>().add(

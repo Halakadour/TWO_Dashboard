@@ -58,7 +58,7 @@ class CompleteSprintParam {
   final String token;
   final int projectId;
   final int sprintId;
-  // It takes null, new, existing
+  // It takes auto ,null, new, existing
   final String? action;
   // required if the action is new
   final String? newSprintLabel;
@@ -72,5 +72,35 @@ class CompleteSprintParam {
     this.action,
     this.newSprintLabel,
     this.existingSprintId,
+  });
+}
+
+// create BacklogTasks Sprints
+//"label": "Sprint 2",
+// "description": "Second sprint tasks",
+// "goal": "Complete main features",
+// "start": "2025-07-05",
+// "end": "2025-07-15",
+// "project_id": 1,
+// "tasks_ids": [2, 3]
+class CreateBacklogSprintParam {
+  final String token;
+  final int projectId;
+  final String label;
+  final String description;
+  final String goal;
+  final String startDate;
+  final String endDate;
+  final List<int> tasksIds;
+
+  CreateBacklogSprintParam({
+    required this.token,
+    required this.projectId,
+    required this.label,
+    required this.description,
+    required this.goal,
+    required this.startDate,
+    required this.endDate,
+    required this.tasksIds,
   });
 }

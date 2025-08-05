@@ -26,7 +26,7 @@ class _BacklogTabBarViewState extends State<BacklogTabBarView> {
   @override
   void didChangeDependencies() {
     context.read<SprintAndTaskBloc>().add(
-      ShowPendedSprintTasksEvent(projectId: widget.projectId),
+      ShowProjectPendedSprintsEvent(projectId: widget.projectId),
     );
     context.read<SprintAndTaskBloc>().add(
       ShowProjectBacklogTasksEvent(projectId: widget.projectId),
@@ -40,7 +40,7 @@ class _BacklogTabBarViewState extends State<BacklogTabBarView> {
       padding: EdgeInsetsGeometry.symmetric(horizontal: 16.0),
       child: SingleChildScrollView(
         child: SizedBox(
-          height: 1000,
+          height: 800,
           child: Column(
             children: [
               Row(
@@ -52,7 +52,7 @@ class _BacklogTabBarViewState extends State<BacklogTabBarView> {
                         () => context.pushNamed(
                           AppRouteConfig.createSprint,
                           pathParameters: {
-                            'projectId': widget.projectId.toString(),
+                            'project-id': widget.projectId.toString(),
                           },
                         ),
                   ),
@@ -62,12 +62,12 @@ class _BacklogTabBarViewState extends State<BacklogTabBarView> {
               ),
               PaddingConfig.h32,
               SizedBox(
-                height: 300,
+                height: 350,
                 child: BlocBuilder<SprintAndTaskBloc, SprintAndTaskState>(
                   buildWhen:
                       (previous, current) =>
-                          previous.pendedSprintTasksListStatus !=
-                          current.pendedSprintTasksListStatus,
+                          previous.projectPendedSprintsListStatus !=
+                          current.projectPendedSprintsListStatus,
                   builder: (context, state) {
                     return TaskBlocStateHandling().getPendedSprintTasksList(
                       state,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/core/network/enums.dart';
+import 'package:two_dashboard/core/widgets/animation/empty_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/loading_status_animation.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
@@ -91,7 +92,6 @@ class StatusBlocStateHandling {
           state.showStatusList
               .map((status) => mapStatusModelToProjectStatus(status, projectId))
               .toList();
-      print(statuses.asMap());
 
       // تخزينهم في Hive
       saveStatuses(statuses);
@@ -100,7 +100,27 @@ class StatusBlocStateHandling {
         projectId: projectId,
       );
     } else if (state.showStatus == CasualStatus.failure) {
-      print(state.message);
+      return ErrorStatusAnimation(errorMessage: state.message);
+    } else {
+      return SizedBox();
+    }
+  }
+
+  // list of status for project board
+  Widget getProjectBoardList(ProjectStatusTeamState state, int projectId) {
+    if (state.projectBoardListStatus == CasualStatus.loading) {
+      return Center(child: LoadingStatusAnimation());
+    } else if (state.projectBoardListStatus == CasualStatus.success) {
+      // return Text("Success");
+      if (state.projectBoardList.isEmpty) {
+        return EmptyStatusAnimation();
+      } else {
+        return StatusKanbanView(
+          statusList: state.projectBoardList,
+          projectId: projectId,
+        );
+      }
+    } else if (state.projectBoardListStatus == CasualStatus.failure) {
       return ErrorStatusAnimation(errorMessage: state.message);
     } else {
       return SizedBox();

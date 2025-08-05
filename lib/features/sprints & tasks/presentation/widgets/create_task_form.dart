@@ -22,11 +22,9 @@ import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/spr
 class CreateTaskForm extends StatefulWidget {
   const CreateTaskForm({
     super.key,
-    required this.projectTeam,
     required this.projectId,
     required this.sprintId,
   });
-  final Team projectTeam;
   final int projectId;
   final int sprintId;
 
@@ -47,6 +45,7 @@ class _CreateTaskFormState extends State<CreateTaskForm> {
   DateTime? _endDate;
 
   List<ProjectStatus> _statusList = [];
+  List<Member> _membersList = [];
 
   Future<void> _pickDate({required bool isStart}) async {
     final DateTime? picked = await showDatePicker(
@@ -78,12 +77,20 @@ class _CreateTaskFormState extends State<CreateTaskForm> {
     });
   }
 
+  Future<void> _loadMembers() async {
+    final allMembers = await getCachedTeamForProject(widget.projectId);
+    setState(() {
+      _membersList = allMembers!.members;
+    });
+  }
+
   @override
   void initState() {
     _formKey = GlobalKey<FormState>();
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
     _loadStatuses(); // ← تحميل الحالات
+    _loadMembers(); // ← تحميل أعضاء الفريق
     super.initState();
   }
 
@@ -139,7 +146,7 @@ class _CreateTaskFormState extends State<CreateTaskForm> {
                 CustomDropdownListForMemberModel(
                   value: user,
                   items:
-                      widget.projectTeam.members.map((user) {
+                      _membersList.map((user) {
                         return DropdownMenuItem(
                           value: user,
                           child: Row(

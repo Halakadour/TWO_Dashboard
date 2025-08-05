@@ -88,6 +88,13 @@ class ShowProjectStatusEvent extends ProjectStatusTeamEvent {
   ShowProjectStatusEvent({required this.projectId});
 }
 
+class ShowProjectBoardEvent extends ProjectStatusTeamEvent {
+  final int projectId;
+  final List<int> sprintsIdList;
+
+  ShowProjectBoardEvent({required this.projectId, required this.sprintsIdList});
+}
+
 // Team Events
 class CreateTeamEvent extends ProjectStatusTeamEvent {
   final String name;

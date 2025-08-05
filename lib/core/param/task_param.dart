@@ -87,48 +87,6 @@ class ShowMySprintTasksParam {
   });
 }
 
-class ShowProjectBoardParam {
-  final String token;
-  final int projectId;
-  final List<int> sprintsIdList;
-
-  ShowProjectBoardParam({
-    required this.token,
-    required this.projectId,
-    required this.sprintsIdList,
-  });
-}
-
-// create BacklogTasks Sprints
-//"label": "Sprint 2",
-// "description": "Second sprint tasks",
-// "goal": "Complete main features",
-// "start": "2025-07-05",
-// "end": "2025-07-15",
-// "project_id": 1,
-// "tasks_ids": [2, 3]
-class CreateBacklogTasksSprintParam {
-  final String token;
-  final int projectId;
-  final String label;
-  final String description;
-  final String goal;
-  final String startDate;
-  final String endDate;
-  final List<int> tasksIds;
-
-  CreateBacklogTasksSprintParam({
-    required this.token,
-    required this.projectId,
-    required this.label,
-    required this.description,
-    required this.goal,
-    required this.startDate,
-    required this.endDate,
-    required this.tasksIds,
-  });
-}
-
 class UpdateTaskPageParam {
   final TaskEntity taskEntity;
   final Team projectTeam;

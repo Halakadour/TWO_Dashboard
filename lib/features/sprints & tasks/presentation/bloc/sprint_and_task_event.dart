@@ -74,16 +74,22 @@ class CompleteSprintEvent extends SprintAndTaskEvent {
   });
 }
 
-class ShowProjectUnCompleteSprintEvent extends SprintAndTaskEvent {
+class ShowProjectUnCompleteSprintsEvent extends SprintAndTaskEvent {
   final int projectId;
 
-  ShowProjectUnCompleteSprintEvent({required this.projectId});
+  ShowProjectUnCompleteSprintsEvent({required this.projectId});
 }
 
-class ShowProjectStartedSprintEvent extends SprintAndTaskEvent {
+class ShowProjectStartedSprintsEvent extends SprintAndTaskEvent {
   final int projectId;
 
-  ShowProjectStartedSprintEvent({required this.projectId});
+  ShowProjectStartedSprintsEvent({required this.projectId});
+}
+
+class ShowProjectPendedSprintsEvent extends SprintAndTaskEvent {
+  final int projectId;
+
+  ShowProjectPendedSprintsEvent({required this.projectId});
 }
 
 class ShowProjectSprintsEvent extends SprintAndTaskEvent {
@@ -94,6 +100,26 @@ class ShowProjectSprintsEvent extends SprintAndTaskEvent {
 class ShowSprintDetailsEvent extends SprintAndTaskEvent {
   ShowSprintDetailsEvent({required this.sprintId});
   int sprintId;
+}
+
+class CreateBacklogSprintEvent extends SprintAndTaskEvent {
+  final int projectId;
+  final String label;
+  final String description;
+  final String goal;
+  final String startDate;
+  final String endDate;
+  final List<int> tasksIds;
+
+  CreateBacklogSprintEvent({
+    required this.projectId,
+    required this.label,
+    required this.description,
+    required this.goal,
+    required this.startDate,
+    required this.endDate,
+    required this.tasksIds,
+  });
 }
 
 // Task Events
@@ -155,25 +181,7 @@ class DeleteTaskEvent extends SprintAndTaskEvent {
   int taskId;
 }
 
-class CreateBacklogTasksSprintEvent extends SprintAndTaskEvent {
-  final int projectId;
-  final String label;
-  final String description;
-  final String goal;
-  final String startDate;
-  final String endDate;
-  final List<int> tasksIds;
-
-  CreateBacklogTasksSprintEvent({
-    required this.projectId,
-    required this.label,
-    required this.description,
-    required this.goal,
-    required this.startDate,
-    required this.endDate,
-    required this.tasksIds,
-  });
-}
+class ShowAllTasksEvent extends SprintAndTaskEvent {}
 
 class ShowProjectTasksEvent extends SprintAndTaskEvent {
   final int projectId;
@@ -209,19 +217,6 @@ class ShowProjectBacklogTasksEvent extends SprintAndTaskEvent {
   final int projectId;
 
   ShowProjectBacklogTasksEvent({required this.projectId});
-}
-
-class ShowPendedSprintTasksEvent extends SprintAndTaskEvent {
-  final int projectId;
-
-  ShowPendedSprintTasksEvent({required this.projectId});
-}
-
-class ShowProjectBoardEvent extends SprintAndTaskEvent {
-  final int projectId;
-  final List<int> sprintsIdList;
-
-  ShowProjectBoardEvent({required this.projectId, required this.sprintsIdList});
 }
 
 class ShowTaskDetailsEvent extends SprintAndTaskEvent {

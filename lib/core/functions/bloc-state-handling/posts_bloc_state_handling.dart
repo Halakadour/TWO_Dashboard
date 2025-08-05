@@ -30,6 +30,7 @@ class PostsBlocStateHandling {
             crossAxisCount: 4,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
+            childAspectRatio: 0.9,
           ),
           itemBuilder:
               (context, index) =>

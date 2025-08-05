@@ -25,12 +25,10 @@ class UpdateTaskForm extends StatefulWidget {
   const UpdateTaskForm({
     super.key,
     required this.taskEntity,
-    required this.team,
     required this.projectId,
     required this.sprintId,
   });
   final TaskEntity taskEntity;
-  final Team team;
   final int projectId;
   final int sprintId;
 
@@ -52,6 +50,7 @@ class _UpdateTaskFormState extends State<UpdateTaskForm> {
   DateTime? _endDate;
 
   List<ProjectStatus> _statusList = [];
+  List<Member> _membersList = [];
 
   Future<void> _pickDateTime({required bool isStart}) async {
     final DateTime? pickedDate = await showDatePicker(
@@ -104,6 +103,13 @@ class _UpdateTaskFormState extends State<UpdateTaskForm> {
     });
   }
 
+  Future<void> _loadMembers() async {
+    final allMembers = await getCachedTeamForProject(widget.projectId);
+    setState(() {
+      _membersList = allMembers!.members;
+    });
+  }
+
   @override
   void initState() {
     _formKey = GlobalKey<FormState>();
@@ -111,7 +117,7 @@ class _UpdateTaskFormState extends State<UpdateTaskForm> {
     _descriptionController = TextEditingController(
       text: widget.taskEntity.description,
     );
-    user = widget.team.members.firstWhere(
+    user = _membersList.firstWhere(
       (element) => element.id == widget.taskEntity.assignedUser.id,
     );
     priority = HelperFunctions.getPriorityName(widget.taskEntity.taskPriority);
@@ -120,6 +126,7 @@ class _UpdateTaskFormState extends State<UpdateTaskForm> {
     _startDate = widget.taskEntity.startDate;
     _endDate = widget.taskEntity.endDate;
     _loadStatuses(); // ← تحميل الحالات
+    _loadMembers(); // ← تحميل أعضاء الفريق
     super.initState();
   }
 
@@ -172,7 +179,7 @@ class _UpdateTaskFormState extends State<UpdateTaskForm> {
                 CustomDropdownListForMemberModel(
                   value: user,
                   items:
-                      widget.team.members.map((user) {
+                      _membersList.map((user) {
                         return DropdownMenuItem(
                           value: user,
                           child: Row(

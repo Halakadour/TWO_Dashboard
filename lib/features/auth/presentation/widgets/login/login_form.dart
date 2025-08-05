@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/core/error/validation.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/auth_bloc_state_handling.dart';
 import 'package:two_dashboard/core/functions/tuggle_password.dart';
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
 import 'package:two_dashboard/features/auth/presentation/widgets/google_git_row.dart';
@@ -106,20 +107,28 @@ class _LoginFormState extends State<LoginForm> {
               ],
             ),
             const SizedBox(height: SizesConfig.spaceBtwItems),
-            SizedBox(
-              width: double.infinity,
-              child: CustomCartoonButton(
-                title: TextStrings.signIn,
-                onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    context.read<AuthRoleProfileBloc>().add(
-                      LoginUserEvent(
-                        email: _emailController.text,
-                        password: _passwordController.text,
-                      ),
-                    );
-                  }
-                },
+            BlocListener<AuthRoleProfileBloc, AuthRoleProfileState>(
+              listener: (context, state) async {
+                await AuthBlocStateHandling().login(state, context);
+              },
+              listenWhen:
+                  (previous, current) =>
+                      previous.authModelStatus != current.authModelStatus,
+              child: SizedBox(
+                width: double.infinity,
+                child: CustomCartoonButton(
+                  title: TextStrings.signIn,
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      context.read<AuthRoleProfileBloc>().add(
+                        LoginUserEvent(
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                        ),
+                      );
+                    }
+                  },
+                ),
               ),
             ),
             const SizedBox(height: SizesConfig.spaceBtwItems),

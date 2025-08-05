@@ -42,7 +42,7 @@ class _AllProjectPageState extends State<AllProjectPage> {
         ),
         child: Column(
           children: [
-            PageTitle(pageTitle: "All Projects"),
+            PageTitle(pageTitle: "All Projects 🔥"),
             PaddingConfig.h24,
             _buildFilters(),
             PaddingConfig.h32,

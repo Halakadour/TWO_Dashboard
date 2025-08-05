@@ -4,10 +4,13 @@ import 'package:two_dashboard/core/api/post_api_with_token.dart';
 import 'package:two_dashboard/core/models/empty_response_model.dart';
 import 'package:two_dashboard/core/param/casule_param.dart';
 import 'package:two_dashboard/core/param/sprint_param.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/sprint/create_backlog_tasks_sprint_response_model.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/sprint/show_and_create_sprint_response_model.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/sprint/show_pending_sprints_tasks.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/sprint/show_sprints_list_response_model.dart';
 
 abstract class SprintsRemoteDatasource {
+  // Sprint Actions 👾 : Create - Update - Delete - Start - Complete
   Future<CreateAndShowSprintResponseModel> createSprint(
     CreateSprintParam param,
   );
@@ -15,17 +18,26 @@ abstract class SprintsRemoteDatasource {
   Future<EmptyResponseModel> deleteSprint(TokenWithIdParam sprint);
   Future<EmptyResponseModel> startSprint(StartSprintParam param);
   Future<EmptyResponseModel> completeSprint(CompleteSprintParam param);
+  // Sprint Lists ( Un Completed Sprints ) ( Started Sprints ) ( Pended Sprints ) ( All Project Sprints )
   Future<ShowSprintsListResponseModel> showProjectUnCompleteSprints(
     TokenWithIdParam project,
   );
   Future<ShowSprintsListResponseModel> showProjectStartedSprints(
     TokenWithIdParam project,
   );
+  Future<ShowPendingSprintsTasksResponseModel> showPenedingSprintsTasks(
+    TokenWithIdParam project,
+  );
   Future<ShowSprintsListResponseModel> showProjectSprints(
     TokenWithIdParam project,
   );
+  // Sprint Details
   Future<CreateAndShowSprintResponseModel> showSprintDetails(
     TokenWithIdParam sprint,
+  );
+  // Create Backlog Sprint
+  Future<CreateBacklogTasksSprintResponseModel> createBacklogSprint(
+    CreateBacklogSprintParam param,
   );
 }
 
@@ -166,5 +178,40 @@ class SprintsRemoteDatasourceImpl extends SprintsRemoteDatasource {
       fromJson: emptyResponseModelFromJson,
     );
     return await result.call();
+  }
+
+  @override
+  Future<CreateBacklogTasksSprintResponseModel> createBacklogSprint(
+    CreateBacklogSprintParam param,
+  ) async {
+    final result = PostWithTokenApi(
+      uri: Uri.parse("$baseUri/api/create/backlog/tasks/sprint"),
+      token: param.token,
+      body: ({
+        "label": param.label,
+        "description": param.description,
+        "goal": param.goal,
+        "start": param.startDate,
+        "end": param.endDate,
+        "project_id": param.projectId,
+        "tasks_ids": param.tasksIds,
+      }),
+      fromJson: createBacklogTasksSprintResponseModelFromJson,
+    );
+    return await result.call();
+  }
+
+  @override
+  Future<ShowPendingSprintsTasksResponseModel> showPenedingSprintsTasks(
+    TokenWithIdParam project,
+  ) async {
+    final result = GetWithTokenApi(
+      uri: Uri.parse(
+        "$baseUri/api/show/project/pending-sprints/tasks/${project.id}",
+      ),
+      token: project.token,
+      fromJson: showPendingSprintsTasksResponseModelFromJson,
+    );
+    return await result.callRequest();
   }
 }

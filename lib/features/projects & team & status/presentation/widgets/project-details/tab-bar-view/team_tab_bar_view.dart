@@ -7,6 +7,7 @@ import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/update_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/container/custom_rounder_container.dart';
+import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
 
 class TeamTabBarView extends StatelessWidget {
@@ -40,7 +41,7 @@ class TeamTabBarView extends StatelessWidget {
                 onPressed:
                     () => context.pushReplacementNamed(
                       AppRouteConfig.selectTeam,
-                      pathParameters: {'id': projectId.toString()},
+                      pathParameters: {'project-id': projectId.toString()},
                     ),
               ),
             ],
@@ -80,21 +81,31 @@ class TeamTabBarView extends StatelessWidget {
                             ),
                           ),
                           PaddingConfig.w32,
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
                             children: [
-                              Text(
-                                teamMgr?.name ?? "NO Team Selected",
-                                style: AppTextStyle.bodySm(
-                                  color: AppColors.fontDarkGray,
-                                ),
+                              FetchNetworkImage(
+                                width: 40,
+                                height: 40,
+                                imagePath: teamMgr?.image,
                               ),
-                              PaddingConfig.h8,
-                              Text(
-                                teamMgr?.email ?? "NO Team Selected",
-                                style: AppTextStyle.bodyXs(
-                                  color: AppColors.fontLightGray,
-                                ),
+                              PaddingConfig.w8,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    teamMgr?.name ?? "NO Team Selected",
+                                    style: AppTextStyle.bodySm(
+                                      color: AppColors.fontDarkGray,
+                                    ),
+                                  ),
+                                  PaddingConfig.h8,
+                                  Text(
+                                    teamMgr?.role ?? "NO Team Selected",
+                                    style: AppTextStyle.bodyXs(
+                                      color: AppColors.fontLightGray,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -124,22 +135,32 @@ class TeamTabBarView extends StatelessWidget {
                               itemBuilder:
                                   (context, index) => Padding(
                                     padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                    child: Row(
                                       children: [
-                                        Text(
-                                          membersList[index].name,
-                                          style: AppTextStyle.bodySm(
-                                            color: AppColors.fontDarkGray,
-                                          ),
+                                        FetchNetworkImage(
+                                          width: 40,
+                                          height: 40,
+                                          imagePath: membersList[index].image,
                                         ),
-                                        PaddingConfig.h8,
-                                        Text(
-                                          membersList[index].email,
-                                          style: AppTextStyle.bodyXs(
-                                            color: AppColors.fontLightGray,
-                                          ),
+                                        PaddingConfig.w8,
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              membersList[index].name,
+                                              style: AppTextStyle.bodySm(
+                                                color: AppColors.fontDarkGray,
+                                              ),
+                                            ),
+                                            PaddingConfig.h8,
+                                            Text(
+                                              membersList[index].email,
+                                              style: AppTextStyle.bodyXs(
+                                                color: AppColors.fontLightGray,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),

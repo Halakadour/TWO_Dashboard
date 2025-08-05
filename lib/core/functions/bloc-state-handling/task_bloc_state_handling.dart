@@ -10,7 +10,6 @@ import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/project-details/backlog_card.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/project-details/task_card.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/status_kanban_view.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/sprint/sprint.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 
@@ -68,25 +67,25 @@ class TaskBlocStateHandling {
     int projectId,
     Team? team,
   ) {
-    if (state.pendedSprintTasksListStatus == CasualStatus.loading) {
+    if (state.projectPendedSprintsListStatus == CasualStatus.loading) {
       return LoadingStatusAnimation();
-    } else if (state.pendedSprintTasksListStatus == CasualStatus.success) {
-      if (state.pendedSprintTasksList.isEmpty) {
+    } else if (state.projectPendedSprintsListStatus == CasualStatus.success) {
+      if (state.projectPendedSprintsList.isEmpty) {
         return EmptyStatusAnimation();
       } else {
         return ListView.builder(
-          itemCount: state.pendedSprintTasksList.length,
+          itemCount: state.projectPendedSprintsList.length,
           scrollDirection: Axis.horizontal,
           itemBuilder:
               (context, index) => BacklogCard(
-                sprint: state.pendedSprintTasksList[index],
+                sprint: state.projectPendedSprintsList[index],
                 projectId: projectId,
                 team: team,
                 showButton: true,
               ),
         );
       }
-    } else if (state.pendedSprintTasksListStatus == CasualStatus.failure) {
+    } else if (state.projectPendedSprintsListStatus == CasualStatus.failure) {
       print(state.errorMessage);
       return ErrorStatusAnimation(errorMessage: state.errorMessage);
     } else {
@@ -125,28 +124,6 @@ class TaskBlocStateHandling {
         );
       }
     } else if (state.backlogTasksListStatus == CasualStatus.failure) {
-      print(state.errorMessage);
-      return ErrorStatusAnimation(errorMessage: state.errorMessage);
-    } else {
-      return SizedBox();
-    }
-  }
-
-  // list of status for project board
-  Widget getProjectBoardList(SprintAndTaskState state, int projectId) {
-    if (state.projectBoardListStatus == CasualStatus.loading) {
-      return Center(child: LoadingStatusAnimation());
-    } else if (state.projectBoardListStatus == CasualStatus.success) {
-      // return Text("Success");
-      if (state.projectBoardList.isEmpty) {
-        return EmptyStatusAnimation();
-      } else {
-        return StatusKanbanView(
-          statusList: state.projectBoardList,
-          projectId: projectId,
-        );
-      }
-    } else if (state.projectBoardListStatus == CasualStatus.failure) {
       print(state.errorMessage);
       return ErrorStatusAnimation(errorMessage: state.errorMessage);
     } else {

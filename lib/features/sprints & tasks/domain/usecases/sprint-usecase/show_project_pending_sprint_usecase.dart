@@ -3,16 +3,16 @@ import 'package:two_dashboard/core/error/failures.dart';
 import 'package:two_dashboard/core/param/casule_param.dart';
 import 'package:two_dashboard/core/usecases/use_case.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/sprint/sprint.dart';
-import 'package:two_dashboard/features/sprints%20&%20tasks/domain/repos/task_repo.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/repos/sprint_repo.dart';
 
-class ShowPendingSprintTasksUsecase
+class ShowProjectPendedSprintsUsecase
     extends UseCase<Future<Either<Failure, List<Sprint>>>, TokenWithIdParam> {
-  final TaskRepo taskRepo;
+  final SprintRepo sprintRepo;
 
-  ShowPendingSprintTasksUsecase(this.taskRepo);
+  ShowProjectPendedSprintsUsecase(this.sprintRepo);
 
   @override
   Future<Either<Failure, List<Sprint>>> call(TokenWithIdParam param) {
-    return taskRepo.showPenedingSprintsTasks(param);
+    return sprintRepo.showPenedingSprintsTasks(param);
   }
 }

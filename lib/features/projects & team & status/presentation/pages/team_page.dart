@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:two_dashboard/core/functions/bloc-state-handling/team_bloc_state_handling.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/empty_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/loading_status_animation.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
-import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/save_elevated_button.dart';
-import 'package:two_dashboard/core/widgets/divider/custom_page_divider.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/team_entity.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
@@ -16,19 +13,16 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presenta
 
 import '../../../../config/constants/padding_config.dart';
 import '../../../../config/routes/app_route_config.dart';
-import '../../../../core/widgets/breadcrumbs/breadcumbs_item.dart';
-import '../../../../core/widgets/buttons/icon-buttons/back_button.dart';
 import '../../../../core/widgets/texts/page_title.dart';
 
-class SelectTeamPage extends StatefulWidget {
-  const SelectTeamPage({super.key, required this.projectId});
-  final String projectId;
+class TeamPage extends StatefulWidget {
+  const TeamPage({super.key});
 
   @override
-  State<SelectTeamPage> createState() => _SelectTeamPageState();
+  State<TeamPage> createState() => _SelectTeamPageState();
 }
 
-class _SelectTeamPageState extends State<SelectTeamPage> {
+class _SelectTeamPageState extends State<TeamPage> {
   ValueNotifier<TeamEntity?> selectedTeam = ValueNotifier(null);
   @override
   void didChangeDependencies() {
@@ -42,46 +36,11 @@ class _SelectTeamPageState extends State<SelectTeamPage> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            const Breadcrumbs(
-              paths: [
-                AppRouteConfig.allProjects,
-                AppRouteConfig.createProject,
-                AppRouteConfig.selectTeam,
-              ],
-              pages: ["Project", "Create Projcet", "Select Team"],
-            ),
-            PaddingConfig.h16,
-            Row(
-              children: [
-                const CustomBackButton(),
-                PaddingConfig.w8,
-                PageTitle(pageTitle: "Select Team"),
-              ],
-            ),
-            CustomPageDivider(),
-            PaddingConfig.h16,
+            PageTitle(pageTitle: "Teams"),
+            PaddingConfig.h32,
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                BlocListener<ProjectStatusTeamBloc, ProjectStatusTeamState>(
-                  listener: (context, state) {
-                    TeamBlocStateHandling().addTeam(state, context);
-                  },
-                  listenWhen:
-                      (previous, current) =>
-                          previous.addTeamStatus != current.addTeamStatus,
-                  child: SaveElevatedButton(
-                    onPressed: () {
-                      context.read<ProjectStatusTeamBloc>().add(
-                        AddProjectTeamEvent(
-                          projectId: int.parse(widget.projectId),
-                          teamId: selectedTeam.value!.id,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                PaddingConfig.w16,
                 CreateElevatedButton(
                   addingType: "New Team",
                   onPressed: () => context.pushNamed(AppRouteConfig.createTeam),
@@ -97,18 +56,14 @@ class _SelectTeamPageState extends State<SelectTeamPage> {
                 if (state.showTeamsStatus == CasualStatus.loading) {
                   return Center(child: LoadingStatusAnimation());
                 } else if (state.showTeamsStatus == CasualStatus.success) {
-                  print(state.showTeams[0].membersList);
                   if (state.showTeams.isEmpty) {
                     return Center(child: EmptyStatusAnimation());
                   } else {
-                    //return Center(child: Text("Hi"));
                     return CustomTeamGridView(
-                      wantToChoose: true,
+                      wantToChoose: false,
                       teamList: state.showTeams,
                       selectedTeam: selectedTeam,
-                      onUpdate: (value) {
-                        selectedTeam.value = value;
-                      },
+                      onUpdate: (value) {},
                     );
                   }
                 } else if (state.showTeamsStatus == CasualStatus.failure) {

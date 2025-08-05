@@ -61,7 +61,7 @@ class PostCard extends StatelessWidget {
           Text(
             postEntity.body,
             style: AppTextStyle.bodyLg(),
-            overflow: TextOverflow.ellipsis,
+            overflow: TextOverflow.visible,
           ),
         ],
       ),

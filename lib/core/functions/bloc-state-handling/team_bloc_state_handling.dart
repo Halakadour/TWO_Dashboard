@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
@@ -18,7 +17,6 @@ class TeamBlocStateHandling {
       context.pop();
       context.read<ProjectStatusTeamBloc>().add(ShowTeamsEvent());
       showSuccessDialog(context, () {
-        context.pushReplacementNamed(AppRouteConfig.selectTeam);
         context.pop();
       });
     } else if (state.createTeamStatus == CasualStatus.failure) {

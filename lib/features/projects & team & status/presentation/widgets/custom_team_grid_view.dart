@@ -13,10 +13,12 @@ class CustomTeamGridView extends StatelessWidget {
     required this.teamList,
     required this.selectedTeam,
     required this.onUpdate,
+    required this.wantToChoose,
   });
   final List<TeamEntity> teamList;
   final ValueNotifier<TeamEntity?> selectedTeam;
   final Function(TeamEntity?) onUpdate;
+  final bool wantToChoose;
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +48,10 @@ class CustomTeamGridView extends StatelessWidget {
           builder:
               (context, value, child) => GestureDetector(
                 onTap: () {
-                  selectedTeam.value = team;
-                  onUpdate(team);
+                  if (wantToChoose) {
+                    selectedTeam.value = team;
+                    onUpdate(team);
+                  }
                 },
                 child: CustomRounderContainer(
                   width: double.infinity,

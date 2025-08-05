@@ -7,6 +7,7 @@ import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_
 import 'package:two_dashboard/features/contact-us/presentation/bloc/contact_us_bloc.dart';
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
 import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_status_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 import 'package:two_dashboard/features/roles/data/datasources/role_local_datasource.dart';
@@ -28,11 +29,16 @@ void main() async {
   // Register adapters
   Hive.registerAdapter(RoleModelAdapter());
   Hive.registerAdapter(ProjectStatusAdapter());
+  Hive.registerAdapter(TeamAdapter());
+  Hive.registerAdapter(MemberAdapter());
 
   // Open boxes
   await Hive.openBox<RoleModel>(CACHED_ROLES);
 
   await Hive.openBox<ProjectStatus>(CACHED_STATUS);
+
+  await Hive.openBox<Team>(CACHED_TEAM);
+
   runApp(
     EasyLocalization(
       path: 'assets/lang',

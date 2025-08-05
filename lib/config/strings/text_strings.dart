@@ -7,7 +7,8 @@ class TextStrings {
   static const String pendedProjects = "Pended Projects";
   static const String sprintTasks = "Sprint & Tasks";
   static const String company = "Company";
-  static const String members = "Members";
+  static const String account = "Accounts";
+  static const String teams = "Teams";
   static const String contracts = "Contracts";
   static const String drafts = "Drafts";
   static const String aboutUsWhyUs = "About Us & Why Us";
@@ -17,6 +18,12 @@ class TextStrings {
   static const String setting = "Setting";
   static const String forYou = "For You";
   static const String logout = "Logout";
+
+  // LANGUAGE & MODES
+  static const String arabic = "Arabic";
+  static const String english = "English";
+  static const String dark = "Drak";
+  static const String light = "Light";
 
   // --STATUS CONTAINERS
   static const String noData = "There is no data!";

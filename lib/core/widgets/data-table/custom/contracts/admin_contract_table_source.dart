@@ -36,7 +36,7 @@ class AdminContractTableSource extends DataTableSource {
             onTap:
                 () => context.pushNamed(
                   AppRouteConfig.addSign,
-                  pathParameters: {'id': contract.id.toString()},
+                  pathParameters: {'contract-id': contract.id.toString()},
                 ),
           ),
         ),
