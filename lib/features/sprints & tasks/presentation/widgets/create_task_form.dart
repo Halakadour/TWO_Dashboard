@@ -12,7 +12,7 @@ import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/save_elevate
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/cancel_text_button.dart';
 import 'package:two_dashboard/core/widgets/container/custom_rounder_container.dart';
 import 'package:two_dashboard/core/widgets/dropdown-list/custom_dropdown_list_for_member_model.dart';
-import 'package:two_dashboard/core/widgets/images/image_circle.dart';
+import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/features/auth/presentation/widgets/custom_text_form_field.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_status_model.dart';
@@ -70,7 +70,7 @@ class _CreateTaskFormState extends State<CreateTaskForm> {
   }
 
   Future<void> _loadStatuses() async {
-    final allStatuses = getSavedStatusesForProject(widget.projectId);
+    final allStatuses = getcachedStatusesForProject(widget.projectId);
     print(allStatuses.asMap());
     setState(() {
       _statusList = allStatuses;
@@ -151,9 +151,32 @@ class _CreateTaskFormState extends State<CreateTaskForm> {
                           value: user,
                           child: Row(
                             children: [
-                              ImageCircle(),
+                              // image
+                              FetchNetworkImage(
+                                height: 50,
+                                width: 50,
+                                shape: BoxShape.circle,
+                                imagePath: user.image,
+                              ),
                               PaddingConfig.w16,
-                              Text(user.name),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    user.name,
+                                    style: AppTextStyle.bodyMd(
+                                      color: AppColors.fontDarkGray,
+                                    ),
+                                  ),
+                                  Text(
+                                    user.role,
+                                    style: AppTextStyle.bodySm(
+                                      color: AppColors.fontLightGray,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         );

@@ -90,9 +90,7 @@ class _SprintsTabBarViewState extends State<SprintsTabBarView> {
                 onPressed:
                     () => context.pushNamed(
                       AppRouteConfig.createSprint,
-                      pathParameters: {
-                        'project-id': widget.projectId.toString(),
-                      },
+                      pathParameters: {'id': widget.projectId.toString()},
                     ),
               ),
             ],
@@ -141,10 +139,7 @@ class _SprintsTabBarViewState extends State<SprintsTabBarView> {
                                   current.projectStartedSprintsListStatus,
                           builder: (context, state) {
                             return SprintBlocStateHandling()
-                                .getStartedSprintsList(
-                                  state,
-                                  widget.projectId.toString(),
-                                );
+                                .getStartedSprintsList(state);
                           },
                         );
                       } else if (value == 2) {
@@ -159,10 +154,7 @@ class _SprintsTabBarViewState extends State<SprintsTabBarView> {
                                   current.projectUnCompleteSprintsListStatus,
                           builder: (context, state) {
                             return SprintBlocStateHandling()
-                                .getUnCompletedSprintsList(
-                                  state,
-                                  widget.projectId.toString(),
-                                );
+                                .getUnCompletedSprintsList(state);
                           },
                         );
                       } else {
@@ -178,7 +170,6 @@ class _SprintsTabBarViewState extends State<SprintsTabBarView> {
                           builder: (context, state) {
                             return SprintBlocStateHandling().getAllSprintsList(
                               state,
-                              widget.projectId.toString(),
                             );
                           },
                         );

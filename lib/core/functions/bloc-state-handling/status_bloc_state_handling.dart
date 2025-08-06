@@ -8,6 +8,7 @@ import 'package:two_dashboard/core/widgets/animation/loading_status_animation.da
 import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
+import 'package:two_dashboard/core/widgets/shimmers/card-loading/loading_status_card.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_status_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/status_kanban_view.dart';
@@ -85,7 +86,7 @@ class StatusBlocStateHandling {
   /// Get Task Status List For This Project
   Widget getProjectStatusList(ProjectStatusTeamState state, int projectId) {
     if (state.showStatus == CasualStatus.loading) {
-      return LoadingStatusAnimation();
+      return LoadingStatusCard();
     } else if (state.showStatus == CasualStatus.success) {
       // تحويل الـ StatusModel إلى ProjectStatus
       List<ProjectStatus> statuses =
@@ -94,7 +95,7 @@ class StatusBlocStateHandling {
               .toList();
 
       // تخزينهم في Hive
-      saveStatuses(statuses);
+      cacheStatuses(statuses);
       return StatusKanbanView(
         statusList: state.showStatusList,
         projectId: projectId,

@@ -5,7 +5,6 @@ import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/task_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
-import 'package:two_dashboard/core/widgets/buttons/icon-buttons/filter_button.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 
@@ -51,13 +50,9 @@ class _BacklogTabBarViewState extends State<BacklogTabBarView> {
                     onPressed:
                         () => context.pushNamed(
                           AppRouteConfig.createSprint,
-                          pathParameters: {
-                            'project-id': widget.projectId.toString(),
-                          },
+                          pathParameters: {'id': widget.projectId.toString()},
                         ),
                   ),
-                  PaddingConfig.w8,
-                  FilterButton(onPressed: () {}),
                 ],
               ),
               PaddingConfig.h32,
@@ -78,6 +73,20 @@ class _BacklogTabBarViewState extends State<BacklogTabBarView> {
                 ),
               ),
               PaddingConfig.h32,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  CreateElevatedButton(
+                    addingType: "Backlog Sprint",
+                    onPressed:
+                        () => context.pushNamed(
+                          AppRouteConfig.createSprint,
+                          pathParameters: {'id': widget.projectId.toString()},
+                        ),
+                  ),
+                ],
+              ),
+              PaddingConfig.h32,
               BlocBuilder<SprintAndTaskBloc, SprintAndTaskState>(
                 buildWhen:
                     (previous, current) =>
@@ -87,7 +96,6 @@ class _BacklogTabBarViewState extends State<BacklogTabBarView> {
                   return TaskBlocStateHandling().getBacklogTasksList(
                     state,
                     widget.projectId,
-                    widget.team,
                   );
                 },
               ),

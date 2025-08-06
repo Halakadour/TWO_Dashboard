@@ -45,10 +45,10 @@ class _SelectTeamPageState extends State<SelectTeamPage> {
             const Breadcrumbs(
               paths: [
                 AppRouteConfig.allProjects,
-                AppRouteConfig.createProject,
+                AppRouteConfig.projectDetails,
                 AppRouteConfig.selectTeam,
               ],
-              pages: ["Project", "Create Projcet", "Select Team"],
+              pages: ["Project", "Projcet Details", "Select Team"],
             ),
             PaddingConfig.h16,
             Row(

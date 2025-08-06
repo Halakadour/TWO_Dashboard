@@ -73,16 +73,18 @@ class TaskBlocStateHandling {
       if (state.projectPendedSprintsList.isEmpty) {
         return EmptyStatusAnimation();
       } else {
-        return ListView.builder(
-          itemCount: state.projectPendedSprintsList.length,
-          scrollDirection: Axis.horizontal,
-          itemBuilder:
-              (context, index) => BacklogCard(
-                sprint: state.projectPendedSprintsList[index],
-                projectId: projectId,
-                team: team,
-                showButton: true,
-              ),
+        return SizedBox(
+          width: double.infinity,
+          height: 300,
+          child: ListView.builder(
+            itemCount: state.projectPendedSprintsList.length,
+            itemBuilder:
+                (context, index) => BacklogCard(
+                  sprint: state.projectPendedSprintsList[index],
+                  projectId: projectId,
+                  showButton: true,
+                ),
+          ),
         );
       }
     } else if (state.projectPendedSprintsListStatus == CasualStatus.failure) {
@@ -94,11 +96,7 @@ class TaskBlocStateHandling {
   }
 
   // List of backlog tasks that don't belong to a sprint
-  Widget getBacklogTasksList(
-    SprintAndTaskState state,
-    int projectId,
-    Team? team,
-  ) {
+  Widget getBacklogTasksList(SprintAndTaskState state, int projectId) {
     if (state.backlogTasksListStatus == CasualStatus.loading) {
       return LoadingStatusAnimation();
     } else if (state.backlogTasksListStatus == CasualStatus.success) {
@@ -119,7 +117,6 @@ class TaskBlocStateHandling {
             incompleteTasksCount: 0,
           ),
           projectId: projectId,
-          team: team,
           showButton: false,
         );
       }
@@ -173,6 +170,7 @@ class TaskBlocStateHandling {
             crossAxisCount: 4,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
+            childAspectRatio: 0.9,
           ),
           itemBuilder:
               (context, index) =>

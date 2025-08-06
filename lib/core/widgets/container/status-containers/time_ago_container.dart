@@ -6,14 +6,9 @@ import '../../../../config/constants/sizes_config.dart';
 import '../../../../config/theme/text_style.dart';
 import '../custom_rounder_container.dart';
 
-class DurationContainer extends StatelessWidget {
-  const DurationContainer({
-    super.key,
-    required this.startDate,
-    required this.endDate,
-  });
-  final DateTime startDate;
-  final DateTime endDate;
+class TimeAgoContainer extends StatelessWidget {
+  const TimeAgoContainer({super.key, required this.date});
+  final DateTime date;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +21,7 @@ class DurationContainer extends StatelessWidget {
       ),
       backgroundColor: AppColors.blueShade1,
       child: Text(
-        "${HelperFunctions.getDurationText(startDate, endDate)} left",
+        "${HelperFunctions().getTimeAgo(date)} left",
         style: AppTextStyle.bodyXs(color: AppColors.blueShade2),
       ),
     );

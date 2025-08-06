@@ -108,9 +108,8 @@ class _SprintDetailsPageState extends State<SprintDetailsPage> {
                       () => context.pushNamed(
                         AppRouteConfig.createTask,
                         pathParameters: {
-                          'project-id':
-                              widget.sprintEntity.projectId.toString(),
-                          'sprint-id': widget.sprintEntity.id.toString(),
+                          'pId': widget.sprintEntity.projectId.toString(),
+                          'sId': widget.sprintEntity.id.toString(),
                         },
                       ),
                 ),

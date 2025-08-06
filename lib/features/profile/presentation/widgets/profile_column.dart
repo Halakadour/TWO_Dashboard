@@ -31,7 +31,7 @@ class _ProfileColumnState extends State<ProfileColumn> {
         Radio<int>(
           value: lang,
           groupValue: selectedLang,
-          activeColor: AppColors.greenShade2,
+          activeColor: AppColors.blueShade2,
           onChanged: (int? newValue) {
             setState(() {
               selectedLang = newValue ?? 0;
@@ -53,7 +53,7 @@ class _ProfileColumnState extends State<ProfileColumn> {
         Radio<int>(
           value: mode,
           groupValue: selectedMode,
-          activeColor: AppColors.greenShade2,
+          activeColor: AppColors.blueShade2,
           onChanged: (int? newValue) {
             setState(() {
               selectedMode = newValue ?? 0;
@@ -151,35 +151,53 @@ class _ProfileColumnState extends State<ProfileColumn> {
               ],
             ),
             PaddingConfig.h8,
-            CustomRounderContainer(
-              child: Row(
-                children: [
-                  LinkedText(link: widget.user.cv),
-                  PaddingConfig.w16,
-                  IconButton(
-                    style: IconButton.styleFrom(
-                      backgroundColor: AppColors.blueShade2,
-                    ),
-                    onPressed: () {},
-                    icon: Icon(
-                      Iconsax.edit,
-                      color: AppColors.white,
-                      size: SizesConfig.iconsSm,
-                    ),
+            Row(
+              children: [
+                CustomRounderContainer(
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          color: AppColors.gray,
+                        ),
+                        child: Text(
+                          "PDF",
+                          style: AppTextStyle.bodyMd(
+                            color: AppColors.fontLightGray,
+                          ),
+                        ),
+                      ),
+                      PaddingConfig.w8,
+                      LinkedText(link: widget.user.cv),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                PaddingConfig.w16,
+                IconButton(
+                  style: IconButton.styleFrom(
+                    backgroundColor: AppColors.blueShade2,
+                  ),
+                  onPressed: () {},
+                  icon: Icon(
+                    Iconsax.edit,
+                    color: AppColors.white,
+                    size: SizesConfig.iconsSm,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             PaddingConfig.h96,
             // Edit Button
             UpdateElevatedButton(updateType: "Profile", onPressed: () {}),
-            PaddingConfig.h16,
+            PaddingConfig.h40,
             // Language
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -199,7 +217,7 @@ class _ProfileColumnState extends State<ProfileColumn> {
                 ],
               ),
             ),
-            PaddingConfig.h16,
+            PaddingConfig.h24,
             // Mode
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -214,7 +232,7 @@ class _ProfileColumnState extends State<ProfileColumn> {
               child: Row(
                 children: [
                   _buildRadioForMode(0),
-                  PaddingConfig.w16,
+                  PaddingConfig.w40,
                   _buildRadioForMode(1),
                 ],
               ),

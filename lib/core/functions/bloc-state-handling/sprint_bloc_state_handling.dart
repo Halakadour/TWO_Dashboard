@@ -10,6 +10,7 @@ import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/project-details/sprint_card.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/project_sprint.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 
 class SprintBlocStateHandling {
@@ -130,25 +131,30 @@ class SprintBlocStateHandling {
 
   /// *** Builder Side *** ///
   // Get All Sprints List
-  Widget getAllSprintsList(SprintAndTaskState state, String projectId) {
+  Widget getAllSprintsList(SprintAndTaskState state) {
     if (state.projectSprintsListStatus == CasualStatus.loading) {
       return LoadingStatusAnimation();
     } else if (state.projectSprintsListStatus == CasualStatus.success) {
       if (state.projectSprintsList.isEmpty) {
         return EmptyStatusAnimation();
       } else {
-        return GridView.builder(
-          itemCount: state.projectSprintsList.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
+        List<ProjectSprint> sprints =
+            state.projectSprintsList
+                .map(
+                  (sprint) =>
+                      mapSprintEntityToProjectSprint(sprint, sprint.projectId),
+                )
+                .toList();
+        cacheProjectSprints(sprints);
+        return SizedBox(
+          width: double.infinity,
+          height: 300,
+          child: ListView.builder(
+            itemCount: state.projectSprintsList.length,
+            itemBuilder:
+                (context, index) =>
+                    SprintCard(sprintEntity: state.projectSprintsList[index]),
           ),
-          itemBuilder:
-              (context, index) => SprintCard(
-                sprintEntity: state.projectSprintsList[index],
-                projectId: projectId,
-              ),
         );
       }
     } else if (state.projectSprintsListStatus == CasualStatus.failure) {
@@ -160,25 +166,23 @@ class SprintBlocStateHandling {
   }
 
   // Get Started Sprint List
-  Widget getStartedSprintsList(SprintAndTaskState state, String projectId) {
+  Widget getStartedSprintsList(SprintAndTaskState state) {
     if (state.projectStartedSprintsListStatus == CasualStatus.loading) {
       return LoadingStatusAnimation();
     } else if (state.projectStartedSprintsListStatus == CasualStatus.success) {
       if (state.projectStartedSprintsList.isEmpty) {
         return EmptyStatusAnimation();
       } else {
-        return GridView.builder(
-          itemCount: state.projectStartedSprintsList.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
+        return SizedBox(
+          width: double.infinity,
+          height: 300,
+          child: ListView.builder(
+            itemCount: state.projectStartedSprintsList.length,
+            itemBuilder:
+                (context, index) => SprintCard(
+                  sprintEntity: state.projectStartedSprintsList[index],
+                ),
           ),
-          itemBuilder:
-              (context, index) => SprintCard(
-                sprintEntity: state.projectStartedSprintsList[index],
-                projectId: projectId,
-              ),
         );
       }
     } else if (state.projectStartedSprintsListStatus == CasualStatus.failure) {
@@ -190,7 +194,7 @@ class SprintBlocStateHandling {
   }
 
   // Get Un Completed Sprint List
-  Widget getUnCompletedSprintsList(SprintAndTaskState state, String projectId) {
+  Widget getUnCompletedSprintsList(SprintAndTaskState state) {
     if (state.projectUnCompleteSprintsListStatus == CasualStatus.loading) {
       return LoadingStatusAnimation();
     } else if (state.projectUnCompleteSprintsListStatus ==
@@ -198,18 +202,16 @@ class SprintBlocStateHandling {
       if (state.projectUnCompleteSprintsList.isEmpty) {
         return EmptyStatusAnimation();
       } else {
-        return GridView.builder(
-          itemCount: state.projectUnCompleteSprintsList.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
+        return SizedBox(
+          width: double.infinity,
+          height: 300,
+          child: ListView.builder(
+            itemCount: state.projectUnCompleteSprintsList.length,
+            itemBuilder:
+                (context, index) => SprintCard(
+                  sprintEntity: state.projectUnCompleteSprintsList[index],
+                ),
           ),
-          itemBuilder:
-              (context, index) => SprintCard(
-                sprintEntity: state.projectUnCompleteSprintsList[index],
-                projectId: projectId,
-              ),
         );
       }
     } else if (state.projectUnCompleteSprintsListStatus ==

@@ -50,7 +50,7 @@ void showSprintCardSideMenu(
       context.pushNamed(
         AppRouteConfig.updateSprint,
         extra: sprint,
-        pathParameters: {'project-id': projectId},
+        pathParameters: {'id': projectId},
       );
     } else if (value == 1) {
       confirmDeletionDialog(

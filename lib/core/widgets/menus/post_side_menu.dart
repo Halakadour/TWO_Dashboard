@@ -63,7 +63,7 @@ void showPostCardSideMenu(
     } else if (value == 2) {
       context.pushNamed(
         AppRouteConfig.postReplies,
-        pathParameters: {'post-id': postId.toString()},
+        pathParameters: {'id': postId.toString()},
       );
     }
   });

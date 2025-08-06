@@ -41,7 +41,7 @@ class TeamTabBarView extends StatelessWidget {
                 onPressed:
                     () => context.pushReplacementNamed(
                       AppRouteConfig.selectTeam,
-                      pathParameters: {'project-id': projectId.toString()},
+                      pathParameters: {'id': projectId.toString()},
                     ),
               ),
             ],
@@ -155,7 +155,7 @@ class TeamTabBarView extends StatelessWidget {
                                             ),
                                             PaddingConfig.h8,
                                             Text(
-                                              membersList[index].email,
+                                              membersList[index].role,
                                               style: AppTextStyle.bodyXs(
                                                 color: AppColors.fontLightGray,
                                               ),

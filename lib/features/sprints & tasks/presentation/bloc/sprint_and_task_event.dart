@@ -54,10 +54,9 @@ class StartSprintEvent extends SprintAndTaskEvent {
 }
 
 class CompleteSprintEvent extends SprintAndTaskEvent {
-  final String token;
   final int projectId;
   final int sprintId;
-  // It takes null, new, existing
+  // It takes auto ,null, new, existing
   final String? action;
   // required if the action is new
   final String? newSprintLabel;
@@ -65,7 +64,6 @@ class CompleteSprintEvent extends SprintAndTaskEvent {
   final int? existingSprintId;
 
   CompleteSprintEvent({
-    required this.token,
     required this.projectId,
     required this.sprintId,
     this.action,

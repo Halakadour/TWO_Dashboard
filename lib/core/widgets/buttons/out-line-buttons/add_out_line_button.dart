@@ -6,8 +6,8 @@ import '../../../../config/constants/padding_config.dart';
 import '../../../../config/constants/sizes_config.dart';
 import '../../../../config/theme/color.dart';
 
-class AddNewSomthingElevatedButton extends StatelessWidget {
-  const AddNewSomthingElevatedButton({
+class AddOutLineButton extends StatelessWidget {
+  const AddOutLineButton({
     super.key,
     required this.addingType,
     required this.onTap,

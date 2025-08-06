@@ -14,6 +14,7 @@ import 'package:two_dashboard/features/roles/data/datasources/role_local_datasou
 import 'package:two_dashboard/features/roles/data/models/role_response_model.dart';
 import 'package:two_dashboard/features/services/presentation/bloc/service_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/project_sprint.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 import 'config/theme/theme_cubit.dart';
 import 'injection_container.dart' as di;
@@ -29,6 +30,7 @@ void main() async {
   // Register adapters
   Hive.registerAdapter(RoleModelAdapter());
   Hive.registerAdapter(ProjectStatusAdapter());
+  Hive.registerAdapter(ProjectSprintAdapter());
   Hive.registerAdapter(TeamAdapter());
   Hive.registerAdapter(MemberAdapter());
 
@@ -36,6 +38,8 @@ void main() async {
   await Hive.openBox<RoleModel>(CACHED_ROLES);
 
   await Hive.openBox<ProjectStatus>(CACHED_STATUS);
+
+  await Hive.openBox<ProjectSprint>(CACHED_SPRINTS);
 
   await Hive.openBox<Team>(CACHED_TEAM);
 

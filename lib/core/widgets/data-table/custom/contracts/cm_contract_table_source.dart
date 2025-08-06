@@ -92,7 +92,7 @@ class CMContractRows extends DataTableSource {
                 onTap:
                     () => context.pushNamed(
                       AppRouteConfig.cmUpdateContract,
-                      pathParameters: {'contract-id': contract.id.toString()},
+                      pathParameters: {'id': contract.id.toString()},
                     ),
               ),
             ],

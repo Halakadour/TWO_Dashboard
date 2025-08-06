@@ -71,7 +71,10 @@ class ProjectDetailsPage extends StatelessWidget {
             child: TabBarView(
               children: [
                 SummaryTabBarView(projectEntity: projectEntity),
-                ContractTabBarView(projectId: projectEntity.id),
+                ContractTabBarView(
+                  projectId: projectEntity.id,
+                  contract: projectEntity.contract,
+                ),
                 BacklogTabBarView(
                   projectId: projectEntity.id,
                   team: projectEntity.team,

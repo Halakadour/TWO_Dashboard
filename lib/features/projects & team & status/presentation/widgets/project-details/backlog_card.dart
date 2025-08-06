@@ -3,18 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
-import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/sprint_bloc_state_handling.dart';
-import 'package:two_dashboard/core/helper/helper_functions.dart';
+import 'package:two_dashboard/core/widgets/buttons/out-line-buttons/start_sprint_out_line_button.dart';
 import 'package:two_dashboard/core/widgets/container/custom_rounder_container.dart';
+import 'package:two_dashboard/core/widgets/container/status-containers/duration_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/dynamic_status_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/priority_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/task_status_container.dart';
-import 'package:two_dashboard/core/widgets/images/image_circle.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
+import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
+import 'package:two_dashboard/core/widgets/menus/sprint_side_menu.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/sprint/sprint.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/task/task_model.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/sprint_entity.dart';
@@ -23,18 +23,18 @@ import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/spr
 class BacklogCard extends StatelessWidget {
   const BacklogCard({
     super.key,
-    required this.team,
     required this.sprint,
     required this.projectId,
     required this.showButton,
   });
-  final Team? team;
   final Sprint sprint;
   final int projectId;
   final bool showButton;
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey iconKey = GlobalKey();
+
     return GestureDetector(
       onTap:
           () => context.pushNamed(
@@ -64,7 +64,7 @@ class BacklogCard extends StatelessWidget {
                     PaddingConfig.w8,
                     Text(sprint.label),
                     PaddingConfig.w8,
-                    DynamicStatusContainer(status: "0"),
+                    DynamicStatusContainer(status: sprint.status),
                   ],
                 ),
                 Row(
@@ -126,11 +126,35 @@ class BacklogCard extends StatelessWidget {
                                 current.startSprintStatus,
                         child: StartSprintOutLineButton(
                           projectId: projectId,
-                          sprint: sprint,
+                          sprintId: sprint.id,
                         ),
                       ),
                     PaddingConfig.w8,
-                    Icon(Iconsax.more),
+                    Tooltip(
+                      message: "More",
+                      child: GestureDetector(
+                        key: iconKey,
+                        onTap: () {
+                          showSprintCardSideMenu(
+                            iconKey,
+                            context,
+                            SprintEntity(
+                              id: sprint.id,
+                              projectId: projectId,
+                              label: sprint.label,
+                              description: sprint.description,
+                              goal: sprint.goal,
+                              start: sprint.start,
+                              end: sprint.end,
+                              sprintStatus: sprint.status,
+                              incompleteTasksCount: sprint.incompleteTasksCount,
+                            ),
+                            projectId.toString(),
+                          );
+                        },
+                        child: const Icon(Iconsax.more),
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -151,12 +175,21 @@ class BacklogCard extends StatelessWidget {
                   () => context.pushNamed(
                     AppRouteConfig.createTask,
                     pathParameters: {
-                      'project-id': projectId.toString(),
-                      'sprint-id': sprint.id.toString(),
+                      'pId': projectId.toString(),
+                      'sId': sprint.id.toString(),
                     },
                   ),
               child: Row(
-                children: [Icon(Iconsax.add), PaddingConfig.w8, Text("Create")],
+                children: [
+                  Icon(Iconsax.add, color: AppColors.greenShade2),
+                  PaddingConfig.w8,
+                  Text(
+                    "Create New Task",
+                    style: AppTextStyle.buttonStyle(
+                      color: AppColors.greenShade2,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -181,48 +214,70 @@ class BacklogTaskListTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
-              children: [Icon(Iconsax.tag), PaddingConfig.w8, Text(task.title)],
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(Iconsax.tag),
+                PaddingConfig.w8,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(task.title),
+                    PaddingConfig.h8,
+                    Text(
+                      task.description,
+                      style: AppTextStyle.bodySm(
+                        color: AppColors.fontLightGray,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            TaskStatusContainer(
-              taskStatus: HelperFunctions.getTaskStatusByName(task.status),
+            // Priority & Status & duration
+            Row(
+              children: [
+                PriorityContainer(priority: task.taskPriority),
+                PaddingConfig.w8,
+                TaskStatusContainer(taskStatus: task.taskStatus),
+                PaddingConfig.w8,
+                DurationContainer(
+                  startDate: task.startDate,
+                  endDate: task.endDate,
+                ),
+              ],
             ),
-            PriorityContainer(
-              priority: HelperFunctions.getPriorityByName(task.priority),
+            // image
+            Row(
+              children: [
+                FetchNetworkImage(
+                  height: 50,
+                  width: 50,
+                  shape: BoxShape.circle,
+                  imagePath: task.assignedTo.image,
+                ),
+                PaddingConfig.w8,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      task.assignedTo.name,
+                      style: AppTextStyle.bodyMd(color: AppColors.fontDarkGray),
+                    ),
+                    Text(
+                      task.assignedTo.role,
+                      style: AppTextStyle.bodySm(
+                        color: AppColors.fontLightGray,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            ImageCircle(),
             Icon(Iconsax.more),
           ],
         ),
       ),
-    );
-  }
-}
-
-class StartSprintOutLineButton extends StatelessWidget {
-  const StartSprintOutLineButton({
-    super.key,
-    required this.projectId,
-    required this.sprint,
-  });
-
-  final int projectId;
-  final Sprint sprint;
-
-  @override
-  Widget build(BuildContext context) {
-    return OutlinedButton(
-      style: OutlinedButton.styleFrom(
-        side: BorderSide(color: AppColors.grayShade2, width: 0.7),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusGeometry.circular(SizesConfig.buttonRadius),
-        ),
-      ),
-      onPressed: () {
-        context.read<SprintAndTaskBloc>().add(
-          StartSprintEvent(projectId: projectId, sprintId: sprint.id),
-        );
-      },
-      child: Text("Start Sprint", style: AppTextStyle.buttonStyle()),
     );
   }
 }

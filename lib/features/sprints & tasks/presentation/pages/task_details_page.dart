@@ -67,8 +67,8 @@ class TaskDetailsPage extends StatelessWidget {
                         AppRouteConfig.updateTask,
                         extra: taskEntity,
                         pathParameters: {
-                          'project-id': taskEntity.projectId.toString(),
-                          'sprint-id': taskEntity.sprintId.toString(),
+                          'pId': taskEntity.projectId.toString(),
+                          'sId': taskEntity.sprintId.toString(),
                         },
                       ),
                 ),

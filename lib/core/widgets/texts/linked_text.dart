@@ -17,7 +17,7 @@ class LinkedText extends StatelessWidget {
           child: Text(
             link!,
             style: AppTextStyle.dataTableCellStyle(
-              color: AppColors.blueShade2,
+              color: AppColors.fontLightGray,
               decoration: TextDecoration.underline,
             ),
             textAlign: TextAlign.center,

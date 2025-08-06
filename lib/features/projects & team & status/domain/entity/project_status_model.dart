@@ -24,7 +24,7 @@ class ProjectStatus extends HiveObject {
   });
 }
 
-Future<void> saveStatuses(List<ProjectStatus> statuses) async {
+Future<void> cacheStatuses(List<ProjectStatus> statuses) async {
   final box = Hive.box<ProjectStatus>(CACHED_STATUS);
   await box.clear(); // لو بدك تعيدي التخزين من جديد
   for (var status in statuses) {
@@ -32,7 +32,7 @@ Future<void> saveStatuses(List<ProjectStatus> statuses) async {
   }
 }
 
-List<ProjectStatus> getSavedStatusesForProject(int projectId) {
+List<ProjectStatus> getcachedStatusesForProject(int projectId) {
   final box = Hive.box<ProjectStatus>(CACHED_STATUS);
   return box.values.where((s) => s.projectId == projectId).toList();
 }

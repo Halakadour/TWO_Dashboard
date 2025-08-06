@@ -9,7 +9,7 @@ class PageTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
-      children: [Text(pageTitle.toUpperCase(), style: AppTextStyle.headerLg())],
+      children: [Text(pageTitle, style: AppTextStyle.headerLg())],
     );
   }
 }

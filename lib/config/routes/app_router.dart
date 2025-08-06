@@ -91,10 +91,10 @@ class AppRouter {
               ),
               GoRoute(
                 name: AppRouteConfig.createDraft,
-                path: '/create-draft/:project-id',
+                path: '/create-draft/:id',
                 builder:
                     (context, state) => CreateDraftPage(
-                      projectId: state.pathParameters['project-id'] ?? '',
+                      projectId: state.pathParameters['id'] ?? '',
                     ),
               ),
               GoRoute(
@@ -107,38 +107,38 @@ class AppRouter {
               ),
               GoRoute(
                 name: AppRouteConfig.createSprint,
-                path: '/create-sprint/:project-id',
+                path: '/create-sprint/:id',
                 builder:
                     (context, state) => CreateSprintPage(
-                      projectId: state.pathParameters['project-id'] ?? '',
+                      projectId: state.pathParameters['id'] ?? '',
                     ),
               ),
               GoRoute(
                 name: AppRouteConfig.createTask,
-                path: '/create-task/:project-id/:sprint-id',
+                path: '/create-task/:pId/:sId',
                 builder:
                     (context, state) => CreateTaskPage(
-                      projectId: state.pathParameters['project-id'] ?? '',
-                      sprintId: state.pathParameters['sprint-id'] ?? '',
+                      projectId: state.pathParameters['pId'] ?? '',
+                      sprintId: state.pathParameters['sId'] ?? '',
                     ),
               ),
               GoRoute(
                 name: AppRouteConfig.updateSprint,
-                path: '/update-sprint/:project-id',
+                path: '/update-sprint/:id',
                 builder:
                     (context, state) => UpdateSprintPage(
                       sprintEntity: state.extra as SprintEntity,
-                      projectId: state.pathParameters['project-id'] ?? '',
+                      projectId: state.pathParameters['id'] ?? '',
                     ),
               ),
               GoRoute(
                 name: AppRouteConfig.updateTask,
-                path: '/update-task/:project-id/:sprint-id',
+                path: '/update-task/:pId/:sId',
                 builder:
                     (context, state) => UpdateTaskPage(
                       taskEntity: state.extra as TaskEntity,
-                      projectId: state.pathParameters['project-id'] ?? '',
-                      sprintId: state.pathParameters['sprint-id'] ?? '',
+                      projectId: state.pathParameters['pId'] ?? '',
+                      sprintId: state.pathParameters['sId'] ?? '',
                     ),
               ),
               GoRoute(
@@ -158,10 +158,10 @@ class AppRouter {
               ),
               GoRoute(
                 name: AppRouteConfig.selectTeam,
-                path: '/select-team/:project-id',
+                path: '/select-team/:id',
                 builder:
                     (context, state) => SelectTeamPage(
-                      projectId: state.pathParameters['project-id'] ?? '',
+                      projectId: state.pathParameters['id'] ?? '',
                     ),
               ),
               GoRoute(
@@ -231,10 +231,10 @@ class AppRouter {
               ),
               GoRoute(
                 name: AppRouteConfig.cmUpdateContract,
-                path: 'cm-update-contract/:contract-id',
+                path: 'cm-update-contract/:id',
                 builder:
                     (context, state) => CmUpdateContractPage(
-                      contractId: state.pathParameters['contract-id'] ?? '',
+                      contractId: state.pathParameters['id'] ?? '',
                     ),
               ),
               GoRoute(
@@ -244,10 +244,10 @@ class AppRouter {
               ),
               GoRoute(
                 name: AppRouteConfig.addSign,
-                path: '/add-sign/:contract-id',
+                path: '/add-sign/:id',
                 builder:
                     (context, state) => SignatureBoardPage(
-                      id: state.pathParameters['contract-id'] ?? '',
+                      id: state.pathParameters['id'] ?? '',
                     ),
               ),
             ],
@@ -306,10 +306,10 @@ class AppRouter {
               // post replies page
               GoRoute(
                 name: AppRouteConfig.postReplies,
-                path: '/posts/post-replies/:post-id',
+                path: '/posts/post-replies/:id',
                 builder:
                     (context, state) => PostRepliesPage(
-                      postId: state.pathParameters['post-id'] ?? '',
+                      postId: state.pathParameters['id'] ?? '',
                     ),
               ),
             ],
