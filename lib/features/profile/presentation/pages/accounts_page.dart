@@ -23,7 +23,7 @@ class AccountsPage extends StatefulWidget {
 
 class _AccountsPageState extends State<AccountsPage> {
   ValueNotifier<RoleModel> selectedRole = ValueNotifier(
-    RoleModel(id: 4, role: "user"),
+    RoleModel(id: 2, role: "client"),
   );
   List<String> approveList = ["Approved", "Not Approved"];
   ValueNotifier<int> approved = ValueNotifier(0);
@@ -105,7 +105,7 @@ class _AccountsPageState extends State<AccountsPage> {
     context.read<AuthRoleProfileBloc>().add(
       ShowUsersWithFilterEvent(roleFilter: 4),
     );
-    context.read<AuthRoleProfileBloc>().add(GetRolesWithoutClientEvent());
+    context.read<AuthRoleProfileBloc>().add(GetAllRolesEvent());
     super.didChangeDependencies();
   }
 
@@ -206,33 +206,27 @@ class _AccountsPageState extends State<AccountsPage> {
                                 >(
                                   buildWhen:
                                       (previous, current) =>
-                                          previous
-                                              .roleWithoutClientListStatus !=
-                                          current.roleWithoutClientListStatus,
+                                          previous.allRolesListStatus !=
+                                          current.allRolesListStatus,
                                   builder: (context, state) {
-                                    if (state.roleWithoutClientListStatus ==
+                                    if (state.allRolesListStatus ==
                                         CasualStatus.loading) {
                                       return Center(
                                         child: const CircularProgressIndicator(
                                           color: AppColors.blueShade2,
                                         ),
                                       );
-                                    } else if (state
-                                            .roleWithoutClientListStatus ==
+                                    } else if (state.allRolesListStatus ==
                                         CasualStatus.success) {
-                                      final defaultRole = state
-                                          .roleWithoutClientList
+                                      final defaultRole = state.allRolesList
                                           .firstWhere(
-                                            (r) => r.id == 4,
+                                            (r) => r.id == 2,
                                             orElse:
-                                                () =>
-                                                    state
-                                                        .roleWithoutClientList
-                                                        .first,
+                                                () => state.allRolesList.first,
                                           );
                                       selectedRole.value = defaultRole;
                                       return _buildRoleFilterList(
-                                        state.roleWithoutClientList,
+                                        state.allRolesList,
                                       );
                                     } else {
                                       return const Text("No Roles available");

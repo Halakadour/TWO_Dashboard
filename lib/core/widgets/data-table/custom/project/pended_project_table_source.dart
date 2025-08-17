@@ -48,7 +48,6 @@ class PendedProjectRows extends DataTableSource {
         DataCell(
           Text(project.cType.name, style: AppTextStyle.dataTableCellStyle()),
         ),
-
         // DataCell(
         //   Text(
         //     HelperFunctions.formatDate(project.endDate),

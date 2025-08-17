@@ -5,13 +5,13 @@ import 'package:two_dashboard/features/roles/data/models/role_response_model.dar
 import 'package:two_dashboard/features/roles/domain/repos/role_repo.dart';
 
 class ShowRolesWithoutClientUsecase
-    extends NoParamUseCase<Future<Either<Failure, RoleResponesModel>>> {
+    extends NoParamUseCase<Future<Either<Failure, List<RoleModel>>>> {
   final RoleRepo roleRepo;
 
   ShowRolesWithoutClientUsecase(this.roleRepo);
 
   @override
-  Future<Either<Failure, RoleResponesModel>> call() {
+  Future<Either<Failure, List<RoleModel>>> call() {
     return roleRepo.showRolesWithoutClient();
   }
 }

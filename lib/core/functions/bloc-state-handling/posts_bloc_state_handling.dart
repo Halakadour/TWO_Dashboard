@@ -23,20 +23,37 @@ class PostsBlocStateHandling {
       return Center(child: const LoadingStatusAnimation());
     } else if (state.activePostsListStatus == CasualStatus.success ||
         state.unActivePostsListStatus == CasualStatus.success) {
-      return Expanded(
-        child: GridView.builder(
-          itemCount: state.activePostsList.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            childAspectRatio: 0.9,
+      if (actriveSelected) {
+        return Expanded(
+          child: GridView.builder(
+            itemCount: state.activePostsList.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              childAspectRatio: 0.9,
+            ),
+            itemBuilder:
+                (context, index) =>
+                    PostCard(postEntity: state.activePostsList[index]),
           ),
-          itemBuilder:
-              (context, index) =>
-                  PostCard(postEntity: state.activePostsList[index]),
-        ),
-      );
+        );
+      } else {
+        return Expanded(
+          child: GridView.builder(
+            itemCount: state.unActivePostsList.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              childAspectRatio: 0.9,
+            ),
+            itemBuilder:
+                (context, index) =>
+                    PostCard(postEntity: state.unActivePostsList[index]),
+          ),
+        );
+      }
     } else if (state.activePostsListStatus == CasualStatus.failure ||
         state.unActivePostsListStatus == CasualStatus.failure) {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));

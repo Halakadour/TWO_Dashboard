@@ -15,8 +15,6 @@ import 'package:two_dashboard/core/widgets/texts/linked_text.dart';
 import 'package:two_dashboard/features/contracts/data/models/contract_model.dart';
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
 
-import '../../../images/fetch_network_image.dart';
-
 class CMContractRows extends DataTableSource {
   final List<ContractModel?> contractList;
   BuildContext context;
@@ -52,7 +50,11 @@ class CMContractRows extends DataTableSource {
                     : FieldStatus.approved,
           ),
         ),
-        DataCell(DynamicStatusContainer(status: contract.status)),
+        DataCell(
+          DynamicStatusContainer(
+            status: contract.status == 0 ? "Not Approved" : "Approved",
+          ),
+        ),
         DataCell(
           FieldStatusContainer(
             fieldStatus:
@@ -61,7 +63,11 @@ class CMContractRows extends DataTableSource {
                     : FieldStatus.needed,
           ),
         ),
-        DataCell(FetchNetworkImage(imagePath: contract.adminSign)),
+        DataCell(
+          DynamicStatusContainer(
+            status: contract.adminSign == 0 ? "Un Signed" : "Signed",
+          ),
+        ),
         DataCell(
           Row(
             children: [

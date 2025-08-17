@@ -6,12 +6,13 @@ import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/widgets/dialog/global/confirm_deletion_dialog.dart';
 import 'package:two_dashboard/core/widgets/menus/custom_side_menu_item.dart';
+import 'package:two_dashboard/features/posts/domain/entities/post_entity.dart';
 import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';
 
 void showPostCardSideMenu(
   GlobalKey<State<StatefulWidget>> iconKey,
   BuildContext context,
-  int postId,
+  PostEntity post,
 ) async {
   final RenderBox renderBox =
       iconKey.currentContext!.findRenderObject() as RenderBox;
@@ -26,14 +27,15 @@ void showPostCardSideMenu(
       0,
     ),
     items: [
-      PopupMenuItem<int>(
-        value: 0,
-        child: CustomSideMenuItem(
-          icon: Iconsax.eye_slash,
-          color: AppColors.yellowShade2,
-          action: "Un Active",
+      if (post.active == 1)
+        PopupMenuItem<int>(
+          value: 0,
+          child: CustomSideMenuItem(
+            icon: Iconsax.eye_slash,
+            color: AppColors.yellowShade2,
+            action: "Un Active",
+          ),
         ),
-      ),
       PopupMenuItem<int>(
         value: 1,
         child: CustomSideMenuItem(
@@ -53,17 +55,17 @@ void showPostCardSideMenu(
     ],
   ).then((value) {
     if (value == 0) {
-      context.read<PostBloc>().add(UnActivePostEvent(postId: postId));
+      context.read<PostBloc>().add(UnActivePostEvent(postId: post.postId));
     } else if (value == 1) {
       confirmDeletionDialog(context, "this post", () {
-        context.read<PostBloc>().add(DeletePostEvent(postId: postId));
+        context.read<PostBloc>().add(DeletePostEvent(postId: post.postId));
         context.read<PostBloc>().add(GetActivePostsEvent());
         context.pop();
       });
     } else if (value == 2) {
       context.pushNamed(
         AppRouteConfig.postReplies,
-        pathParameters: {'id': postId.toString()},
+        pathParameters: {'id': post.postId.toString()},
       );
     }
   });

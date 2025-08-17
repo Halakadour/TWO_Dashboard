@@ -13,12 +13,12 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/u
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/create_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/delete_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/reject_project_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/sent_edit_project_message_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_all_projects_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_pended_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_project_edit_request_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_public_projects_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_user_projects_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/update_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/create_status_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/delete_status_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/show_project_board_usecase.dart';
@@ -38,8 +38,8 @@ class ProjectStatusTeamBloc
   final CreateProjectUsecase createProjectUsecase;
   final DeleteProjectUsecase deleteProjectUsecase;
   final ApproveProjectUsecase approvedProjectUsecase;
+  final UpdateProjectUsecase updateProjectUsecase;
   final RejectProjectUsecase rejectProjectUsecase;
-  final SentEditProjectMessageUsecase sentEditProjectMessageUsecase;
   final ShowProjectEditRequestUsecase showProjectEditRequestUsecase;
   final ShowAllProjectsUsecase showAllProjectsUsecase;
   final ShowPendedProjectUsecase showPendedProjectUsecase;
@@ -61,8 +61,8 @@ class ProjectStatusTeamBloc
     this.createProjectUsecase,
     this.deleteProjectUsecase,
     this.approvedProjectUsecase,
+    this.updateProjectUsecase,
     this.rejectProjectUsecase,
-    this.sentEditProjectMessageUsecase,
     this.showProjectEditRequestUsecase,
     this.showAllProjectsUsecase,
     this.showPendedProjectUsecase,
@@ -149,7 +149,11 @@ class ProjectStatusTeamBloc
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
         final result = await rejectProjectUsecase.call(
-          TokenWithIdParam(token: token, id: event.projectId),
+          RejectProjectParam(
+            token: token,
+            projectId: event.projectId,
+            message: event.message,
+          ),
         );
         result.fold(
           (l) => emit(
@@ -165,33 +169,40 @@ class ProjectStatusTeamBloc
         emit(state.copyWith(rejectProjectStatus: CasualStatus.not_authorized));
       }
     });
-    // Sent Edit Project Message
-    on<SentEditProjectMessageEvent>((event, emit) async {
-      emit(state.copyWith(editRequestProjectStatus: CasualStatus.loading));
+    // Update Project
+    on<UpdateProjectEvent>((event, emit) async {
+      emit(state.copyWith(updateProjectStatus: CasualStatus.loading));
       final String? token = await SharedPreferencesServices.getUserToken();
       if (token != null) {
-        final result = await sentEditProjectMessageUsecase.call(
-          EditProjectRequestParam(
+        final result = await updateProjectUsecase.call(
+          UpdateProjectParam(
             token: token,
             projectId: event.projectId,
-            message: event.message,
+            fullName: event.fullName,
+            email: event.email,
+            phone: event.phone,
+            projectType: event.projectType,
+            projectDescription: event.projectDescription,
+            cost: event.cost,
+            duration: event.duration,
+            requirements: event.requirements,
+            cooperationType: event.cooperationType,
+            contactTime: event.contactTime,
+            visibility: event.visibility,
           ),
         );
         result.fold(
           (l) => emit(
             state.copyWith(
-              editRequestProjectStatus: CasualStatus.failure,
+              updateProjectStatus: CasualStatus.failure,
               message: l.message,
             ),
           ),
-          (r) => emit(
-            state.copyWith(editRequestProjectStatus: CasualStatus.success),
-          ),
+          (r) =>
+              emit(state.copyWith(updateProjectStatus: CasualStatus.success)),
         );
       } else {
-        emit(
-          state.copyWith(editRequestProjectStatus: CasualStatus.not_authorized),
-        );
+        emit(state.copyWith(updateProjectStatus: CasualStatus.not_authorized));
       }
     });
     // Show Edit Project Request Messages

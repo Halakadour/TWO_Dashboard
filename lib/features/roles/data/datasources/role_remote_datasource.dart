@@ -5,6 +5,7 @@ import 'package:two_dashboard/features/roles/data/models/role_response_model.dar
 abstract class RoleRemoteDatasource {
   Future<RoleResponesModel> showRolesWithoutClient();
   Future<RoleResponesModel> showRoleClient();
+  Future<RoleResponesModel> showAllRoles();
 }
 
 class RoleRemoteDatasourceImpl extends RoleRemoteDatasource {
@@ -21,6 +22,15 @@ class RoleRemoteDatasourceImpl extends RoleRemoteDatasource {
   Future<RoleResponesModel> showRolesWithoutClient() async {
     final result = GetApi(
       uri: Uri.parse("$baseUri/api/show/roles"),
+      fromJson: roleResponesModelFromJson,
+    );
+    return await result.callRequest();
+  }
+
+  @override
+  Future<RoleResponesModel> showAllRoles() async {
+    final result = GetApi(
+      uri: Uri.parse("$baseUri/api/show/all/roles"),
       fromJson: roleResponesModelFromJson,
     );
     return await result.callRequest();

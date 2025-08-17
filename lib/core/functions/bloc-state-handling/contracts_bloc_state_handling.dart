@@ -62,6 +62,7 @@ class ContractsBlocStateHandling {
       context.read<ContractBloc>().add(ContractManagerShowContractsEvent());
       showSuccessDialog(context, () {
         context.pop();
+        context.pop();
       });
     } else if (state.approveContractByCMStatus == CasualStatus.failure) {
       context.pop();

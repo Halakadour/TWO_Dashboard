@@ -86,22 +86,10 @@ class ProjectRepoImpl extends ProjectRepo {
   }
 
   @override
-  Future<Either<Failure, Unit>> rejectProject(TokenWithIdParam project) {
+  Future<Either<Failure, Unit>> rejectProject(RejectProjectParam param) {
     return wrapHandling(
       tryCall: () async {
-        await projectRemoteDataSource.rejectProject(project);
-        return Right(unit);
-      },
-    );
-  }
-
-  @override
-  Future<Either<Failure, Unit>> sentEditProjectRequest(
-    EditProjectRequestParam param,
-  ) {
-    return wrapHandling(
-      tryCall: () async {
-        await projectRemoteDataSource.sentEditProjectRequest(param);
+        await projectRemoteDataSource.rejectProject(param);
         return Right(unit);
       },
     );

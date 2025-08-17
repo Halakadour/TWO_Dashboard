@@ -33,6 +33,8 @@ class GetRolesWithoutClientEvent extends AuthRoleProfileEvent {}
 
 class GetRolesEvent extends AuthRoleProfileEvent {}
 
+class GetAllRolesEvent extends AuthRoleProfileEvent {}
+
 // Profile Events //
 
 class UpdateEmployeeProfileEvent extends AuthRoleProfileEvent {
@@ -58,8 +60,8 @@ class ToggleUserApprovedEvent extends AuthRoleProfileEvent {
 
 class ShowUsersWithFilterEvent extends AuthRoleProfileEvent {
   int approvedFilter;
-  int? roleFilter;
-  ShowUsersWithFilterEvent({this.approvedFilter = 0, this.roleFilter});
+  int roleFilter;
+  ShowUsersWithFilterEvent({this.approvedFilter = 0, this.roleFilter = 2});
 }
 
 class ShowClientsEvent extends AuthRoleProfileEvent {}

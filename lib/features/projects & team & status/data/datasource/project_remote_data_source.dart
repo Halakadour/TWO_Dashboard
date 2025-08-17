@@ -18,13 +18,10 @@ abstract class ProjectRemoteDataSource {
   Future<ShowProjectsResponseModel> showAllProjects(String token);
   Future<ShowProjectsResponseModel> showUserProjects(String token);
   Future<ShowProjectsResponseModel> showPendingProjects(String token);
-  Future<EmptyResponseModel> sentEditProjectRequest(
-    EditProjectRequestParam param,
-  );
   Future<ShowProjectsEditRequestResponseModel> showProjectEditRequest(
     TokenWithIdParam project,
   );
-  Future<EmptyResponseModel> rejectProject(TokenWithIdParam project);
+  Future<EmptyResponseModel> rejectProject(RejectProjectParam param);
   Future<EmptyResponseModel> approveProject(TokenWithIdParam project);
   Future<EmptyResponseModel> specifyProjectTeam(AddTeamParam param);
 }
@@ -134,27 +131,15 @@ class ProjectRemoteDataSourceImpl extends ProjectRemoteDataSource {
   }
 
   @override
-  Future<EmptyResponseModel> rejectProject(TokenWithIdParam project) async {
+  Future<EmptyResponseModel> rejectProject(RejectProjectParam param) async {
     final result = GetWithTokenApi(
-      uri: Uri.parse("$baseUri/api/reject/project/${project.id}"),
-      token: project.token,
+      uri: Uri.parse("$baseUri/api/reject/project"),
+      body: ({"project_id": param.projectId, "email": param.message}),
+      token: param.token,
       fromJson: emptyResponseModelFromJson,
     );
 
     return await result.callRequest();
-  }
-
-  @override
-  Future<EmptyResponseModel> sentEditProjectRequest(
-    EditProjectRequestParam param,
-  ) async {
-    final result = PostWithTokenApi(
-      uri: Uri.parse("$baseUri/api/edit/project/request"),
-      token: param.token,
-      body: ({'message': param.message, 'project_id': param.projectId}),
-      fromJson: emptyResponseModelFromJson,
-    );
-    return await result.call();
   }
 
   @override

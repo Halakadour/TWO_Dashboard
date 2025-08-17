@@ -13,6 +13,8 @@ class AuthRoleProfileState {
   CasualStatus roleWithoutClientListStatus;
   List<RoleModel> roleList;
   CasualStatus roleListStatus;
+  List<RoleModel> allRolesList;
+  CasualStatus allRolesListStatus;
   //Profile States //
   CasualStatus updateEmployeeProfileStatus;
   CasualStatus userHeaderStatus;
@@ -36,6 +38,8 @@ class AuthRoleProfileState {
     this.roleWithoutClientListStatus = CasualStatus.initial,
     this.roleList = const [],
     this.roleListStatus = CasualStatus.initial,
+    this.allRolesList = const [],
+    this.allRolesListStatus = CasualStatus.initial,
     this.updateEmployeeProfileStatus = CasualStatus.initial,
     this.userHeaderStatus = CasualStatus.initial,
     this.userHeader,
@@ -59,6 +63,8 @@ class AuthRoleProfileState {
     CasualStatus? roleWithoutClientListStatus,
     List<RoleModel>? roleList,
     CasualStatus? roleListStatus,
+    List<RoleModel>? allRolesList,
+    CasualStatus? allRolesListStatus,
     CasualStatus? updateEmployeeProfileStatus,
     CasualStatus? userHeaderStatus,
     EmployeeEntity? userHeader,
@@ -83,6 +89,8 @@ class AuthRoleProfileState {
           roleWithoutClientListStatus ?? this.roleWithoutClientListStatus,
       roleList: roleList ?? this.roleList,
       roleListStatus: roleListStatus ?? this.roleListStatus,
+      allRolesList: allRolesList ?? this.allRolesList,
+      allRolesListStatus: allRolesListStatus ?? this.allRolesListStatus,
       updateEmployeeProfileStatus:
           updateEmployeeProfileStatus ?? this.updateEmployeeProfileStatus,
       userHeaderStatus: userHeaderStatus ?? this.userHeaderStatus,

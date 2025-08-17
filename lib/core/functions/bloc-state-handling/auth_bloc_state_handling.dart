@@ -34,7 +34,7 @@ class AuthBlocStateHandling {
     } else if (state.authModelStatus == CasualStatus.success) {
       await SharedPreferencesServices.setUserToken(state.authModel!.token);
       context.pop();
-      context.pushReplacementNamed(AppRouteConfig.dashboard);
+      context.pushReplacementNamed(AppRouteConfig.allProjects);
     } else if (state.authModelStatus == CasualStatus.failure ||
         state.authModelStatus == CasualStatus.not_authorized) {
       context.pop();
@@ -74,7 +74,7 @@ class AuthBlocStateHandling {
       showLoadingDialog(context);
     } else if (state.updateEmployeeProfileStatus == CasualStatus.success) {
       context.pop();
-      context.pushReplacementNamed(AppRouteConfig.dashboard);
+      context.pushReplacementNamed(AppRouteConfig.allProjects);
     } else if (state.updateEmployeeProfileStatus == CasualStatus.failure) {
       context.pop();
       showErrorDialog(context, state.message);

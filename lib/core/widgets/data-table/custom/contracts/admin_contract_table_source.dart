@@ -8,8 +8,6 @@ import 'package:two_dashboard/core/widgets/container/status-containers/dynamic_s
 import 'package:two_dashboard/core/widgets/texts/linked_text.dart';
 import 'package:two_dashboard/features/contracts/data/models/contract_model.dart';
 
-import '../../../images/fetch_network_image.dart';
-
 class AdminContractTableSource extends DataTableSource {
   final List<ContractModel?> contractList;
   BuildContext context;
@@ -28,9 +26,16 @@ class AdminContractTableSource extends DataTableSource {
         ),
         DataCell(LinkedText(link: contract.contract)),
 
-        DataCell(DynamicStatusContainer(status: contract.status)),
-
-        DataCell(FetchNetworkImage(imagePath: contract.adminSign)),
+        DataCell(
+          DynamicStatusContainer(
+            status: contract.status == 0 ? "Not Approved" : "Approved",
+          ),
+        ),
+        DataCell(
+          DynamicStatusContainer(
+            status: contract.adminSign == 0 ? "Un Signed" : "Signed",
+          ),
+        ),
         DataCell(
           SignButton(
             onTap:

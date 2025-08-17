@@ -318,6 +318,27 @@ class HelperFunctions {
     }
   }
 
+  static String getFieldText(FieldStatus value) {
+    switch (value) {
+      case FieldStatus.active:
+        return "Active";
+      case FieldStatus.unActive:
+        return "Not Active";
+      case FieldStatus.approved:
+        return "Approved";
+      case FieldStatus.unApproved:
+        return "Not Approved";
+      case FieldStatus.seen:
+        return "Seen";
+      case FieldStatus.nonSeen:
+        return "Un read";
+      case FieldStatus.needed:
+        return "Need Edit";
+      case FieldStatus.nonNeeded:
+        return "No Need";
+    }
+  }
+
   // Cooperation Type Color Returning
   static Color getCooperationTypeColor(CooperationType value) {
     switch (value) {

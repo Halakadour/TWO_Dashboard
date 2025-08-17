@@ -31,55 +31,46 @@ class _ShowPostsPageState extends State<PostsPage> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(SizesConfig.lg),
-        child: BlocListener<PostBloc, PostState>(
-          listener: (context, state) {
-            PostsBlocStateHandling().deleteAndUnActivePost(state, context);
-          },
-          listenWhen:
-              (previous, current) =>
-                  (previous.deletePostStatus != current.deletePostStatus ||
-                      previous.unActivePostStatus !=
-                          current.unActivePostStatus),
-          child: Column(
-            children: [
-              const PageTitle(pageTitle: "Posts"),
-              const SizedBox(height: SizesConfig.spaceBtwSections),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CreateElevatedButton(
-                    addingType: "Post",
-                    onPressed: () {
-                      context.pushNamed(AppRouteConfig.createPost);
-                    },
-                  ),
-                  PaddingConfig.w8,
-                  FilterButton(
-                    onPressed: () {
-                      FilterPost().filterPosts(context, actriveSelected);
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(height: SizesConfig.spaceBtwSections),
-              Expanded(
-                child: BlocBuilder<PostBloc, PostState>(
-                  buildWhen:
-                      (previous, current) =>
-                          (previous.activePostsListStatus !=
-                                  current.activePostsListStatus ||
-                              previous.unActivePostsListStatus !=
-                                  current.unActivePostsListStatus),
-                  builder: (context, state) {
-                    return PostsBlocStateHandling().getPostsGridView(
-                      state,
-                      actriveSelected.value,
-                    );
+
+        child: Column(
+          children: [
+            const PageTitle(pageTitle: "Posts"),
+            const SizedBox(height: SizesConfig.spaceBtwSections),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                CreateElevatedButton(
+                  addingType: "Post",
+                  onPressed: () {
+                    context.pushNamed(AppRouteConfig.createPost);
                   },
                 ),
+                PaddingConfig.w8,
+                FilterButton(
+                  onPressed: () {
+                    FilterPost().filterPosts(context, actriveSelected);
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: SizesConfig.spaceBtwSections),
+            Expanded(
+              child: BlocBuilder<PostBloc, PostState>(
+                buildWhen:
+                    (previous, current) =>
+                        (previous.activePostsListStatus !=
+                                current.activePostsListStatus ||
+                            previous.unActivePostsListStatus !=
+                                current.unActivePostsListStatus),
+                builder: (context, state) {
+                  return PostsBlocStateHandling().getPostsGridView(
+                    state,
+                    actriveSelected.value,
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

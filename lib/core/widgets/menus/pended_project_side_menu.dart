@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/theme/color.dart';
+import 'package:two_dashboard/core/widgets/dialog/project/sent_reject_project_message_dialog.dart';
 import 'package:two_dashboard/core/widgets/menus/custom_side_menu_item.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
@@ -46,10 +47,9 @@ void showPendedProjectActionSideMenu(
       context.read<ProjectStatusTeamBloc>().add(
         ApproveProjectsEvent(projectId: project.id),
       );
+      context.read<ProjectStatusTeamBloc>().add(ShowPendedProjectsEvent());
     } else if (value == 1) {
-      context.read<ProjectStatusTeamBloc>().add(
-        RejectProjectsEvent(projectId: project.id),
-      );
+      sentRejectProjectMessageDialog(context, project.id);
     }
   });
 }

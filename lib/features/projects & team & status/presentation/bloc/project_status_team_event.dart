@@ -10,9 +10,36 @@ class CreateProjectEvent extends ProjectStatusTeamEvent {
 }
 
 class UpdateProjectEvent extends ProjectStatusTeamEvent {
-  UpdateProjectParam param;
-
-  UpdateProjectEvent({required this.param});
+  final int projectId;
+  final String fullName;
+  final String? companyName;
+  final String email;
+  final String phone;
+  final String projectType;
+  final String projectDescription;
+  final String cost;
+  final String duration;
+  final String requirements;
+  final String? document;
+  final String cooperationType;
+  final String contactTime;
+  final int visibility;
+  UpdateProjectEvent({
+    required this.projectId,
+    required this.fullName,
+    required this.companyName,
+    required this.email,
+    required this.phone,
+    required this.projectType,
+    required this.projectDescription,
+    required this.cost,
+    required this.duration,
+    required this.requirements,
+    required this.document,
+    required this.cooperationType,
+    required this.contactTime,
+    required this.visibility,
+  });
 }
 
 class DeleteProjectsEvent extends ProjectStatusTeamEvent {
@@ -29,15 +56,9 @@ class ApproveProjectsEvent extends ProjectStatusTeamEvent {
 
 class RejectProjectsEvent extends ProjectStatusTeamEvent {
   final int projectId;
-
-  RejectProjectsEvent({required this.projectId});
-}
-
-class SentEditProjectMessageEvent extends ProjectStatusTeamEvent {
-  final int projectId;
   final String message;
 
-  SentEditProjectMessageEvent({required this.projectId, required this.message});
+  RejectProjectsEvent({required this.projectId, required this.message});
 }
 
 class ShowEditProjectRequestEvent extends ProjectStatusTeamEvent {

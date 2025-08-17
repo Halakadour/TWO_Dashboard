@@ -19,13 +19,10 @@ abstract class ProjectRepo with HandlingExceptionManager {
   Future<Either<Failure, List<ProjectEntity>>> showPendingProjects(
     String token,
   );
-  Future<Either<Failure, Unit>> sentEditProjectRequest(
-    EditProjectRequestParam param,
-  );
   Future<Either<Failure, List<MessageModel>>> showProjectEditRequest(
     TokenWithIdParam project,
   );
-  Future<Either<Failure, Unit>> rejectProject(TokenWithIdParam project);
+  Future<Either<Failure, Unit>> rejectProject(RejectProjectParam param);
   Future<Either<Failure, Unit>> approveProject(TokenWithIdParam project);
   Future<Either<Failure, Unit>> specifyProjectTeam(AddTeamParam param);
 }

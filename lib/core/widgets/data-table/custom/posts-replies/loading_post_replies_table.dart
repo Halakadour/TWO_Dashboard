@@ -19,9 +19,10 @@ class LoadingPostRepliesTable extends StatelessWidget {
         DataColumn2(label: Text(TextStrings.email)),
         DataColumn2(label: Text(TextStrings.phone)),
         DataColumn2(label: Text(TextStrings.cv)),
+        DataColumn2(label: Text(TextStrings.status)),
         DataColumn2(label: Text(TextStrings.actions)),
       ],
-      source: LoadingRows(cellsCount: 5),
+      source: LoadingRows(cellsCount: 6),
     );
   }
 }

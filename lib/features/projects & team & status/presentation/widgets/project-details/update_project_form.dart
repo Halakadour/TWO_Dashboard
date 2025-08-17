@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/project_bloc_state_handling.dart';
 import 'package:two_dashboard/core/functions/device_utility.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/save_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/cancel_text_button.dart';
 import 'package:two_dashboard/core/widgets/container/custom_rounder_container.dart';
+import 'package:two_dashboard/core/widgets/dialog/global/forget_some_thing_dialog.dart';
 import 'package:two_dashboard/features/auth/presentation/widgets/custom_text_form_field.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 
 class UpdateProjectForm extends StatefulWidget {
   const UpdateProjectForm({super.key, required this.projectEntity});
@@ -250,10 +254,45 @@ class _UpdateProjectFormState extends State<UpdateProjectForm> {
           children: [
             CancelTextButton(),
             PaddingConfig.w24,
-            SaveElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {}
+            BlocListener<ProjectStatusTeamBloc, ProjectStatusTeamState>(
+              listenWhen:
+                  (previous, current) =>
+                      previous.updateProjectStatus !=
+                      current.updateProjectStatus,
+              listener: (context, state) {
+                ProjectBlocStateHandling().updateProject(state, context);
               },
+              child: SaveElevatedButton(
+                onPressed: () {
+                  if (projectType == null) {
+                    forgetSomeThingDialog(context, "The Project Type");
+                  } else if (cooperationType == null) {
+                    forgetSomeThingDialog(context, "The cooperation Type");
+                  } else if (visibility == null) {
+                    forgetSomeThingDialog(context, "The cooperation Type");
+                  } else {
+                    context.read<ProjectStatusTeamBloc>().add(
+                      UpdateProjectEvent(
+                        projectId: widget.projectEntity.id,
+                        fullName: _clientNameController.text,
+                        email: widget.projectEntity.email,
+                        phone: widget.projectEntity.phone,
+                        projectType: projectType!.name,
+                        projectDescription: _descriptionController.text,
+                        cost: _costController.text,
+                        duration: _durationController.text,
+                        companyName: widget.projectEntity.companyName,
+                        document: widget.projectEntity.document,
+                        requirements: _requiredmentController.text,
+                        cooperationType: cooperationType!.name,
+                        contactTime: widget.projectEntity.contactTime,
+                        visibility:
+                            (visibility == ProjectVisibility.public) ? 0 : 1,
+                      ),
+                    );
+                  }
+                },
+              ),
             ),
           ],
         ),
@@ -269,7 +308,7 @@ class _UpdateProjectFormState extends State<UpdateProjectForm> {
         Radio<ProjectType>(
           value: value,
           groupValue: projectType,
-          activeColor: AppColors.greenShade2,
+          activeColor: AppColors.blueShade2,
           onChanged: (ProjectType? newValue) {
             setState(() {
               projectType = newValue;
@@ -288,7 +327,7 @@ class _UpdateProjectFormState extends State<UpdateProjectForm> {
         Radio<CooperationType>(
           value: value,
           groupValue: cooperationType,
-          activeColor: AppColors.greenShade2,
+          activeColor: AppColors.blueShade2,
           onChanged: (CooperationType? newValue) {
             setState(() {
               cooperationType = newValue;
@@ -307,7 +346,7 @@ class _UpdateProjectFormState extends State<UpdateProjectForm> {
         Radio<ProjectVisibility>(
           value: value,
           groupValue: visibility,
-          activeColor: AppColors.greenShade2,
+          activeColor: AppColors.blueShade2,
           onChanged: (ProjectVisibility? newValue) {
             setState(() {
               visibility = newValue;

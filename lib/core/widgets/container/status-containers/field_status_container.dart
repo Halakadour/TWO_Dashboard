@@ -23,7 +23,7 @@ class FieldStatusContainer extends StatelessWidget {
         fieldStatus,
       ),
       child: Text(
-        fieldStatus.name.toLowerCase().toString(),
+        HelperFunctions.getFieldText(fieldStatus),
         style: AppTextStyle.bodyXs(
           color: HelperFunctions.geFieldStatusColor(fieldStatus),
         ),

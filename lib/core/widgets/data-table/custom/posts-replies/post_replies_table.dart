@@ -21,6 +21,7 @@ class PostRepliesTable extends StatelessWidget {
         DataColumn2(label: Text(TextStrings.email)),
         DataColumn2(label: Text(TextStrings.phone)),
         DataColumn2(label: Text(TextStrings.cv)),
+        DataColumn2(label: Text(TextStrings.status)),
         DataColumn2(label: Text(TextStrings.actions)),
       ],
       source: PostRepliesRows(repliesList: repliesList, context: context),

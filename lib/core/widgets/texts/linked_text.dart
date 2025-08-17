@@ -13,7 +13,7 @@ class LinkedText extends StatelessWidget {
     return (link == null)
         ? Text("No data")
         : InkWell(
-          onTap: () => launchUrl(Uri.parse('$imageUri/$link')),
+          onTap: () => launchUrl(Uri.parse('$imageUri$link')),
           child: Text(
             link!,
             style: AppTextStyle.dataTableCellStyle(

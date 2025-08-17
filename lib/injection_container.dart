@@ -69,12 +69,12 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/r
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/approved_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/delete_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/reject_project_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/sent_edit_project_message_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_all_projects_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_pended_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_project_edit_request_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_public_projects_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_user_projects_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/update_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/create_status_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/delete_status_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/show_status_usecase.dart';
@@ -92,6 +92,7 @@ import 'package:two_dashboard/features/roles/data/datasources/role_local_datasou
 import 'package:two_dashboard/features/roles/data/datasources/role_remote_datasource.dart';
 import 'package:two_dashboard/features/roles/data/repos/role_repo_impl.dart';
 import 'package:two_dashboard/features/roles/domain/repos/role_repo.dart';
+import 'package:two_dashboard/features/roles/domain/usecases/show_all_roles_usecase.dart';
 import 'package:two_dashboard/features/roles/domain/usecases/show_role_client_usecase.dart';
 import 'package:two_dashboard/features/roles/domain/usecases/show_roles_without_client_usecase.dart';
 import 'package:two_dashboard/features/services/data/datasources/service_remote_datasource.dart';
@@ -153,6 +154,7 @@ Future<void> init() async {
       logoutUsecase: sl(),
       showRoleClientUsecase: sl(),
       showRolesWithoutClientUsecase: sl(),
+      showAllRolesUsecase: sl(),
       updateEmployeeProfileUsecase: sl(),
       getUserProfileUsecase: sl(),
       toggleUserApprovedUsecase: sl(),
@@ -176,6 +178,7 @@ Future<void> init() async {
 
   /**----------------- ROLE FEATURE -----------------------**/
   // Usecase
+  sl.registerLazySingleton(() => ShowAllRolesUsecase(sl()));
   sl.registerLazySingleton(() => ShowRoleClientUsecase(sl()));
   sl.registerLazySingleton(() => ShowRolesWithoutClientUsecase(sl()));
   // Repo
@@ -351,7 +354,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => DeleteProjectUsecase(sl()));
   sl.registerLazySingleton(() => ApproveProjectUsecase(sl()));
   sl.registerLazySingleton(() => RejectProjectUsecase(sl()));
-  sl.registerLazySingleton(() => SentEditProjectMessageUsecase(sl()));
+  sl.registerLazySingleton(() => UpdateProjectUsecase(sl()));
   sl.registerLazySingleton(() => ShowProjectEditRequestUsecase(sl()));
   sl.registerLazySingleton(() => ShowAllProjectsUsecase(sl()));
   sl.registerLazySingleton(() => ShowPendedProjectUsecase(sl()));

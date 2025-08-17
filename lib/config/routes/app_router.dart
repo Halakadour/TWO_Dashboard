@@ -4,6 +4,7 @@ import 'package:two_dashboard/features/about-us%20&%20why-us/presentation/pages/
 import 'package:two_dashboard/features/auth/presentation/pages/fill-profile/fill_employee_profile_page.dart';
 import 'package:two_dashboard/features/auth/presentation/pages/login/login_page.dart';
 import 'package:two_dashboard/features/auth/presentation/pages/sign-up/sign_up_page.dart';
+import 'package:two_dashboard/features/calendar/presentation/pages/calender_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/admin_contracts_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/cm_update_contract_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/main_contract_page.dart';
@@ -13,7 +14,6 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presenta
 import 'package:two_dashboard/features/contracts/presentation/pages/signature_board_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/cm_contracts_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/create_draft_page.dart';
-import 'package:two_dashboard/features/dashboard/presentation/pages/dashboard_page.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/create_team_page.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/all_projects_page.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/project_details_page.dart';
@@ -28,6 +28,7 @@ import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/cr
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/create_task_page.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/sprint_details_page.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/task_details_page.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/tasks_page.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/update_sprint_page.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/pages/update_task_page.dart';
 import 'package:two_dashboard/root_page.dart';
@@ -63,16 +64,6 @@ class AppRouter {
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => RootPage(shell: shell),
         branches: [
-          // Dashboard Branch
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                name: AppRouteConfig.dashboard,
-                path: '/dashboard',
-                builder: (context, state) => const DashboardPage(),
-              ),
-            ],
-          ),
           // All Projects Branch
           StatefulShellBranch(
             routes: [
@@ -203,6 +194,26 @@ class AppRouter {
                 name: AppRouteConfig.createNewTeam,
                 path: '/create-new-team',
                 builder: (context, state) => const CreateTeamPage(),
+              ),
+            ],
+          ),
+          // Task Branch
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                name: AppRouteConfig.tasks,
+                path: '/tasks',
+                builder: (context, state) => const TasksPage(),
+              ),
+            ],
+          ),
+          // Calendar
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                name: AppRouteConfig.calendar,
+                path: '/calendar',
+                builder: (context, state) => const CalendarPage(),
               ),
             ],
           ),

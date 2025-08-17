@@ -2,8 +2,13 @@ class TextStrings {
   // --MAIN TABS
   static const String main = "Main";
   static const String dashboard = "Dashboard";
-  static const String porojects = "Projects";
+  static const String projects = "Projects";
+  static const String viewAllProjects = "View All Projects";
   static const String myProjects = "My Projects";
+  static const String requests = "Requests";
+  static const String tasks = "Tasks";
+  static const String viewMyTasks = "View My Tasks";
+  static const String calendar = "Calendar";
   static const String pendedProjects = "Pended Projects";
   static const String sprintTasks = "Sprint & Tasks";
   static const String company = "Company";
@@ -67,8 +72,8 @@ class TextStrings {
   static const String clientSign = "Client Sign";
   static const String draft = "Draft";
   static const String status = "Status";
-  static const String contractManagerApprovment = "Contract Manager Approvment";
-  static const String projectManagerApprovment = "Project Manager Approvment";
+  static const String contractManagerApprovment = "CM Approvment";
+  static const String projectManagerApprovment = "PM Approvment";
   static const String needEdit = "Need Edit ?";
   static const String adminSign = "Admin Sign";
   static const String id = "ID";
@@ -91,6 +96,7 @@ class TextStrings {
   static const String forgetToAdd = "You forget to add the";
   static const String passwordDoesNotMatch = "Password Doesn't Match!";
   static const String sentMessage = "Sent a message :";
+  static const String sentRejectMessage = "Sent a reject message :";
   static const String message = "Message :";
   // --FILTER TEXTS
   static const String seenStatus = "Seen";

@@ -19,6 +19,7 @@ import 'package:two_dashboard/features/profile/domain/usecases/show_clients_usec
 import 'package:two_dashboard/features/profile/domain/usecases/show_users_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/toggle_user_approved_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/update_employee_profile_usecase.dart';
+import 'package:two_dashboard/features/roles/domain/usecases/show_all_roles_usecase.dart';
 import 'package:two_dashboard/features/roles/domain/usecases/show_role_client_usecase.dart';
 import 'package:two_dashboard/features/roles/domain/usecases/show_roles_without_client_usecase.dart';
 
@@ -36,6 +37,7 @@ class AuthRoleProfileBloc
   // Role Usecases //
   final ShowRolesWithoutClientUsecase showRolesWithoutClientUsecase;
   final ShowRoleClientUsecase showRoleClientUsecase;
+  final ShowAllRolesUsecase showAllRolesUsecase;
   // Profile Usecases //
   final UpdateEmployeeProfileUsecase updateEmployeeProfileUsecase;
   final GetUserProfileUsecase getUserProfileUsecase;
@@ -49,6 +51,7 @@ class AuthRoleProfileBloc
     required this.logoutUsecase,
     required this.showRolesWithoutClientUsecase,
     required this.showRoleClientUsecase,
+    required this.showAllRolesUsecase,
     required this.updateEmployeeProfileUsecase,
     required this.getUserProfileUsecase,
     required this.toggleUserApprovedUsecase,
@@ -142,7 +145,7 @@ class AuthRoleProfileBloc
         (r) => emit(
           state.copyWith(
             roleWithoutClientListStatus: CasualStatus.success,
-            roleWithoutClientList: r.data,
+            roleWithoutClientList: r,
           ),
         ),
       );
@@ -158,9 +161,24 @@ class AuthRoleProfileBloc
           ),
         ),
         (r) => emit(
+          state.copyWith(roleListStatus: CasualStatus.success, roleList: r),
+        ),
+      );
+    });
+    on<GetAllRolesEvent>((event, emit) async {
+      emit(state.copyWith(allRolesListStatus: CasualStatus.loading));
+      final result = await showAllRolesUsecase.call();
+      result.fold(
+        (l) => emit(
           state.copyWith(
-            roleListStatus: CasualStatus.success,
-            roleList: r.data,
+            allRolesListStatus: CasualStatus.failure,
+            message: l.message,
+          ),
+        ),
+        (r) => emit(
+          state.copyWith(
+            allRolesListStatus: CasualStatus.success,
+            allRolesList: r,
           ),
         ),
       );
@@ -270,7 +288,7 @@ class AuthRoleProfileBloc
       if (token != null) {
         final result = await showUsersUsecase.call(
           ShowUsersParam(
-            roleFilter: event.roleFilter ?? 0,
+            roleFilter: event.roleFilter,
             approvedFilter: event.approvedFilter,
             token: token,
           ),

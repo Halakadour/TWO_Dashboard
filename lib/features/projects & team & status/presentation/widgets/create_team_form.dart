@@ -34,7 +34,7 @@ class _CreateTeamFormState extends State<CreateTeamForm>
   @override
   void didChangeDependencies() {
     context.read<AuthRoleProfileBloc>().add(
-      ShowUsersWithFilterEvent(approvedFilter: 1),
+      ShowUsersWithFilterEvent(approvedFilter: 1, roleFilter: 4),
     );
     context.read<AuthRoleProfileBloc>().add(GetRolesWithoutClientEvent());
     super.didChangeDependencies();
@@ -165,7 +165,7 @@ class _CreateTeamFormState extends State<CreateTeamForm>
                       FilterEmployee().filterUsers(
                         context,
                         ValueNotifier(true),
-                        ValueNotifier(2),
+                        ValueNotifier(4),
                       );
                     },
                   ),

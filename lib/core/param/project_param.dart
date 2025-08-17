@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class UpdateProjectParam {
   final String token;
   final int projectId;
@@ -33,11 +34,11 @@ class UpdateProjectParam {
   });
 }
 
-class EditProjectRequestParam {
+class RejectProjectParam {
   String token;
   int projectId;
   String message;
-  EditProjectRequestParam({
+  RejectProjectParam({
     required this.token,
     required this.projectId,
     required this.message,

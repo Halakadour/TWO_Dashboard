@@ -30,7 +30,10 @@ class IconsPath {
   static const work = '${_roleIconPath}Work.svg';
 
   // DASHBOARD //
+  static const twoUsers = '${_dashboardIconPath}2 User.svg';
   static const threeUsers = '${_dashboardIconPath}3 User.svg';
+  static const sort = '${_dashboardIconPath}Sort.svg';
+  static const profile2 = '${_dashboardIconPath}Profile.svg';
   static const calender = '${_dashboardIconPath}Calendar.svg';
   static const category = '${_dashboardIconPath}Category.svg';
   static const delete = '${_dashboardIconPath}Delete.svg';

@@ -5,7 +5,7 @@ class AppRouteConfig {
   static const fillEmployeeProfile = 'fill-emplyeep-profile';
   // Main  Branches//
   static const main = 'main';
-  static const dashboard = 'dashboard';
+  //static const dashboard = 'dashboard';
   static const tasks = 'tasks';
   static const calendar = 'calendar';
   static const inbox = 'inbox';

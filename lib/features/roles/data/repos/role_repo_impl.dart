@@ -17,31 +17,36 @@ class RoleRepoImpl extends RoleRepo {
     this.networkInfo,
   );
   @override
-  Future<Either<Failure, RoleResponesModel>> showRoleClient() {
+  Future<Either<Failure, List<RoleModel>>> showRoleClient() {
     return wrapHandling(
       tryCall: () async {
         final remoteRoles = await roleRemoteDatasource.showRoleClient();
-        return Right(remoteRoles);
+        return Right(remoteRoles.data);
       },
     );
   }
 
   @override
-  Future<Either<Failure, RoleResponesModel>> showRolesWithoutClient() {
+  Future<Either<Failure, List<RoleModel>>> showRolesWithoutClient() {
     return wrapHandling(
       tryCall: () async {
-        // final remoteRoles = await roleRemoteDatasource.showRolesWithoutClient();
-        // return Right(remoteRoles);
+        final remoteRoles = await roleRemoteDatasource.showRolesWithoutClient();
+        return Right(remoteRoles.data);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, List<RoleModel>>> showAllRoles() {
+    return wrapHandling(
+      tryCall: () async {
         if (await networkInfo.isConnected) {
-          final remoteRoles =
-              await roleRemoteDatasource.showRolesWithoutClient();
+          final remoteRoles = await roleRemoteDatasource.showAllRoles();
           roleLocalDatasource.cacheRoles(remoteRoles.data);
-          return Right(remoteRoles);
+          return Right(remoteRoles.data);
         } else {
           final localRoles = await roleLocalDatasource.getCachedRoles();
-          return Right(
-            RoleResponesModel(status: 200, msg: "Local", data: localRoles),
-          );
+          return Right(localRoles);
         }
       },
     );

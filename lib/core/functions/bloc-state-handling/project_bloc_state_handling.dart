@@ -16,6 +16,62 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/mod
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 
 class ProjectBlocStateHandling {
+  // Approve Project
+  void approveProject(ProjectStatusTeamState state, BuildContext context) {
+    if (state.approveProjectStatus == CasualStatus.loading) {
+      showLoadingDialog(context);
+    } else if (state.approveProjectStatus == CasualStatus.success) {
+      context.pop();
+      context.read<ProjectStatusTeamBloc>().add(ShowPendedProjectsEvent());
+      showSuccessDialog(context, () {
+        context.pop();
+      });
+    } else if (state.approveProjectStatus == CasualStatus.failure) {
+      context.pop();
+      showErrorDialog(context, state.message);
+    } else if (state.approveProjectStatus == CasualStatus.not_authorized) {
+      context.pop();
+      showNotAuthorizedDialog(context);
+    }
+  }
+
+  // Reject Project
+  void rejectProject(ProjectStatusTeamState state, BuildContext context) {
+    if (state.rejectProjectStatus == CasualStatus.loading) {
+      showLoadingDialog(context);
+    } else if (state.rejectProjectStatus == CasualStatus.success) {
+      context.pop();
+      context.read<ProjectStatusTeamBloc>().add(ShowPendedProjectsEvent());
+      showSuccessDialog(context, () {
+        context.pop();
+      });
+    } else if (state.rejectProjectStatus == CasualStatus.failure) {
+      context.pop();
+      showErrorDialog(context, state.message);
+    } else if (state.rejectProjectStatus == CasualStatus.not_authorized) {
+      context.pop();
+      showNotAuthorizedDialog(context);
+    }
+  }
+
+  // Update Project
+  void updateProject(ProjectStatusTeamState state, BuildContext context) {
+    if (state.updateProjectStatus == CasualStatus.loading) {
+      showLoadingDialog(context);
+    } else if (state.updateProjectStatus == CasualStatus.success) {
+      context.pop();
+      showSuccessDialog(context, () {
+        context.pop();
+      });
+    } else if (state.updateProjectStatus == CasualStatus.failure) {
+      context.pop();
+      showErrorDialog(context, state.message);
+    } else if (state.updateProjectStatus == CasualStatus.not_authorized) {
+      context.pop();
+      showNotAuthorizedDialog(context);
+    }
+  }
+
   // Create Project
   void createProject(ProjectStatusTeamState state, BuildContext context) {
     if (state.createProjectStatus == CasualStatus.loading) {

@@ -3,10 +3,10 @@ class ContractModel {
   final String contract;
   final int? contractManagerStatus;
   final int? projectManagerStatus;
-  final String status;
+  final int? status;
   final dynamic clientEditRequest;
   final int? needEdit;
-  final String? adminSign;
+  final int adminSign;
   final Project project;
 
   ContractModel({
@@ -26,7 +26,7 @@ class ContractModel {
     contract: json["contract"],
     contractManagerStatus: json["contract_manager_status"],
     projectManagerStatus: json["project_manager_status"],
-    status: json["status"],
+    status: json["status"] ?? 0,
     clientEditRequest: json["client_edit_request"],
     needEdit: json["need_edit"],
     adminSign: json["admin_sign"],
