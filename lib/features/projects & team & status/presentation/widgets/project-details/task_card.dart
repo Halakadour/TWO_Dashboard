@@ -34,6 +34,7 @@ class TaskCard extends StatelessWidget {
               context.pushNamed(AppRouteConfig.taskDetails, extra: taskEntity),
       child: CustomRounderContainer(
         key: iconKey,
+        width: DeviceUtility.getScreenWidth(context) * 0.7,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,

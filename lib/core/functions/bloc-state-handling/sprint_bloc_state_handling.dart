@@ -148,7 +148,7 @@ class SprintBlocStateHandling {
         cacheProjectSprints(sprints);
         return SizedBox(
           width: double.infinity,
-          height: 300,
+          height: 500,
           child: ListView.builder(
             itemCount: state.projectSprintsList.length,
             itemBuilder:
@@ -175,7 +175,7 @@ class SprintBlocStateHandling {
       } else {
         return SizedBox(
           width: double.infinity,
-          height: 300,
+          height: 500,
           child: ListView.builder(
             itemCount: state.projectStartedSprintsList.length,
             itemBuilder:
@@ -204,7 +204,7 @@ class SprintBlocStateHandling {
       } else {
         return SizedBox(
           width: double.infinity,
-          height: 300,
+          height: 500,
           child: ListView.builder(
             itemCount: state.projectUnCompleteSprintsList.length,
             itemBuilder:

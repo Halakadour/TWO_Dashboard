@@ -11,7 +11,6 @@ abstract class TaskRepo with HandlingExceptionManager {
   Future<Either<Failure, Unit>> updateTask(UpdateTaskParam param);
   Future<Either<Failure, Unit>> deleteTask(TokenWithIdParam task);
   Future<Either<Failure, TaskEntity>> showTaskDetails(TokenWithIdParam task);
-  Future<Either<Failure, List<TaskEntity>>> showAllTasks(String token);
   Future<Either<Failure, List<TaskEntity>>> showProjectTasks(
     TokenWithIdParam project,
   );
@@ -27,4 +26,5 @@ abstract class TaskRepo with HandlingExceptionManager {
   Future<Either<Failure, List<TaskModel>>> showProjectBackLogTasks(
     TokenWithIdParam project,
   );
+  Future<Either<Failure, List<TaskEntity>>> showMyTasksList(String token);
 }

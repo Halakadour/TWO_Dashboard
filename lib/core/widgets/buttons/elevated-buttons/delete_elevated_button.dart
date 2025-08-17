@@ -22,7 +22,7 @@ class DeleteElevatedButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-          backgroundColor: AppColors.redShade2,
+          backgroundColor: AppColors.redShade3,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(SizesConfig.buttonRadius),
           ),

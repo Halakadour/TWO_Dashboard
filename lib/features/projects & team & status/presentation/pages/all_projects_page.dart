@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/project_bloc_state_handling.dart';
 import 'package:two_dashboard/core/functions/device_utility.dart';
-import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 
 import '../../../../config/constants/padding_config.dart';
 import '../../../../config/constants/sizes_config.dart';
 import '../../../../config/theme/color.dart';
 import '../../../../core/widgets/buttons/icon-buttons/choose_date_button.dart';
-import '../../../../core/widgets/buttons/icon-buttons/filter_button.dart';
-import '../../../../core/widgets/buttons/icon-buttons/sort_by_button.dart';
 import '../../../../core/widgets/texts/page_title.dart';
 
 class AllProjectPage extends StatefulWidget {
@@ -118,16 +113,9 @@ class _AllProjectPageState extends State<AllProjectPage> {
               runSpacing: isMobile ? 8 : 12,
               alignment: WrapAlignment.end,
               children: [
-                _wrapButton(
-                  child: CreateElevatedButton(
-                    addingType: "Project",
-                    onPressed:
-                        () => context.pushNamed(AppRouteConfig.createProject),
-                  ),
-                ),
                 _wrapButton(child: ChooseDateButton()),
-                _wrapButton(child: SortByButton(onPressed: () {})),
-                _wrapButton(child: FilterButton(onPressed: () {})),
+                // _wrapButton(child: SortByButton(onPressed: () {})),
+                // _wrapButton(child: FilterButton(onPressed: () {})),
                 _wrapButton(child: _buildToggleBar()),
               ],
             ),

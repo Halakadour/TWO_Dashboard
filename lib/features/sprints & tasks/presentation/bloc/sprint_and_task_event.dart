@@ -179,8 +179,6 @@ class DeleteTaskEvent extends SprintAndTaskEvent {
   int taskId;
 }
 
-class ShowAllTasksEvent extends SprintAndTaskEvent {}
-
 class ShowProjectTasksEvent extends SprintAndTaskEvent {
   final int projectId;
 
@@ -221,3 +219,7 @@ class ShowTaskDetailsEvent extends SprintAndTaskEvent {
   ShowTaskDetailsEvent({required this.taskId});
   int taskId;
 }
+
+class ShowMyTasksEvent extends SprintAndTaskEvent {}
+
+class ShowCalendarTasksEvent extends SprintAndTaskEvent {}

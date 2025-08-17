@@ -3,6 +3,7 @@ import 'package:two_dashboard/core/error/failures.dart';
 import 'package:two_dashboard/core/error/handling_exception_manager.dart';
 import 'package:two_dashboard/core/param/casule_param.dart';
 import 'package:two_dashboard/core/param/status_param.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/status/show_project_board_response_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/status/status_model.dart';
 
 abstract class StatusRepo with HandlingExceptionManager {
@@ -18,7 +19,7 @@ abstract class StatusRepo with HandlingExceptionManager {
     TokenWithIdParam project,
   );
   // get board
-  Future<Either<Failure, List<StatusModel>>> showProjectBoard(
+  Future<Either<Failure, List<StatusBoardModel>>> showProjectBoard(
     ShowProjectBoardParam param,
   );
 }

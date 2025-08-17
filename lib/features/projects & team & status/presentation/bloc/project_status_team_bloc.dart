@@ -6,6 +6,7 @@ import 'package:two_dashboard/core/param/status_param.dart';
 import 'package:two_dashboard/core/param/team_param.dart';
 import 'package:two_dashboard/core/services/shared_preferences_services.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/show_project_edit_request_response_model.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/status/show_project_board_response_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/status/status_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/team_entity.dart';

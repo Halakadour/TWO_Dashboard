@@ -161,7 +161,7 @@ class BacklogCard extends StatelessWidget {
             ),
             PaddingConfig.h16,
             SizedBox(
-              height: 175,
+              height: 220,
               child: ListView.builder(
                 itemCount: sprint.tasks.length,
                 itemBuilder:

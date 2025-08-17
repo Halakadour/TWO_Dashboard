@@ -62,15 +62,12 @@ class TaskDetailsPage extends StatelessWidget {
               children: [
                 UpdateElevatedButton(
                   updateType: "Task",
-                  onPressed:
-                      () => context.pushNamed(
-                        AppRouteConfig.updateTask,
-                        extra: taskEntity,
-                        pathParameters: {
-                          'pId': taskEntity.projectId.toString(),
-                          'sId': taskEntity.sprintId.toString(),
-                        },
-                      ),
+                  onPressed: () {
+                    context.pushNamed(
+                      AppRouteConfig.updateTask,
+                      extra: taskEntity,
+                    );
+                  },
                 ),
                 PaddingConfig.w8,
                 BlocListener<SprintAndTaskBloc, SprintAndTaskState>(
@@ -185,9 +182,7 @@ class TaskDetailsPage extends StatelessWidget {
                           ),
                           PaddingConfig.w80,
                           Text(
-                            HelperFunctions.formateDateForBack(
-                              taskEntity.startDate,
-                            ),
+                            HelperFunctions.formatDate(taskEntity.startDate),
                             style: AppTextStyle.bodySm(
                               color: AppColors.fontLightGray,
                             ),
@@ -208,9 +203,7 @@ class TaskDetailsPage extends StatelessWidget {
                           ),
                           PaddingConfig.w88,
                           Text(
-                            HelperFunctions.formateDateForBack(
-                              taskEntity.endDate,
-                            ),
+                            HelperFunctions.formatDate(taskEntity.endDate),
                             // "${HelperFunctions.formatDate(DateTime.now())} - ${TimeOfDay.fromDateTime(DateTime.now()).format(context)}",
                             style: AppTextStyle.bodySm(
                               color: AppColors.fontLightGray,

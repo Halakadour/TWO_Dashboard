@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:two_dashboard/config/theme/color.dart';
+import 'package:two_dashboard/core/helper/helper_functions.dart';
 
 import '../../../../config/constants/sizes_config.dart';
 import '../../../../config/theme/text_style.dart';
@@ -25,10 +25,12 @@ class DynamicStatusContainer extends StatelessWidget {
         vertical: SizesConfig.xs,
         horizontal: SizesConfig.md,
       ),
-      backgroundColor: color ?? AppColors.greenShade1,
+      backgroundColor: color ?? HelperFunctions.getTextBackgroundColor(status),
       child: Text(
         status.toLowerCase(),
-        style: AppTextStyle.bodyXs(color: fontColor ?? AppColors.greenShade2),
+        style: AppTextStyle.bodyXs(
+          color: fontColor ?? HelperFunctions.getTextColor(status),
+        ),
       ),
     );
   }

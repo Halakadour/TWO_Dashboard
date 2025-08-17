@@ -95,10 +95,6 @@ class _SprintDetailsPageState extends State<SprintDetailsPage> {
                       () => context.pushNamed(
                         AppRouteConfig.updateSprint,
                         extra: widget.sprintEntity,
-                        pathParameters: {
-                          'project-id':
-                              widget.sprintEntity.projectId.toString(),
-                        },
                       ),
                 ),
                 PaddingConfig.w8,

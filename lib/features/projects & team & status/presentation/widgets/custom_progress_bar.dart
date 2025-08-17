@@ -31,7 +31,7 @@ class CustomProgressBar extends StatelessWidget {
         ),
         PaddingConfig.w8,
         Text(
-          '%${value / 100}',
+          '%$value',
           style: AppTextStyle.bodySm(color: AppColors.fontLightGray),
         ),
       ],

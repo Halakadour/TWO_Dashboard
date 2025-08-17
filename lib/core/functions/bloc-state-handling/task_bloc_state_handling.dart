@@ -139,9 +139,10 @@ class TaskBlocStateHandling {
         return GridView.builder(
           itemCount: state.myProjectTasksList.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
+            crossAxisCount: 3,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
+            childAspectRatio: 1.2,
           ),
           itemBuilder:
               (context, index) =>
@@ -167,10 +168,10 @@ class TaskBlocStateHandling {
         return GridView.builder(
           itemCount: state.projectTasksList.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
+            crossAxisCount: 3,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
-            childAspectRatio: 0.9,
+            childAspectRatio: 1.2,
           ),
           itemBuilder:
               (context, index) =>
@@ -194,7 +195,7 @@ class TaskBlocStateHandling {
         return EmptyStatusAnimation();
       } else {
         return ListView.builder(
-          itemCount: 3,
+          itemCount: state.sprintTasksList.length,
           itemBuilder:
               (context, index) => Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),

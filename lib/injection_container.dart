@@ -121,10 +121,10 @@ import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprin
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprint-usecase/create_backlog_sprint_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/create_task_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/delete_task_usecase.dart';
-import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_all_tasks_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_my_project_tasks_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_my_sprint_tasks_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprint-usecase/show_project_pending_sprint_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_my_tasks_list_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_project_backlog_tasks_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/show_project_board_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_project_tasks_usecase.dart';
@@ -430,7 +430,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => UpdateTaskUsecase(sl()));
   sl.registerLazySingleton(() => DeleteTaskUsecase(sl()));
   sl.registerLazySingleton(() => ShowTaskDetailsUsecase(sl()));
-  sl.registerLazySingleton(() => ShowAllTasksUsecase(sl()));
+  sl.registerLazySingleton(() => ShowMyTasksListUsecase(sl()));
   sl.registerLazySingleton(() => ShowProjectTasksUsecase(sl()));
   sl.registerLazySingleton(() => ShowSprintTasksUsecase(sl()));
   sl.registerLazySingleton(() => ShowMyProjectTasksUsecase(sl()));

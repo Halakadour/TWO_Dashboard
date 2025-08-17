@@ -123,13 +123,15 @@ class SprintsRemoteDatasourceImpl extends SprintsRemoteDatasource {
       token: param.token,
       body:
           (param.action == null)
-              ? ({'project_id': param.projectId})
+              ? ({'action': "null", 'project_id': param.projectId})
               : (param.action == "new")
               ? ({
                 'action': 'new',
                 'new_sprint_label': param.newSprintLabel,
                 'project_id': param.projectId,
               })
+              : (param.action == "auto")
+              ? ({'action': 'auto', 'project_id': param.projectId})
               : ({
                 'action': 'existing',
                 'existing_sprint_id': param.existingSprintId,

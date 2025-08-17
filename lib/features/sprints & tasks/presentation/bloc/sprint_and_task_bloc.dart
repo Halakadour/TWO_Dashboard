@@ -20,10 +20,10 @@ import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprin
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprint-usecase/create_backlog_sprint_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/create_task_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/delete_task_usecase.dart';
-import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_all_tasks_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_my_project_tasks_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_my_sprint_tasks_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprint-usecase/show_project_pending_sprint_usecase.dart';
+import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_my_tasks_list_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_project_backlog_tasks_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_project_tasks_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_sprint_tasks_usecase.dart';
@@ -51,12 +51,12 @@ class SprintAndTaskBloc extends Bloc<SprintAndTaskEvent, SprintAndTaskState> {
   final UpdateTaskUsecase updateTaskUsecase;
   final DeleteTaskUsecase deleteTaskUsecase;
   final ShowTaskDetailsUsecase showTaskDetailsUsecase;
-  final ShowAllTasksUsecase showAllTasksUsecase;
   final ShowProjectTasksUsecase showProjectTasksUsecase;
   final ShowSprintTasksUsecase showSprintTasksUsecase;
   final ShowMyProjectTasksUsecase showMyProjectTasksUsecase;
   final ShowMySprintTasksUsecase showMySprintTasksUsecase;
   final ShowProjectBacklogTasksUsecase showProjectBacklogTasksUsecase;
+  final ShowMyTasksListUsecase showMyTasksListUsecase;
   SprintAndTaskBloc(
     this.createSprintUsecase,
     this.updateSprintUsecase,
@@ -71,7 +71,6 @@ class SprintAndTaskBloc extends Bloc<SprintAndTaskEvent, SprintAndTaskState> {
     this.updateTaskUsecase,
     this.deleteTaskUsecase,
     this.showTaskDetailsUsecase,
-    this.showAllTasksUsecase,
     this.showProjectTasksUsecase,
     this.showSprintTasksUsecase,
     this.showMyProjectTasksUsecase,
@@ -79,6 +78,7 @@ class SprintAndTaskBloc extends Bloc<SprintAndTaskEvent, SprintAndTaskState> {
     this.showPendingSprintTasksUsecase,
     this.showProjectBacklogTasksUsecase,
     this.createBacklogTasksUsecase,
+    this.showMyTasksListUsecase,
   ) : super(SprintAndTaskState()) {
     /////////////////////////////// ********* SPRINT BLOC ******** ////////////////////////////////////////
     // create sprint
@@ -553,31 +553,6 @@ class SprintAndTaskBloc extends Bloc<SprintAndTaskEvent, SprintAndTaskState> {
         );
       }
     });
-    // View All Tasks
-    on<ShowAllTasksEvent>((event, emit) async {
-      emit(state.copyWith(allTasksListStatus: CasualStatus.loading));
-      final token = await SharedPreferencesServices.getUserToken();
-      if (token != null) {
-        final result = await showAllTasksUsecase.call(token);
-        result.fold(
-          (l) => emit(
-            state.copyWith(
-              allTasksListStatus: CasualStatus.failure,
-              errorMessage: l.message,
-              statusNum: l.hashCode,
-            ),
-          ),
-          (r) => emit(
-            state.copyWith(
-              allTasksListStatus: CasualStatus.success,
-              allTasksList: r,
-            ),
-          ),
-        );
-      } else {
-        emit(state.copyWith(allTasksListStatus: CasualStatus.not_authorized));
-      }
-    });
     // View Tasks On This Sprint
     on<ShowSprintTasksEvent>((event, emit) async {
       emit(state.copyWith(sprintTasksListStatus: CasualStatus.loading));
@@ -698,6 +673,56 @@ class SprintAndTaskBloc extends Bloc<SprintAndTaskEvent, SprintAndTaskState> {
       } else {
         emit(
           state.copyWith(backlogTasksListStatus: CasualStatus.not_authorized),
+        );
+      }
+    });
+    // View My Tasks List
+    on<ShowMyTasksEvent>((event, emit) async {
+      emit(state.copyWith(myTasksListStatus: CasualStatus.loading));
+      final token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await showMyTasksListUsecase.call(token);
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              myTasksListStatus: CasualStatus.failure,
+              errorMessage: l.message,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(
+              myTasksListStatus: CasualStatus.success,
+              myTasksList: r,
+            ),
+          ),
+        );
+      } else {
+        emit(state.copyWith(myTasksListStatus: CasualStatus.not_authorized));
+      }
+    });
+    // View Calendar Tasks List
+    on<ShowCalendarTasksEvent>((event, emit) async {
+      emit(state.copyWith(calendarTasksListStatus: CasualStatus.loading));
+      final token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await showMyTasksListUsecase.call(token);
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              calendarTasksListStatus: CasualStatus.failure,
+              errorMessage: l.message,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(
+              calendarTasksListStatus: CasualStatus.success,
+              calendarTasksList: r,
+            ),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(calendarTasksListStatus: CasualStatus.not_authorized),
         );
       }
     });

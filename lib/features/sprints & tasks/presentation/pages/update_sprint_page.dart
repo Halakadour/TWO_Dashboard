@@ -10,13 +10,8 @@ import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/sprint_
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/widgets/update_sprint_form.dart';
 
 class UpdateSprintPage extends StatelessWidget {
-  const UpdateSprintPage({
-    super.key,
-    required this.sprintEntity,
-    required this.projectId,
-  });
+  const UpdateSprintPage({super.key, required this.sprintEntity});
   final SprintEntity sprintEntity;
-  final String projectId;
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +43,7 @@ class UpdateSprintPage extends StatelessWidget {
             ),
             CustomPageDivider(),
             PaddingConfig.h24,
-            UpdateSprintForm(
-              sprintEntity: sprintEntity,
-              projectId: int.parse(projectId),
-            ),
+            UpdateSprintForm(sprintEntity: sprintEntity),
           ],
         ),
       ),

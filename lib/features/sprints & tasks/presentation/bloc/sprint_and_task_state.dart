@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'sprint_and_task_bloc.dart';
 
 class SprintAndTaskState {
@@ -36,9 +35,6 @@ class SprintAndTaskState {
 
   // Tasks Lists (All-Tasks ,Project-Tasks, Sprint-Tasks, My-Project-Tasks, My-Sprints-Tasks- Backlog-Tasks)
 
-  final List<TaskEntity> allTasksList;
-  final CasualStatus allTasksListStatus;
-
   final List<TaskEntity> projectTasksList;
   final CasualStatus projectTasksListStatus;
 
@@ -54,6 +50,12 @@ class SprintAndTaskState {
   final List<TaskModel> backlogTasksList;
   final CasualStatus backlogTasksListStatus;
 
+  final List<TaskEntity> myTasksList;
+  final CasualStatus myTasksListStatus;
+
+  final List<TaskEntity> calendarTasksList;
+  final CasualStatus calendarTasksListStatus;
+
   // Tasks Details
   final TaskEntity? taskEntity;
   final CasualStatus taskEntityStatus;
@@ -67,8 +69,6 @@ class SprintAndTaskState {
     this.deleteSprintStatus = CasualStatus.initial,
     this.startSprintStatus = CasualStatus.initial,
     this.completeSprintStatus = CasualStatus.initial,
-    this.allTasksList = const [],
-    this.allTasksListStatus = CasualStatus.initial,
     this.projectUnCompleteSprintsList = const [],
     this.projectUnCompleteSprintsListStatus = CasualStatus.initial,
     this.projectStartedSprintsList = const [],
@@ -96,6 +96,10 @@ class SprintAndTaskState {
     this.projectPendedSprintsListStatus = CasualStatus.initial,
     this.taskEntity,
     this.taskEntityStatus = CasualStatus.initial,
+    this.myTasksList = const [],
+    this.myTasksListStatus = CasualStatus.initial,
+    this.calendarTasksList = const [],
+    this.calendarTasksListStatus = CasualStatus.initial,
   });
 
   SprintAndTaskState copyWith({
@@ -132,6 +136,10 @@ class SprintAndTaskState {
     CasualStatus? mySprintTasksListStatus,
     List<TaskModel>? backlogTasksList,
     CasualStatus? backlogTasksListStatus,
+    List<TaskEntity>? myTasksList,
+    CasualStatus? myTasksListStatus,
+    List<TaskEntity>? calendarTasksList,
+    CasualStatus? calendarTasksListStatus,
     TaskEntity? taskEntity,
     CasualStatus? taskEntityStatus,
   }) {
@@ -153,6 +161,10 @@ class SprintAndTaskState {
       projectStartedSprintsListStatus:
           projectStartedSprintsListStatus ??
           this.projectStartedSprintsListStatus,
+      projectPendedSprintsList:
+          projectPendedSprintsList ?? this.projectPendedSprintsList,
+      projectPendedSprintsListStatus:
+          projectPendedSprintsListStatus ?? this.projectPendedSprintsListStatus,
       projectSprintsList: projectSprintsList ?? this.projectSprintsList,
       projectSprintsListStatus:
           projectSprintsListStatus ?? this.projectSprintsListStatus,
@@ -163,8 +175,6 @@ class SprintAndTaskState {
       deleteTaskStatus: deleteTaskStatus ?? this.deleteTaskStatus,
       createBacklogTasksSprintStatus:
           createBacklogTasksSprintStatus ?? this.createBacklogTasksSprintStatus,
-      allTasksList: allTasksList ?? this.allTasksList,
-      allTasksListStatus: allTasksListStatus ?? this.allTasksListStatus,
       projectTasksList: projectTasksList ?? this.projectTasksList,
       projectTasksListStatus:
           projectTasksListStatus ?? this.projectTasksListStatus,
@@ -180,10 +190,11 @@ class SprintAndTaskState {
       backlogTasksList: backlogTasksList ?? this.backlogTasksList,
       backlogTasksListStatus:
           backlogTasksListStatus ?? this.backlogTasksListStatus,
-      projectPendedSprintsList:
-          projectPendedSprintsList ?? this.projectPendedSprintsList,
-      projectPendedSprintsListStatus:
-          projectPendedSprintsListStatus ?? this.projectPendedSprintsListStatus,
+      myTasksList: myTasksList ?? this.myTasksList,
+      myTasksListStatus: myTasksListStatus ?? this.myTasksListStatus,
+      calendarTasksList: calendarTasksList ?? this.calendarTasksList,
+      calendarTasksListStatus:
+          calendarTasksListStatus ?? this.calendarTasksListStatus,
       taskEntity: taskEntity ?? this.taskEntity,
       taskEntityStatus: taskEntityStatus ?? this.taskEntityStatus,
     );

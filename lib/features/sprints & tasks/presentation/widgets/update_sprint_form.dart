@@ -16,13 +16,8 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presenta
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 
 class UpdateSprintForm extends StatefulWidget {
-  const UpdateSprintForm({
-    super.key,
-    required this.sprintEntity,
-    required this.projectId,
-  });
+  const UpdateSprintForm({super.key, required this.sprintEntity});
   final SprintEntity sprintEntity;
-  final int projectId;
 
   @override
   State<UpdateSprintForm> createState() => _UpdateSprintFormState();
@@ -211,7 +206,7 @@ class _UpdateSprintFormState extends State<UpdateSprintForm> {
                       SprintBlocStateHandling().updateSprintListener(
                         state,
                         context,
-                        widget.projectId,
+                        widget.sprintEntity.projectId,
                       );
                     },
                     child: SaveElevatedButton(
@@ -231,7 +226,7 @@ class _UpdateSprintFormState extends State<UpdateSprintForm> {
                               end: HelperFunctions.formateDateForBack(
                                 _endDate!,
                               ),
-                              projectId: widget.projectId,
+                              projectId: widget.sprintEntity.projectId,
                               status: widget.sprintEntity.sprintStatus,
                             ),
                           );

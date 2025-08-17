@@ -365,4 +365,25 @@ class HelperFunctions {
         return Colors.purple.shade100;
     }
   }
+
+  // Text Color
+  static Color getTextBackgroundColor(String text) {
+    if (text.toLowerCase().contains("reje")) {
+      return AppColors.redShade1;
+    } else if (text.toLowerCase().contains('pend')) {
+      return AppColors.yellowShade1;
+    } else {
+      return AppColors.greenShade1;
+    }
+  }
+
+  static Color getTextColor(String text) {
+    if (text.toLowerCase().contains("reje")) {
+      return AppColors.redShade2;
+    } else if (text.toLowerCase().contains('pend')) {
+      return AppColors.yellowShade2;
+    } else {
+      return AppColors.greenShade2;
+    }
+  }
 }

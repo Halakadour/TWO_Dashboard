@@ -4,13 +4,13 @@ import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/empty_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
-import 'package:two_dashboard/core/widgets/animation/loading_status_animation.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/core/widgets/shimmers/card-loading/loading_status_card.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_status_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/board_kanban_view.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/status_kanban_view.dart';
 
 class StatusBlocStateHandling {
@@ -28,9 +28,6 @@ class StatusBlocStateHandling {
       context.read<ProjectStatusTeamBloc>().add(
         ShowProjectStatusEvent(projectId: projectId),
       );
-      showSuccessDialog(context, () {
-        context.pop();
-      });
     } else if (state.createStatus == CasualStatus.failure) {
       context.pop();
       showErrorDialog(context, state.message);
@@ -110,13 +107,13 @@ class StatusBlocStateHandling {
   // list of status for project board
   Widget getProjectBoardList(ProjectStatusTeamState state, int projectId) {
     if (state.projectBoardListStatus == CasualStatus.loading) {
-      return Center(child: LoadingStatusAnimation());
+      return LoadingStatusCard();
     } else if (state.projectBoardListStatus == CasualStatus.success) {
       // return Text("Success");
       if (state.projectBoardList.isEmpty) {
         return EmptyStatusAnimation();
       } else {
-        return StatusKanbanView(
+        return BoardKanbanView(
           statusList: state.projectBoardList,
           projectId: projectId,
         );

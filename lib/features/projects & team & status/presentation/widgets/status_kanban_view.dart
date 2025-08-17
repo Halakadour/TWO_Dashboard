@@ -133,7 +133,7 @@ class _StatusKanbanViewState extends State<StatusKanbanView> {
                 PaddingConfig.h16,
                 // Tasks List
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.5,
+                  height: MediaQuery.of(context).size.height * 0.7,
                   child: ListView(
                     children: List.generate(
                       projectStatus.tasks.length,

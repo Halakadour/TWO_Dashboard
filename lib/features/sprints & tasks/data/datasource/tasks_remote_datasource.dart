@@ -13,8 +13,8 @@ abstract class TaskRemoteDatasource {
   Future<EmptyResponseModel> updateTask(UpdateTaskParam param);
   Future<EmptyResponseModel> deleteTask(TokenWithIdParam task);
   Future<CreateAndShowTaskResponseModel> showTaskDetails(TokenWithIdParam task);
-  // Tasks Lists (All-Tasks ,Project-Tasks, Sprint-Tasks, My-Project-Tasks, My-Sprints-Tasks- Backlog-Tasks)
-  Future<ShowTaskListResponseModel> showAllTasks(String token);
+  // Tasks Lists (My-Tasks ,Project-Tasks, Sprint-Tasks, My-Project-Tasks, My-Sprints-Tasks- Backlog-Tasks)
+  Future<ShowTaskListResponseModel> showMyTasksList(String token);
   Future<ShowTaskListResponseModel> showProjectTasks(TokenWithIdParam project);
   Future<ShowTaskListResponseModel> showSprintTasks(TokenWithIdParam sprint);
   Future<ShowTaskListResponseModel> showMyProjectTasks(
@@ -72,16 +72,6 @@ class TaskRemoteDatasourceImpl extends TaskRemoteDatasource {
         "$baseUri/api/show/project/employee/tasks?filter[sprint_id]=${param.sprinttId}&filter[priority]=${param.proirity}&filter[status_id]=${param.status}",
       ),
       token: param.token,
-      fromJson: showTaskListResponseModelFromJson,
-    );
-    return await result.callRequest();
-  }
-
-  @override
-  Future<ShowTaskListResponseModel> showAllTasks(String token) async {
-    final result = GetWithTokenApi(
-      uri: Uri.parse("$baseUri/api/show/employee/tasks"),
-      token: token,
       fromJson: showTaskListResponseModelFromJson,
     );
     return await result.callRequest();
@@ -150,7 +140,7 @@ class TaskRemoteDatasourceImpl extends TaskRemoteDatasource {
         'status_id': param.statusId.toString(),
         'user_id': param.userId.toString(),
         'priority': param.priority,
-        'completion': param.completion,
+        'completion': param.completion.toString(),
         'start': param.startDate,
         'end': param.endDate,
         'task_id': param.taskId,
@@ -167,6 +157,16 @@ class TaskRemoteDatasourceImpl extends TaskRemoteDatasource {
     final result = GetWithTokenApi(
       uri: Uri.parse("$baseUri/api/show/project/backlog/tasks/${project.id}"),
       token: project.token,
+      fromJson: showTaskListResponseModelFromJson,
+    );
+    return await result.callRequest();
+  }
+
+  @override
+  Future<ShowTaskListResponseModel> showMyTasksList(String token) async {
+    final result = GetWithTokenApi(
+      uri: Uri.parse("$baseUri/api/show/employee/tasks"),
+      token: token,
       fromJson: showTaskListResponseModelFromJson,
     );
     return await result.callRequest();

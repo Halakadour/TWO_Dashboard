@@ -22,15 +22,8 @@ import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/task_en
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 
 class UpdateTaskForm extends StatefulWidget {
-  const UpdateTaskForm({
-    super.key,
-    required this.taskEntity,
-    required this.projectId,
-    required this.sprintId,
-  });
+  const UpdateTaskForm({super.key, required this.taskEntity});
   final TaskEntity taskEntity;
-  final int projectId;
-  final int sprintId;
 
   @override
   State<UpdateTaskForm> createState() => _UpdateTaskFormState();
@@ -92,10 +85,12 @@ class _UpdateTaskFormState extends State<UpdateTaskForm> {
   }
 
   Future<void> _loadStatuses() async {
-    final box = Hive.box<ProjectStatus>('projectStatuses');
+    final box = Hive.box<ProjectStatus>(CACHED_STATUS);
     final allStatuses = box.values.toList();
     final filtered =
-        allStatuses.where((s) => s.projectId == widget.projectId).toList()
+        allStatuses
+            .where((s) => s.projectId == widget.taskEntity.projectId)
+            .toList()
           ..sort((a, b) => a.id.compareTo(b.id)); // ترتيب اختياري حسب id
 
     setState(() {
@@ -104,30 +99,35 @@ class _UpdateTaskFormState extends State<UpdateTaskForm> {
   }
 
   Future<void> _loadMembers() async {
-    final allMembers = await getCachedTeamForProject(widget.projectId);
+    final allMembers = await getCachedTeamForProject(
+      widget.taskEntity.projectId,
+    );
+    if (!mounted) return;
     setState(() {
-      _membersList = allMembers!.members;
+      _membersList = allMembers?.members ?? [];
+      user = _membersList.firstWhere(
+        (element) => element.id == widget.taskEntity.assignedUser.id,
+        //orElse: () => _membersList.isNotEmpty ? _membersList.first : null,
+      );
     });
   }
 
   @override
   void initState() {
+    super.initState();
     _formKey = GlobalKey<FormState>();
     _titleController = TextEditingController(text: widget.taskEntity.title);
     _descriptionController = TextEditingController(
       text: widget.taskEntity.description,
-    );
-    user = _membersList.firstWhere(
-      (element) => element.id == widget.taskEntity.assignedUser.id,
     );
     priority = HelperFunctions.getPriorityName(widget.taskEntity.taskPriority);
     taskStatus = widget.taskEntity.taskStatus;
     completion = widget.taskEntity.taskCompletion;
     _startDate = widget.taskEntity.startDate;
     _endDate = widget.taskEntity.endDate;
-    _loadStatuses(); // ← تحميل الحالات
-    _loadMembers(); // ← تحميل أعضاء الفريق
-    super.initState();
+
+    _loadStatuses();
+    _loadMembers();
   }
 
   @override
@@ -290,6 +290,7 @@ class _UpdateTaskFormState extends State<UpdateTaskForm> {
                     Slider(
                       value: completion!,
                       inactiveColor: AppColors.gray,
+                      activeColor: AppColors.blueShade2,
                       min: 0,
                       max: 100,
                       onChanged: (value) {
@@ -365,8 +366,8 @@ class _UpdateTaskFormState extends State<UpdateTaskForm> {
                               taskId: widget.taskEntity.id,
                               title: _titleController.text,
                               description: _descriptionController.text,
-                              projectId: widget.projectId,
-                              sprintId: widget.sprintId,
+                              projectId: widget.taskEntity.projectId,
+                              sprintId: widget.taskEntity.sprintId,
                               statusId: statusId!,
                               userId: user!.id,
                               priority: priority!,
@@ -399,7 +400,7 @@ class _UpdateTaskFormState extends State<UpdateTaskForm> {
         Radio<String>(
           value: value,
           groupValue: priority,
-          activeColor: AppColors.greenShade2,
+          activeColor: AppColors.blueShade2,
           onChanged: (String? newValue) {
             setState(() {
               priority = newValue;
@@ -417,7 +418,7 @@ class _UpdateTaskFormState extends State<UpdateTaskForm> {
         Radio<int>(
           value: status.id,
           groupValue: statusId,
-          activeColor: AppColors.greenShade2,
+          activeColor: AppColors.blueShade2,
           onChanged: (int? newValue) {
             setState(() {
               statusId = newValue;

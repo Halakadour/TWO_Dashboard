@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/core/helper/helper_functions.dart';
-import 'package:two_dashboard/core/widgets/images/image_circle.dart';
+import 'package:two_dashboard/core/widgets/container/status-containers/duration_container.dart';
+import 'package:two_dashboard/core/widgets/container/status-containers/task_status_container.dart';
+import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/task_entity.dart';
 
 import '../../../../config/constants/padding_config.dart';
@@ -57,11 +59,50 @@ class TaskBoardCard extends StatelessWidget {
                     value: taskEntity.taskCompletion,
                   ),
                   PaddingConfig.h16,
+                  // Assigned to
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ImageCircle(),
+                      // image
+                      FetchNetworkImage(
+                        height: 40,
+                        width: 40,
+                        shape: BoxShape.circle,
+                        imagePath: taskEntity.assignedUser.image,
+                      ),
+                      PaddingConfig.w8,
+                      // Name and Email
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            taskEntity.assignedUser.name,
+                            style: AppTextStyle.bodyMd(
+                              color: AppColors.fontDarkGray,
+                            ),
+                          ),
+                          Text(
+                            taskEntity.assignedUser.role,
+                            style: AppTextStyle.bodySm(
+                              color: AppColors.fontLightGray,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  PaddingConfig.h16,
+                  // Priority & Status & duration
+                  Row(
+                    children: [
                       PriorityContainer(priority: taskEntity.taskPriority),
+                      PaddingConfig.w8,
+                      TaskStatusContainer(taskStatus: taskEntity.taskStatus),
+                      PaddingConfig.w8,
+                      DurationContainer(
+                        startDate: taskEntity.startDate,
+                        endDate: taskEntity.endDate,
+                      ),
                     ],
                   ),
                   PaddingConfig.h16,

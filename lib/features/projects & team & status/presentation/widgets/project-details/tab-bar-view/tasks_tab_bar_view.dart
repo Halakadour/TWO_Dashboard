@@ -57,19 +57,23 @@ class _TasksTabBarViewState extends State<TasksTabBarView> {
   Widget _buildProirityRadio(String value, String label) {
     return Row(
       children: [
-        Radio<String>(
-          value: value,
-          groupValue: proirityFilter.value,
-          activeColor: AppColors.blueShade2,
-          onChanged: (String? newValue) {
-            proirityFilter.value = newValue!;
-            context.read<SprintAndTaskBloc>().add(
-              ShowMyProjectTasksEvent(
-                projectId: widget.projectId,
-                proirity: proirityFilter.value,
+        ValueListenableBuilder(
+          valueListenable: proirityFilter,
+          builder:
+              (_, v, _) => Radio<String>(
+                value: value,
+                groupValue: proirityFilter.value,
+                activeColor: AppColors.blueShade2,
+                onChanged: (String? newValue) {
+                  proirityFilter.value = newValue!;
+                  context.read<SprintAndTaskBloc>().add(
+                    ShowMyProjectTasksEvent(
+                      projectId: widget.projectId,
+                      proirity: proirityFilter.value,
+                    ),
+                  );
+                },
               ),
-            );
-          },
         ),
         Text(label, style: AppTextStyle.bodySm()),
       ],
@@ -80,6 +84,12 @@ class _TasksTabBarViewState extends State<TasksTabBarView> {
   void didChangeDependencies() {
     context.read<SprintAndTaskBloc>().add(
       ShowProjectTasksEvent(projectId: widget.projectId),
+    );
+    context.read<SprintAndTaskBloc>().add(
+      ShowMyProjectTasksEvent(
+        projectId: widget.projectId,
+        proirity: proirityFilter.value,
+      ),
     );
     super.didChangeDependencies();
   }
@@ -114,28 +124,34 @@ class _TasksTabBarViewState extends State<TasksTabBarView> {
               ),
             ),
             PaddingConfig.h16,
-            if (taskFilter.value == 1)
-              CustomRounderContainer(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(Iconsax.filter),
-                        PaddingConfig.w8,
-                        Text("Priority Filter :"),
-                      ],
+            ValueListenableBuilder(
+              valueListenable: taskFilter,
+              builder:
+                  (context, value, child) => Visibility(
+                    visible: value == 1 ? true : false,
+                    child: CustomRounderContainer(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(Iconsax.filter),
+                              PaddingConfig.w8,
+                              Text("Priority Filter :"),
+                            ],
+                          ),
+                          PaddingConfig.h16,
+                          _buildProirityRadio("Low", "Low"),
+                          PaddingConfig.h8,
+                          _buildProirityRadio("Mid", "Mideum"),
+                          PaddingConfig.h8,
+                          _buildProirityRadio("High", "High"),
+                        ],
+                      ),
                     ),
-                    PaddingConfig.h16,
-                    _buildProirityRadio("Low", "Low"),
-                    PaddingConfig.h8,
-                    _buildProirityRadio("Mid", "Mideum"),
-                    PaddingConfig.h8,
-                    _buildProirityRadio("High", "High"),
-                  ],
-                ),
-              ),
+                  ),
+            ),
           ],
         ),
         PaddingConfig.w16,

@@ -10,15 +10,8 @@ import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/task_en
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/widgets/update_task_form.dart';
 
 class UpdateTaskPage extends StatelessWidget {
-  const UpdateTaskPage({
-    super.key,
-    required this.taskEntity,
-    required this.projectId,
-    required this.sprintId,
-  });
+  const UpdateTaskPage({super.key, required this.taskEntity});
   final TaskEntity taskEntity;
-  final String projectId;
-  final String sprintId;
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +43,7 @@ class UpdateTaskPage extends StatelessWidget {
             ),
             CustomPageDivider(),
             PaddingConfig.h24,
-            UpdateTaskForm(
-              taskEntity: taskEntity,
-              projectId: int.parse(projectId),
-              sprintId: int.parse(sprintId),
-            ),
+            UpdateTaskForm(taskEntity: taskEntity),
           ],
         ),
       ),

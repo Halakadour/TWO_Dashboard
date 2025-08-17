@@ -3,6 +3,7 @@ import 'package:two_dashboard/core/error/failures.dart';
 import 'package:two_dashboard/core/param/casule_param.dart';
 import 'package:two_dashboard/core/param/status_param.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/datasource/status_remote_data_source.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/status/show_project_board_response_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/status/status_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/repos/status_repo.dart';
 
@@ -55,7 +56,7 @@ class StatusRepoImpl extends StatusRepo {
   }
 
   @override
-  Future<Either<Failure, List<StatusModel>>> showProjectBoard(
+  Future<Either<Failure, List<StatusBoardModel>>> showProjectBoard(
     ShowProjectBoardParam param,
   ) {
     return wrapHandling(

@@ -90,7 +90,7 @@ class _CustomSidebarState extends State<CustomSidebar> {
                     SideBarTitle(title: TextStrings.tasks, icon: Iconsax.task),
                     MenuItem(
                       icon: IconsPath.sort,
-                      itemName: TextStrings.tasks,
+                      itemName: TextStrings.viewMyTasks,
                       pageNum: 4,
                       currentPage: widget.currentPageIndex,
                       onTap: widget.onItemSelected,

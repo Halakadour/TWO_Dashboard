@@ -44,16 +44,6 @@ class TaskRepoImpl extends TaskRepo {
   }
 
   @override
-  Future<Either<Failure, List<TaskEntity>>> showAllTasks(String token) {
-    return wrapHandling(
-      tryCall: () async {
-        final result = await taskRemoteDatasource.showAllTasks(token);
-        return Right(result.data);
-      },
-    );
-  }
-
-  @override
   Future<Either<Failure, List<TaskEntity>>> showMyProjectTasks(
     ShowMyProjectTasksParam param,
   ) {
@@ -118,6 +108,16 @@ class TaskRepoImpl extends TaskRepo {
     return wrapHandling(
       tryCall: () async {
         final result = await taskRemoteDatasource.showProjectTasks(project);
+        return Right(result.data);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, List<TaskEntity>>> showMyTasksList(String token) {
+    return wrapHandling(
+      tryCall: () async {
+        final result = await taskRemoteDatasource.showMyTasksList(token);
         return Right(result.data);
       },
     );

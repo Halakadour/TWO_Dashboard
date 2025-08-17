@@ -31,6 +31,7 @@ class SprintCard extends StatelessWidget {
           ),
       child: CustomRounderContainer(
         backgroundColor: AppColors.grayshade1,
+        margin: EdgeInsets.only(bottom: 16.0),
         child: Column(
           children: [
             Row(

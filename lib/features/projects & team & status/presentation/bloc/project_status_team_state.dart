@@ -29,7 +29,7 @@ class ProjectStatusTeamState {
   final CasualStatus showStatus;
   final List<StatusModel> showStatusList;
   final CasualStatus projectBoardListStatus;
-  final List<StatusModel> projectBoardList;
+  final List<StatusBoardModel> projectBoardList;
 
   // Team State
   final CasualStatus createTeamStatus;
@@ -94,7 +94,7 @@ class ProjectStatusTeamState {
     CasualStatus? updateOrderStatus,
     CasualStatus? showStatus,
     List<StatusModel>? showStatusList,
-    List<StatusModel>? projectBoardList,
+    List<StatusBoardModel>? projectBoardList,
     CasualStatus? projectBoardListStatus,
     CasualStatus? createTeamStatus,
     CasualStatus? addMemersStatus,
@@ -131,6 +131,9 @@ class ProjectStatusTeamState {
       updateOrderStatus: updateOrderStatus ?? this.updateOrderStatus,
       showStatus: showStatus ?? this.showStatus,
       showStatusList: showStatusList ?? this.showStatusList,
+      projectBoardList: projectBoardList ?? this.projectBoardList,
+      projectBoardListStatus:
+          projectBoardListStatus ?? this.projectBoardListStatus,
       createTeamStatus: createTeamStatus ?? this.createTeamStatus,
       addMemersStatus: addMemersStatus ?? this.addMemersStatus,
       showTeamsStatus: showTeamsStatus ?? this.showTeamsStatus,

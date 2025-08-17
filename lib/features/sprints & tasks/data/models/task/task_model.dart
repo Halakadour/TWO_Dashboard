@@ -44,7 +44,7 @@ class TaskModel extends TaskEntity {
     status: json["status"],
     assignedTo: EmployeeModel.fromJson(json["assigned_to"]),
     priority: json["priority"],
-    completion: json["completion"],
+    completion: json["completion"] ?? 0,
     start: DateTime.parse(json["start"]),
     end: DateTime.parse(json["end"]),
   );

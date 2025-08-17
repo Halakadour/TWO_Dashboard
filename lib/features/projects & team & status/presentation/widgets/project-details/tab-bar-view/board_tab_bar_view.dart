@@ -5,7 +5,6 @@ import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/status_bloc_state_handling.dart';
 import 'package:two_dashboard/core/network/enums.dart';
-import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/complete_sprint_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/container/custom_rounder_container.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/sprint_entity.dart';
@@ -27,33 +26,55 @@ class _BoardTabBarViewState extends State<BoardTabBarView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children:
           sprints.map((sprint) {
-            final isSelected = selectedSprintIds.value.contains(sprint.id);
-            return CheckboxListTile(
-              value: isSelected,
-              onChanged: (val) {
-                if (val == true) {
-                  selectedSprintIds.value = [
-                    ...selectedSprintIds.value,
-                    sprint.id,
-                  ];
-                } else {
-                  selectedSprintIds.value =
-                      selectedSprintIds.value
-                          .where((id) => id != sprint.id)
-                          .toList();
-                }
-                // Get project board based on sprints that I select
-                context.read<ProjectStatusTeamBloc>().add(
-                  ShowProjectBoardEvent(
-                    projectId: widget.projectId,
-                    sprintsIdList: selectedSprintIds.value,
+            return ValueListenableBuilder<List<int>>(
+              valueListenable: selectedSprintIds,
+              builder: (context, value, child) {
+                final isSelected = value.contains(sprint.id);
+                return ListTile(
+                  dense: true,
+                  leading: Radio<bool>(
+                    value: true,
+                    groupValue: isSelected,
+                    onChanged: (val) {
+                      if (isSelected) {
+                        // إلغاء التحديد
+                        selectedSprintIds.value.removeWhere(
+                          (id) => id == sprint.id,
+                        );
+                      } else {
+                        // إضافة sprint جديد
+                        selectedSprintIds.value = [...value, sprint.id];
+                      }
+                      print("*****************");
+                      print(selectedSprintIds.value);
+                      print("*****************");
+                      // تحديث البورد
+                      context.read<ProjectStatusTeamBloc>().add(
+                        ShowProjectBoardEvent(
+                          projectId: widget.projectId,
+                          sprintsIdList: selectedSprintIds.value,
+                        ),
+                      );
+                    },
+                    activeColor: AppColors.blueShade2,
                   ),
+                  title: Text(sprint.label),
+                  onTap: () {
+                    if (isSelected) {
+                      selectedSprintIds.value =
+                          value.where((id) => id != sprint.id).toList();
+                    } else {
+                      selectedSprintIds.value = [...value, sprint.id];
+                    }
+                    context.read<ProjectStatusTeamBloc>().add(
+                      ShowProjectBoardEvent(
+                        projectId: widget.projectId,
+                        sprintsIdList: selectedSprintIds.value,
+                      ),
+                    );
+                  },
                 );
               },
-              title: Text(sprint.label),
-              activeColor: AppColors.blueShade2,
-              controlAffinity: ListTileControlAffinity.leading,
-              dense: true,
             );
           }).toList(),
     );
@@ -61,11 +82,9 @@ class _BoardTabBarViewState extends State<BoardTabBarView> {
 
   @override
   void didChangeDependencies() {
-    // Get the project sprints for filtering
     context.read<SprintAndTaskBloc>().add(
       ShowProjectSprintsEvent(projectId: widget.projectId),
     );
-    // Get project board for the first time were the list is still empty
     context.read<ProjectStatusTeamBloc>().add(
       ShowProjectBoardEvent(
         projectId: widget.projectId,
@@ -82,10 +101,6 @@ class _BoardTabBarViewState extends State<BoardTabBarView> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [CompleteSprintElevatedButton(onPressed: () {})],
-            ),
             PaddingConfig.h32,
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,

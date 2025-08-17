@@ -115,22 +115,18 @@ class AppRouter {
               ),
               GoRoute(
                 name: AppRouteConfig.updateSprint,
-                path: '/update-sprint/:id',
+                path: '/update-sprint',
                 builder:
                     (context, state) => UpdateSprintPage(
                       sprintEntity: state.extra as SprintEntity,
-                      projectId: state.pathParameters['id'] ?? '',
                     ),
               ),
               GoRoute(
                 name: AppRouteConfig.updateTask,
-                path: '/update-task/:pId/:sId',
+                path: '/update-task',
                 builder:
-                    (context, state) => UpdateTaskPage(
-                      taskEntity: state.extra as TaskEntity,
-                      projectId: state.pathParameters['pId'] ?? '',
-                      sprintId: state.pathParameters['sId'] ?? '',
-                    ),
+                    (context, state) =>
+                        UpdateTaskPage(taskEntity: state.extra as TaskEntity),
               ),
               GoRoute(
                 name: AppRouteConfig.sprintDetails,
