@@ -4,7 +4,7 @@ import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/task_en
 import 'package:two_dashboard/features/profile/data/models/employee_model.dart';
 
 class TaskModel extends TaskEntity {
-  final String sprint;
+  final String? sprint;
   final EmployeeModel assignedTo;
   final String status;
   final String priority;
@@ -32,6 +32,7 @@ class TaskModel extends TaskEntity {
          startDate: start,
          endDate: end,
          assignedUser: assignedTo,
+         sprintLabel: sprint,
        );
 
   factory TaskModel.fromJson(Map<String, dynamic> json) => TaskModel(

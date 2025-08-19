@@ -112,7 +112,13 @@ class _StatusTabBarViewState extends State<ContractTabBarView> {
                         EditButton(
                           onTap:
                               () => context.pushNamed(
-                                AppRouteConfig.aboutUsWhyUs,
+                                AppRouteConfig.pmUpdateContract,
+                                // projectId: state.pathParameters['pId'] ?? '',
+                                // contractId: state.pathParameters['cId'] ?? '',
+                                pathParameters: {
+                                  'pId': widget.projectId.toString(),
+                                  'cId': widget.contract!.id.toString(),
+                                },
                               ),
                         ),
                       ],

@@ -39,7 +39,7 @@ class _BacklogTabBarViewState extends State<BacklogTabBarView> {
       padding: EdgeInsetsGeometry.symmetric(horizontal: 16.0),
       child: SingleChildScrollView(
         child: SizedBox(
-          height: 800,
+          height: 900,
           child: Column(
             children: [
               Row(

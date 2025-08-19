@@ -88,6 +88,10 @@ class TextStrings {
   static const String description = "Description";
   static const String requirements = "Requirements";
   static const String priority = "Priority";
+  static const String deadLine = "Dead-Line";
+  static const String leftTime = "Left-Time";
+  static const String assignedTo = "Asigned-To";
+  static const String sprint = "Sprint";
 
   // -- DIALOG TEXTS
   static const String wantToLogout = "Want to logout ? ";

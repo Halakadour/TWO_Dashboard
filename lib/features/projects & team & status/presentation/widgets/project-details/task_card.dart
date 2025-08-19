@@ -12,6 +12,7 @@ import 'package:two_dashboard/core/functions/device_utility.dart';
 import 'package:two_dashboard/core/helper/helper_functions.dart';
 import 'package:two_dashboard/core/widgets/container/custom_rounder_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/duration_container.dart';
+import 'package:two_dashboard/core/widgets/container/status-containers/dynamic_status_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/priority_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/task_status_container.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
@@ -112,6 +113,10 @@ class TaskCard extends StatelessWidget {
                 DurationContainer(
                   startDate: taskEntity.startDate,
                   endDate: taskEntity.endDate,
+                ),
+                PaddingConfig.w8,
+                DynamicStatusContainer(
+                  status: taskEntity.sprintLabel ?? "Backlog",
                 ),
               ],
             ),

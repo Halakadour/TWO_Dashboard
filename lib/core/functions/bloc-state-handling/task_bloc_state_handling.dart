@@ -4,6 +4,8 @@ import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/empty_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
 import 'package:two_dashboard/core/widgets/animation/loading_status_animation.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/tasks/loading_task_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/tasks/task_table.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
@@ -231,6 +233,45 @@ class TaskBlocStateHandling {
       return ErrorStatusAnimation(errorMessage: state.errorMessage);
     } else {
       return SizedBox();
+    }
+  }
+
+  // Get My Own Tasks List
+  Widget getMyTasksListTable(SprintAndTaskState state) {
+    if (state.myTasksListStatus == CasualStatus.loading) {
+      return const LoadingTaskTable();
+    } else if (state.myTasksListStatus == CasualStatus.success) {
+      return TaskTable(taskEntityList: state.myTasksList);
+    } else if (state.myTasksListStatus == CasualStatus.failure) {
+      return Center(
+        child: ErrorStatusAnimation(errorMessage: state.errorMessage),
+      );
+    } else {
+      return const SizedBox();
+    }
+  }
+
+  Widget getMyTasksListKanban(SprintAndTaskState state) {
+    if (state.myTasksListStatus == CasualStatus.loading) {
+      return const LoadingStatusAnimation();
+    } else if (state.myTasksListStatus == CasualStatus.success) {
+      return GridView.builder(
+        itemCount: state.myTasksList.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          childAspectRatio: 1.2,
+        ),
+        itemBuilder:
+            (context, index) => TaskCard(taskEntity: state.myTasksList[index]),
+      );
+    } else if (state.myTasksListStatus == CasualStatus.failure) {
+      return Center(
+        child: ErrorStatusAnimation(errorMessage: state.errorMessage),
+      );
+    } else {
+      return const SizedBox();
     }
   }
 }

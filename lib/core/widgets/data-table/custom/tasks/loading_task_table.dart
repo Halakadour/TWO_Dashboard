@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom_paginated_data_table.dart';
-import 'package:two_dashboard/core/widgets/data-table/custom/tasks/task_table_source.dart';
-import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/task_entity.dart';
+import 'package:two_dashboard/core/widgets/data-table/loading/loading_rows.dart';
 
-class TaskTable extends StatelessWidget {
-  const TaskTable({super.key, required this.taskEntityList});
-  final List<TaskEntity> taskEntityList;
+class LoadingTaskTable extends StatelessWidget {
+  const LoadingTaskTable({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +25,7 @@ class TaskTable extends StatelessWidget {
         DataColumn2(label: Text(TextStrings.assignedTo)),
         DataColumn2(label: Text(TextStrings.actions)),
       ],
-      source: TaskRows(taskList: taskEntityList, context: context),
+      source: LoadingRows(cellsCount: 9),
     );
   }
 }

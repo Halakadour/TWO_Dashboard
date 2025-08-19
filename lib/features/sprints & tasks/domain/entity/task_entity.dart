@@ -3,7 +3,8 @@ import 'package:two_dashboard/features/profile/domain/entities/employee_entity.d
 
 class TaskEntity {
   final int id;
-  final int sprintId;
+  final int? sprintId;
+  final String? sprintLabel;
   final int projectId;
   final String title;
   final String description;
@@ -17,6 +18,7 @@ class TaskEntity {
   TaskEntity({
     required this.id,
     required this.sprintId,
+    required this.sprintLabel,
     required this.projectId,
     required this.title,
     required this.description,

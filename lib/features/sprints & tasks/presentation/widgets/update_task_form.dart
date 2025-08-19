@@ -367,7 +367,7 @@ class _UpdateTaskFormState extends State<UpdateTaskForm> {
                               title: _titleController.text,
                               description: _descriptionController.text,
                               projectId: widget.taskEntity.projectId,
-                              sprintId: widget.taskEntity.sprintId,
+                              sprintId: widget.taskEntity.sprintId ?? 99,
                               statusId: statusId!,
                               userId: user!.id,
                               priority: priority!,

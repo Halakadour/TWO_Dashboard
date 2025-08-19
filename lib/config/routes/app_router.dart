@@ -8,6 +8,7 @@ import 'package:two_dashboard/features/calendar/presentation/pages/calender_page
 import 'package:two_dashboard/features/contracts/presentation/pages/admin_contracts_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/cm_update_contract_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/main_contract_page.dart';
+import 'package:two_dashboard/features/contracts/presentation/pages/pm_update_contract_page.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/my_projects_page.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/pended_projects_page.dart';
@@ -78,6 +79,15 @@ class AppRouter {
                 builder:
                     (context, state) => ProjectDetailsPage(
                       projectEntity: state.extra! as ProjectEntity,
+                    ),
+              ),
+              GoRoute(
+                name: AppRouteConfig.pmUpdateContract,
+                path: '/pm-update-contract/:pId/:cId',
+                builder:
+                    (context, state) => PmUpdateContractPage(
+                      projectId: state.pathParameters['pId'] ?? '',
+                      contractId: state.pathParameters['cId'] ?? '',
                     ),
               ),
               GoRoute(
@@ -321,7 +331,7 @@ class AppRouter {
               ),
             ],
           ),
-          // Setting Branch
+          // Profile Branch
           StatefulShellBranch(
             routes: [
               GoRoute(

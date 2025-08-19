@@ -111,6 +111,25 @@ class ProjectBlocStateHandling {
     }
   }
 
+  // Get My Projects Table
+  Widget getUserProjectsTable(ProjectStatusTeamState state) {
+    if (state.userProjectsListStatus == CasualStatus.loading) {
+      return const LoadingProjectTable();
+    } else if (state.userProjectsListStatus == CasualStatus.success) {
+      for (int i = 0; i < state.userProjectsList.length; i++) {
+        var project = state.userProjectsList[i];
+        if (project.team != null) {
+          cacheTeamForProject(project.id, project.team!);
+        }
+      }
+      return ProjectTable(projectList: state.userProjectsList);
+    } else if (state.userProjectsListStatus == CasualStatus.failure) {
+      return Center(child: ErrorStatusAnimation(errorMessage: state.message));
+    } else {
+      return const SizedBox();
+    }
+  }
+
   // Get Pended Projects Table
   Widget getPendedProjectsTable(ProjectStatusTeamState state) {
     if (state.pendedProjectListStatus == CasualStatus.loading) {

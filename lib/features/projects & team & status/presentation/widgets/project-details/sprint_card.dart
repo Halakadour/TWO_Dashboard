@@ -67,8 +67,11 @@ class SprintCard extends StatelessWidget {
                         ),
                       ),
                     if (!sprintEntity.sprintStatus.toLowerCase().contains(
-                      "pen",
-                    ))
+                          "com",
+                        ) &&
+                        !sprintEntity.sprintStatus.toLowerCase().contains(
+                          "pen",
+                        ))
                       BlocListener<SprintAndTaskBloc, SprintAndTaskState>(
                         listener: (context, state) {
                           SprintBlocStateHandling().completeSprintListener(
@@ -130,28 +133,29 @@ class SprintCard extends StatelessWidget {
               ],
             ),
             PaddingConfig.h16,
-            GestureDetector(
-              onTap:
-                  () => context.pushNamed(
-                    AppRouteConfig.createTask,
-                    pathParameters: {
-                      'pId': sprintEntity.projectId.toString(),
-                      'sId': sprintEntity.id.toString(),
-                    },
-                  ),
-              child: Row(
-                children: [
-                  Icon(Iconsax.add, color: AppColors.greenShade2),
-                  PaddingConfig.w8,
-                  Text(
-                    "Create New Task",
-                    style: AppTextStyle.buttonStyle(
-                      color: AppColors.greenShade2,
+            if (!sprintEntity.sprintStatus.toLowerCase().contains("com"))
+              GestureDetector(
+                onTap:
+                    () => context.pushNamed(
+                      AppRouteConfig.createTask,
+                      pathParameters: {
+                        'pId': sprintEntity.projectId.toString(),
+                        'sId': sprintEntity.id.toString(),
+                      },
                     ),
-                  ),
-                ],
+                child: Row(
+                  children: [
+                    Icon(Iconsax.add, color: AppColors.greenShade2),
+                    PaddingConfig.w8,
+                    Text(
+                      "Create New Task",
+                      style: AppTextStyle.buttonStyle(
+                        color: AppColors.greenShade2,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
           ],
         ),
       ),
