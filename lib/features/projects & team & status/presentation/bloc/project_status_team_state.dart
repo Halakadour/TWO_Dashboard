@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'project_status_team_bloc.dart';
 
 class ProjectStatusTeamState {
@@ -11,6 +12,15 @@ class ProjectStatusTeamState {
   final CasualStatus rejectProjectStatus;
   final CasualStatus editProjectRequestsListStatus;
   final List<MessageModel> editProjectRequestsList;
+  // Project Manager Stuff
+  final CasualStatus projectManagerAcceptProjectStatus;
+  final CasualStatus projectManagerRejectProjectStatus;
+  final CasualStatus projectManagerSentEditProjectRequest;
+  final List<ProjectAssignRequestModel> projectAssignRequestList;
+  final CasualStatus projectAssignRequestListStatus;
+  final List<ProjectAssignRequestModel> projectAcceptedAssignedList;
+  final CasualStatus projectAcceptedAssignedListStatus;
+
   // Public & Private Project List
   final List<ProjectEntity> publicProjectsList;
   final CasualStatus publicProjectsListStatus;
@@ -48,6 +58,13 @@ class ProjectStatusTeamState {
     this.rejectProjectStatus = CasualStatus.initial,
     this.editProjectRequestsListStatus = CasualStatus.initial,
     this.editProjectRequestsList = const [],
+    this.projectManagerAcceptProjectStatus = CasualStatus.initial,
+    this.projectManagerRejectProjectStatus = CasualStatus.initial,
+    this.projectManagerSentEditProjectRequest = CasualStatus.initial,
+    this.projectAssignRequestList = const [],
+    this.projectAssignRequestListStatus = CasualStatus.initial,
+    this.projectAcceptedAssignedList = const [],
+    this.projectAcceptedAssignedListStatus = CasualStatus.initial,
     this.publicProjectsList = const [],
     this.publicProjectsListStatus = CasualStatus.initial,
     this.allProjectsList = const [],
@@ -78,9 +95,15 @@ class ProjectStatusTeamState {
     CasualStatus? deleteProjectStatus,
     CasualStatus? approveProjectStatus,
     CasualStatus? rejectProjectStatus,
-    CasualStatus? editRequestProjectStatus,
     CasualStatus? editProjectRequestsListStatus,
     List<MessageModel>? editProjectRequestsList,
+    CasualStatus? projectManagerAcceptProjectStatus,
+    CasualStatus? projectManagerRejectProjectStatus,
+    CasualStatus? projectManagerSentEditProjectRequest,
+    List<ProjectAssignRequestModel>? projectAssignRequestList,
+    CasualStatus? projectAssignRequestListStatus,
+    List<ProjectAssignRequestModel>? projectAcceptedAssignedList,
+    CasualStatus? projectAcceptedAssignedListStatus,
     List<ProjectEntity>? publicProjectsList,
     CasualStatus? publicProjectsListStatus,
     List<ProjectEntity>? allProjectsList,
@@ -94,8 +117,8 @@ class ProjectStatusTeamState {
     CasualStatus? updateOrderStatus,
     CasualStatus? showStatus,
     List<StatusModel>? showStatusList,
-    List<StatusBoardModel>? projectBoardList,
     CasualStatus? projectBoardListStatus,
+    List<StatusBoardModel>? projectBoardList,
     CasualStatus? createTeamStatus,
     CasualStatus? addMemersStatus,
     CasualStatus? showTeamsStatus,
@@ -114,6 +137,24 @@ class ProjectStatusTeamState {
           editProjectRequestsListStatus ?? this.editProjectRequestsListStatus,
       editProjectRequestsList:
           editProjectRequestsList ?? this.editProjectRequestsList,
+      projectManagerAcceptProjectStatus:
+          projectManagerAcceptProjectStatus ??
+          this.projectManagerAcceptProjectStatus,
+      projectManagerRejectProjectStatus:
+          projectManagerRejectProjectStatus ??
+          this.projectManagerRejectProjectStatus,
+      projectManagerSentEditProjectRequest:
+          projectManagerSentEditProjectRequest ??
+          this.projectManagerSentEditProjectRequest,
+      projectAssignRequestList:
+          projectAssignRequestList ?? this.projectAssignRequestList,
+      projectAssignRequestListStatus:
+          projectAssignRequestListStatus ?? this.projectAssignRequestListStatus,
+      projectAcceptedAssignedList:
+          projectAcceptedAssignedList ?? this.projectAcceptedAssignedList,
+      projectAcceptedAssignedListStatus:
+          projectAcceptedAssignedListStatus ??
+          this.projectAcceptedAssignedListStatus,
       publicProjectsList: publicProjectsList ?? this.publicProjectsList,
       publicProjectsListStatus:
           publicProjectsListStatus ?? this.publicProjectsListStatus,
@@ -131,9 +172,9 @@ class ProjectStatusTeamState {
       updateOrderStatus: updateOrderStatus ?? this.updateOrderStatus,
       showStatus: showStatus ?? this.showStatus,
       showStatusList: showStatusList ?? this.showStatusList,
-      projectBoardList: projectBoardList ?? this.projectBoardList,
       projectBoardListStatus:
           projectBoardListStatus ?? this.projectBoardListStatus,
+      projectBoardList: projectBoardList ?? this.projectBoardList,
       createTeamStatus: createTeamStatus ?? this.createTeamStatus,
       addMemersStatus: addMemersStatus ?? this.addMemersStatus,
       showTeamsStatus: showTeamsStatus ?? this.showTeamsStatus,

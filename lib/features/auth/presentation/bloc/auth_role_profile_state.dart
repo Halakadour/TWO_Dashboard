@@ -28,6 +28,10 @@ class AuthRoleProfileState {
   CasualStatus clientListStatus;
   CasualStatus imageBytesStatus;
   Uint8List? imageBytes;
+  // Notification States //
+  CasualStatus unReadNotificationListStatus;
+  List<NotificationModel> unReadNotificationList;
+  CasualStatus markNotificationAsReadStatus;
 
   AuthRoleProfileState({
     this.message = "",
@@ -52,6 +56,9 @@ class AuthRoleProfileState {
     this.clientListStatus = CasualStatus.initial,
     this.imageBytesStatus = CasualStatus.initial,
     this.imageBytes,
+    this.unReadNotificationListStatus = CasualStatus.initial,
+    this.unReadNotificationList = const [],
+    this.markNotificationAsReadStatus = CasualStatus.initial,
   });
 
   AuthRoleProfileState copyWith({
@@ -77,6 +84,9 @@ class AuthRoleProfileState {
     CasualStatus? clientListStatus,
     CasualStatus? imageBytesStatus,
     Uint8List? imageBytes,
+    CasualStatus? unReadNotificationListStatus,
+    List<NotificationModel>? unReadNotificationList,
+    CasualStatus? markNotificationAsReadStatus,
   }) {
     return AuthRoleProfileState(
       message: message ?? this.message,
@@ -104,6 +114,12 @@ class AuthRoleProfileState {
       clientListStatus: clientListStatus ?? this.clientListStatus,
       imageBytesStatus: imageBytesStatus ?? this.imageBytesStatus,
       imageBytes: imageBytes ?? this.imageBytes,
+      unReadNotificationListStatus:
+          unReadNotificationListStatus ?? this.unReadNotificationListStatus,
+      unReadNotificationList:
+          unReadNotificationList ?? this.unReadNotificationList,
+      markNotificationAsReadStatus:
+          markNotificationAsReadStatus ?? this.markNotificationAsReadStatus,
     );
   }
 }

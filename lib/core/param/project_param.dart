@@ -44,3 +44,14 @@ class RejectProjectParam {
     required this.message,
   });
 }
+
+class SentEditRequestParam {
+  String token;
+  int projectId;
+  String message;
+  SentEditRequestParam({
+    required this.token,
+    required this.projectId,
+    required this.message,
+  });
+}

@@ -71,3 +71,12 @@ class GetImageEvent extends AuthRoleProfileEvent {
 
   GetImageEvent({required this.imagePath});
 }
+
+// Notification Events //
+class ShowUnReadNotificationListEvent extends AuthRoleProfileEvent {}
+
+class MarkNotificationAsReadEvent extends AuthRoleProfileEvent {
+  final String id;
+
+  MarkNotificationAsReadEvent({required this.id});
+}

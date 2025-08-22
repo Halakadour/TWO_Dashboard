@@ -5,6 +5,7 @@ import 'package:two_dashboard/core/param/project_param.dart';
 import 'package:two_dashboard/core/param/status_param.dart';
 import 'package:two_dashboard/core/param/team_param.dart';
 import 'package:two_dashboard/core/services/shared_preferences_services.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/project_assign_request_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/show_project_edit_request_response_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/status/show_project_board_response_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/status/status_model.dart';
@@ -13,9 +14,14 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/e
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/approved_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/create_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/delete_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/project_manager_accept_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/project_manager_reject_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/project_manager_sent_edit_project_request_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/reject_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_all_projects_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_pended_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_project_accepted_assigned_list_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_project_assign_request_list_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_project_edit_request_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_public_projects_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_user_projects_usecase.dart';
@@ -46,6 +52,14 @@ class ProjectStatusTeamBloc
   final ShowPendedProjectUsecase showPendedProjectUsecase;
   final ShowPublicProjectsUsecase showPublicProjectsUsecase;
   final ShowUserProjectsUsecase showUserProjectsUsecase;
+  // Project Manager Usecase
+  final ProjectManagerAcceptProjectUsecase projectManagerAcceptProjectUsecase;
+  final ProjectManagerRejectProjectUsecase projectManagerRejectProjectUsecase;
+  final ProjectManagerSentEditProjectRequestUsecase
+  projectManagerSentEditProjectRequestUsecase;
+  final ShowProjectAcceptedAssignedListUsecase
+  showProjectAcceptedAssignedListUsecase;
+  final ShowProjectAssignRequestListUsecase showProjectAssignRequestListUsecase;
   // Status Usecase
   final CreateStatusUsecase createStatusUsecase;
   final DeleteStatusUsecase deleteStatusUsecase;
@@ -65,6 +79,11 @@ class ProjectStatusTeamBloc
     this.updateProjectUsecase,
     this.rejectProjectUsecase,
     this.showProjectEditRequestUsecase,
+    this.projectManagerAcceptProjectUsecase,
+    this.projectManagerRejectProjectUsecase,
+    this.projectManagerSentEditProjectRequestUsecase,
+    this.showProjectAssignRequestListUsecase,
+    this.showProjectAcceptedAssignedListUsecase,
     this.showAllProjectsUsecase,
     this.showPendedProjectUsecase,
     this.showPublicProjectsUsecase,
@@ -236,6 +255,172 @@ class ProjectStatusTeamBloc
         );
       }
     });
+    //////////////////// Project Manager Side /////////////////////////////////////
+    // Accept Project
+    on<ProjectManagerAcceptProjectEvent>((event, emit) async {
+      emit(
+        state.copyWith(projectManagerAcceptProjectStatus: CasualStatus.loading),
+      );
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await projectManagerAcceptProjectUsecase.call(
+          TokenWithIdParam(token: token, id: event.projectId),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              projectManagerAcceptProjectStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(
+              projectManagerAcceptProjectStatus: CasualStatus.success,
+            ),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            projectManagerAcceptProjectStatus: CasualStatus.not_authorized,
+          ),
+        );
+      }
+    });
+    // Reject Project
+    on<ProjectManagerRejectProjectEvent>((event, emit) async {
+      emit(
+        state.copyWith(projectManagerRejectProjectStatus: CasualStatus.loading),
+      );
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await projectManagerRejectProjectUsecase.call(
+          RejectProjectParam(
+            token: token,
+            projectId: event.projectId,
+            message: event.message,
+          ),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              projectManagerRejectProjectStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(
+              projectManagerRejectProjectStatus: CasualStatus.success,
+            ),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            projectManagerRejectProjectStatus: CasualStatus.not_authorized,
+          ),
+        );
+      }
+    });
+    // Sent Edit Project Request
+    on<ProjectManagerSentEditProjectRequestEvent>((event, emit) async {
+      emit(
+        state.copyWith(
+          projectManagerSentEditProjectRequest: CasualStatus.loading,
+        ),
+      );
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await projectManagerSentEditProjectRequestUsecase.call(
+          SentEditRequestParam(
+            token: token,
+            projectId: event.projectId,
+            message: event.message,
+          ),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              projectManagerSentEditProjectRequest: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(
+              projectManagerSentEditProjectRequest: CasualStatus.success,
+            ),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            projectManagerSentEditProjectRequest: CasualStatus.not_authorized,
+          ),
+        );
+      }
+    });
+    // Show Project Assign Request List
+    on<ShowProjectAssignRequestListEvent>((event, emit) async {
+      emit(
+        state.copyWith(projectAssignRequestListStatus: CasualStatus.loading),
+      );
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await showProjectAssignRequestListUsecase.call(token);
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              projectAssignRequestListStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(
+              projectAssignRequestListStatus: CasualStatus.success,
+              projectAssignRequestList: r,
+            ),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            projectAssignRequestListStatus: CasualStatus.not_authorized,
+          ),
+        );
+      }
+    });
+    // Show Project Accepted Assigned List
+    on<ShowProjectAcceptedAssignedListEvent>((event, emit) async {
+      emit(
+        state.copyWith(projectAcceptedAssignedListStatus: CasualStatus.loading),
+      );
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await showProjectAcceptedAssignedListUsecase.call(token);
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              projectAcceptedAssignedListStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(
+              projectAcceptedAssignedListStatus: CasualStatus.success,
+              projectAcceptedAssignedList: r,
+            ),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            projectAcceptedAssignedListStatus: CasualStatus.not_authorized,
+          ),
+        );
+      }
+    });
+
+    ///////////////////////////////////////////////////////////////////////////////
     // Show All Projects
     on<ShowAllProjectsEvent>((event, emit) async {
       emit(state.copyWith(allProjectsListStatus: CasualStatus.loading));

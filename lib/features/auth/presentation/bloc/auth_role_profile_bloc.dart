@@ -11,6 +11,9 @@ import 'package:two_dashboard/features/auth/data/models/user_model.dart';
 import 'package:two_dashboard/features/auth/domain/usecases/login_usecase.dart';
 import 'package:two_dashboard/features/auth/domain/usecases/logout_usecase.dart';
 import 'package:two_dashboard/features/auth/domain/usecases/register_usecase.dart';
+import 'package:two_dashboard/features/notification/data/models/notification_model.dart';
+import 'package:two_dashboard/features/notification/domain/usecase/mark_notification_as_read_usecase.dart';
+import 'package:two_dashboard/features/notification/domain/usecase/show_un_read_notification_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/entities/client_entity.dart';
 import 'package:two_dashboard/features/profile/domain/entities/employee_entity.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/get_image_usecase.dart';
@@ -45,6 +48,9 @@ class AuthRoleProfileBloc
   final ShowUsersUsecase showUsersUsecase;
   final ShowClientsUsecase showClientsUsecase;
   final GetImageUsecase getImageUsecase;
+  // Notification Usecases //
+  final ShowUnReadNotificationUsecase showUnReadNotificationUsecase;
+  final MarkNotificationAsReadUsecase markNotificationAsReadUsecase;
   AuthRoleProfileBloc({
     required this.registerUsecase,
     required this.loginUsecase,
@@ -58,6 +64,8 @@ class AuthRoleProfileBloc
     required this.showUsersUsecase,
     required this.showClientsUsecase,
     required this.getImageUsecase,
+    required this.showUnReadNotificationUsecase,
+    required this.markNotificationAsReadUsecase,
   }) : super(AuthRoleProfileState()) {
     // Auth Bloc //
     on<RegisteNewUserEvent>((event, emit) async {
@@ -337,6 +345,60 @@ class AuthRoleProfileBloc
           state.copyWith(imageBytesStatus: CasualStatus.success, imageBytes: r),
         ),
       );
+    });
+    // Notification Bloc //
+    on<ShowUnReadNotificationListEvent>((event, emit) async {
+      emit(state.copyWith(unReadNotificationListStatus: CasualStatus.loading));
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await showUnReadNotificationUsecase.call(token);
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              unReadNotificationListStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(
+              unReadNotificationListStatus: CasualStatus.success,
+              unReadNotificationList: r,
+            ),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            unReadNotificationListStatus: CasualStatus.not_authorized,
+          ),
+        );
+      }
+    });
+    on<MarkNotificationAsReadEvent>((event, emit) async {
+      emit(state.copyWith(markNotificationAsReadStatus: CasualStatus.loading));
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await markNotificationAsReadUsecase.call(
+          TokenWithStringIdParam(token: token, id: event.id),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              markNotificationAsReadStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(markNotificationAsReadStatus: CasualStatus.success),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            markNotificationAsReadStatus: CasualStatus.not_authorized,
+          ),
+        );
+      }
     });
   }
 }

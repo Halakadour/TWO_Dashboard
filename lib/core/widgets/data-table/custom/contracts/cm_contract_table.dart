@@ -19,9 +19,9 @@ class CMContractTable extends StatelessWidget {
       columns: [
         DataColumn2(label: Text(TextStrings.id)),
         DataColumn2(label: Text(TextStrings.contract)),
-        DataColumn2(label: Text(TextStrings.status)),
         DataColumn2(label: Text(TextStrings.contractManagerApprovment)),
         DataColumn2(label: Text(TextStrings.projectManagerApprovment)),
+        DataColumn2(label: Text(TextStrings.status)),
         DataColumn2(label: Text(TextStrings.needEdit)),
         DataColumn2(label: Text(TextStrings.adminSign)),
         DataColumn2(label: Text(TextStrings.actions)),

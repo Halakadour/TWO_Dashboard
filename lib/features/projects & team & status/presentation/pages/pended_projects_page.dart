@@ -33,17 +33,26 @@ class _PendedProjectsPageState extends State<PendedProjectsPage> {
           children: [
             PageTitle(pageTitle: "Pended Requests"),
             PaddingConfig.h32,
-            Flexible(
-              child: BlocBuilder<ProjectStatusTeamBloc, ProjectStatusTeamState>(
-                buildWhen:
-                    (previous, current) =>
-                        (previous.pendedProjectListStatus !=
-                            current.pendedProjectListStatus),
-                builder: (context, state) {
-                  return ProjectBlocStateHandling().getPendedProjectsTable(
-                    state,
-                  );
-                },
+            BlocListener<ProjectStatusTeamBloc, ProjectStatusTeamState>(
+              listenWhen:
+                  (previous, current) =>
+                      previous.rejectProjectStatus !=
+                      current.rejectProjectStatus,
+              listener: (context, state) {
+                ProjectBlocStateHandling().rejectProject(state, context);
+              },
+              child: Flexible(
+                child:
+                    BlocBuilder<ProjectStatusTeamBloc, ProjectStatusTeamState>(
+                      buildWhen:
+                          (previous, current) =>
+                              (previous.pendedProjectListStatus !=
+                                  current.pendedProjectListStatus),
+                      builder: (context, state) {
+                        return ProjectBlocStateHandling()
+                            .getPendedProjectsTable(state);
+                      },
+                    ),
               ),
             ),
           ],

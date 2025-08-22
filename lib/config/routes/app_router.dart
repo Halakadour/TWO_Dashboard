@@ -248,7 +248,7 @@ class AppRouter {
               ),
               GoRoute(
                 name: AppRouteConfig.cmUpdateContract,
-                path: 'cm-update-contract/:id',
+                path: '/cm-update-contract/:id',
                 builder:
                     (context, state) => CmUpdateContractPage(
                       contractId: state.pathParameters['id'] ?? '',

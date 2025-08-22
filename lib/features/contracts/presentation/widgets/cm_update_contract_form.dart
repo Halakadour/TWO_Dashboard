@@ -4,12 +4,13 @@ import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/contracts_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/buttons/icon-buttons/back_button.dart';
+import 'package:two_dashboard/core/widgets/container/custom_rounder_container.dart';
 import 'package:two_dashboard/core/widgets/dialog/global/forget_some_thing_dialog.dart';
+import 'package:two_dashboard/core/widgets/divider/custom_page_divider.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
+import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
 
-import '../../../../config/constants/sizes_config.dart';
 import '../../../../config/routes/app_route_config.dart';
-import '../../../../config/theme/color.dart';
 import '../../../../core/widgets/breadcrumbs/breadcumbs_item.dart';
 import '../../../../core/widgets/buttons/elevated-buttons/desmiss_elevated_buttom.dart';
 import '../../../../core/widgets/buttons/elevated-buttons/save_elevated_button.dart';
@@ -34,6 +35,12 @@ class _CmUpdateContractFormState extends State<CmUpdateContractForm> {
   }
 
   @override
+  void didChangeDependencies() {
+    context.read<AuthRoleProfileBloc>().add(ShowClientsEvent());
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocListener<ContractBloc, ContractState>(
       listener: (context, state) {
@@ -50,51 +57,37 @@ class _CmUpdateContractFormState extends State<CmUpdateContractForm> {
             const Breadcrumbs(
               paths: [
                 AppRouteConfig.cmContracts,
-                AppRouteConfig.cmUpdateContract,
+                AppRouteConfig.pmUpdateContract,
               ],
-              pages: ["Contract Manager Contracts", "Update Contract"],
+              pages: ["CM Contracts", "Update contract"],
             ),
             PaddingConfig.h16,
             Row(
               children: [
                 CustomBackButton(),
                 PaddingConfig.w8,
-                PageTitle(pageTitle: "Update Contract"),
+                PageTitle(pageTitle: "New Contract File"),
               ],
             ),
+            CustomPageDivider(),
             PaddingConfig.h24,
-            SizedBox(
-              height: 400,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+            CustomRounderContainer(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(SizesConfig.md),
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(
-                        SizesConfig.borderRadiusMd,
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("New Contract File", style: AppTextStyle.bodySm()),
-                        PaddingConfig.h32,
-                        FetchFileBox(
-                          fileB64: pdfByte,
-                          isPDF: false,
-                          onUpdate: updatePDFBytes,
-                          changeStyle: true,
-                        ),
-                        PaddingConfig.h16,
-                      ],
-                    ),
+                  Text("Contract File", style: AppTextStyle.bodySm()),
+                  PaddingConfig.h32,
+                  FetchFileBox(
+                    changeStyle: true,
+                    fileB64: pdfByte,
+                    onUpdate: updatePDFBytes,
                   ),
+                  PaddingConfig.h16,
                 ],
               ),
             ),
-            PaddingConfig.h16,
+            PaddingConfig.h24,
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -103,7 +96,7 @@ class _CmUpdateContractFormState extends State<CmUpdateContractForm> {
                 SaveElevatedButton(
                   onPressed: () {
                     if (pdfByte == null) {
-                      forgetSomeThingDialog(context, "The New Contract");
+                      forgetSomeThingDialog(context, "The Contract");
                     } else {
                       context.read<ContractBloc>().add(
                         ContractManagerUpdateContractEvent(

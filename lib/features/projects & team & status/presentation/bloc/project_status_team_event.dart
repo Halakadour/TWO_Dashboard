@@ -67,6 +67,42 @@ class ShowEditProjectRequestEvent extends ProjectStatusTeamEvent {
   ShowEditProjectRequestEvent({required this.projectId});
 }
 
+/////   Project Manager Stuff  /////
+// Accept Project
+class ProjectManagerAcceptProjectEvent extends ProjectStatusTeamEvent {
+  final int projectId;
+
+  ProjectManagerAcceptProjectEvent({required this.projectId});
+}
+
+// Reject Project
+class ProjectManagerRejectProjectEvent extends ProjectStatusTeamEvent {
+  final int projectId;
+  final String message;
+
+  ProjectManagerRejectProjectEvent({
+    required this.projectId,
+    required this.message,
+  });
+}
+
+// Sent Edit Request
+class ProjectManagerSentEditProjectRequestEvent extends ProjectStatusTeamEvent {
+  final int projectId;
+  final String message;
+
+  ProjectManagerSentEditProjectRequestEvent({
+    required this.projectId,
+    required this.message,
+  });
+}
+
+// Show Assign Request List
+class ShowProjectAssignRequestListEvent extends ProjectStatusTeamEvent {}
+
+// Show Accepted Assigned List
+class ShowProjectAcceptedAssignedListEvent extends ProjectStatusTeamEvent {}
+
 // Show Project Events
 class ShowAllProjectsEvent extends ProjectStatusTeamEvent {}
 

@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
-import 'package:two_dashboard/core/functions/bloc-state-handling/project_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/cancel_text_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/save_text_button.dart';
 import 'package:two_dashboard/features/auth/presentation/widgets/custom_text_form_field.dart';
@@ -46,28 +45,19 @@ Future<dynamic> sentRejectProjectMessageDialog(
             ),
             actions: [
               const CancelTextButton(),
-              BlocListener<ProjectStatusTeamBloc, ProjectStatusTeamState>(
-                listenWhen:
-                    (previous, current) =>
-                        previous.rejectProjectStatus !=
-                        current.rejectProjectStatus,
-                listener: (context, state) {
-                  ProjectBlocStateHandling().rejectProject(state, context);
+              SaveTextButton(
+                onPressed: () {
+                  context.read<ProjectStatusTeamBloc>().add(
+                    RejectProjectsEvent(
+                      projectId: projectId,
+                      message: messageController.text,
+                    ),
+                  );
+                  context.read<ProjectStatusTeamBloc>().add(
+                    ShowPendedProjectsEvent(),
+                  );
+                  context.pop();
                 },
-                child: SaveTextButton(
-                  onPressed: () {
-                    context.read<ProjectStatusTeamBloc>().add(
-                      RejectProjectsEvent(
-                        projectId: projectId,
-                        message: messageController.text,
-                      ),
-                    );
-                    context.read<ProjectStatusTeamBloc>().add(
-                      ShowPendedProjectsEvent(),
-                    );
-                    context.pop();
-                  },
-                ),
               ),
             ],
           ),

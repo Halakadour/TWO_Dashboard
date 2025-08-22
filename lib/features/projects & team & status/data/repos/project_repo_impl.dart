@@ -4,6 +4,7 @@ import 'package:two_dashboard/core/param/casule_param.dart';
 import 'package:two_dashboard/core/param/project_param.dart';
 import 'package:two_dashboard/core/param/team_param.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/datasource/project_remote_data_source.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/project_assign_request_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/show_project_edit_request_response_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/repos/project_repo.dart';
@@ -126,6 +127,66 @@ class ProjectRepoImpl extends ProjectRepo {
     return wrapHandling(
       tryCall: () async {
         await projectRemoteDataSource.specifyProjectTeam(param);
+        return Right(unit);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> projectManagerAcceptProject(
+    TokenWithIdParam project,
+  ) {
+    return wrapHandling(
+      tryCall: () async {
+        await projectRemoteDataSource.projectManagerAcceptProject(project);
+        return Right(unit);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> projectManagerRejectProject(
+    RejectProjectParam param,
+  ) {
+    return wrapHandling(
+      tryCall: () async {
+        await projectRemoteDataSource.projectManagerRejectProject(param);
+        return Right(unit);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, List<ProjectAssignRequestModel>>>
+  showProjectAcceptedAssignedList(String token) {
+    return wrapHandling(
+      tryCall: () async {
+        final result = await projectRemoteDataSource
+            .showProjectAcceptedAssignedList(token);
+        return Right(result.data);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, List<ProjectAssignRequestModel>>>
+  showProjectAssignRequestList(String token) {
+    return wrapHandling(
+      tryCall: () async {
+        final result = await projectRemoteDataSource
+            .showProjectAssignRequestList(token);
+        return Right(result.data);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> projectManagerSentEditProjectRequest(param) {
+    return wrapHandling(
+      tryCall: () async {
+        await projectRemoteDataSource.projectManagerSentEditProjectRequest(
+          param,
+        );
         return Right(unit);
       },
     );

@@ -44,6 +44,11 @@ import 'package:two_dashboard/features/contracts/domain/usecases/show_admin_cont
 import 'package:two_dashboard/features/contracts/domain/usecases/show_contract_list_usecase.dart';
 import 'package:two_dashboard/features/contracts/domain/usecases/show_contract_manager_contract_list_usecase.dart';
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
+import 'package:two_dashboard/features/notification/data/datasource/notification_remote_datasource.dart';
+import 'package:two_dashboard/features/notification/data/repo/notification_repo_impl.dart';
+import 'package:two_dashboard/features/notification/domain/repo/notification_repo.dart';
+import 'package:two_dashboard/features/notification/domain/usecase/mark_notification_as_read_usecase.dart';
+import 'package:two_dashboard/features/notification/domain/usecase/show_un_read_notification_usecase.dart';
 import 'package:two_dashboard/features/posts/data/datasources/posts_local_datasource.dart';
 import 'package:two_dashboard/features/posts/data/datasources/posts_remote_datasource.dart';
 import 'package:two_dashboard/features/posts/data/repos/post_repo_impl.dart';
@@ -68,9 +73,14 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/r
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/repos/team_repo.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/approved_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/delete_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/project_manager_accept_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/project_manager_reject_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/project_manager_sent_edit_project_request_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/reject_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_all_projects_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_pended_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_project_accepted_assigned_list_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_project_assign_request_list_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_project_edit_request_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_public_projects_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_user_projects_usecase.dart';
@@ -161,6 +171,8 @@ Future<void> init() async {
       showUsersUsecase: sl(),
       showClientsUsecase: sl(),
       getImageUsecase: sl(),
+      showUnReadNotificationUsecase: sl(),
+      markNotificationAsReadUsecase: sl(),
     ),
   );
   // Usecases
@@ -209,6 +221,17 @@ Future<void> init() async {
   );
   sl.registerLazySingleton<ProfileLocaleDatasource>(
     () => ProfileLocaleDatasourceImpl(sl()),
+  );
+
+  /**----------------- NOTIFICATION FEATURE -----------------------**/
+  // Usecase
+  sl.registerLazySingleton(() => ShowUnReadNotificationUsecase(sl()));
+  sl.registerLazySingleton(() => MarkNotificationAsReadUsecase(sl()));
+  // Repo
+  sl.registerLazySingleton<NotificationRepo>(() => NotificationRepoImpl(sl()));
+  // Datasource
+  sl.registerLazySingleton<NotificationRemoteDatasource>(
+    () => NotificationRemoteDatasourceImpl(),
   );
 
   /**----------------- POST FEATURE -----------------------**/
@@ -347,6 +370,11 @@ Future<void> init() async {
       sl(),
       sl(),
       sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
     ),
   );
   // Project Usecase
@@ -360,6 +388,15 @@ Future<void> init() async {
   sl.registerLazySingleton(() => ShowPendedProjectUsecase(sl()));
   sl.registerLazySingleton(() => ShowPublicProjectsUsecase(sl()));
   sl.registerLazySingleton(() => ShowUserProjectsUsecase(sl()));
+  // Project Manager Usecase
+  sl.registerLazySingleton(() => ProjectManagerAcceptProjectUsecase(sl()));
+  sl.registerLazySingleton(() => ProjectManagerRejectProjectUsecase(sl()));
+  sl.registerLazySingleton(
+    () => ProjectManagerSentEditProjectRequestUsecase(sl()),
+  );
+  sl.registerLazySingleton(() => ShowProjectAssignRequestListUsecase(sl()));
+  sl.registerLazySingleton(() => ShowProjectAcceptedAssignedListUsecase(sl()));
+
   // Status Usecase
   sl.registerLazySingleton(() => CreateStatusUsecase(sl()));
   sl.registerLazySingleton(() => DeleteStatusUsecase(sl()));
