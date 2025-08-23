@@ -10,6 +10,7 @@ import 'package:two_dashboard/features/contracts/presentation/pages/cm_update_co
 import 'package:two_dashboard/features/contracts/presentation/pages/main_contract_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/pm_update_contract_page.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/assign_requests_page.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/my_projects_page.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/pages/pended_projects_page.dart';
 import 'package:two_dashboard/features/contracts/presentation/pages/signature_board_page.dart';
@@ -178,12 +179,22 @@ class AppRouter {
               ),
             ],
           ),
-          // Pended Project Branch
+          // Assign Requsts Branch
           StatefulShellBranch(
             routes: [
               GoRoute(
-                name: AppRouteConfig.pendedProjects,
-                path: '/pended-projects',
+                name: AppRouteConfig.assignRequests,
+                path: '/assign-requests',
+                builder: (context, state) => const AssignRequestsPage(),
+              ),
+            ],
+          ),
+          // Project Requsts Branch
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                name: AppRouteConfig.projectRequests,
+                path: '/project-requests',
                 builder: (context, state) => const PendedProjectsPage(),
               ),
             ],

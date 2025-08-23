@@ -14,11 +14,13 @@ class UpdateEmployeeProfileParam {
   final String image;
   final String cv;
   final int roleId;
+  final String phoneNumber;
 
   UpdateEmployeeProfileParam({
     required this.token,
     required this.image,
     required this.cv,
     required this.roleId,
+    required this.phoneNumber,
   });
 }

@@ -24,6 +24,7 @@ class UserHeaderInfo extends StatelessWidget {
               width: 50,
               shape: BoxShape.circle,
               imagePath: employeeEntity.image,
+              firstLetter: employeeEntity.name.split("").first,
             ),
           ],
         ),

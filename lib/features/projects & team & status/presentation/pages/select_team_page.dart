@@ -43,12 +43,8 @@ class _SelectTeamPageState extends State<SelectTeamPage> {
         child: Column(
           children: [
             const Breadcrumbs(
-              paths: [
-                AppRouteConfig.allProjects,
-                AppRouteConfig.projectDetails,
-                AppRouteConfig.selectTeam,
-              ],
-              pages: ["Project", "Projcet Details", "Select Team"],
+              paths: [AppRouteConfig.allProjects, AppRouteConfig.selectTeam],
+              pages: ["Project", "Select Team"],
             ),
             PaddingConfig.h16,
             Row(

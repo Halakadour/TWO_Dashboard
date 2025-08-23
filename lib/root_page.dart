@@ -15,7 +15,9 @@ class RootPage extends StatefulWidget {
 class _RootPageState extends State<RootPage> {
   @override
   void didChangeDependencies() {
-    context.read<AuthRoleProfileBloc>().add(GetUserHeaderEvent());
+    context.read<AuthRoleProfileBloc>()
+      ..add(GetUserHeaderEvent())
+      ..add(ShowUnReadNotificationListEvent());
     super.didChangeDependencies();
   }
 

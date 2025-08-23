@@ -4,10 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/error_status_animation.dart';
-import 'package:two_dashboard/core/widgets/data-table/custom/project/loading_pended_project_table.dart';
-import 'package:two_dashboard/core/widgets/data-table/custom/project/loading_project_table.dart';
-import 'package:two_dashboard/core/widgets/data-table/custom/project/pended_project_table.dart';
-import 'package:two_dashboard/core/widgets/data-table/custom/project/project_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/project/assigned/assigned_project_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/project/assigned/loading_assigned_project_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/project/pended/loading_pended_project_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/project/casual/loading_project_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/project/pended/pended_project_table.dart';
+import 'package:two_dashboard/core/widgets/data-table/custom/project/casual/project_table.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/not_authorized_dialog.dart';
@@ -137,6 +139,76 @@ class ProjectBlocStateHandling {
     } else if (state.pendedProjectListStatus == CasualStatus.success) {
       return PendedProjectTable(projectList: state.pendedProjectList);
     } else if (state.pendedProjectListStatus == CasualStatus.failure) {
+      return Center(child: ErrorStatusAnimation(errorMessage: state.message));
+    } else {
+      return const SizedBox();
+    }
+  }
+
+  ////////////////////// PROJECT MANAGER SIDE /////////////////////////////
+  // Reject Or Accept Project
+  void projectManagerRejectOrAcceptProject(
+    ProjectStatusTeamState state,
+    BuildContext context,
+  ) {
+    if (state.projectManagerRejectProjectStatus == CasualStatus.loading ||
+        state.projectManagerAcceptProjectStatus == CasualStatus.loading) {
+      showLoadingDialog(context);
+    } else if (state.projectManagerRejectProjectStatus ==
+            CasualStatus.success ||
+        state.projectManagerAcceptProjectStatus == CasualStatus.success) {
+      context.pop();
+      context.read<ProjectStatusTeamBloc>().add(
+        ShowProjectAssignRequestListEvent(),
+      );
+      showSuccessDialog(context, () {
+        context.pop();
+      });
+    } else if (state.projectManagerRejectProjectStatus ==
+            CasualStatus.failure ||
+        state.projectManagerAcceptProjectStatus == CasualStatus.failure) {
+      context.pop();
+      showErrorDialog(context, state.message);
+    } else if (state.projectManagerRejectProjectStatus ==
+            CasualStatus.not_authorized ||
+        state.projectManagerAcceptProjectStatus ==
+            CasualStatus.not_authorized) {
+      context.pop();
+      showNotAuthorizedDialog(context);
+    }
+  }
+
+  // Sent Edit Project Request
+  void sentEditProjectMessage(
+    ProjectStatusTeamState state,
+    BuildContext context,
+  ) {
+    if (state.projectManagerSentEditProjectRequest == CasualStatus.loading) {
+      showLoadingDialog(context);
+    } else if (state.projectManagerSentEditProjectRequest ==
+        CasualStatus.success) {
+      context.pop();
+      showSuccessDialog(context, () {
+        context.pop();
+      });
+    } else if (state.projectManagerSentEditProjectRequest ==
+        CasualStatus.failure) {
+      context.pop();
+      showErrorDialog(context, state.message);
+    } else if (state.projectManagerSentEditProjectRequest ==
+        CasualStatus.not_authorized) {
+      context.pop();
+      showNotAuthorizedDialog(context);
+    }
+  }
+
+  // Get Assign Project Requests
+  Widget getAssignProjectsRequestTable(ProjectStatusTeamState state) {
+    if (state.projectAssignRequestListStatus == CasualStatus.loading) {
+      return const LoadingAssignedProjectTable();
+    } else if (state.projectAssignRequestListStatus == CasualStatus.success) {
+      return AssignedProjectTable(projectList: state.projectAssignRequestList);
+    } else if (state.projectAssignRequestListStatus == CasualStatus.failure) {
       return Center(child: ErrorStatusAnimation(errorMessage: state.message));
     } else {
       return const SizedBox();

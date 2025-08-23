@@ -87,6 +87,7 @@ class _ProfileColumnState extends State<ProfileColumn> {
                   width: 175,
                   shape: BoxShape.circle,
                   imagePath: widget.user.image,
+                  firstLetter: widget.user.name.split("").first,
                 ),
                 IconButton(
                   style: IconButton.styleFrom(

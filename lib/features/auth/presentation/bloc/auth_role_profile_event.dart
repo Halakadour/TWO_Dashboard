@@ -41,10 +41,12 @@ class UpdateEmployeeProfileEvent extends AuthRoleProfileEvent {
   final String image;
   final String cv;
   final int roleId;
+  final String phoneNumber;
   UpdateEmployeeProfileEvent({
     required this.image,
     required this.cv,
     required this.roleId,
+    required this.phoneNumber,
   });
 }
 

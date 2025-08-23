@@ -7,17 +7,19 @@ import 'package:two_dashboard/core/functions/bloc-state-handling/project_bloc_st
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 
-class PendedProjectsPage extends StatefulWidget {
-  const PendedProjectsPage({super.key});
+class AssignRequestsPage extends StatefulWidget {
+  const AssignRequestsPage({super.key});
 
   @override
-  State<PendedProjectsPage> createState() => _PendedProjectsPageState();
+  State<AssignRequestsPage> createState() => _AssignRequestsPageState();
 }
 
-class _PendedProjectsPageState extends State<PendedProjectsPage> {
+class _AssignRequestsPageState extends State<AssignRequestsPage> {
   @override
   void didChangeDependencies() {
-    context.read<ProjectStatusTeamBloc>().add(ShowPendedProjectsEvent());
+    context.read<ProjectStatusTeamBloc>().add(
+      ShowProjectAssignRequestListEvent(),
+    );
     super.didChangeDependencies();
   }
 
@@ -37,21 +39,26 @@ class _PendedProjectsPageState extends State<PendedProjectsPage> {
             BlocListener<ProjectStatusTeamBloc, ProjectStatusTeamState>(
               listenWhen:
                   (previous, current) =>
-                      previous.rejectProjectStatus !=
-                      current.rejectProjectStatus,
+                      (previous.projectManagerRejectProjectStatus !=
+                              current.projectManagerRejectProjectStatus ||
+                          previous.projectManagerAcceptProjectStatus !=
+                              current.projectManagerAcceptProjectStatus),
               listener: (context, state) {
-                ProjectBlocStateHandling().rejectProject(state, context);
+                ProjectBlocStateHandling().projectManagerRejectOrAcceptProject(
+                  state,
+                  context,
+                );
               },
               child: Flexible(
                 child:
                     BlocBuilder<ProjectStatusTeamBloc, ProjectStatusTeamState>(
                       buildWhen:
                           (previous, current) =>
-                              (previous.pendedProjectListStatus !=
-                                  current.pendedProjectListStatus),
+                              (previous.projectAssignRequestListStatus !=
+                                  current.projectAssignRequestListStatus),
                       builder: (context, state) {
                         return ProjectBlocStateHandling()
-                            .getPendedProjectsTable(state);
+                            .getAssignProjectsRequestTable(state);
                       },
                     ),
               ),

@@ -8,6 +8,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:two_dashboard/config/constants/base_uri.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
+import 'package:two_dashboard/config/theme/text_style.dart';
 
 class FetchNetworkImage extends StatefulWidget {
   const FetchNetworkImage({
@@ -17,12 +18,14 @@ class FetchNetworkImage extends StatefulWidget {
     this.height,
     this.width,
     this.border,
+    this.firstLetter,
   });
   final String? imagePath;
   final BoxShape shape;
   final double? height;
   final double? width;
   final BoxBorder? border;
+  final String? firstLetter;
 
   @override
   State<FetchNetworkImage> createState() => _FetchNetworkImageState();
@@ -61,6 +64,7 @@ class _FetchNetworkImageState extends State<FetchNetworkImage> {
           height: widget.height ?? 50,
           width: widget.width ?? 50,
           clipBehavior: Clip.hardEdge,
+          alignment: Alignment.center,
           margin: EdgeInsets.symmetric(vertical: 8.0),
           padding: EdgeInsets.all(8.0),
           decoration: BoxDecoration(
@@ -72,7 +76,13 @@ class _FetchNetworkImageState extends State<FetchNetworkImage> {
             border: widget.border,
             shape: widget.shape,
           ),
-          child: Icon(Iconsax.frame_1, color: AppColors.white),
+          child:
+              (widget.firstLetter == null)
+                  ? Icon(Iconsax.frame_1, color: AppColors.white)
+                  : Text(
+                    "${widget.firstLetter!.toUpperCase()}.",
+                    style: AppTextStyle.bodyLg(color: AppColors.fontLightGray),
+                  ),
         )
         : imageBytes != null
         ? Container(

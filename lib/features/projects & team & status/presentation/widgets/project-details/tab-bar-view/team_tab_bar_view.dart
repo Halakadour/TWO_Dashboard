@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
-import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
-import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/update_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/container/custom_rounder_container.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
@@ -35,15 +32,15 @@ class TeamTabBarView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               UpdateElevatedButton(updateType: "Members", onPressed: () {}),
-              PaddingConfig.w8,
-              CreateElevatedButton(
-                addingType: "New Team",
-                onPressed:
-                    () => context.pushReplacementNamed(
-                      AppRouteConfig.selectTeam,
-                      pathParameters: {'id': projectId.toString()},
-                    ),
-              ),
+              // PaddingConfig.w8,
+              // CreateElevatedButton(
+              //   addingType: "New Team",
+              //   onPressed:
+              //       () => context.pushReplacementNamed(
+              //         AppRouteConfig.selectTeam,
+              //         pathParameters: {'id': projectId.toString()},
+              //       ),
+              // ),
             ],
           ),
           PaddingConfig.h32,

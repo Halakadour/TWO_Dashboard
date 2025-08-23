@@ -19,7 +19,8 @@ class AppRouteConfig {
   static const selectTeam = 'select-team';
   static const createTeam = 'create-team';
   static const myProjects = 'my-projects';
-  static const pendedProjects = 'pended-projects';
+  static const assignRequests = 'assign-requests';
+  static const projectRequests = 'project-requests';
   // Sprint & Task
   static const createSprint = 'create-sprint';
   static const createTask = 'create-task';

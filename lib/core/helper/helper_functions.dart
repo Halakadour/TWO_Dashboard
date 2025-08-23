@@ -6,7 +6,7 @@ import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 
 class HelperFunctions {
-  String getTimeAgo(DateTime dateTime) {
+  static String getTimeAgo(DateTime dateTime) {
     final Duration difference = DateTime.now().difference(dateTime);
 
     if (difference.inDays > 0) {

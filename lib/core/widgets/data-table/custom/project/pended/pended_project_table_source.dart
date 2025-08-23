@@ -1,7 +1,5 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/more_button.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/dynamic_status_container.dart';
@@ -22,7 +20,7 @@ class PendedProjectRows extends DataTableSource {
     final project = projectList[index];
     return DataRow2(
       onTap: () {
-        context.pushNamed(AppRouteConfig.projectDetails, extra: project);
+        //context.pushNamed(AppRouteConfig.projectDetails, extra: project);
       },
       selected: false,
       onSelectChanged: (value) {},
@@ -67,7 +65,7 @@ class PendedProjectRows extends DataTableSource {
           MoreButton(
             key: iconKey,
             onTap: () {
-              showPendedProjectActionSideMenu(iconKey, context, project);
+              showPendedProjectActionSideMenu(iconKey, context, project.id);
             },
           ),
         ),

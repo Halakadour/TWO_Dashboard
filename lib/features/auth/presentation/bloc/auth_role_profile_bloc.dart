@@ -202,6 +202,7 @@ class AuthRoleProfileBloc
             image: event.image,
             cv: event.cv,
             roleId: event.roleId,
+            phoneNumber: event.phoneNumber,
           ),
         );
         result.fold(

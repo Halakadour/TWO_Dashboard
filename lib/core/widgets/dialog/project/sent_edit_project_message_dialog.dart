@@ -9,7 +9,7 @@ import 'package:two_dashboard/core/widgets/buttons/text-buttons/save_text_button
 import 'package:two_dashboard/features/auth/presentation/widgets/custom_text_form_field.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 
-Future<dynamic> sentRejectProjectMessageDialog(
+Future<dynamic> sentEditProjectMessageDialog(
   BuildContext context,
   int projectId,
 ) {
@@ -48,13 +48,10 @@ Future<dynamic> sentRejectProjectMessageDialog(
               SaveTextButton(
                 onPressed: () {
                   context.read<ProjectStatusTeamBloc>().add(
-                    ProjectManagerRejectProjectEvent(
+                    ProjectManagerSentEditProjectRequestEvent(
                       projectId: projectId,
                       message: messageController.text,
                     ),
-                  );
-                  context.read<ProjectStatusTeamBloc>().add(
-                    ShowPendedProjectsEvent(),
                   );
                   context.pop();
                 },

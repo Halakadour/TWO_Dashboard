@@ -86,4 +86,8 @@ class JsonPath {
   static const loading = '${_animationImagesPath}loading_circle.json';
   static const noData = '${_animationImagesPath}no_data.json';
   static const password = '${_animationImagesPath}passwrod.json';
+  static const eye = '${_animationImagesPath}eye.json';
+  static const failed = '${_animationImagesPath}Failed.json';
+  static const lock = '${_animationImagesPath}Lock animation.json';
+  static const noConnection = '${_animationImagesPath}No Connection.json';
 }

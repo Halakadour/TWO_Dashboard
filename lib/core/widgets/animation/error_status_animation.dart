@@ -17,12 +17,30 @@ class ErrorStatusAnimation extends StatelessWidget {
         SizedBox(
           width: 300,
           height: 300,
-          child: Lottie.asset(JsonPath.networkError),
+          child:
+              (errorMessage.toLowerCase().contains("unexpected token"))
+                  ? Lottie.asset(JsonPath.lock)
+                  : (errorMessage.toLowerCase().contains("timeout"))
+                  ? Lottie.asset(JsonPath.noConnection)
+                  : Lottie.asset(JsonPath.failed),
         ),
         PaddingConfig.w16,
         Text(
-          errorMessage,
-          style: AppTextStyle.bodySm(color: AppColors.blueShade2),
+          (errorMessage.toLowerCase().contains("unexpected token"))
+              ? "Sorry Sir, You are not allowed\nto reach this data."
+              : (errorMessage.toLowerCase().contains("timeout"))
+              ? "There is no internet."
+              : errorMessage,
+          style: AppTextStyle.bodyMd(
+            color:
+                (errorMessage.toLowerCase().contains("unexpected token"))
+                    ? AppColors.blueShade2
+                    : (errorMessage.toLowerCase().contains("timeout"))
+                    ? AppColors.blueShade2
+                    : AppColors.redShade2,
+          ),
+          textAlign: TextAlign.center,
+          overflow: TextOverflow.fade,
         ),
       ],
     );

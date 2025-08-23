@@ -21,7 +21,7 @@ class TimeAgoContainer extends StatelessWidget {
       ),
       backgroundColor: AppColors.blueShade1,
       child: Text(
-        "${HelperFunctions().getTimeAgo(date)} left",
+        "${HelperFunctions.getTimeAgo(date)} left",
         style: AppTextStyle.bodyXs(color: AppColors.blueShade2),
       ),
     );

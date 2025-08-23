@@ -5,7 +5,8 @@ class TextStrings {
   static const String projects = "Projects";
   static const String viewAllProjects = "View All Projects";
   static const String myProjects = "My Projects";
-  static const String requests = "Requests";
+  static const String projectRequests = "Project Requests";
+  static const String assignRequests = "Assign Requests";
   static const String tasks = "Tasks";
   static const String viewMyTasks = "View My Tasks";
   static const String calendar = "Calendar";
@@ -142,6 +143,7 @@ class TextStrings {
   static const String fieldValidation = "This field is required";
   static const String emailValidation = "This field is required";
   static const String passwordValidation = "Add 8 charaters at least";
+  static const String phoneValidation = "Add a valid phone";
   static const String confirmPasswordValidation = "Passwords does not match";
   static const String loggedInSuccessfully = "You have successfully logged in";
   static const String signUpSuccessfully = "You have successfully Sign up";

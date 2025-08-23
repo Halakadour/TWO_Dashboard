@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:two_dashboard/config/routes/app_router.dart';
 import 'package:two_dashboard/features/about-us%20&%20why-us/presentation/bloc/about_us_why_us_bloc.dart';
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
-import 'package:two_dashboard/features/contact-us/presentation/bloc/contact_us_bloc.dart';
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
 import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
@@ -67,7 +66,6 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<ProjectStatusTeamBloc>()),
         BlocProvider(create: (context) => di.sl<SprintAndTaskBloc>()),
         BlocProvider(create: (context) => di.sl<AboutUsWhyUsBloc>()),
-        BlocProvider(create: (context) => di.sl<ContactUsBloc>()),
         BlocProvider(create: (context) => di.sl<ContractBloc>()),
         BlocProvider(create: (context) => di.sl<ServiceBloc>()),
         BlocProvider(create: (context) => di.sl<PostBloc>()),

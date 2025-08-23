@@ -37,9 +37,9 @@ class CustomDropdownListForRoleModel extends StatelessWidget {
         elevation: 0,
         hint: Text(
           "select your Role",
-          style: AppTextStyle.bodySm(color: AppColors.fontLightGray),
+          style: AppTextStyle.bodySm(color: AppColors.fontDarkGray),
         ),
-        style: AppTextStyle.bodySm(color: AppColors.fontLightGray),
+        style: AppTextStyle.bodySm(color: AppColors.fontDarkGray),
         dropdownColor: AppColors.fieldColor,
         items: items,
         onChanged: onChanged,

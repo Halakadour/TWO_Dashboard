@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/project_bloc_state_handling.dart';
 import 'package:two_dashboard/core/functions/device_utility.dart';
+import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/sent_edit_project_request_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/update_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/cooperation_type_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/dynamic_status_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/project_type_status_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/visibility_status_container.dart';
+import 'package:two_dashboard/core/widgets/dialog/project/sent_edit_project_message_dialog.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
 
 class SummaryTabBarView extends StatelessWidget {
   const SummaryTabBarView({super.key, required this.projectEntity});
@@ -34,6 +39,26 @@ class SummaryTabBarView extends StatelessWidget {
                         AppRouteConfig.updateProject,
                         extra: projectEntity,
                       ),
+                ),
+                PaddingConfig.w8,
+                BlocListener<ProjectStatusTeamBloc, ProjectStatusTeamState>(
+                  listener: (context, state) {
+                    ProjectBlocStateHandling().sentEditProjectMessage(
+                      state,
+                      context,
+                    );
+                  },
+                  listenWhen:
+                      (previous, current) =>
+                          previous.projectManagerSentEditProjectRequest !=
+                          current.projectManagerSentEditProjectRequest,
+                  child: SentEditProjectRequestElevatedButton(
+                    onPressed:
+                        () => sentEditProjectMessageDialog(
+                          context,
+                          projectEntity.id,
+                        ),
+                  ),
                 ),
               ],
             ),

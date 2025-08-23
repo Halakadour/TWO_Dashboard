@@ -37,7 +37,7 @@ class _MyProjectsPageState extends State<MyProjectsPage> {
         ),
         child: Column(
           children: [
-            PageTitle(pageTitle: "My Projects 💗✨"),
+            PageTitle(pageTitle: "My Projects 💻✨"),
             PaddingConfig.h24,
             _buildFilters(),
             PaddingConfig.h32,

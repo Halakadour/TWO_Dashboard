@@ -7,6 +7,7 @@ import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/profile_bloc_state_handling.dart';
 import 'package:two_dashboard/core/functions/device_utility.dart';
+import 'package:two_dashboard/core/widgets/menus/notification_side_menu.dart';
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
 
 class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
@@ -15,6 +16,7 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey iconKey = GlobalKey();
     return Container(
       decoration: const BoxDecoration(
         color: AppColors.white,
@@ -78,7 +80,11 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
               icon: const Icon(Iconsax.search_normal),
             ),
           // Notification Icon
-          IconButton(onPressed: () {}, icon: const Icon(Iconsax.notification)),
+          IconButton(
+            key: iconKey,
+            onPressed: () => showNotificationsPanel(context),
+            icon: const Icon(Iconsax.notification),
+          ),
           PaddingConfig.h8,
           // User Data
           BlocBuilder<AuthRoleProfileBloc, AuthRoleProfileState>(

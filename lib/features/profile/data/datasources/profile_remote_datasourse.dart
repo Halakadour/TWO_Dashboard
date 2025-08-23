@@ -37,6 +37,7 @@ class ProfileRemoteDatasourseImpl extends ProfileRemoteDatasourse {
         'image': '$imageBase64${param.image}',
         'cv': '$pdfBase64${param.cv}',
         'role_id': param.roleId.toString(),
+        'phone': param.phoneNumber,
       }),
       fromJson: emptyResponseModelFromJson,
       token: param.token,
