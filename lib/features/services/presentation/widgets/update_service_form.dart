@@ -7,6 +7,7 @@ import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
+import 'package:two_dashboard/core/functions/bloc-state-handling/services_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/breadcrumbs/breadcumbs_item.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/desmiss_elevated_buttom.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/save_elevated_button.dart';
@@ -53,7 +54,9 @@ class _UpdateServiceFormState extends State<UpdateServiceForm> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<ServiceBloc, ServiceState>(
-      listener: (context, state) {},
+      listener:
+          (context, state) =>
+              ServicesBlocStateHandling().updateService(state, context),
       listenWhen:
           (previous, current) =>
               previous.updateServiceStatus != current.updateServiceStatus,

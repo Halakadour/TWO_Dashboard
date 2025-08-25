@@ -4,7 +4,7 @@ class PostModel extends PostEntity {
   final int id;
   final String description;
   final String image;
-  final int status;
+  final int? status;
   final List<Reply> replies;
 
   PostModel({
@@ -19,7 +19,7 @@ class PostModel extends PostEntity {
     id: json["id"],
     description: json["description"],
     image: json["image"],
-    status: json["status"],
+    status: json["status"] ?? 1,
     replies: List<Reply>.from(json["replies"].map((x) => Reply.fromJson(x))),
   );
 

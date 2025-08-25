@@ -43,13 +43,12 @@ class Data {
   final String cooperationType;
   final String contactTime;
   final int clientId;
-  final int teamId;
+  final dynamic teamId;
   final int teamApproved;
   final String status;
   final int private;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final Team team;
 
   Data({
     required this.id,
@@ -66,7 +65,6 @@ class Data {
     required this.private,
     required this.createdAt,
     required this.updatedAt,
-    required this.team,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -84,7 +82,6 @@ class Data {
     private: json["private"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
-    team: Team.fromJson(json["team"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -100,35 +97,6 @@ class Data {
     "team_approved": teamApproved,
     "status": status,
     "private": private,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
-    "team": team.toJson(),
-  };
-}
-
-class Team {
-  final int id;
-  final String name;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-
-  Team({
-    required this.id,
-    required this.name,
-    required this.createdAt,
-    required this.updatedAt,
-  });
-
-  factory Team.fromJson(Map<String, dynamic> json) => Team(
-    id: json["id"],
-    name: json["name"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
     "created_at": createdAt.toIso8601String(),
     "updated_at": updatedAt.toIso8601String(),
   };

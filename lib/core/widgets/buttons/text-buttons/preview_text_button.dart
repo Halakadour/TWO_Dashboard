@@ -13,7 +13,7 @@ class PreviewTextButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         TextStrings.preview,
-        style: AppTextStyle.buttonStyle(color: AppColors.greenShade2),
+        style: AppTextStyle.textButtonStyle(color: AppColors.greenShade2),
       ),
     );
   }

@@ -12,8 +12,9 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presenta
 Future<dynamic> sentRejectProjectMessageDialog(
   BuildContext context,
   int projectId,
+  TextEditingController messageController,
 ) {
-  final messageController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   return showDialog(
     context: context,
     builder:
@@ -26,37 +27,39 @@ Future<dynamic> sentRejectProjectMessageDialog(
             ),
             content: SizedBox(
               width: SizesConfig.dialogWidthXl,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CustomTextFormField(
-                    labelText: TextStrings.message,
-                    maxLines: 3,
-                    controller: messageController,
-                    validator: (p0) {
-                      if (p0 == null) {
-                        return TextStrings.fieldValidation;
-                      }
-                      return null;
-                    },
-                  ),
-                ],
+              child: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CustomTextFormField(
+                      labelText: TextStrings.message,
+                      maxLines: 3,
+                      controller: messageController,
+                      validator: (p0) {
+                        if (p0 == null) {
+                          return TextStrings.fieldValidation;
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
             actions: [
               const CancelTextButton(),
               SaveTextButton(
                 onPressed: () {
-                  context.read<ProjectStatusTeamBloc>().add(
-                    ProjectManagerRejectProjectEvent(
-                      projectId: projectId,
-                      message: messageController.text,
-                    ),
-                  );
-                  context.read<ProjectStatusTeamBloc>().add(
-                    ShowPendedProjectsEvent(),
-                  );
-                  context.pop();
+                  if (formKey.currentState!.validate()) {
+                    context.read<ProjectStatusTeamBloc>().add(
+                      ProjectManagerRejectProjectEvent(
+                        projectId: projectId,
+                        message: messageController.text,
+                      ),
+                    );
+                    context.pop();
+                  }
                 },
               ),
             ],

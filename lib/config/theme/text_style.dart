@@ -161,6 +161,23 @@ class AppTextStyle {
     );
   }
 
+  static TextStyle textButtonStyle({
+    double fontSize = 14,
+    Color color = Colors.black,
+    TextDecoration? decoration,
+    double? letterSpacing,
+  }) {
+    return TextStyle(
+      color: color,
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w600,
+      fontStyle: FontStyle.normal,
+      fontSize: fontSize,
+      decoration: decoration,
+      letterSpacing: letterSpacing,
+    );
+  }
+
   static TextStyle textfieldStyle({
     double fontSize = 10,
     Color color = AppColors.gray,

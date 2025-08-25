@@ -1,4 +1,4 @@
-//import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
@@ -40,6 +40,7 @@ class GetWithTokenApi<T> with HandlingExceptionRequest {
         return fromJson(response.body);
       } else {
         Exception exception = getException(response: response);
+        log(exception.toString());
         throw exception;
       }
     } on HttpException {
@@ -49,6 +50,7 @@ class GetWithTokenApi<T> with HandlingExceptionRequest {
     } on SocketException {
       rethrow;
     } catch (e) {
+      log(e.toString());
       rethrow;
     }
   }

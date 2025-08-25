@@ -54,20 +54,31 @@ class _ShowPostsPageState extends State<PostsPage> {
               ],
             ),
             const SizedBox(height: SizesConfig.spaceBtwSections),
-            Expanded(
-              child: BlocBuilder<PostBloc, PostState>(
-                buildWhen:
-                    (previous, current) =>
-                        (previous.activePostsListStatus !=
-                                current.activePostsListStatus ||
-                            previous.unActivePostsListStatus !=
-                                current.unActivePostsListStatus),
-                builder: (context, state) {
-                  return PostsBlocStateHandling().getPostsGridView(
-                    state,
-                    actriveSelected.value,
-                  );
-                },
+            BlocListener<PostBloc, PostState>(
+              listener: (context, state) {
+                PostsBlocStateHandling().deletePost(state, context);
+                PostsBlocStateHandling().unActivePost(state, context);
+              },
+              listenWhen:
+                  (previous, current) =>
+                      (previous.deletePostStatus != current.deletePostStatus ||
+                          previous.unActivePostStatus !=
+                              current.unActivePostStatus),
+              child: Expanded(
+                child: BlocBuilder<PostBloc, PostState>(
+                  buildWhen:
+                      (previous, current) =>
+                          (previous.activePostsListStatus !=
+                                  current.activePostsListStatus ||
+                              previous.unActivePostsListStatus !=
+                                  current.unActivePostsListStatus),
+                  builder: (context, state) {
+                    return PostsBlocStateHandling().getPostsGridView(
+                      state,
+                      actriveSelected.value,
+                    );
+                  },
+                ),
               ),
             ),
           ],

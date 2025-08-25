@@ -13,7 +13,7 @@ class ApplyTextButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         TextStrings.apply,
-        style: AppTextStyle.buttonStyle(color: AppColors.greenShade2),
+        style: AppTextStyle.textButtonStyle(color: AppColors.greenShade2),
       ),
     );
   }

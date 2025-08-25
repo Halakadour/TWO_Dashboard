@@ -30,7 +30,6 @@ class _FetchImageCircleState extends State<FetchImageCircle> {
       final bytes = await result.files.first.xFile.readAsBytes();
       imageBytes = bytes;
       widget.imageB64 = base64Encode(bytes);
-      print(widget.imageB64);
       widget.onUpdate(widget.imageB64);
     }
   }

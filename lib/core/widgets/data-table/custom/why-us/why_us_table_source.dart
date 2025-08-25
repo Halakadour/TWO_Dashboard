@@ -15,7 +15,6 @@ import '../../../dialog/global/confirm_deletion_dialog.dart';
 class WhyUsRows extends DataTableSource {
   final List<WhyUsEntity?> whyUsList;
   BuildContext context;
-
   WhyUsRows({required this.whyUsList, required this.context});
   @override
   DataRow? getRow(int index) {

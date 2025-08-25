@@ -63,22 +63,39 @@ class PostsBlocStateHandling {
   }
 
   // Delete And Unactive
-  void deleteAndUnActivePost(PostState state, BuildContext context) {
-    if (state.deletePostStatus == CasualStatus.loading ||
-        state.unActivePostStatus == CasualStatus.loading) {
+  void deletePost(PostState state, BuildContext context) {
+    if (state.deletePostStatus == CasualStatus.loading) {
       showLoadingDialog(context);
-    } else if (state.deletePostStatus == CasualStatus.success ||
-        state.unActivePostStatus == CasualStatus.success) {
+    } else if (state.deletePostStatus == CasualStatus.success) {
       context.pop();
+      context.read<PostBloc>().add(GetActivePostsEvent());
       showSuccessDialog(context, () {
         context.pop();
       });
-    } else if (state.deletePostStatus == CasualStatus.failure ||
-        state.unActivePostStatus == CasualStatus.failure) {
+      context.pop();
+    } else if (state.deletePostStatus == CasualStatus.failure) {
       context.pop();
       showErrorDialog(context, state.message);
-    } else if (state.deletePostStatus == CasualStatus.not_authorized ||
-        state.unActivePostStatus == CasualStatus.not_authorized) {
+    } else if (state.deletePostStatus == CasualStatus.not_authorized) {
+      context.pop();
+      showNotAuthorizedDialog(context);
+    }
+  }
+
+  void unActivePost(PostState state, BuildContext context) {
+    if (state.unActivePostStatus == CasualStatus.loading) {
+      showLoadingDialog(context);
+    } else if (state.unActivePostStatus == CasualStatus.success) {
+      context.pop();
+      context.read<PostBloc>().add(GetActivePostsEvent());
+      showSuccessDialog(context, () {
+        context.pop();
+      });
+      context.pop();
+    } else if (state.unActivePostStatus == CasualStatus.failure) {
+      context.pop();
+      showErrorDialog(context, state.message);
+    } else if (state.unActivePostStatus == CasualStatus.not_authorized) {
       context.pop();
       showNotAuthorizedDialog(context);
     }

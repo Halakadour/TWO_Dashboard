@@ -7,7 +7,6 @@ import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/edit_button.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/dynamic_status_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/visibility_status_container.dart';
-import 'package:two_dashboard/core/widgets/texts/linked_text.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
 
 class ProjectRows extends DataTableSource {
@@ -25,18 +24,17 @@ class ProjectRows extends DataTableSource {
       selected: false,
       onSelectChanged: (value) {},
       cells: [
-        DataCell(
-          Text(project.pType.name, style: AppTextStyle.dataTableCellStyle()),
-        ),
+        DataCell(DynamicStatusContainer(status: project.pType.name)),
         DataCell(DynamicStatusContainer(status: project.status)),
         DataCell(VisibilityStatusContainer(visibility: project.visibility)),
-        DataCell(Text(project.cost, style: AppTextStyle.dataTableCellStyle())),
-        DataCell(
-          Text(project.duration, style: AppTextStyle.dataTableCellStyle()),
-        ),
-        DataCell(LinkedText(link: project.document)),
         DataCell(
           Text(project.cType.name, style: AppTextStyle.dataTableCellStyle()),
+        ),
+        DataCell(
+          Text(
+            project.team?.name ?? "No Team Selected",
+            style: AppTextStyle.dataTableCellStyle(),
+          ),
         ),
         DataCell(
           Row(

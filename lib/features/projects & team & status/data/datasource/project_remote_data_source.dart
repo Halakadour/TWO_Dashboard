@@ -218,13 +218,16 @@ class ProjectRemoteDataSourceImpl extends ProjectRemoteDataSource {
   Future<AcceptOrRejectProjectResponseModel> projectManagerRejectProject(
     RejectProjectParam param,
   ) async {
-    final result = GetWithTokenApi(
+    final result = PostWithTokenApi(
       uri: Uri.parse("$baseUri/api/Pmanager/reject/project"),
       token: param.token,
       body: ({"project_id": param.projectId, "message": param.message}),
       fromJson: acceptOrRejectProjectResponseModelFromJson,
     );
-    return await result.callRequest();
+    print("**************************");
+    print(result.body);
+    print("**************************");
+    return await result.call();
   }
 
   @override

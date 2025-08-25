@@ -60,16 +60,17 @@ class MemberAdapter extends TypeAdapter<Member> {
       id: fields[0] as int,
       name: fields[1] as String,
       email: fields[2] as String,
-      image: fields[3] as String?,
-      role: fields[4] as String,
-      isManager: fields[5] as bool,
+      phone: fields[3] as String,
+      image: fields[4] as String?,
+      role: fields[5] as String,
+      isManager: fields[6] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, Member obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -77,10 +78,12 @@ class MemberAdapter extends TypeAdapter<Member> {
       ..writeByte(2)
       ..write(obj.email)
       ..writeByte(3)
-      ..write(obj.image)
+      ..write(obj.phone)
       ..writeByte(4)
-      ..write(obj.role)
+      ..write(obj.image)
       ..writeByte(5)
+      ..write(obj.role)
+      ..writeByte(6)
       ..write(obj.isManager);
   }
 

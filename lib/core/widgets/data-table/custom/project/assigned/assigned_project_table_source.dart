@@ -1,9 +1,7 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
-import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/approved_button.dart';
@@ -23,16 +21,13 @@ class AssignedProjectRows extends DataTableSource {
   @override
   DataRow? getRow(int index) {
     final project = assignProjectList[index];
+    final message = TextEditingController();
     return DataRow2(
-      onTap: () {
-        context.pushNamed(AppRouteConfig.projectDetails, extra: project);
-      },
+      onTap: () {},
       selected: false,
       onSelectChanged: (value) {},
       cells: [
-        DataCell(
-          Text(project.projectType, style: AppTextStyle.dataTableCellStyle()),
-        ),
+        DataCell(DynamicStatusContainer(status: project.projectType)),
         DataCell(DynamicStatusContainer(status: project.status)),
         DataCell(
           VisibilityStatusContainer(
@@ -70,7 +65,11 @@ class AssignedProjectRows extends DataTableSource {
               if (project.status.toLowerCase().contains("pen"))
                 RejectButton(
                   onTap: () {
-                    sentRejectProjectMessageDialog(context, project.id);
+                    sentRejectProjectMessageDialog(
+                      context,
+                      project.id,
+                      message,
+                    );
                   },
                 ),
             ],

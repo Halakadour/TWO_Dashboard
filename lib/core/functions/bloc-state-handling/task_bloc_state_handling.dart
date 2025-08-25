@@ -90,7 +90,6 @@ class TaskBlocStateHandling {
         );
       }
     } else if (state.projectPendedSprintsListStatus == CasualStatus.failure) {
-      print(state.errorMessage);
       return ErrorStatusAnimation(errorMessage: state.errorMessage);
     } else {
       return SizedBox();
@@ -123,7 +122,6 @@ class TaskBlocStateHandling {
         );
       }
     } else if (state.backlogTasksListStatus == CasualStatus.failure) {
-      print(state.errorMessage);
       return ErrorStatusAnimation(errorMessage: state.errorMessage);
     } else {
       return SizedBox();
@@ -152,7 +150,6 @@ class TaskBlocStateHandling {
         );
       }
     } else if (state.myProjectTasksListStatus == CasualStatus.failure) {
-      print(state.errorMessage);
       return ErrorStatusAnimation(errorMessage: state.errorMessage);
     } else {
       return SizedBox();
@@ -181,7 +178,6 @@ class TaskBlocStateHandling {
         );
       }
     } else if (state.projectTasksListStatus == CasualStatus.failure) {
-      print(state.errorMessage);
       return ErrorStatusAnimation(errorMessage: state.errorMessage);
     } else {
       return SizedBox();

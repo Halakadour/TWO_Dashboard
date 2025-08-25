@@ -27,6 +27,7 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
         vertical: SizesConfig.sm,
       ),
       child: AppBar(
+        scrolledUnderElevation: 0.0,
         // Mobile Menu
         leading:
             !DeviceUtility.isDesktopScreen(context)

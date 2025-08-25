@@ -15,20 +15,14 @@ class LoadingPendedProjectTable extends StatelessWidget {
       tableHeight: 500,
       dataRowHeight: SizesConfig.xl * 2.2,
       columns: [
-        DataColumn2(label: Text(TextStrings.client)),
-        DataColumn2(label: Text(TextStrings.company)),
-        DataColumn2(label: Text(TextStrings.email)),
-        DataColumn2(label: Text(TextStrings.phone)),
         DataColumn2(label: Text(TextStrings.type)),
         DataColumn2(label: Text(TextStrings.status)),
         DataColumn2(label: Text(TextStrings.visibility)),
-        DataColumn2(label: Text(TextStrings.cost)),
-        DataColumn2(label: Text(TextStrings.duration)),
-        DataColumn2(label: Text(TextStrings.documents)),
         DataColumn2(label: Text(TextStrings.coopertion)),
+        DataColumn2(label: Text(TextStrings.assignedTeam)),
         DataColumn2(label: Text(TextStrings.actions)),
       ],
-      source: LoadingRows(cellsCount: 12),
+      source: LoadingRows(cellsCount: 6),
     );
   }
 }

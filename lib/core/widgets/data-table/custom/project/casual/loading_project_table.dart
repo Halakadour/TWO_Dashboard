@@ -18,13 +18,11 @@ class LoadingProjectTable extends StatelessWidget {
         DataColumn2(label: Text(TextStrings.type)),
         DataColumn2(label: Text(TextStrings.status)),
         DataColumn2(label: Text(TextStrings.visibility)),
-        DataColumn2(label: Text(TextStrings.cost)),
-        DataColumn2(label: Text(TextStrings.duration)),
-        DataColumn2(label: Text(TextStrings.documents)),
         DataColumn2(label: Text(TextStrings.coopertion)),
+        DataColumn2(label: Text(TextStrings.assignedTeam)),
         DataColumn2(label: Text(TextStrings.actions)),
       ],
-      source: LoadingRows(cellsCount: 8),
+      source: LoadingRows(cellsCount: 6),
     );
   }
 }

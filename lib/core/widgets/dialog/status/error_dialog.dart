@@ -26,7 +26,11 @@ void showErrorDialog(BuildContext context, String errorMessage) {
             mainAxisSize: MainAxisSize.min,
             children: [
               Lottie.asset(
-                JsonPath.networkError,
+                (errorMessage.toLowerCase().contains("unexpected token"))
+                    ? JsonPath.lock
+                    : (errorMessage.toLowerCase().contains("timeout"))
+                    ? JsonPath.noConnection
+                    : JsonPath.failed,
                 width: 120,
                 height: 120,
                 repeat: false,
@@ -35,13 +39,31 @@ void showErrorDialog(BuildContext context, String errorMessage) {
               Text(
                 TextStrings.error,
                 textAlign: TextAlign.center,
-                style: AppTextStyle.headerSm(color: AppColors.redShade2),
+                style: AppTextStyle.headerSm(
+                  color:
+                      (errorMessage.toLowerCase().contains("unexpected token"))
+                          ? AppColors.blueShade2
+                          : (errorMessage.toLowerCase().contains("timeout"))
+                          ? AppColors.blueShade2
+                          : AppColors.redShade2,
+                ),
               ),
               PaddingConfig.h8,
               Text(
-                errorMessage,
+                (errorMessage.toLowerCase().contains("unexpected token"))
+                    ? "You are not allowed\nto do that."
+                    : (errorMessage.toLowerCase().contains("timeout"))
+                    ? "There is no internet."
+                    : errorMessage,
                 textAlign: TextAlign.center,
-                style: AppTextStyle.bodyMd(color: AppColors.redShade1),
+                style: AppTextStyle.bodyMd(
+                  color:
+                      (errorMessage.toLowerCase().contains("unexpected token"))
+                          ? AppColors.blueShade2.withOpacity(0.8)
+                          : (errorMessage.toLowerCase().contains("timeout"))
+                          ? AppColors.blueShade2.withOpacity(0.8)
+                          : AppColors.redShade2.withOpacity(0.7),
+                ),
                 overflow: TextOverflow.fade,
               ),
               PaddingConfig.h24,

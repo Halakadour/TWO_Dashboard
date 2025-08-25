@@ -52,6 +52,7 @@ class TextStrings {
   static const String edit = "Edit";
   static const String sentMsg = "Sent Message";
   static const String more = "More";
+  static const String specifyTeam = "Specify Team";
   static const String reject = "Reject";
   static const String seen = "Mark As Seen";
   static const String back = "Back";
@@ -62,6 +63,7 @@ class TextStrings {
   static const String clear = "Clear";
   static const String preview = "Preview";
   static const String yes = "Yes";
+  static const String refresh = "Refresh";
 
   // --TABLE TEXT
   static const String profile = "Profile";
@@ -85,6 +87,7 @@ class TextStrings {
   static const String duration = "Duration";
   static const String documents = "Documents";
   static const String coopertion = "Coopertion";
+  static const String assignedTeam = "Assigned Team";
   static const String title = "Title";
   static const String description = "Description";
   static const String requirements = "Requirements";

@@ -78,159 +78,6 @@ class SummaryTabBarView extends StatelessWidget {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(
-                            Iconsax.profile_circle,
-                            color: AppColors.blueShade2,
-                          ),
-                          PaddingConfig.w8,
-                          Text(
-                            "Client Name",
-                            style: AppTextStyle.bodyMd(
-                              color: AppColors.blueShade2,
-                            ),
-                          ),
-                          SizedBox(width: 75),
-                          Text(
-                            projectEntity.fullName,
-                            style: AppTextStyle.bodySm(
-                              color: AppColors.fontLightGray,
-                            ),
-                          ),
-                        ],
-                      ),
-                      PaddingConfig.h24,
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(Iconsax.building, color: AppColors.blueShade2),
-                          PaddingConfig.w8,
-                          Text(
-                            "Company Name",
-                            style: AppTextStyle.bodyMd(
-                              color: AppColors.blueShade2,
-                            ),
-                          ),
-                          SizedBox(width: 50),
-                          Text(
-                            projectEntity.companyName,
-                            style: AppTextStyle.bodySm(
-                              color: AppColors.fontLightGray,
-                            ),
-                          ),
-                        ],
-                      ),
-                      PaddingConfig.h24,
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(Iconsax.brush_1, color: AppColors.blueShade2),
-                          PaddingConfig.w8,
-                          Text(
-                            "Project Descreption",
-                            style: AppTextStyle.bodyMd(
-                              color: AppColors.blueShade2,
-                            ),
-                          ),
-                          PaddingConfig.w24,
-                          Flexible(
-                            child: SizedBox(
-                              width: 200,
-                              child: Text(
-                                projectEntity.projectDescription,
-                                style: AppTextStyle.bodySm(
-                                  color: AppColors.fontLightGray,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      PaddingConfig.h24,
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Iconsax.receipt_2_1,
-                            color: AppColors.blueShade2,
-                          ),
-                          PaddingConfig.w8,
-                          Text(
-                            "Project Requirdment",
-                            style: AppTextStyle.bodyMd(
-                              color: AppColors.blueShade2,
-                            ),
-                          ),
-                          PaddingConfig.w24,
-                          Flexible(
-                            child: SizedBox(
-                              width: 200,
-                              child: Text(
-                                projectEntity.requirements,
-                                style: AppTextStyle.bodySm(
-                                  color: AppColors.fontLightGray,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      PaddingConfig.h24,
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(Iconsax.clock, color: AppColors.blueShade2),
-                          PaddingConfig.w8,
-                          Text(
-                            "Project Duration",
-                            style: AppTextStyle.bodyMd(
-                              color: AppColors.blueShade2,
-                            ),
-                          ),
-                          PaddingConfig.w56,
-                          Text(
-                            projectEntity.duration,
-                            style: AppTextStyle.bodySm(
-                              color: AppColors.fontLightGray,
-                            ),
-                          ),
-                        ],
-                      ),
-                      PaddingConfig.h24,
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(Iconsax.money, color: AppColors.blueShade2),
-                          PaddingConfig.w8,
-                          Text(
-                            "Project Cost",
-                            style: AppTextStyle.bodyMd(
-                              color: AppColors.blueShade2,
-                            ),
-                          ),
-                          SizedBox(width: 84),
-                          Text(
-                            projectEntity.cost,
-                            style: AppTextStyle.bodySm(
-                              color: AppColors.fontLightGray,
-                            ),
-                          ),
-                        ],
-                      ),
-                      PaddingConfig.h24,
-                    ],
-                  ),
-                ),
-                PaddingConfig.w16,
-                SizedBox(
-                  width:
-                      DeviceUtility.isMobileScreen(context)
-                          ? double.infinity
-                          : MediaQuery.of(context).size.width / 2.5 - 32,
-                  child: Column(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
                           Icon(Iconsax.brush, color: AppColors.blueShade2),
                           PaddingConfig.w8,
                           Text(
@@ -298,6 +145,73 @@ class SummaryTabBarView extends StatelessWidget {
                         ],
                       ),
                       PaddingConfig.h24,
+                    ],
+                  ),
+                ),
+
+                PaddingConfig.w16,
+
+                SizedBox(
+                  width:
+                      DeviceUtility.isMobileScreen(context)
+                          ? double.infinity
+                          : MediaQuery.of(context).size.width / 2.5 - 32,
+                  child: Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(Iconsax.brush_1, color: AppColors.blueShade2),
+                          PaddingConfig.w8,
+                          Text(
+                            "Project Descreption",
+                            style: AppTextStyle.bodyMd(
+                              color: AppColors.blueShade2,
+                            ),
+                          ),
+                          PaddingConfig.w24,
+                          Flexible(
+                            child: SizedBox(
+                              width: 200,
+                              child: Text(
+                                projectEntity.projectDescription,
+                                style: AppTextStyle.bodySm(
+                                  color: AppColors.fontLightGray,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      PaddingConfig.h24,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Iconsax.receipt_2_1,
+                            color: AppColors.blueShade2,
+                          ),
+                          PaddingConfig.w8,
+                          Text(
+                            "Project Requirdment",
+                            style: AppTextStyle.bodyMd(
+                              color: AppColors.blueShade2,
+                            ),
+                          ),
+                          PaddingConfig.w24,
+                          Flexible(
+                            child: SizedBox(
+                              width: 200,
+                              child: Text(
+                                projectEntity.requirements,
+                                style: AppTextStyle.bodySm(
+                                  color: AppColors.fontLightGray,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),

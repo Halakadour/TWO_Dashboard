@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:two_dashboard/config/theme/color.dart';
@@ -372,6 +370,10 @@ class HelperFunctions {
       return AppColors.redShade1;
     } else if (text.toLowerCase().contains('pend')) {
       return AppColors.yellowShade1;
+    } else if (text.toLowerCase().contains('mob')) {
+      return AppColors.blueShade1;
+    } else if (text.toLowerCase().contains('web')) {
+      return AppColors.yellowShade1;
     } else {
       return AppColors.greenShade1;
     }
@@ -382,6 +384,10 @@ class HelperFunctions {
       return AppColors.redShade2;
     } else if (text.toLowerCase().contains('pend')) {
       return AppColors.yellowShade2;
+    } else if (text.toLowerCase().contains('mob')) {
+      return AppColors.blueShade2;
+    } else if (text.toLowerCase().contains('web')) {
+      return AppColors.yellowShade3;
     } else {
       return AppColors.greenShade2;
     }

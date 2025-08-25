@@ -155,14 +155,6 @@ class AppRouter {
                         TaskDetailsPage(taskEntity: state.extra as TaskEntity),
               ),
               GoRoute(
-                name: AppRouteConfig.selectTeam,
-                path: '/select-team/:id',
-                builder:
-                    (context, state) => SelectTeamPage(
-                      projectId: state.pathParameters['id'] ?? '',
-                    ),
-              ),
-              GoRoute(
                 name: AppRouteConfig.createTeam,
                 path: '/create-team',
                 builder: (context, state) => const CreateTeamPage(),
@@ -196,6 +188,14 @@ class AppRouter {
                 name: AppRouteConfig.projectRequests,
                 path: '/project-requests',
                 builder: (context, state) => const PendedProjectsPage(),
+              ),
+              GoRoute(
+                name: AppRouteConfig.selectTeam,
+                path: '/select-team/:id',
+                builder:
+                    (context, state) => SelectTeamPage(
+                      projectId: state.pathParameters['id'] ?? '',
+                    ),
               ),
             ],
           ),

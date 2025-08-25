@@ -41,18 +41,22 @@ class Member extends HiveObject {
   final String email;
 
   @HiveField(3)
-  final String? image;
+  final String phone;
 
   @HiveField(4)
-  final String role;
+  final String? image;
 
   @HiveField(5)
+  final String role;
+
+  @HiveField(6)
   final bool isManager;
 
   Member({
     required this.id,
     required this.name,
     required this.email,
+    required this.phone,
     required this.image,
     required this.role,
     required this.isManager,
@@ -62,6 +66,7 @@ class Member extends HiveObject {
     id: json["id"],
     name: json["name"],
     email: json["email"],
+    phone: json["phone"],
     image: json["image"],
     role: json["role"] ?? "No Role",
     isManager: json["is_manager"],
@@ -71,6 +76,7 @@ class Member extends HiveObject {
     "id": id,
     "name": name,
     "email": email,
+    "phone": phone,
     "image": image,
     "role": role,
     "is_manager": isManager,

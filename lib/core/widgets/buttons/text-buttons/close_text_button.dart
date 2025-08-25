@@ -15,7 +15,7 @@ class CloseTextButton extends StatelessWidget {
       },
       child: Text(
         TextStrings.close,
-        style: AppTextStyle.buttonStyle(color: AppColors.black),
+        style: AppTextStyle.textButtonStyle(color: AppColors.black),
       ),
     );
   }

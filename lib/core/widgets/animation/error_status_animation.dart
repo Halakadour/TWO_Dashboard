@@ -4,10 +4,16 @@ import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/strings/assets_path.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
+import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/refresh_button.dart';
 
 class ErrorStatusAnimation extends StatelessWidget {
-  const ErrorStatusAnimation({super.key, required this.errorMessage});
+  const ErrorStatusAnimation({
+    super.key,
+    required this.errorMessage,
+    this.onTap,
+  });
   final String errorMessage;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +30,12 @@ class ErrorStatusAnimation extends StatelessWidget {
                   ? Lottie.asset(JsonPath.noConnection)
                   : Lottie.asset(JsonPath.failed),
         ),
-        PaddingConfig.w16,
+        PaddingConfig.h8,
         Text(
           (errorMessage.toLowerCase().contains("unexpected token"))
               ? "Sorry Sir, You are not allowed\nto reach this data."
               : (errorMessage.toLowerCase().contains("timeout"))
-              ? "There is no internet."
+              ? "Connection is unstable. Please check your\ninternet connection and try again."
               : errorMessage,
           style: AppTextStyle.bodyMd(
             color:
@@ -42,6 +48,9 @@ class ErrorStatusAnimation extends StatelessWidget {
           textAlign: TextAlign.center,
           overflow: TextOverflow.fade,
         ),
+        PaddingConfig.h8,
+        if (errorMessage.toLowerCase().contains("timeout"))
+          RefreshButton(onTap: onTap),
       ],
     );
   }

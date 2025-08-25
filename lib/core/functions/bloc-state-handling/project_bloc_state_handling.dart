@@ -146,17 +146,15 @@ class ProjectBlocStateHandling {
   }
 
   ////////////////////// PROJECT MANAGER SIDE /////////////////////////////
-  // Reject Or Accept Project
-  void projectManagerRejectOrAcceptProject(
+  // Accept Project
+  void projectManagerAcceptProject(
     ProjectStatusTeamState state,
     BuildContext context,
   ) {
-    if (state.projectManagerRejectProjectStatus == CasualStatus.loading ||
-        state.projectManagerAcceptProjectStatus == CasualStatus.loading) {
+    if (state.projectManagerAcceptProjectStatus == CasualStatus.loading) {
       showLoadingDialog(context);
-    } else if (state.projectManagerRejectProjectStatus ==
-            CasualStatus.success ||
-        state.projectManagerAcceptProjectStatus == CasualStatus.success) {
+    } else if (state.projectManagerAcceptProjectStatus ==
+        CasualStatus.success) {
       context.pop();
       context.read<ProjectStatusTeamBloc>().add(
         ShowProjectAssignRequestListEvent(),
@@ -164,15 +162,42 @@ class ProjectBlocStateHandling {
       showSuccessDialog(context, () {
         context.pop();
       });
+    } else if (state.projectManagerAcceptProjectStatus ==
+        CasualStatus.failure) {
+      context.pop();
+      showErrorDialog(context, state.message);
+    } else if (state.projectManagerAcceptProjectStatus ==
+        CasualStatus.not_authorized) {
+      context.pop();
+      showNotAuthorizedDialog(context);
+    }
+  }
+
+  // Reject Project
+  void projectManagerRejectProject(
+    ProjectStatusTeamState state,
+    BuildContext context,
+  ) {
+    if (state.projectManagerRejectProjectStatus == CasualStatus.loading) {
+      showLoadingDialog(context);
     } else if (state.projectManagerRejectProjectStatus ==
-            CasualStatus.failure ||
-        state.projectManagerAcceptProjectStatus == CasualStatus.failure) {
+        CasualStatus.success) {
+      context.pop();
+      showSuccessDialog(context, () {
+        context.read<ProjectStatusTeamBloc>().add(
+          ShowProjectAssignRequestListEvent(),
+        );
+        context.pop();
+      });
+    } else if (state.projectManagerRejectProjectStatus ==
+        CasualStatus.failure) {
+      print("**************************");
+      print(state.message);
+      print("**************************");
       context.pop();
       showErrorDialog(context, state.message);
     } else if (state.projectManagerRejectProjectStatus ==
-            CasualStatus.not_authorized ||
-        state.projectManagerAcceptProjectStatus ==
-            CasualStatus.not_authorized) {
+        CasualStatus.not_authorized) {
       context.pop();
       showNotAuthorizedDialog(context);
     }

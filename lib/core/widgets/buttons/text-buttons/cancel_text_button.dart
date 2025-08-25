@@ -15,7 +15,7 @@ class CancelTextButton extends StatelessWidget {
       },
       child: Text(
         TextStrings.cancel,
-        style: AppTextStyle.buttonStyle(color: AppColors.fontLightGray),
+        style: AppTextStyle.textButtonStyle(color: AppColors.fontLightGray),
       ),
     );
   }

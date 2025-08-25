@@ -13,7 +13,7 @@ class ClearTextButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         TextStrings.clear,
-        style: AppTextStyle.buttonStyle(color: AppColors.fontLightGray),
+        style: AppTextStyle.textButtonStyle(color: AppColors.fontLightGray),
       ),
     );
   }

@@ -55,6 +55,7 @@ class AppRouteConfig {
   static const post = "post";
   static const replyToPost = "reply-to-post";
   static const createPost = "create-post";
+  static const updatePost = "update-post";
   static const postReplies = "post-replies";
 
   // Contact Us Branches //

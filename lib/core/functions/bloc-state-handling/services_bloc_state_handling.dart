@@ -73,4 +73,24 @@ class ServicesBlocStateHandling {
       showNotAuthorizedDialog(context);
     }
   }
+
+  // Update Service
+  void updateService(ServiceState state, BuildContext context) {
+    if (state.updateServiceStatus == CasualStatus.loading) {
+      showLoadingDialog(context);
+    } else if (state.updateServiceStatus == CasualStatus.success) {
+      context.pop();
+      context.read<ServiceBloc>().add(ShowServicesEvent());
+      showSuccessDialog(context, () {
+        context.pushReplacementNamed(AppRouteConfig.services);
+        context.pop();
+      });
+    } else if (state.updateServiceStatus == CasualStatus.failure) {
+      context.pop();
+      showErrorDialog(context, state.message);
+    } else if (state.updateServiceStatus == CasualStatus.not_authorized) {
+      context.pop();
+      showNotAuthorizedDialog(context);
+    }
+  }
 }

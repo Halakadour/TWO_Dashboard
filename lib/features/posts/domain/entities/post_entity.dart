@@ -2,7 +2,7 @@ class PostEntity {
   final int postId;
   final String poster;
   final String body;
-  final int active;
+  final int? active;
   PostEntity({
     required this.postId,
     required this.poster,

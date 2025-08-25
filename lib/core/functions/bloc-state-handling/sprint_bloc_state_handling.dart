@@ -102,7 +102,6 @@ class SprintBlocStateHandling {
     } else if (state.startSprintStatus == CasualStatus.failure) {
       context.pop();
       showErrorDialog(context, state.errorMessage);
-      print(state.errorMessage);
     }
   }
 
@@ -158,7 +157,6 @@ class SprintBlocStateHandling {
         );
       }
     } else if (state.projectSprintsListStatus == CasualStatus.failure) {
-      print(state.errorMessage);
       return ErrorStatusAnimation(errorMessage: state.errorMessage);
     } else {
       return SizedBox();
@@ -186,7 +184,6 @@ class SprintBlocStateHandling {
         );
       }
     } else if (state.projectStartedSprintsListStatus == CasualStatus.failure) {
-      print(state.errorMessage);
       return ErrorStatusAnimation(errorMessage: state.errorMessage);
     } else {
       return SizedBox();
@@ -216,7 +213,6 @@ class SprintBlocStateHandling {
       }
     } else if (state.projectUnCompleteSprintsListStatus ==
         CasualStatus.failure) {
-      print(state.errorMessage);
       return ErrorStatusAnimation(errorMessage: state.errorMessage);
     } else {
       return SizedBox();

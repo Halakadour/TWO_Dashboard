@@ -34,17 +34,21 @@ class _AssignRequestsPageState extends State<AssignRequestsPage> {
         ),
         child: Column(
           children: [
-            PageTitle(pageTitle: TextStrings.projectRequests),
+            PageTitle(pageTitle: TextStrings.assignRequests),
             PaddingConfig.h32,
             BlocListener<ProjectStatusTeamBloc, ProjectStatusTeamState>(
               listenWhen:
                   (previous, current) =>
                       (previous.projectManagerRejectProjectStatus !=
-                              current.projectManagerRejectProjectStatus ||
-                          previous.projectManagerAcceptProjectStatus !=
-                              current.projectManagerAcceptProjectStatus),
+                          current.projectManagerRejectProjectStatus) ||
+                      (previous.projectManagerAcceptProjectStatus !=
+                          current.projectManagerAcceptProjectStatus),
               listener: (context, state) {
-                ProjectBlocStateHandling().projectManagerRejectOrAcceptProject(
+                ProjectBlocStateHandling().projectManagerRejectProject(
+                  state,
+                  context,
+                );
+                ProjectBlocStateHandling().projectManagerAcceptProject(
                   state,
                   context,
                 );

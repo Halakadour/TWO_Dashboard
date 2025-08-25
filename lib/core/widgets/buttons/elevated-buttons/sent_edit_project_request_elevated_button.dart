@@ -27,7 +27,7 @@ class SentEditProjectRequestElevatedButton extends StatelessWidget {
         onPressed: onPressed,
         child: Row(
           children: [
-            const Icon(Iconsax.send, color: AppColors.white),
+            const Icon(Iconsax.send_2, color: AppColors.white),
             PaddingConfig.w8,
             Text(
               "Sent Edit Request",
