@@ -7,16 +7,16 @@ import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/not_authorized_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/bloc/project_status_team_bloc.dart';
 
 class TeamBlocStateHandling {
   // Create Team
-  void createTeam(ProjectStatusTeamState state, BuildContext context) {
+  void createTeam(ProjectStatusTeamMeetingState state, BuildContext context) {
     if (state.createTeamStatus == CasualStatus.loading) {
       showLoadingDialog(context);
     } else if (state.createTeamStatus == CasualStatus.success) {
       context.pop();
-      context.read<ProjectStatusTeamBloc>().add(ShowTeamsEvent());
+      context.read<ProjectStatusTeamMeetingBloc>().add(ShowTeamsEvent());
       showSuccessDialog(context, () {
         context.pop();
       });
@@ -30,12 +30,12 @@ class TeamBlocStateHandling {
   }
 
   // Add Team
-  void addTeam(ProjectStatusTeamState state, BuildContext context) {
+  void addTeam(ProjectStatusTeamMeetingState state, BuildContext context) {
     if (state.addTeamStatus == CasualStatus.loading) {
       showLoadingDialog(context);
     } else if (state.addTeamStatus == CasualStatus.success) {
       context.pop();
-      context.read<ProjectStatusTeamBloc>().add(ShowAllProjectsEvent());
+      context.read<ProjectStatusTeamMeetingBloc>().add(ShowAllProjectsEvent());
       showSuccessDialog(context, () {
         context.pushReplacementNamed(AppRouteConfig.projectRequests);
         context.pop();

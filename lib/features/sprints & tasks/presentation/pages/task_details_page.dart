@@ -20,7 +20,7 @@ import 'package:two_dashboard/core/widgets/divider/custom_page_divider.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/core/widgets/layouts/templates/page_template.dart';
 import 'package:two_dashboard/core/widgets/texts/page_title.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/custom_progress_bar.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/widgets/custom_progress_bar.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/task_entity.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 
@@ -75,7 +75,11 @@ class TaskDetailsPage extends StatelessWidget {
                       (previous, current) =>
                           previous.deleteTaskStatus != current.deleteTaskStatus,
                   listener: (context, state) {
-                    TaskBlocStateHandling().deleteTaskListener(state, context);
+                    TaskBlocStateHandling().deleteTaskListener(
+                      state,
+                      context,
+                      taskEntity.projectId,
+                    );
                   },
                   child: DeleteElevatedButton(
                     deleteType: "Task",

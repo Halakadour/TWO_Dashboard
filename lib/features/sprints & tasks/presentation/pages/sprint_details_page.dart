@@ -50,9 +50,14 @@ class _SprintDetailsPageState extends State<SprintDetailsPage> {
                     );
                   } else {
                     // 1 ---> My Tasks
-                    // context.read<SprintAndTaskBloc>().add(
-                    //   ShowMySprintTasksEvent(projectId: projectId, sprinttId: sprinttId, proirity: proirity, status: status)
-                    // );
+                    context.read<SprintAndTaskBloc>().add(
+                      ShowMySprintTasksEvent(
+                        projectId: widget.sprintEntity.projectId,
+                        sprinttId: widget.sprintEntity.id,
+                        proirity: "proirity",
+                        status: "status",
+                      ),
+                    );
                   }
                 },
               ),
@@ -60,6 +65,22 @@ class _SprintDetailsPageState extends State<SprintDetailsPage> {
         Text(label, style: AppTextStyle.bodySm()),
       ],
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    context.read<SprintAndTaskBloc>().add(
+      ShowSprintTasksEvent(sprintId: widget.sprintEntity.id),
+    );
+    context.read<SprintAndTaskBloc>().add(
+      ShowMySprintTasksEvent(
+        projectId: widget.sprintEntity.projectId,
+        sprinttId: widget.sprintEntity.id,
+        proirity: "proirity",
+        status: "status",
+      ),
+    );
+    super.didChangeDependencies();
   }
 
   // final SprintEntity sprintEntity;

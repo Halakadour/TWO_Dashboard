@@ -30,7 +30,17 @@ class _CMContractsPageState extends State<CMContractsPage> {
             const SizedBox(height: SizesConfig.spaceBtwSections),
             const SizedBox(height: SizesConfig.spaceBtwSections),
             Flexible(
-              child: BlocBuilder<ContractBloc, ContractState>(
+              child: BlocConsumer<ContractBloc, ContractState>(
+                listenWhen:
+                    (previous, current) =>
+                        previous.approveContractByCMStatus !=
+                        current.approveContractByCMStatus,
+                listener: (context, state) {
+                  ContractsBlocStateHandling().approveCMContract(
+                    state,
+                    context,
+                  );
+                },
                 buildWhen:
                     (previous, current) =>
                         (previous.contrcatListForCMStatus !=

@@ -10,8 +10,8 @@ import 'package:two_dashboard/core/widgets/container/status-containers/dynamic_s
 import 'package:two_dashboard/core/widgets/container/status-containers/visibility_status_container.dart';
 import 'package:two_dashboard/core/widgets/dialog/project/sent_reject_project_message_dialog.dart';
 import 'package:two_dashboard/core/widgets/texts/linked_text.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/project_assign_request_model.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/models/project/project_assign_request_model.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/bloc/project_status_team_bloc.dart';
 
 class AssignedProjectRows extends DataTableSource {
   final List<ProjectAssignRequestModel> assignProjectList;
@@ -56,7 +56,7 @@ class AssignedProjectRows extends DataTableSource {
               if (project.status.toLowerCase().contains("pen"))
                 ApprovedButton(
                   onTap: () {
-                    context.read<ProjectStatusTeamBloc>().add(
+                    context.read<ProjectStatusTeamMeetingBloc>().add(
                       ProjectManagerAcceptProjectEvent(projectId: project.id),
                     );
                   },

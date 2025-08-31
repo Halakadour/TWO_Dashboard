@@ -9,7 +9,7 @@ import 'package:two_dashboard/core/widgets/animation/loading_status_animation.da
 import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/project-details/sprint_card.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/widgets/project-details/sprint_card.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/project_sprint.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 
@@ -25,9 +25,9 @@ class SprintBlocStateHandling {
       showLoadingDialog(context);
     } else if (state.createSprintStatus == CasualStatus.success) {
       context.pop();
-      context.read<SprintAndTaskBloc>().add(
-        ShowProjectSprintsEvent(projectId: projectId),
-      );
+      context.read<SprintAndTaskBloc>()
+        ..add(ShowProjectSprintsEvent(projectId: projectId))
+        ..add(ShowProjectPendedSprintsEvent(projectId: projectId));
       showSuccessDialog(context, () {
         context.pop();
       });
@@ -47,9 +47,9 @@ class SprintBlocStateHandling {
       showLoadingDialog(context);
     } else if (state.updateSprintStatus == CasualStatus.success) {
       context.pop();
-      context.read<SprintAndTaskBloc>().add(
-        ShowProjectSprintsEvent(projectId: projectId),
-      );
+      context.read<SprintAndTaskBloc>()
+        ..add(ShowProjectSprintsEvent(projectId: projectId))
+        ..add(ShowProjectPendedSprintsEvent(projectId: projectId));
       showSuccessDialog(context, () {
         context.pushReplacementNamed(AppRouteConfig.projectDetails);
         context.pop();
@@ -70,9 +70,9 @@ class SprintBlocStateHandling {
       showLoadingDialog(context);
     } else if (state.deleteSprintStatus == CasualStatus.success) {
       context.pop();
-      context.read<SprintAndTaskBloc>().add(
-        ShowProjectSprintsEvent(projectId: projectId),
-      );
+      context.read<SprintAndTaskBloc>()
+        ..add(ShowProjectSprintsEvent(projectId: projectId))
+        ..add(ShowProjectPendedSprintsEvent(projectId: projectId));
       showSuccessDialog(context, () {
         context.pushReplacementNamed(AppRouteConfig.projectDetails);
         context.pop();
@@ -93,9 +93,9 @@ class SprintBlocStateHandling {
       showLoadingDialog(context);
     } else if (state.startSprintStatus == CasualStatus.success) {
       context.pop();
-      context.read<SprintAndTaskBloc>().add(
-        ShowProjectSprintsEvent(projectId: projectId),
-      );
+      context.read<SprintAndTaskBloc>()
+        ..add(ShowProjectSprintsEvent(projectId: projectId))
+        ..add(ShowProjectPendedSprintsEvent(projectId: projectId));
       showSuccessDialog(context, () {
         context.pop();
       });

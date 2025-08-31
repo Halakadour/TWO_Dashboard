@@ -65,39 +65,39 @@ import 'package:two_dashboard/features/profile/domain/usecases/show_clients_usec
 import 'package:two_dashboard/features/profile/domain/usecases/show_users_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/toggle_user_approved_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/update_employee_profile_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/datasource/project_remote_data_source.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/datasource/status_remote_data_source.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/repos/status_repo_impl.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/repos/project_repo.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/repos/status_repo.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/repos/team_repo.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/approved_project_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/delete_project_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/project_manager_accept_project_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/project_manager_reject_project_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/project_manager_sent_edit_project_request_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/reject_project_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_all_projects_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_pended_project_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_project_accepted_assigned_list_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_project_assign_request_list_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_project_edit_request_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_public_projects_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/show_user_projects_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/update_project_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/create_status_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/delete_status_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/show_status_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/update_status_order_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/team/add_members_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/team/add_team_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/team/create_team_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/team/show_teams_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/datasource/team__remote_data_source.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/repos/project_repo_impl.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/repos/team_repo_impl.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/project/create_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/datasource/project_remote_data_source.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/datasource/status_remote_data_source.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/repos/status_repo_impl.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/repos/project_repo.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/repos/status_repo.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/repos/team_repo.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/approved_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/delete_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/project_manager_accept_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/project_manager_reject_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/project_manager_sent_edit_project_request_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/reject_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/show_all_projects_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/show_pended_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/show_project_accepted_assigned_list_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/show_project_assign_request_list_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/show_project_edit_request_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/show_public_projects_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/show_user_projects_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/update_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/status/create_status_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/status/delete_status_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/status/show_status_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/status/update_status_order_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/team/add_members_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/team/add_team_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/team/create_team_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/team/show_teams_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/bloc/project_status_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/datasource/team__remote_data_source.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/repos/project_repo_impl.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/repos/team_repo_impl.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/create_project_usecase.dart';
 import 'package:two_dashboard/features/roles/data/datasources/role_local_datasource.dart';
 import 'package:two_dashboard/features/roles/data/datasources/role_remote_datasource.dart';
 import 'package:two_dashboard/features/roles/data/repos/role_repo_impl.dart';
@@ -136,7 +136,7 @@ import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/sprint-usecase/show_project_pending_sprint_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_my_tasks_list_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_project_backlog_tasks_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/usecases/status/show_project_board_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/status/show_project_board_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_project_tasks_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_sprint_tasks_usecase.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/usecases/task-usecase/show_task_details_usecase.dart';
@@ -350,7 +350,7 @@ Future<void> init() async {
 
   /**----------------- PROJECTS-STATUS-TEAM FEATURE -----------------------**/
   sl.registerFactory(
-    () => ProjectStatusTeamBloc(
+    () => ProjectStatusTeamMeetingBloc(
       sl(),
       sl(),
       sl(),

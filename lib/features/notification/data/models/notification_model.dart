@@ -1,7 +1,7 @@
 class NotificationModel {
   final String id;
   final String message;
-  final int projectId;
+  final int? projectId;
   final Project project;
 
   NotificationModel({
@@ -35,9 +35,9 @@ class Project {
   final String? document;
   final String cooperationType;
   final String contactTime;
-  final int clientId;
-  final int teamId;
-  final int teamApproved;
+  final int? clientId;
+  final int? teamId;
+  final int? teamApproved;
   final String status;
   final int private;
   final DateTime createdAt;

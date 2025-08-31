@@ -1,4 +1,4 @@
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/models/project/team.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/domain/entity/task_entity.dart';
 
 class CreateTaskParam {

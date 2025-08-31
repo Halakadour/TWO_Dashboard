@@ -6,9 +6,9 @@ import 'package:two_dashboard/features/about-us%20&%20why-us/presentation/bloc/a
 import 'package:two_dashboard/features/auth/presentation/bloc/auth_role_profile_bloc.dart';
 import 'package:two_dashboard/features/contracts/presentation/bloc/contract_bloc.dart';
 import 'package:two_dashboard/features/posts/presentation/bloc/post_bloc.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_status_model.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/models/project/team.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/entity/project_status_model.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/bloc/project_status_team_bloc.dart';
 import 'package:two_dashboard/features/roles/data/datasources/role_local_datasource.dart';
 import 'package:two_dashboard/features/roles/data/models/role_response_model.dart';
 import 'package:two_dashboard/features/services/presentation/bloc/service_bloc.dart';
@@ -63,7 +63,9 @@ class MainApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(create: (context) => di.sl<AuthRoleProfileBloc>()),
-        BlocProvider(create: (context) => di.sl<ProjectStatusTeamBloc>()),
+        BlocProvider(
+          create: (context) => di.sl<ProjectStatusTeamMeetingBloc>(),
+        ),
         BlocProvider(create: (context) => di.sl<SprintAndTaskBloc>()),
         BlocProvider(create: (context) => di.sl<AboutUsWhyUsBloc>()),
         BlocProvider(create: (context) => di.sl<ContractBloc>()),

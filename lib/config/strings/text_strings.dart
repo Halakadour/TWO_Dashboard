@@ -105,6 +105,7 @@ class TextStrings {
   static const String passwordDoesNotMatch = "Password Doesn't Match!";
   static const String sentMessage = "Sent a message :";
   static const String sentRejectMessage = "Sent a reject message :";
+  static const String sentEditMessage = "Sent Edit message :";
   static const String message = "Message :";
   // --FILTER TEXTS
   static const String seenStatus = "Seen";

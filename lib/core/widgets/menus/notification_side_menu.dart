@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -13,53 +15,57 @@ void showNotificationsPanel(BuildContext context) {
   showDialog(
     context: context,
     barrierDismissible: true,
-    requestFocus: true,
-    useSafeArea: true,
     builder: (context) {
-      return Align(
-        alignment: Alignment.topRight,
-        child: FractionallySizedBox(
-          widthFactor: 0.3,
-          child: Material(
-            color: Colors.white,
-            clipBehavior: Clip.hardEdge,
-            elevation: 8,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                PaddingConfig.h16,
-                // Header
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Unread Notification", style: AppTextStyle.bodyLg()),
-                      IconButton(
-                        icon: Icon(
-                          Iconsax.close_circle,
-                          size: SizesConfig.iconsMd,
+      return BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+        child: Align(
+          alignment: Alignment.topRight,
+          child: FractionallySizedBox(
+            widthFactor: 0.3,
+            child: Material(
+              color: Colors.white,
+              clipBehavior: Clip.hardEdge,
+              elevation: 8,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  PaddingConfig.h16,
+                  // Header
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Unread Notification",
+                          style: AppTextStyle.bodyLg(),
                         ),
-                        onPressed: () => context.pop(context),
-                      ),
-                    ],
-                  ),
-                ),
-                CustomDivider(),
-                // Notification List
-                BlocBuilder<AuthRoleProfileBloc, AuthRoleProfileState>(
-                  buildWhen:
-                      (previous, current) =>
-                          previous.unReadNotificationListStatus !=
-                          current.unReadNotificationListStatus,
-                  builder:
-                      (context, state) =>
-                          NotificationBlocStateHanding.getUnReadNotificationList(
-                            state,
+                        IconButton(
+                          icon: Icon(
+                            Iconsax.close_circle,
+                            size: SizesConfig.iconsMd,
                           ),
-                ),
-                PaddingConfig.h16,
-              ],
+                          onPressed: () => context.pop(context),
+                        ),
+                      ],
+                    ),
+                  ),
+                  CustomDivider(),
+                  // Notification List
+                  BlocBuilder<AuthRoleProfileBloc, AuthRoleProfileState>(
+                    buildWhen:
+                        (previous, current) =>
+                            previous.unReadNotificationListStatus !=
+                            current.unReadNotificationListStatus,
+                    builder:
+                        (context, state) =>
+                            NotificationBlocStateHanding.getUnReadNotificationList(
+                              state,
+                            ),
+                  ),
+                  PaddingConfig.h16,
+                ],
+              ),
             ),
           ),
         ),

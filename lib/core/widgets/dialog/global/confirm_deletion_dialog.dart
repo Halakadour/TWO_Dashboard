@@ -16,7 +16,7 @@ Future<dynamic> confirmDeletionDialog(
         (context) => AlertDialog(
           title: Text(
             "${TextStrings.confirmDeletion} $deleteItemName ?",
-            style: AppTextStyle.bodyLg(color: AppColors.redShade2),
+            style: AppTextStyle.bodyLg(color: AppColors.fontLightGray),
           ),
           actions: [
             const CancelTextButton(),

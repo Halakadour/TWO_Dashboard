@@ -8,16 +8,16 @@ import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
 import 'package:two_dashboard/core/widgets/shimmers/card-loading/loading_status_card.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_status_model.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/board_kanban_view.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/status_kanban_view.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/entity/project_status_model.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/bloc/project_status_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/widgets/board_kanban_view.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/widgets/status_kanban_view.dart';
 
 class StatusBlocStateHandling {
   /// *** Listener Side *** ///
   /// Create Status
   void createStatusListener(
-    ProjectStatusTeamState state,
+    ProjectStatusTeamMeetingState state,
     BuildContext context,
     int projectId,
   ) {
@@ -25,7 +25,7 @@ class StatusBlocStateHandling {
       showLoadingDialog(context);
     } else if (state.createStatus == CasualStatus.success) {
       context.pop();
-      context.read<ProjectStatusTeamBloc>().add(
+      context.read<ProjectStatusTeamMeetingBloc>().add(
         ShowProjectStatusEvent(projectId: projectId),
       );
     } else if (state.createStatus == CasualStatus.failure) {
@@ -36,7 +36,7 @@ class StatusBlocStateHandling {
 
   /// Update Status Order
   void updateStatusOrderListener(
-    ProjectStatusTeamState state,
+    ProjectStatusTeamMeetingState state,
     BuildContext context,
     int projectId,
   ) {
@@ -44,7 +44,7 @@ class StatusBlocStateHandling {
       showLoadingDialog(context);
     } else if (state.updateOrderStatus == CasualStatus.success) {
       context.pop();
-      context.read<ProjectStatusTeamBloc>().add(
+      context.read<ProjectStatusTeamMeetingBloc>().add(
         ShowProjectStatusEvent(projectId: projectId),
       );
       showSuccessDialog(context, () {
@@ -59,7 +59,7 @@ class StatusBlocStateHandling {
 
   /// Delete Status Order
   void deleteStatusListener(
-    ProjectStatusTeamState state,
+    ProjectStatusTeamMeetingState state,
     BuildContext context,
     int projectId,
   ) {
@@ -67,7 +67,7 @@ class StatusBlocStateHandling {
       showLoadingDialog(context);
     } else if (state.deleteStatus == CasualStatus.success) {
       context.pop();
-      context.read<ProjectStatusTeamBloc>().add(
+      context.read<ProjectStatusTeamMeetingBloc>().add(
         ShowProjectStatusEvent(projectId: projectId),
       );
       showSuccessDialog(context, () {
@@ -81,7 +81,10 @@ class StatusBlocStateHandling {
 
   /// *** Builder Side *** ///
   /// Get Task Status List For This Project
-  Widget getProjectStatusList(ProjectStatusTeamState state, int projectId) {
+  Widget getProjectStatusList(
+    ProjectStatusTeamMeetingState state,
+    int projectId,
+  ) {
     if (state.showStatus == CasualStatus.loading) {
       return LoadingStatusCard();
     } else if (state.showStatus == CasualStatus.success) {
@@ -105,7 +108,10 @@ class StatusBlocStateHandling {
   }
 
   // list of status for project board
-  Widget getProjectBoardList(ProjectStatusTeamState state, int projectId) {
+  Widget getProjectBoardList(
+    ProjectStatusTeamMeetingState state,
+    int projectId,
+  ) {
     if (state.projectBoardListStatus == CasualStatus.loading) {
       return LoadingStatusCard();
     } else if (state.projectBoardListStatus == CasualStatus.success) {

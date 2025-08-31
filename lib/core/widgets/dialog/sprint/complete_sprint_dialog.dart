@@ -22,6 +22,10 @@ void showCompleteSprintDialog(
   showDialog(
     context: context,
     builder: (context) {
+      sprints.addAll([
+        ProjectSprint(id: 999, name: "New Sprint", projectId: 999),
+        ProjectSprint(id: 888, name: "Backlog", projectId: 888),
+      ]);
       return AlertDialog(
         insetPadding: EdgeInsets.all(0),
         title: ClipRRect(

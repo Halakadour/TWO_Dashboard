@@ -5,7 +5,7 @@ import 'package:two_dashboard/config/strings/text_strings.dart'
     show TextStrings;
 import 'package:two_dashboard/core/widgets/data-table/custom/project/pended/pended_project_table_source.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom_paginated_data_table.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/entity/project_entity.dart';
 
 class PendedProjectTable extends StatelessWidget {
   const PendedProjectTable({super.key, required this.projectList});

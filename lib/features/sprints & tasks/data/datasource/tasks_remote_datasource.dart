@@ -69,7 +69,8 @@ class TaskRemoteDatasourceImpl extends TaskRemoteDatasource {
   ) async {
     final result = GetWithTokenApi(
       uri: Uri.parse(
-        "$baseUri/api/show/project/employee/tasks?filter[sprint_id]=${param.sprinttId}&filter[priority]=${param.proirity}&filter[status_id]=${param.status}",
+        "$baseUri/api/show/project/employee/tasks?filter[sprint_id]=${param.sprinttId}",
+        //"$baseUri/api/show/project/employee/tasks?filter[sprint_id]=${param.sprinttId}&filter[priority]=${param.proirity}&filter[status_id]=${param.status}",
       ),
       token: param.token,
       fromJson: showTaskListResponseModelFromJson,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/animation/empty_status_animation.dart';
@@ -9,35 +10,57 @@ import 'package:two_dashboard/core/widgets/data-table/custom/tasks/task_table.da
 import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/project-details/backlog_card.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/project-details/task_card.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/models/project/team.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/widgets/project-details/backlog_card.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/widgets/project-details/task_card.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/data/models/sprint/sprint.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 
 class TaskBlocStateHandling {
   /// *** Listener Side *** ///
   /// create task
-  void createTaskListener(SprintAndTaskState state, BuildContext context) {
+  void createTaskListener(
+    SprintAndTaskState state,
+    BuildContext context,
+    int projectId,
+  ) {
     if (state.createTaskStatus == CasualStatus.loading) {
       showLoadingDialog(context);
     } else if (state.createTaskStatus == CasualStatus.success) {
       context.pop();
+      context.read<SprintAndTaskBloc>()
+        ..add(ShowProjectSprintsEvent(projectId: projectId))
+        ..add(ShowProjectPendedSprintsEvent(projectId: projectId))
+        ..add(ShowProjectTasksEvent(projectId: projectId));
       showSuccessDialog(context, () {
         context.pop();
       });
     } else if (state.createTaskStatus == CasualStatus.failure) {
       context.pop();
-      showErrorDialog(context, state.errorMessage);
+      context.read<SprintAndTaskBloc>()
+        ..add(ShowProjectSprintsEvent(projectId: projectId))
+        ..add(ShowProjectPendedSprintsEvent(projectId: projectId))
+        ..add(ShowProjectTasksEvent(projectId: projectId));
+      showSuccessDialog(context, () {
+        context.pop();
+      });
     }
   }
 
   /// Update task
-  void updateTaskListener(SprintAndTaskState state, BuildContext context) {
+  void updateTaskListener(
+    SprintAndTaskState state,
+    BuildContext context,
+    int projectId,
+  ) {
     if (state.updateTaskStatus == CasualStatus.loading) {
       showLoadingDialog(context);
     } else if (state.updateTaskStatus == CasualStatus.success) {
       context.pop();
+      context.read<SprintAndTaskBloc>()
+        ..add(ShowProjectSprintsEvent(projectId: projectId))
+        ..add(ShowProjectPendedSprintsEvent(projectId: projectId))
+        ..add(ShowProjectTasksEvent(projectId: projectId));
       showSuccessDialog(context, () {
         context.pop();
       });
@@ -48,7 +71,11 @@ class TaskBlocStateHandling {
   }
 
   // Delete task
-  void deleteTaskListener(SprintAndTaskState state, BuildContext context) {
+  void deleteTaskListener(
+    SprintAndTaskState state,
+    BuildContext context,
+    int projectId,
+  ) {
     if (state.deleteTaskStatus == CasualStatus.loading) {
       showLoadingDialog(context);
     } else if (state.deleteTaskStatus == CasualStatus.success) {

@@ -6,7 +6,7 @@ class ContractModel {
   final int? status;
   final dynamic clientEditRequest;
   final int? needEdit;
-  final int adminSign;
+  final int? adminSign;
   final Project project;
 
   ContractModel({
@@ -48,16 +48,10 @@ class ContractModel {
 
 class Project {
   final int id;
-  final String fullName;
-  final String companyName;
-  final String email;
-  final String phone;
   final String projectType;
   final String projectDescription;
-  final String cost;
-  final String duration;
-  final String requirements;
-  final String document;
+  final List<String> requirementsList;
+  final String? document;
   final String cooperationType;
   final String contactTime;
   final int clientId;
@@ -69,15 +63,9 @@ class Project {
 
   Project({
     required this.id,
-    required this.fullName,
-    required this.companyName,
-    required this.email,
-    required this.phone,
     required this.projectType,
     required this.projectDescription,
-    required this.cost,
-    required this.duration,
-    required this.requirements,
+    required this.requirementsList,
     required this.document,
     required this.cooperationType,
     required this.contactTime,
@@ -91,15 +79,9 @@ class Project {
 
   factory Project.fromJson(Map<String, dynamic> json) => Project(
     id: json["id"],
-    fullName: json["full_name"],
-    companyName: json["company_name"],
-    email: json["email"],
-    phone: json["phone"],
     projectType: json["project_type"],
     projectDescription: json["project_description"],
-    cost: json["cost"],
-    duration: json["duration"],
-    requirements: json["requirements"],
+    requirementsList: List<String>.from(json["requirements"].map((x) => x)),
     document: json["document"],
     cooperationType: json["cooperation_type"],
     contactTime: json["contact_time"],
@@ -113,15 +95,9 @@ class Project {
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "full_name": fullName,
-    "company_name": companyName,
-    "email": email,
-    "phone": phone,
     "project_type": projectType,
     "project_description": projectDescription,
-    "cost": cost,
-    "duration": duration,
-    "requirements": requirements,
+    "requirements": List<dynamic>.from(requirementsList.map((x) => x)),
     "document": document,
     "cooperation_type": cooperationType,
     "contact_time": contactTime,

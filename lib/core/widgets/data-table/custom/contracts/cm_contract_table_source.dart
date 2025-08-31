@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
-import 'package:two_dashboard/core/functions/bloc-state-handling/contracts_bloc_state_handling.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/approved_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/edit_button.dart';
@@ -71,27 +70,15 @@ class CMContractRows extends DataTableSource {
         DataCell(
           Row(
             children: [
-              BlocListener<ContractBloc, ContractState>(
-                listenWhen:
-                    (previous, current) =>
-                        previous.approveContractByCMStatus !=
-                        current.approveContractByCMStatus,
-                listener: (context, state) {
-                  ContractsBlocStateHandling().approveCMContract(
-                    state,
-                    context,
+              ApprovedButton(
+                onTap: () {
+                  context.read<ContractBloc>().add(
+                    ContractManagerApproveContractEvent(
+                      contractId: contract.id,
+                      projectId: contract.project.id,
+                    ),
                   );
                 },
-                child: ApprovedButton(
-                  onTap: () {
-                    context.read<ContractBloc>().add(
-                      ContractManagerApproveContractEvent(
-                        contractId: contract.id,
-                        projectId: contract.project.id,
-                      ),
-                    );
-                  },
-                ),
               ),
               PaddingConfig.w8,
               EditButton(

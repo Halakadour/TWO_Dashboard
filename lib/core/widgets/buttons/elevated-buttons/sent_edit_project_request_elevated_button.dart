@@ -19,7 +19,7 @@ class SentEditProjectRequestElevatedButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-          backgroundColor: AppColors.yellowShade3,
+          backgroundColor: AppColors.blueShade2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(SizesConfig.buttonRadius),
           ),

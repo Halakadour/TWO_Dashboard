@@ -55,3 +55,17 @@ class SentEditRequestParam {
     required this.message,
   });
 }
+
+class UpdateProjectDateParam {
+  final String token;
+  final String projectId;
+  final String startDate;
+  final String endDate;
+
+  UpdateProjectDateParam({
+    required this.token,
+    required this.projectId,
+    required this.startDate,
+    required this.endDate,
+  });
+}

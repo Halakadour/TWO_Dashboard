@@ -25,10 +25,6 @@ class _SprintSelectionDropdownState extends State<SprintSelectionDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    widget.cachedSprints.addAll([
-      ProjectSprint(id: 999, name: "New Sprint", projectId: 999),
-      ProjectSprint(id: 888, name: "Backlog", projectId: 888),
-    ]);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -47,12 +43,14 @@ class _SprintSelectionDropdownState extends State<SprintSelectionDropdown> {
             setState(() {
               _selectedSprint = value;
             });
-            if (value!.name.toLowerCase().contains("new")) {
-              _selectNewSprint(value.name);
-            } else if (value.name.toLowerCase().contains("back")) {
+            if (_selectedSprint!.name.toLowerCase().contains("new") &&
+                _selectedSprint != null) {
+              _selectNewSprint(_selectedSprint!.name);
+            } else if (_selectedSprint!.name.toLowerCase().contains("back") &&
+                _selectedSprint != null) {
               _selectBacklog();
             } else {
-              _selectExistingSprint(value);
+              _selectExistingSprint(_selectedSprint!);
             }
           },
         ),
@@ -61,9 +59,6 @@ class _SprintSelectionDropdownState extends State<SprintSelectionDropdown> {
   }
 
   void _selectExistingSprint(ProjectSprint sprint) {
-    setState(() {
-      _selectedSprint = sprint;
-    });
     widget.onActionSelected?.call({
       'action': 'existing',
       'existing_sprint_id': sprint.id,
@@ -71,16 +66,10 @@ class _SprintSelectionDropdownState extends State<SprintSelectionDropdown> {
   }
 
   void _selectNewSprint(String name) {
-    setState(() {
-      _selectedSprint = null;
-    });
     widget.onActionSelected?.call({'action': 'new', 'new_sprint_label': name});
   }
 
   void _selectBacklog() {
-    setState(() {
-      _selectedSprint = null;
-    });
     widget.onActionSelected?.call({'action': null});
   }
 }

@@ -7,7 +7,7 @@ import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/cancel_text_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/text-buttons/save_text_button.dart';
 import 'package:two_dashboard/features/auth/presentation/widgets/custom_text_form_field.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/bloc/project_status_team_bloc.dart';
 
 Future<dynamic> sentEditProjectMessageDialog(
   BuildContext context,
@@ -21,7 +21,7 @@ Future<dynamic> sentEditProjectMessageDialog(
           height: 100,
           child: AlertDialog(
             title: Text(
-              TextStrings.sentRejectMessage,
+              TextStrings.sentEditMessage,
               style: AppTextStyle.bodyLg(),
             ),
             content: SizedBox(
@@ -47,7 +47,7 @@ Future<dynamic> sentEditProjectMessageDialog(
               const CancelTextButton(),
               SaveTextButton(
                 onPressed: () {
-                  context.read<ProjectStatusTeamBloc>().add(
+                  context.read<ProjectStatusTeamMeetingBloc>().add(
                     ProjectManagerSentEditProjectRequestEvent(
                       projectId: projectId,
                       message: messageController.text,

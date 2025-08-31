@@ -14,9 +14,9 @@ import 'package:two_dashboard/core/widgets/container/custom_rounder_container.da
 import 'package:two_dashboard/core/widgets/dropdown-list/custom_dropdown_list_for_member_model.dart';
 import 'package:two_dashboard/core/widgets/images/fetch_network_image.dart';
 import 'package:two_dashboard/features/auth/presentation/widgets/custom_text_form_field.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/domain/entity/project_status_model.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/widgets/date_field.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/models/project/team.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/entity/project_status_model.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/widgets/date_field.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
 
 class CreateTaskForm extends StatefulWidget {
@@ -79,6 +79,11 @@ class _CreateTaskFormState extends State<CreateTaskForm> {
 
   Future<void> _loadMembers() async {
     final allMembers = await getCachedTeamForProject(widget.projectId);
+    print("**************************");
+    print("GET CACHED TEAM FROM ${widget.projectId}");
+    print("**************************");
+    print(allMembers?.members);
+    print("**************************");
     setState(() {
       _membersList = allMembers!.members;
     });
@@ -89,8 +94,8 @@ class _CreateTaskFormState extends State<CreateTaskForm> {
     _formKey = GlobalKey<FormState>();
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
-    _loadStatuses(); // ← تحميل الحالات
-    _loadMembers(); // ← تحميل أعضاء الفريق
+    _loadStatuses();
+    _loadMembers();
     super.initState();
   }
 
@@ -282,6 +287,7 @@ class _CreateTaskFormState extends State<CreateTaskForm> {
                       TaskBlocStateHandling().createTaskListener(
                         state,
                         context,
+                        widget.projectId,
                       );
                     },
                     listenWhen:

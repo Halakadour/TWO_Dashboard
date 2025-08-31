@@ -47,7 +47,7 @@ class _TasksPageState extends State<TasksPage> {
                     (previous, current) =>
                         previous.deleteTaskStatus != current.deleteTaskStatus,
                 listener: (context, state) {
-                  TaskBlocStateHandling().deleteTaskListener(state, context);
+                  TaskBlocStateHandling().deleteTaskListener(state, context, 1);
                 },
                 child: Flexible(
                   child: BlocBuilder<SprintAndTaskBloc, SprintAndTaskState>(

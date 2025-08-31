@@ -8,7 +8,7 @@ class TaskModel extends TaskEntity {
   final EmployeeModel assignedTo;
   final String status;
   final String priority;
-  final int completion;
+  final String completion;
   final DateTime start;
   final DateTime end;
 
@@ -28,7 +28,7 @@ class TaskModel extends TaskEntity {
   }) : super(
          taskPriority: HelperFunctions.getPriorityByName(priority),
          taskStatus: HelperFunctions.getTaskStatusByName(status),
-         taskCompletion: completion.toDouble(),
+         taskCompletion: double.parse(completion),
          startDate: start,
          endDate: end,
          assignedUser: assignedTo,
@@ -45,7 +45,7 @@ class TaskModel extends TaskEntity {
     status: json["status"],
     assignedTo: EmployeeModel.fromJson(json["assigned_to"]),
     priority: json["priority"],
-    completion: json["completion"] ?? 0,
+    completion: json["completion"].toString(),
     start: DateTime.parse(json["start"]),
     end: DateTime.parse(json["end"]),
   );

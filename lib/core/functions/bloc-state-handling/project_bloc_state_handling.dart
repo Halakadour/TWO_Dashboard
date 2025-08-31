@@ -14,17 +14,22 @@ import 'package:two_dashboard/core/widgets/dialog/status/error_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/loading_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/not_authorized_dialog.dart';
 import 'package:two_dashboard/core/widgets/dialog/status/success_dialog.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/models/project/team.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/bloc/project_status_team_bloc.dart';
 
 class ProjectBlocStateHandling {
   // Approve Project
-  void approveProject(ProjectStatusTeamState state, BuildContext context) {
+  void approveProject(
+    ProjectStatusTeamMeetingState state,
+    BuildContext context,
+  ) {
     if (state.approveProjectStatus == CasualStatus.loading) {
       showLoadingDialog(context);
     } else if (state.approveProjectStatus == CasualStatus.success) {
       context.pop();
-      context.read<ProjectStatusTeamBloc>().add(ShowPendedProjectsEvent());
+      context.read<ProjectStatusTeamMeetingBloc>().add(
+        ShowPendedProjectsEvent(),
+      );
       showSuccessDialog(context, () {
         context.pop();
       });
@@ -38,12 +43,17 @@ class ProjectBlocStateHandling {
   }
 
   // Reject Project
-  void rejectProject(ProjectStatusTeamState state, BuildContext context) {
+  void rejectProject(
+    ProjectStatusTeamMeetingState state,
+    BuildContext context,
+  ) {
     if (state.rejectProjectStatus == CasualStatus.loading) {
       showLoadingDialog(context);
     } else if (state.rejectProjectStatus == CasualStatus.success) {
       context.pop();
-      context.read<ProjectStatusTeamBloc>().add(ShowPendedProjectsEvent());
+      context.read<ProjectStatusTeamMeetingBloc>().add(
+        ShowPendedProjectsEvent(),
+      );
       showSuccessDialog(context, () {
         context.pop();
       });
@@ -57,7 +67,10 @@ class ProjectBlocStateHandling {
   }
 
   // Update Project
-  void updateProject(ProjectStatusTeamState state, BuildContext context) {
+  void updateProject(
+    ProjectStatusTeamMeetingState state,
+    BuildContext context,
+  ) {
     if (state.updateProjectStatus == CasualStatus.loading) {
       showLoadingDialog(context);
     } else if (state.updateProjectStatus == CasualStatus.success) {
@@ -75,12 +88,15 @@ class ProjectBlocStateHandling {
   }
 
   // Create Project
-  void createProject(ProjectStatusTeamState state, BuildContext context) {
+  void createProject(
+    ProjectStatusTeamMeetingState state,
+    BuildContext context,
+  ) {
     if (state.createProjectStatus == CasualStatus.loading) {
       showLoadingDialog(context);
     } else if (state.createProjectStatus == CasualStatus.success) {
       context.pop();
-      context.read<ProjectStatusTeamBloc>().add(ShowAllProjectsEvent());
+      context.read<ProjectStatusTeamMeetingBloc>().add(ShowAllProjectsEvent());
       showSuccessDialog(context, () {
         context.pushReplacementNamed(AppRouteConfig.allProjects);
         context.pop();
@@ -95,13 +111,16 @@ class ProjectBlocStateHandling {
   }
 
   // Get All Projects Table
-  Widget getAllProjectsTable(ProjectStatusTeamState state) {
+  Widget getAllProjectsTable(ProjectStatusTeamMeetingState state) {
     if (state.allProjectsListStatus == CasualStatus.loading) {
       return const LoadingProjectTable();
     } else if (state.allProjectsListStatus == CasualStatus.success) {
       for (int i = 0; i < state.allProjectsList.length; i++) {
         var project = state.allProjectsList[i];
         if (project.team != null) {
+          print("**********************************************");
+          print("Project Team ${project.team!.members.asMap()}");
+          print("**********************************************");
           cacheTeamForProject(project.id, project.team!);
         }
       }
@@ -114,7 +133,7 @@ class ProjectBlocStateHandling {
   }
 
   // Get My Projects Table
-  Widget getUserProjectsTable(ProjectStatusTeamState state) {
+  Widget getUserProjectsTable(ProjectStatusTeamMeetingState state) {
     if (state.userProjectsListStatus == CasualStatus.loading) {
       return const LoadingProjectTable();
     } else if (state.userProjectsListStatus == CasualStatus.success) {
@@ -133,7 +152,7 @@ class ProjectBlocStateHandling {
   }
 
   // Get Pended Projects Table
-  Widget getPendedProjectsTable(ProjectStatusTeamState state) {
+  Widget getPendedProjectsTable(ProjectStatusTeamMeetingState state) {
     if (state.pendedProjectListStatus == CasualStatus.loading) {
       return const LoadingPendedProjectTable();
     } else if (state.pendedProjectListStatus == CasualStatus.success) {
@@ -148,7 +167,7 @@ class ProjectBlocStateHandling {
   ////////////////////// PROJECT MANAGER SIDE /////////////////////////////
   // Accept Project
   void projectManagerAcceptProject(
-    ProjectStatusTeamState state,
+    ProjectStatusTeamMeetingState state,
     BuildContext context,
   ) {
     if (state.projectManagerAcceptProjectStatus == CasualStatus.loading) {
@@ -156,7 +175,7 @@ class ProjectBlocStateHandling {
     } else if (state.projectManagerAcceptProjectStatus ==
         CasualStatus.success) {
       context.pop();
-      context.read<ProjectStatusTeamBloc>().add(
+      context.read<ProjectStatusTeamMeetingBloc>().add(
         ShowProjectAssignRequestListEvent(),
       );
       showSuccessDialog(context, () {
@@ -175,7 +194,7 @@ class ProjectBlocStateHandling {
 
   // Reject Project
   void projectManagerRejectProject(
-    ProjectStatusTeamState state,
+    ProjectStatusTeamMeetingState state,
     BuildContext context,
   ) {
     if (state.projectManagerRejectProjectStatus == CasualStatus.loading) {
@@ -184,7 +203,7 @@ class ProjectBlocStateHandling {
         CasualStatus.success) {
       context.pop();
       showSuccessDialog(context, () {
-        context.read<ProjectStatusTeamBloc>().add(
+        context.read<ProjectStatusTeamMeetingBloc>().add(
           ShowProjectAssignRequestListEvent(),
         );
         context.pop();
@@ -205,7 +224,7 @@ class ProjectBlocStateHandling {
 
   // Sent Edit Project Request
   void sentEditProjectMessage(
-    ProjectStatusTeamState state,
+    ProjectStatusTeamMeetingState state,
     BuildContext context,
   ) {
     if (state.projectManagerSentEditProjectRequest == CasualStatus.loading) {
@@ -228,7 +247,7 @@ class ProjectBlocStateHandling {
   }
 
   // Get Assign Project Requests
-  Widget getAssignProjectsRequestTable(ProjectStatusTeamState state) {
+  Widget getAssignProjectsRequestTable(ProjectStatusTeamMeetingState state) {
     if (state.projectAssignRequestListStatus == CasualStatus.loading) {
       return const LoadingAssignedProjectTable();
     } else if (state.projectAssignRequestListStatus == CasualStatus.success) {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/team.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/models/project/team.dart';
 
 class CustomDropdownListForMemberModel extends StatelessWidget {
   const CustomDropdownListForMemberModel({

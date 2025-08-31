@@ -4,7 +4,7 @@ import 'package:two_dashboard/config/constants/sizes_config.dart';
 import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom/project/assigned/assigned_project_table_source.dart';
 import 'package:two_dashboard/core/widgets/data-table/custom_paginated_data_table.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/data/models/project/project_assign_request_model.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/models/project/project_assign_request_model.dart';
 
 class AssignedProjectTable extends StatelessWidget {
   const AssignedProjectTable({super.key, required this.projectList});

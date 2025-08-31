@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/widgets/dialog/global/confirm_deletion_dialog.dart';
 import 'package:two_dashboard/core/widgets/menus/custom_side_menu_item.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status/presentation/bloc/project_status_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/bloc/project_status_team_bloc.dart';
 
 void showStatusSideMenu(
   GlobalKey<State<StatefulWidget>> iconKey,
@@ -36,13 +37,15 @@ void showStatusSideMenu(
     ],
   ).then((value) {
     if (value == 0) {
-      confirmDeletionDialog(
-        context,
-        "this status",
-        () => context.read<ProjectStatusTeamBloc>().add(
+      confirmDeletionDialog(context, "this status", () {
+        context.read<ProjectStatusTeamMeetingBloc>().add(
           DeleteStatusEvent(projectId: projectId, statusId: statusId),
-        ),
-      );
+        );
+        context.read<ProjectStatusTeamMeetingBloc>().add(
+          ShowProjectStatusEvent(projectId: projectId),
+        );
+        context.pop();
+      });
     }
   });
 }
