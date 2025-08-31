@@ -50,4 +50,8 @@ abstract class ProjectRepo with HandlingExceptionManager {
   Future<Either<Failure, Unit>> projectManagerCompleteProject(
     TokenWithIdParam project,
   );
+
+  Future<Either<Failure, Unit>> adminPermitDevelopingProject(
+    TokenWithIdParam project,
+  );
 }

@@ -13,7 +13,7 @@ import 'package:two_dashboard/core/widgets/container/status-containers/project_t
 import 'package:two_dashboard/core/widgets/container/status-containers/visibility_status_container.dart';
 import 'package:two_dashboard/core/widgets/dialog/project/sent_edit_project_message_dialog.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/entity/project_entity.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/bloc/project_status_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/bloc/project_status_team_meeting_bloc.dart';
 
 class SummaryTabBarView extends StatelessWidget {
   const SummaryTabBarView({super.key, required this.projectEntity});

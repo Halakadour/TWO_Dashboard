@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-part of 'project_status_team_bloc.dart';
+part of 'project_status_team_meeting_bloc.dart';
 
 class ProjectStatusTeamMeetingState {
   final int? statusNum;
@@ -13,6 +13,7 @@ class ProjectStatusTeamMeetingState {
   final CasualStatus rejectProjectStatus;
   final CasualStatus editProjectRequestsListStatus;
   final List<MessageModel> editProjectRequestsList;
+  final CasualStatus adminPermitDevelopingProjectStatus;
 
   // Project Manager Stuff
   final CasualStatus projectManagerAcceptProjectStatus;
@@ -70,6 +71,7 @@ class ProjectStatusTeamMeetingState {
     this.rejectProjectStatus = CasualStatus.initial,
     this.editProjectRequestsListStatus = CasualStatus.initial,
     this.editProjectRequestsList = const [],
+    this.adminPermitDevelopingProjectStatus = CasualStatus.initial,
     this.projectManagerAcceptProjectStatus = CasualStatus.initial,
     this.projectManagerRejectProjectStatus = CasualStatus.initial,
     this.projectManagerSentEditProjectRequest = CasualStatus.initial,
@@ -116,6 +118,7 @@ class ProjectStatusTeamMeetingState {
     CasualStatus? rejectProjectStatus,
     CasualStatus? editProjectRequestsListStatus,
     List<MessageModel>? editProjectRequestsList,
+    CasualStatus? adminPermitDevelopingProjectStatus,
     CasualStatus? projectManagerAcceptProjectStatus,
     CasualStatus? projectManagerRejectProjectStatus,
     CasualStatus? projectManagerSentEditProjectRequest,
@@ -163,6 +166,9 @@ class ProjectStatusTeamMeetingState {
           editProjectRequestsListStatus ?? this.editProjectRequestsListStatus,
       editProjectRequestsList:
           editProjectRequestsList ?? this.editProjectRequestsList,
+      adminPermitDevelopingProjectStatus:
+          adminPermitDevelopingProjectStatus ??
+          this.adminPermitDevelopingProjectStatus,
       projectManagerAcceptProjectStatus:
           projectManagerAcceptProjectStatus ??
           this.projectManagerAcceptProjectStatus,

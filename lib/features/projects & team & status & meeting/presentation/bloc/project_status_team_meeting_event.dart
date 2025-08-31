@@ -1,4 +1,4 @@
-part of 'project_status_team_bloc.dart';
+part of 'project_status_team_meeting_bloc.dart';
 
 class ProjectStatusTeamMeetingEvent {}
 
@@ -67,6 +67,12 @@ class ShowEditProjectRequestEvent extends ProjectStatusTeamMeetingEvent {
   final int projectId;
 
   ShowEditProjectRequestEvent({required this.projectId});
+}
+
+class AdminPermitDevelopingProjectEvent extends ProjectStatusTeamMeetingEvent {
+  final int projectId;
+
+  AdminPermitDevelopingProjectEvent({required this.projectId});
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -255,7 +261,7 @@ class DeleteMeetingEvent extends ProjectStatusTeamMeetingEvent {
 
 // Show Project Meetings
 class ShowProjectMeetingsEvent extends ProjectStatusTeamMeetingEvent {
-  final String projectId;
+  final int projectId;
 
   ShowProjectMeetingsEvent({required this.projectId});
 }

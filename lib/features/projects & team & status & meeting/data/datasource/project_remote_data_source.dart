@@ -59,6 +59,10 @@ abstract class ProjectRemoteDataSource {
   Future<ShowProjectAssignRequestResponseModel> showProjectAcceptedAssignedList(
     String token,
   );
+
+  Future<EmptyResponseModel> adminPermitDevelopingProject(
+    TokenWithIdParam project,
+  );
 }
 
 class ProjectRemoteDataSourceImpl extends ProjectRemoteDataSource {
@@ -301,5 +305,19 @@ class ProjectRemoteDataSourceImpl extends ProjectRemoteDataSource {
       fromJson: emptyResponseModelFromJson,
     );
     return await result.call();
+  }
+
+  @override
+  Future<EmptyResponseModel> adminPermitDevelopingProject(
+    TokenWithIdParam project,
+  ) async {
+    final result = GetWithTokenApi(
+      uri: Uri.parse(
+        "$baseUri/api/admin/permit/developing/project/${project.id}",
+      ),
+      token: project.token,
+      fromJson: emptyResponseModelFromJson,
+    );
+    return await result.callRequest();
   }
 }

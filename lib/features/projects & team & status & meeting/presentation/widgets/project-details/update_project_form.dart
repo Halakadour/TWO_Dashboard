@@ -13,7 +13,7 @@ import 'package:two_dashboard/core/widgets/container/custom_rounder_container.da
 import 'package:two_dashboard/core/widgets/dialog/global/forget_some_thing_dialog.dart';
 import 'package:two_dashboard/features/auth/presentation/widgets/custom_text_form_field.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/entity/project_entity.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/bloc/project_status_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/bloc/project_status_team_meeting_bloc.dart';
 
 class UpdateProjectForm extends StatefulWidget {
   const UpdateProjectForm({super.key, required this.projectEntity});

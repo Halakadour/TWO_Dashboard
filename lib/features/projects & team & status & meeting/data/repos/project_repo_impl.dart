@@ -215,4 +215,16 @@ class ProjectRepoImpl extends ProjectRepo {
       },
     );
   }
+
+  @override
+  Future<Either<Failure, Unit>> adminPermitDevelopingProject(
+    TokenWithIdParam project,
+  ) {
+    return wrapHandling(
+      tryCall: () async {
+        await projectRemoteDataSource.adminPermitDevelopingProject(project);
+        return Right(unit);
+      },
+    );
+  }
 }

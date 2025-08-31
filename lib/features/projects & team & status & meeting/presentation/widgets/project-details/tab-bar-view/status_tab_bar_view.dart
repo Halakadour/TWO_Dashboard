@@ -4,7 +4,7 @@ import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/status_bloc_state_handling.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/create_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/dialog/project/create_project_status_dialog.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/bloc/project_status_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/bloc/project_status_team_meeting_bloc.dart';
 
 class StatusTabBarView extends StatefulWidget {
   const StatusTabBarView({super.key, required this.projectId});

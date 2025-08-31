@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 import 'package:two_dashboard/core/param/casule_param.dart';
+import 'package:two_dashboard/core/param/meeting_param.dart';
 import 'package:two_dashboard/core/param/project_param.dart';
 import 'package:two_dashboard/core/param/status_param.dart';
 import 'package:two_dashboard/core/param/team_param.dart';
@@ -12,12 +13,19 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20me
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/models/status/status_model.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/entity/project_entity.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/entity/team_entity.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/meeting/create_meeting_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/meeting/delete_meeting_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/meeting/show_meeting_list_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/meeting/update_meeting_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/admin_permit_developing_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/approved_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/create_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/delete_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/project_manager_accept_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/project_manager_complete_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/project_manager_reject_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/project_manager_sent_edit_project_request_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/project_manager_update_project_date_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/reject_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/show_all_projects_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/show_pended_project_usecase.dart';
@@ -37,8 +45,8 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20me
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/team/create_team_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/team/show_teams_usecase.dart';
 
-part 'project_status_team_event.dart';
-part 'project_status_team_state.dart';
+part 'project_status_team_meeting_event.dart';
+part 'project_status_team_meeting_state.dart';
 
 class ProjectStatusTeamMeetingBloc
     extends Bloc<ProjectStatusTeamMeetingEvent, ProjectStatusTeamMeetingState> {
@@ -53,6 +61,7 @@ class ProjectStatusTeamMeetingBloc
   final ShowPendedProjectUsecase showPendedProjectUsecase;
   final ShowPublicProjectsUsecase showPublicProjectsUsecase;
   final ShowUserProjectsUsecase showUserProjectsUsecase;
+  final AdminPermitDevelopingProjectUsecase adminPermitDevelopingProjectUsecase;
   // Project Manager Usecase
   final ProjectManagerAcceptProjectUsecase projectManagerAcceptProjectUsecase;
   final ProjectManagerRejectProjectUsecase projectManagerRejectProjectUsecase;
@@ -61,6 +70,10 @@ class ProjectStatusTeamMeetingBloc
   final ShowProjectAcceptedAssignedListUsecase
   showProjectAcceptedAssignedListUsecase;
   final ShowProjectAssignRequestListUsecase showProjectAssignRequestListUsecase;
+  final ProjectManagerUpdateProjectDateUsecase
+  projectManagerUpdateProjectDateUsecase;
+  final ProjectManagerCompleteProjectUsecase
+  projectManagerCompleteProjectUsecase;
   // Status Usecase
   final CreateStatusUsecase createStatusUsecase;
   final DeleteStatusUsecase deleteStatusUsecase;
@@ -72,6 +85,11 @@ class ProjectStatusTeamMeetingBloc
   final AddMembersUsecase addMembersUsecase;
   final ShowTeamsUsecase showTeamsUsecase;
   final AddTeamUsecase addTeamUsecase;
+  // Meeting Usecase
+  final CreateMeetingUsecase createMeetingUsecase;
+  final UpdateMeetingUsecase updateMeetingUsecase;
+  final DeleteMeetingUsecase deleteMeetingUsecase;
+  final ShowMeetingListUsecase showMeetingListUsecase;
 
   ProjectStatusTeamMeetingBloc(
     this.createProjectUsecase,
@@ -80,6 +98,9 @@ class ProjectStatusTeamMeetingBloc
     this.updateProjectUsecase,
     this.rejectProjectUsecase,
     this.showProjectEditRequestUsecase,
+    this.adminPermitDevelopingProjectUsecase,
+    this.projectManagerCompleteProjectUsecase,
+    this.projectManagerUpdateProjectDateUsecase,
     this.projectManagerAcceptProjectUsecase,
     this.projectManagerRejectProjectUsecase,
     this.projectManagerSentEditProjectRequestUsecase,
@@ -98,6 +119,10 @@ class ProjectStatusTeamMeetingBloc
     this.addMembersUsecase,
     this.showTeamsUsecase,
     this.addTeamUsecase,
+    this.createMeetingUsecase,
+    this.updateMeetingUsecase,
+    this.deleteMeetingUsecase,
+    this.showMeetingListUsecase,
   ) : super(ProjectStatusTeamMeetingState()) {
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////   ** PROJECT_SIDE **  //////////////////////////////////////////
@@ -254,6 +279,39 @@ class ProjectStatusTeamMeetingBloc
         emit(
           state.copyWith(
             editProjectRequestsListStatus: CasualStatus.not_authorized,
+          ),
+        );
+      }
+    });
+    // Admin Permit Developing Project
+    on<AdminPermitDevelopingProjectEvent>((event, emit) async {
+      emit(
+        state.copyWith(
+          adminPermitDevelopingProjectStatus: CasualStatus.loading,
+        ),
+      );
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await adminPermitDevelopingProjectUsecase.call(
+          TokenWithIdParam(token: token, id: event.projectId),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              adminPermitDevelopingProjectStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(
+              adminPermitDevelopingProjectStatus: CasualStatus.success,
+            ),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            adminPermitDevelopingProjectStatus: CasualStatus.not_authorized,
           ),
         );
       }
@@ -420,6 +478,77 @@ class ProjectStatusTeamMeetingBloc
         emit(
           state.copyWith(
             projectAcceptedAssignedListStatus: CasualStatus.not_authorized,
+          ),
+        );
+      }
+    });
+    // Update Project Date Time
+    on<ProjectMangerUpdateProjectDateEvent>((event, emit) async {
+      emit(
+        state.copyWith(
+          projectManagerUpdateProjectDateStatus: CasualStatus.loading,
+        ),
+      );
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await projectManagerUpdateProjectDateUsecase.call(
+          UpdateProjectDateParam(
+            token: token,
+            projectId: event.projectId,
+            startDate: event.startDate,
+            endDate: event.endDate,
+          ),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              projectManagerUpdateProjectDateStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(
+              projectManagerUpdateProjectDateStatus: CasualStatus.success,
+            ),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            projectManagerUpdateProjectDateStatus: CasualStatus.not_authorized,
+          ),
+        );
+      }
+    });
+    // Complete Project
+    on<ProjectManagerCompleteProjectEvent>((event, emit) async {
+      emit(
+        state.copyWith(
+          projectManagerCompleteProjectStatus: CasualStatus.loading,
+        ),
+      );
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await projectManagerCompleteProjectUsecase.call(
+          TokenWithIdParam(token: token, id: event.projectId),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              projectManagerCompleteProjectStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) => emit(
+            state.copyWith(
+              projectManagerCompleteProjectStatus: CasualStatus.success,
+            ),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            projectManagerCompleteProjectStatus: CasualStatus.not_authorized,
           ),
         );
       }
@@ -760,5 +889,105 @@ class ProjectStatusTeamMeetingBloc
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////   ** MEETING_SIDE **  //////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////
+    //Create Meeting
+    on<CreateMeetingEvent>((event, emit) async {
+      emit(state.copyWith(createMeetingStatus: CasualStatus.loading));
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await createMeetingUsecase.call(
+          CreateMeetingParam(
+            token: token,
+            projectId: event.projectId,
+            meetingDate: event.meetingDate,
+            meetingType: event.meetingType,
+          ),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              createMeetingStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) =>
+              emit(state.copyWith(createMeetingStatus: CasualStatus.success)),
+        );
+      } else {
+        emit(state.copyWith(createMeetingStatus: CasualStatus.not_authorized));
+      }
+    });
+    // Update Meeting
+    on<UpdateMeetingEvent>((event, emit) async {
+      emit(state.copyWith(updateMeetingStatus: CasualStatus.loading));
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await updateMeetingUsecase.call(
+          UpdateMeetingParam(
+            token: token,
+            projectId: event.projectId,
+            meetingId: event.meetingId,
+            meetingDate: event.meetingDate,
+            meetingType: event.meetingType,
+          ),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              updateMeetingStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) =>
+              emit(state.copyWith(updateMeetingStatus: CasualStatus.success)),
+        );
+      } else {
+        emit(state.copyWith(updateMeetingStatus: CasualStatus.not_authorized));
+      }
+    });
+    // Delete Meeting
+    on<DeleteMeetingEvent>((event, emit) async {
+      emit(state.copyWith(deleteMeetingStatus: CasualStatus.loading));
+      final String? token = await SharedPreferencesServices.getUserToken();
+      if (token != null) {
+        final result = await deleteMeetingUsecase.call(
+          DeleteMeetingParam(
+            token: token,
+            projectId: event.projectId,
+            meetingId: event.meetingId,
+          ),
+        );
+        result.fold(
+          (l) => emit(
+            state.copyWith(
+              deleteMeetingStatus: CasualStatus.failure,
+              message: l.message,
+            ),
+          ),
+          (r) =>
+              emit(state.copyWith(deleteMeetingStatus: CasualStatus.success)),
+        );
+      } else {
+        emit(state.copyWith(deleteMeetingStatus: CasualStatus.not_authorized));
+      }
+    });
+    // Show Project Meeting List
+    on<ShowProjectMeetingsEvent>((event, emit) async {
+      emit(state.copyWith(projectMeetingListStatus: CasualStatus.loading));
+      final result = await showMeetingListUsecase.call(event.projectId);
+      result.fold(
+        (l) => emit(
+          state.copyWith(
+            projectMeetingListStatus: CasualStatus.failure,
+            message: l.message,
+          ),
+        ),
+        (r) => emit(
+          state.copyWith(
+            projectMeetingListStatus: CasualStatus.success,
+            projectMeetingList: r,
+          ),
+        ),
+      );
+    });
   }
 }

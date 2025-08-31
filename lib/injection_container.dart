@@ -65,17 +65,27 @@ import 'package:two_dashboard/features/profile/domain/usecases/show_clients_usec
 import 'package:two_dashboard/features/profile/domain/usecases/show_users_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/toggle_user_approved_usecase.dart';
 import 'package:two_dashboard/features/profile/domain/usecases/update_employee_profile_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/datasource/meeting_remote_data_source.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/datasource/project_remote_data_source.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/datasource/status_remote_data_source.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/repos/meeting_repo_impl.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/repos/status_repo_impl.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/repos/meeting_repo.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/repos/project_repo.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/repos/status_repo.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/repos/team_repo.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/meeting/create_meeting_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/meeting/delete_meeting_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/meeting/show_meeting_list_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/meeting/update_meeting_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/admin_permit_developing_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/approved_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/delete_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/project_manager_accept_project_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/project_manager_complete_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/project_manager_reject_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/project_manager_sent_edit_project_request_usecase.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/project_manager_update_project_date_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/reject_project_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/show_all_projects_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/project/show_pended_project_usecase.dart';
@@ -93,7 +103,7 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20me
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/team/add_team_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/team/create_team_usecase.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/usecases/team/show_teams_usecase.dart';
-import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/bloc/project_status_team_bloc.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/bloc/project_status_team_meeting_bloc.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/datasource/team__remote_data_source.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/repos/project_repo_impl.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/data/repos/team_repo_impl.dart';
@@ -348,9 +358,16 @@ Future<void> init() async {
     () => ContractRemoteDatasourceImpl(),
   );
 
-  /**----------------- PROJECTS-STATUS-TEAM FEATURE -----------------------**/
+  /**----------------- PROJECTS-STATUS-TEAM-MEETING FEATURE -----------------------**/
   sl.registerFactory(
     () => ProjectStatusTeamMeetingBloc(
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
+      sl(),
       sl(),
       sl(),
       sl(),
@@ -388,7 +405,10 @@ Future<void> init() async {
   sl.registerLazySingleton(() => ShowPendedProjectUsecase(sl()));
   sl.registerLazySingleton(() => ShowPublicProjectsUsecase(sl()));
   sl.registerLazySingleton(() => ShowUserProjectsUsecase(sl()));
+  sl.registerLazySingleton(() => AdminPermitDevelopingProjectUsecase(sl()));
   // Project Manager Usecase
+  sl.registerLazySingleton(() => ProjectManagerCompleteProjectUsecase(sl()));
+  sl.registerLazySingleton(() => ProjectManagerUpdateProjectDateUsecase(sl()));
   sl.registerLazySingleton(() => ProjectManagerAcceptProjectUsecase(sl()));
   sl.registerLazySingleton(() => ProjectManagerRejectProjectUsecase(sl()));
   sl.registerLazySingleton(
@@ -408,11 +428,17 @@ Future<void> init() async {
   sl.registerLazySingleton(() => AddMembersUsecase(sl()));
   sl.registerLazySingleton(() => ShowTeamsUsecase(sl()));
   sl.registerLazySingleton(() => AddTeamUsecase(sl()));
+  // Meeting Usecase
+  sl.registerLazySingleton(() => CreateMeetingUsecase(sl()));
+  sl.registerLazySingleton(() => UpdateMeetingUsecase(sl()));
+  sl.registerLazySingleton(() => DeleteMeetingUsecase(sl()));
+  sl.registerLazySingleton(() => ShowMeetingListUsecase(sl()));
 
   // Repo
   sl.registerLazySingleton<ProjectRepo>(() => ProjectRepoImpl(sl()));
   sl.registerLazySingleton<StatusRepo>(() => StatusRepoImpl(sl()));
   sl.registerLazySingleton<TeamRepo>(() => TeamRepoImpl(sl()));
+  sl.registerLazySingleton<MeetingRepo>(() => MeetingRepoImpl(sl()));
   // Datasource
   sl.registerLazySingleton<ProjectRemoteDataSource>(
     () => ProjectRemoteDataSourceImpl(),
@@ -422,6 +448,9 @@ Future<void> init() async {
   );
   sl.registerLazySingleton<TeamRemoteDataSource>(
     () => TeamRemoteDataSourceImpl(),
+  );
+  sl.registerLazySingleton<MeetingRemoteDataSource>(
+    () => MeetingRemoteDataSourceImpl(),
   );
 
   /**----------------- SPRINT-TASK FEATURE -----------------------**/
