@@ -12,6 +12,7 @@ import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20me
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/widgets/project-details/tab-bar-view/backlog_tab_bar_view.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/widgets/project-details/tab-bar-view/board_tab_bar_view.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/widgets/project-details/tab-bar-view/contract_tab_bar_view.dart';
+import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/widgets/project-details/tab-bar-view/meeting_tab_bar_view.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/widgets/project-details/tab-bar-view/sprints_tab_bar_view.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/widgets/project-details/tab-bar-view/status_tab_bar_view.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/presentation/widgets/project-details/tab-bar-view/summary_tab_bar_view.dart';
@@ -26,7 +27,7 @@ class ProjectDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 8,
+      length: 9,
       child: Column(
         children: [
           Padding(
@@ -57,6 +58,7 @@ class ProjectDetailsPage extends StatelessWidget {
             tabs: [
               TabBarItem(itemIcon: Iconsax.global, itemName: "Summary"),
               TabBarItem(itemIcon: Iconsax.note_text, itemName: "Contract"),
+              TabBarItem(itemIcon: Iconsax.calendar, itemName: "Meetings"),
               TabBarItem(itemIcon: Iconsax.grid_1, itemName: "Backlog"),
               TabBarItem(itemIcon: Iconsax.grid_6, itemName: "Board"),
               TabBarItem(itemIcon: Iconsax.status, itemName: "Status"),
@@ -75,6 +77,7 @@ class ProjectDetailsPage extends StatelessWidget {
                   projectId: projectEntity.id,
                   contract: projectEntity.contract,
                 ),
+                MeetingTabBarView(projectId: projectEntity.id),
                 BacklogTabBarView(
                   projectId: projectEntity.id,
                   team: projectEntity.team,

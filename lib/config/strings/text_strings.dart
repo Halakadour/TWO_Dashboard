@@ -64,6 +64,7 @@ class TextStrings {
   static const String preview = "Preview";
   static const String yes = "Yes";
   static const String refresh = "Refresh";
+  static const String completeProject = "Complete Project";
 
   // --TABLE TEXT
   static const String profile = "Profile";

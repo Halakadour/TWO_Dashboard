@@ -246,6 +246,31 @@ class ProjectBlocStateHandling {
     }
   }
 
+  void completeProject(
+    ProjectStatusTeamMeetingState state,
+    BuildContext context,
+  ) {
+    if (state.projectManagerCompleteProjectStatus == CasualStatus.loading) {
+      showLoadingDialog(context);
+    } else if (state.projectManagerCompleteProjectStatus ==
+        CasualStatus.success) {
+      context.pop();
+      context.read<ProjectStatusTeamMeetingBloc>().add(ShowUserProjectsEvent());
+      showSuccessDialog(context, () {
+        context.goNamed(AppRouteConfig.myProjects);
+        context.pop();
+      });
+    } else if (state.projectManagerCompleteProjectStatus ==
+        CasualStatus.failure) {
+      context.pop();
+      showErrorDialog(context, state.message);
+    } else if (state.projectManagerCompleteProjectStatus ==
+        CasualStatus.not_authorized) {
+      context.pop();
+      showNotAuthorizedDialog(context);
+    }
+  }
+
   // Get Assign Project Requests
   Widget getAssignProjectsRequestTable(ProjectStatusTeamMeetingState state) {
     if (state.projectAssignRequestListStatus == CasualStatus.loading) {

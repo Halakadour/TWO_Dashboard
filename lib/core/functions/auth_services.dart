@@ -21,7 +21,7 @@ class AuthService {
     ),
     grantType: OAuth2Helper.authorizationCode,
     clientId: gci,
-    clientSecret: gscr,
+    clientSecret: gwi,
     scopes: ["email", "profile", "openid"],
   );
 

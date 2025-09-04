@@ -6,6 +6,7 @@ import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/functions/bloc-state-handling/project_bloc_state_handling.dart';
 import 'package:two_dashboard/core/functions/device_utility.dart';
+import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/complete_project_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/buttons/elevated-buttons/sent_edit_project_request_elevated_button.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/cooperation_type_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/dynamic_status_container.dart';
@@ -29,14 +30,21 @@ class SummaryTabBarView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                // UpdateElevatedButton(
-                //   updateType: "Project",
-                //   onPressed:
-                //       () => context.pushNamed(
-                //         AppRouteConfig.updateProject,
-                //         extra: projectEntity,
-                //       ),
-                // ),
+                BlocListener<
+                  ProjectStatusTeamMeetingBloc,
+                  ProjectStatusTeamMeetingState
+                >(
+                  listenWhen:
+                      (previous, current) =>
+                          previous.projectManagerCompleteProjectStatus !=
+                          current.projectManagerCompleteProjectStatus,
+                  listener: (context, state) {
+                    ProjectBlocStateHandling().completeProject(state, context);
+                  },
+                  child: CompleteProjectElevatedButton(
+                    projectId: projectEntity.id,
+                  ),
+                ),
                 PaddingConfig.w8,
                 BlocListener<
                   ProjectStatusTeamMeetingBloc,

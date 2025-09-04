@@ -6,6 +6,7 @@ import 'package:two_dashboard/config/strings/assets_path.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/functions/auth_services.dart';
+import 'package:two_dashboard/core/functions/google_services.dart';
 import 'package:two_dashboard/core/widgets/divider/divider_with_text.dart';
 
 class GoogleGitRow extends StatelessWidget {
@@ -19,7 +20,7 @@ class GoogleGitRow extends StatelessWidget {
         const SizedBox(height: SizesConfig.spaceBtwItems),
         InkWell(
           onTap: () {
-            AuthService().signInWithGoogle();
+            signInWithGoogle();
           },
           child: Expanded(
             child: Container(
