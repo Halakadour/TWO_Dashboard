@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 
@@ -19,7 +20,7 @@ class CompleteSprintElevatedButton extends StatelessWidget {
       ),
       onPressed: onPressed,
       child: Text(
-        "Complete Sprint",
+        TextStrings.completeSprint,
         style: AppTextStyle.buttonStyle(color: AppColors.white),
       ),
     );

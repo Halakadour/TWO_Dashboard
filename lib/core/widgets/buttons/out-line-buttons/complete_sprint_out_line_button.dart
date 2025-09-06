@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/dialog/sprint/complete_sprint_dialog.dart';
@@ -24,7 +25,10 @@ class CompleteSprintOutLineButton extends StatelessWidget {
         final sprints = getCachedSprintForProject(sprint.projectId);
         showCompleteSprintDialog(context, sprint: sprint, sprints: sprints);
       },
-      child: Text("Complete Sprint", style: AppTextStyle.buttonStyle()),
+      child: Text(
+        TextStrings.completeSprint,
+        style: AppTextStyle.buttonStyle(),
+      ),
     );
   }
 }

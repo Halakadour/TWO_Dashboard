@@ -23,7 +23,7 @@ class CooperationTypeContainer extends StatelessWidget {
         cooperationType,
       ),
       child: Text(
-        cooperationType.name.toLowerCase().toString(),
+        HelperFunctions.getCooperationText(cooperationType),
         style: AppTextStyle.bodyXs(
           color: HelperFunctions.getCooperationTypeColor(cooperationType),
         ),

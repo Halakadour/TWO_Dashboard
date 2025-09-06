@@ -36,7 +36,7 @@ class SeenButton extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 child: Tooltip(
-                  message: TextStrings.seen,
+                  message: TextStrings.markAsSeen,
                   child: Icon(
                     Iconsax.eye,
                     size: SizesConfig.iconsSm,

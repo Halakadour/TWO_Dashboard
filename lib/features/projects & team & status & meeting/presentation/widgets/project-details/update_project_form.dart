@@ -180,7 +180,7 @@ class _UpdateProjectFormState extends State<UpdateProjectForm> {
                           ),
                           PaddingConfig.w24,
                           _buildRadioForProjectType(
-                            ProjectType.softwareTestisng,
+                            ProjectType.softwareTesting,
                             "Software Testing",
                           ),
                           PaddingConfig.w24,

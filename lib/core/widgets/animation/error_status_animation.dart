@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/strings/assets_path.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/refresh_button.dart';
@@ -33,9 +34,9 @@ class ErrorStatusAnimation extends StatelessWidget {
         PaddingConfig.h8,
         Text(
           (errorMessage.toLowerCase().contains("unexpected token"))
-              ? "Sorry Sir, You are not allowed\nto reach this data."
+              ? TextStrings.sorrySir
               : (errorMessage.toLowerCase().contains("timeout"))
-              ? "Connection is unstable. Please check your\ninternet connection and try again."
+              ? TextStrings.netWorkError
               : errorMessage,
           style: AppTextStyle.bodyMd(
             color:

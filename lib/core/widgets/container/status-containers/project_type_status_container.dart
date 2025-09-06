@@ -23,7 +23,7 @@ class ProjectTypeStatusContainer extends StatelessWidget {
         projectType,
       ),
       child: Text(
-        projectType.name.toLowerCase().toString(),
+        HelperFunctions.getProjectTypeText(projectType),
         style: AppTextStyle.bodyXs(
           color: HelperFunctions.getProjectTypeColor(projectType),
         ),

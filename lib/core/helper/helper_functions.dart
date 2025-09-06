@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/core/network/enums.dart';
 
@@ -55,7 +56,7 @@ class HelperFunctions {
     } else if (value.toLowerCase().contains("syst") || value.contains("تحل")) {
       return ProjectType.systemAnalysis;
     } else if (value.toLowerCase().contains("soft") || value.contains("اختب")) {
-      return ProjectType.softwareTestisng;
+      return ProjectType.softwareTesting;
     } else {
       return ProjectType.maintain;
     }
@@ -136,11 +137,11 @@ class HelperFunctions {
   static String getPriorityName(TaskPriority value) {
     switch (value) {
       case TaskPriority.low:
-        return "Low";
+        return TextStrings.low;
       case TaskPriority.medium:
-        return "Mid";
+        return TextStrings.mid;
       case TaskPriority.high:
-        return "High";
+        return TextStrings.high;
     }
   }
 
@@ -148,17 +149,17 @@ class HelperFunctions {
   static String getTaskStatusTitle(TaskStatus value) {
     switch (value) {
       case TaskStatus.pended:
-        return "Pending";
+        return TextStrings.pending;
       case TaskStatus.toDo:
-        return "To Do";
+        return TextStrings.toDo;
       case TaskStatus.inProgress:
-        return "In Progress";
+        return TextStrings.inProgress;
       case TaskStatus.inReview:
-        return "In Review";
+        return TextStrings.inReview;
       case TaskStatus.completed:
-        return "Completed";
+        return TextStrings.completed;
       case TaskStatus.canceled:
-        return "Canceled";
+        return TextStrings.canceled;
     }
   }
 
@@ -173,7 +174,7 @@ class HelperFunctions {
         return AppColors.yellowShade2;
       case ProjectType.website:
         return AppColors.greenShade2;
-      case ProjectType.softwareTestisng:
+      case ProjectType.softwareTesting:
         return AppColors.redShade2;
       case ProjectType.systemAnalysis:
         return AppColors.rockShade2;
@@ -188,10 +189,25 @@ class HelperFunctions {
         return AppColors.yellowShade1;
       case ProjectType.website:
         return AppColors.greenShade1;
-      case ProjectType.softwareTestisng:
+      case ProjectType.softwareTesting:
         return AppColors.redShade1;
       case ProjectType.systemAnalysis:
         return AppColors.rockshade1;
+    }
+  }
+
+  static String getProjectTypeText(ProjectType value) {
+    switch (value) {
+      case ProjectType.mobile:
+        return TextStrings.mobileApp;
+      case ProjectType.maintain:
+        return TextStrings.maintain;
+      case ProjectType.website:
+        return TextStrings.website;
+      case ProjectType.softwareTesting:
+        return TextStrings.softwareTesting;
+      case ProjectType.systemAnalysis:
+        return TextStrings.systemAnalysis;
     }
   }
 
@@ -319,21 +335,21 @@ class HelperFunctions {
   static String getFieldText(FieldStatus value) {
     switch (value) {
       case FieldStatus.active:
-        return "Active";
+        return TextStrings.active;
       case FieldStatus.unActive:
-        return "Not Active";
+        return TextStrings.notActive;
       case FieldStatus.approved:
-        return "Approved";
+        return TextStrings.approved;
       case FieldStatus.unApproved:
-        return "Not Approved";
+        return TextStrings.unApproved;
       case FieldStatus.seen:
-        return "Seen";
+        return TextStrings.seen;
       case FieldStatus.nonSeen:
-        return "Un read";
+        return TextStrings.unReaded;
       case FieldStatus.needed:
-        return "Need Edit";
+        return TextStrings.needEdit;
       case FieldStatus.nonNeeded:
-        return "No Need";
+        return TextStrings.noNeed;
     }
   }
 
@@ -364,9 +380,23 @@ class HelperFunctions {
     }
   }
 
+  static String getCooperationText(CooperationType value) {
+    switch (value) {
+      case CooperationType.analysis:
+        return TextStrings.analysisOnly;
+      case CooperationType.development:
+        return TextStrings.developmentOnly;
+      case CooperationType.managment:
+        return TextStrings.completeProjectDevelopment;
+      case CooperationType.test:
+        return TextStrings.testOnly;
+    }
+  }
+
   // Text Color
   static Color getTextBackgroundColor(String text) {
-    if (text.toLowerCase().contains("reje")) {
+    if (text.toLowerCase().contains("reje") ||
+        text.toLowerCase().contains("not")) {
       return AppColors.redShade1;
     } else if (text.toLowerCase().contains('pend')) {
       return AppColors.yellowShade1;
@@ -380,7 +410,8 @@ class HelperFunctions {
   }
 
   static Color getTextColor(String text) {
-    if (text.toLowerCase().contains("reje")) {
+    if (text.toLowerCase().contains("reje") ||
+        text.toLowerCase().contains("not")) {
       return AppColors.redShade2;
     } else if (text.toLowerCase().contains('pend')) {
       return AppColors.yellowShade2;

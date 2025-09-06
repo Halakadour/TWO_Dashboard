@@ -5,7 +5,9 @@ import 'package:two_dashboard/config/constants/padding_config.dart';
 import 'package:two_dashboard/config/routes/app_route_config.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/core/widgets/buttons/hovered-buttons/edit_button.dart';
+import 'package:two_dashboard/core/widgets/container/status-containers/cooperation_type_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/dynamic_status_container.dart';
+import 'package:two_dashboard/core/widgets/container/status-containers/project_type_status_container.dart';
 import 'package:two_dashboard/core/widgets/container/status-containers/visibility_status_container.dart';
 import 'package:two_dashboard/features/projects%20&%20team%20&%20status%20&%20meeting/domain/entity/project_entity.dart';
 
@@ -24,12 +26,10 @@ class ProjectRows extends DataTableSource {
       selected: false,
       onSelectChanged: (value) {},
       cells: [
-        DataCell(DynamicStatusContainer(status: project.pType.name)),
+        DataCell(ProjectTypeStatusContainer(projectType: project.pType)),
         DataCell(DynamicStatusContainer(status: project.status)),
         DataCell(VisibilityStatusContainer(visibility: project.visibility)),
-        DataCell(
-          Text(project.cType.name, style: AppTextStyle.dataTableCellStyle()),
-        ),
+        DataCell(CooperationTypeContainer(cooperationType: project.cType)),
         DataCell(
           Text(
             project.team?.name ?? "No Team Selected",

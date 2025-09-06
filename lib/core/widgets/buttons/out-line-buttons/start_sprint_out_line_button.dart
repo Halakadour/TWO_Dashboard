@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:two_dashboard/config/constants/sizes_config.dart';
+import 'package:two_dashboard/config/strings/text_strings.dart';
 import 'package:two_dashboard/config/theme/color.dart';
 import 'package:two_dashboard/config/theme/text_style.dart';
 import 'package:two_dashboard/features/sprints%20&%20tasks/presentation/bloc/sprint_and_task_bloc.dart';
@@ -29,7 +30,7 @@ class StartSprintOutLineButton extends StatelessWidget {
           StartSprintEvent(projectId: projectId, sprintId: sprintId),
         );
       },
-      child: Text("Start Sprint", style: AppTextStyle.buttonStyle()),
+      child: Text(TextStrings.startSprint, style: AppTextStyle.buttonStyle()),
     );
   }
 }

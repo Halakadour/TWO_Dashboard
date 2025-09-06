@@ -20,7 +20,7 @@ class CMLoadingContractTable extends StatelessWidget {
         DataColumn2(label: Text(TextStrings.contractManagerApprovment)),
         DataColumn2(label: Text(TextStrings.projectManagerApprovment)),
         DataColumn2(label: Text(TextStrings.status)),
-        DataColumn2(label: Text(TextStrings.needEdit)),
+        DataColumn2(label: Text(TextStrings.doesNeedEdit)),
         DataColumn2(label: Text(TextStrings.adminSign)),
         DataColumn2(label: Text(TextStrings.actions)),
       ],

@@ -7,7 +7,7 @@ enum TaskPriority { low, medium, high }
 
 enum ProjectVisibility { public, private }
 
-enum ProjectType { mobile, website, systemAnalysis, softwareTestisng, maintain }
+enum ProjectType { mobile, website, systemAnalysis, softwareTesting, maintain }
 
 enum TaskStatus { pended, toDo, inProgress, inReview, completed, canceled }
 

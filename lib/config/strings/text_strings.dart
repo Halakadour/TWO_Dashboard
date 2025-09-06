@@ -34,6 +34,36 @@ class TextStrings {
   // --STATUS CONTAINERS
   static const String noData = "There is no data!";
 
+  // --ENUMS TEXTS
+  static const String low = "Low";
+  static const String mid = "Mid";
+  static const String mideum = "Mideum";
+  static const String high = "High";
+  static const String pending = "Pending";
+  static const String toDo = "To Do";
+  static const String inProgress = "In Progress";
+  static const String inReview = "In Review";
+  static const String completed = "Completed";
+  static const String canceled = "Canceled";
+  static const String active = "Active";
+  static const String notActive = "Not Active";
+  static const String approved = "Approved";
+  static const String unApproved = "Not Approved";
+  static const String seen = "Seen";
+  static const String unReaded = "Un Readed";
+  static const String needEdit = "Need Edit";
+  static const String noNeed = "No Need";
+  static const String mobileApp = "Mobile App";
+  static const String website = "Website";
+  static const String softwareTesting = "Software Testing";
+  static const String systemAnalysis = "System Analysis";
+  static const String maintain = "Maintain";
+  static const String analysisOnly = "Analysis Only";
+  static const String developmentOnly = "Development Only";
+  static const String completeProjectDevelopment =
+      "Complete project development and management";
+  static const String testOnly = "Test Only";
+
   // --BUTTONS TEXTS
   static const String tcontinue = "Continue";
   static const String addNew = "Add New";
@@ -54,7 +84,7 @@ class TextStrings {
   static const String more = "More";
   static const String specifyTeam = "Specify Team";
   static const String reject = "Reject";
-  static const String seen = "Mark As Seen";
+  static const String markAsSeen = "Mark As Seen";
   static const String back = "Back";
   static const String filter = "Filter";
   static const String sortBy = "Sort by";
@@ -65,6 +95,8 @@ class TextStrings {
   static const String yes = "Yes";
   static const String refresh = "Refresh";
   static const String completeProject = "Complete Project";
+  static const String startSprint = "Start Sprint";
+  static const String completeSprint = "Complete Sprint";
 
   // --TABLE TEXT
   static const String profile = "Profile";
@@ -78,7 +110,7 @@ class TextStrings {
   static const String status = "Status";
   static const String contractManagerApprovment = "CM Approvment";
   static const String projectManagerApprovment = "PM Approvment";
-  static const String needEdit = "Need Edit ?";
+  static const String doesNeedEdit = "Need Edit ?";
   static const String adminSign = "Admin Sign";
   static const String id = "ID";
   static const String cv = "CV";
@@ -113,13 +145,9 @@ class TextStrings {
   static const String unSeenStatus = "Not Seen";
   static const String approvment = "Approvment";
   static const String signature = "Signature";
-  static const String approved = "Approved";
-  static const String unApproved = "Not Approved";
   static const String signed = "Signed";
   static const String nonSigned = "Not Signed";
   static const String activation = "Activation";
-  static const String active = "active";
-  static const String notActive = "not active";
   static const String filterBy = "Filter By :";
 
   // --STATUS TEXTs
@@ -130,6 +158,10 @@ class TextStrings {
   static const String accessDenaid = "Access Denaid";
   static const String youAreNotAuth = "You Are Not Authorized";
   static const String success = "Success";
+  static const String sorrySir =
+      "Sorry Sir, You are not allowed\nto reach this data.";
+  static const String netWorkError =
+      "Connection is unstable. Please check your\ninternet connection and try again.";
 
   // --AUTH Default Texts
   static const String email = "Email";
